@@ -7,11 +7,11 @@ var salt = bcrypt.genSaltSync(10);
     https://www.npmjs.com/package/bcrypt-nodejs
     http://stackoverflow.com/questions/13582862/mongoose-pre-save-async-middleware-not-working-as-expected
 */
-var userSchema = new mongoose.Schema(
+var UserSchema = new mongoose.Schema(
     {
-        username: {type: String, lowercase:true, unique:true},
+        login: {type: String, unique:true},
         password: String, //begint als normaal string passwoord maar wordt door de pre vervangen met hashed
-        email: String,
+        email: {type: String, unique:true},
         isHashed:
         {
             type: Boolean,
@@ -32,7 +32,7 @@ var userSchema = new mongoose.Schema(
 
 // persoonlijk weinig nut van JsonWebTokens gevonden die in models moeten, meesten zetten deze in de app
 
-userSchema.pre('save', function(next)
+UserSchema.pre('save', function(next)
 {
     var user = this;
     if(user.isHashed) {return next();}
@@ -41,7 +41,6 @@ userSchema.pre('save', function(next)
     bcrypt.hash(user.password, salt, function(err, hash)
     {
         if(err) {return next(err);}
-        console.log(user.password + ' becomes ' + hash); //test voor wanneer we registreer af hebben
         user.password = hash; // user zijn passwoord vervangen door het gehashte passwoord
         user.isHashed = true; // dan kan een passwoord niet dubbel gehashd worden
     });
@@ -49,4 +48,4 @@ userSchema.pre('save', function(next)
 
 
 
-mongoose.model("User", userSchema);
+mongoose.model("User", UserSchema);

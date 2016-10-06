@@ -1,9 +1,6 @@
 /**
  * Created by jovi on 10/6/2016.
  */
-// wist geen goeie naam welkom tot renamen :-)
-
-
 // Dependencies express etc
 var mongoose = require('mongoose');
 var express = require('express');
@@ -11,24 +8,30 @@ var router = express.Router();
 var passport = require('passport');
 
 //models
-var User = require('../models/Users.js');
+var User = mongoose.model('User');
 
 // API tasks for models
-User.methods['get', 'post'];
-
-//API routes
-User.route('Drawings', function(req, res, next)
-    {
-        User.find(function(err, drawings)
-        {
-           if(err){return next(err);}
-           res.json(drawings);
-        });
-       //zoeken hoe ik via mongo de drawings krijg :)
-    });
-
-
-router.post('/register', function(req, res, next)
-{
-
+router.get('/',function(req,res,next){
+  return res.json({message: 'De api werkt'});
 });
+//louter om te testen
+router.get('/users',function(req,res,next){
+  User.find(function(err,users){
+    if(err){return next(err);}
+    return res.json(users);
+  });
+});
+router.post('/register',function(req,res,next){
+   if(!req.body.login || !req.body.password || !req.body.email){
+     return res.status(400).json({message:'Vul alle velden in'});
+   }
+   var user = new User();
+   user.login = req.body.login;
+   user.password = req.body.password;
+   user.email = req.body.email;
+   user.save(function(err){
+     if(err){return next(err);}
+     return res.json(user);
+   });
+});
+module.exports = router;
