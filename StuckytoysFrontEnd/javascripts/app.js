@@ -1,1 +1,1 @@
-var app = angular.module('stuckyToys',[]);
+var app = angular.module('StuckyToys',['ui-router']);
