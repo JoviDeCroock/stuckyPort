@@ -49,4 +49,4 @@ userSchema.pre('save', function(next)
 
 
 
-module.export("User", userSchema);
+mongoose.model("User", userSchema);
