@@ -4,8 +4,10 @@
 // Dependencies express etc
 var mongoose = require('mongoose');
 var express = require('express');
-var router = express.Router();
 var passport = require('passport');
+var jwt = require('express-jwt');
+var router = express.Router();
+
 
 //models
 var User = mongoose.model('User');
@@ -33,5 +35,8 @@ router.post('/register',function(req,res,next){
      if(err){return next(err);}
      return res.json(user);
    });
+});
+router.post('/login',function(req,res,next){
+
 });
 module.exports = router;

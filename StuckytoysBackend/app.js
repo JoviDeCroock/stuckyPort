@@ -11,7 +11,7 @@ require('./models/Users');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/stucky');
 
-var routes = require('./routes/api');
+var routes = require('./routes/auth');
 
 var app = express();
 

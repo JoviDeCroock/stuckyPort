@@ -32,20 +32,21 @@ var UserSchema = new mongoose.Schema(
 
 // persoonlijk weinig nut van JsonWebTokens gevonden die in models moeten, meesten zetten deze in de app
 
+
 UserSchema.pre('save', function(next)
 {
     var user = this;
     if(user.isHashed) {return next();}
-    if(user.password === '' || !user.password) {return next();}
 
     bcrypt.hash(user.password, salt, function(err, hash)
     {
         if(err) {return next(err);}
         user.password = hash; // user zijn passwoord vervangen door het gehashte passwoord
         user.isHashed = true; // dan kan een passwoord niet dubbel gehashd worden
+        return next();
     });
 });
 
 
 
-mongoose.model("User", UserSchema);
+mongoose.model('User', UserSchema);
