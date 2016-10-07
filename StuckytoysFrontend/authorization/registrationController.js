@@ -1,13 +1,19 @@
 /**
  * Created by jovi on 10/6/2016.
  */
-var app = angular.module('stuckyToys').controller('registrationController', registrationController);
+angular.module('stuckyToys').controller('registrationController', registrationController);
 
-registrationController = function()
+RegisterController.$inject = ['$state', '$scope', 'authService', '$window'];
+registrationController = function(authService, $state, $scope)
 {
-    var controllerTasks = this;
-    controllerTasks.register = function()
+    $scope.register = function()
     {
-
-    }
-}
+        authService.register($scope.user).error(function(error)
+        {
+            $scope.error = error;
+        }).then(function()
+        {
+            $state.go('home');
+        });
+    };
+};
