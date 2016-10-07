@@ -8,8 +8,10 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 
 require('./models/Users');
+require('./config/passport');
+var config = require('./config/config');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/stucky');
+mongoose.connect(config.database);
 
 var routes = require('./routes/auth');
 

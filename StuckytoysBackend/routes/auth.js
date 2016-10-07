@@ -8,7 +8,9 @@ var passport = require('passport');
 var jwt = require('express-jwt');
 var router = express.Router();
 
-
+var config = require('../config/config');
+var tokenGenerator = require('../config/tokenGenerator');
+var auth = jwt({secret:config.secret,userProperty:config.userProperty});
 //models
 var User = mongoose.model('User');
 
@@ -37,6 +39,17 @@ router.post('/register',function(req,res,next){
    });
 });
 router.post('/login',function(req,res,next){
-
+  if(!req.body.username || !req.body.password){
+    return res.status(400).json({message:'Vul alle velden in'});
+  }
+  passport.authenticate('local',function(err,user,info){
+    if(err){return next(err);}
+    if(user){
+      return res.json({token: tokenGenerator(user)});
+    }
+    else{
+      return res.status(401).json(info);
+    }
+  })(req,res,next);
 });
 module.exports = router;

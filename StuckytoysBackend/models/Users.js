@@ -20,19 +20,14 @@ var UserSchema = new mongoose.Schema(
         //admin? Kan handig zijn voor portaal?
     }
 );
-
-//hebben we nog iets nodig om en passwoord te controleren? voorbeeld flapper:
-/*
- UserSchema.methods.validPassword = function(password)
- {
- var hash = ccrypto.pbkdf2Sync(password, this.salt,1000,64).toString('hex');
- return this.hash === hash;
- }
- */
-
-// persoonlijk weinig nut van JsonWebTokens gevonden die in models moeten, meesten zetten deze in de app
-
-
+UserSchema.methods.comparePassword = function(password,cb){
+  bcrypt.compare(password,this.password,function(err,isMatch){
+      if(err){
+        return cb(err);
+      }
+      cb(null,isMatch);
+  });
+}
 UserSchema.pre('save', function(next)
 {
     var user = this;
@@ -46,7 +41,5 @@ UserSchema.pre('save', function(next)
         return next();
     });
 });
-
-
 
 mongoose.model('User', UserSchema);
