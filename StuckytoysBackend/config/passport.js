@@ -14,11 +14,14 @@ passport.use(new LocalStrategy(
         return done(null,false,{message:'Aanmeldgegevens incorrect'});
       }*/
       user.comparePassword(password, function (err, isMatch) {
-        if (!isMatch || err) {
-          return done(null,false,{message:'Aanmeldgegevens incorrect'});
-        }
+        if (err) { return done(err); }
+
+        // Password did not match
+        if (!isMatch) { return done(null, false, {message: 'Aanmeldgegevens incorrect'}); }
+
+        // Success
+        return done(null, user);
       });
-      return done(null,user);
     });
   }
 ));

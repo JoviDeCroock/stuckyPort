@@ -20,14 +20,7 @@ var UserSchema = new mongoose.Schema(
         //admin? Kan handig zijn voor portaal?
     }
 );
-UserSchema.methods.comparePassword = function(password,cb){
-  bcrypt.compare(password,this.password,function(err,isMatch){
-      if(err){
-        return cb(err);
-      }
-      cb(null,isMatch);
-  });
-}
+
 UserSchema.pre('save', function(next)
 {
     var user = this;
@@ -41,5 +34,14 @@ UserSchema.pre('save', function(next)
         return next();
     });
 });
+
+UserSchema.methods.comparePassword = function(password,cb){
+    bcrypt.compare(password,this.password,function(err,isMatch){
+        if(err){
+            return cb(err);
+        }
+        cb(null,isMatch);
+    });
+};
 
 mongoose.model('User', UserSchema);

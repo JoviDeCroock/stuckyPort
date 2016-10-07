@@ -10,5 +10,5 @@ module.exports = function(user){
     _id: user.id,
     username: user.login,
     exp: parseInt(exp.getTime()/1000)
-  },'config.secret');
+  },config.secret);
 }
