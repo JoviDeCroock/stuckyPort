@@ -9,16 +9,11 @@ passport.use(new LocalStrategy(
       if(err) { return done(err); }
       if(!user) {
         return done(null,false,{message: 'Aanmeldgegevens incorrect'});
-      }/*
-      if(!user.validPassword(password)){
-        return done(null,false,{message:'Aanmeldgegevens incorrect'});
-      }*/
+      }
       user.comparePassword(password, function (err, isMatch) {
         if (err) { return done(err); }
-
         // Password did not match
         if (!isMatch) { return done(null, false, {message: 'Aanmeldgegevens incorrect'}); }
-
         // Success
         return done(null, user);
       });
