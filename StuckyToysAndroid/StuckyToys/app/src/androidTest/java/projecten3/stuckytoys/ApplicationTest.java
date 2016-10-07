@@ -1,4 +1,4 @@
-package projecten3.myapplication;
+package projecten3.stuckytoys;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,4 +1,4 @@
-package projecten3.myapplication;
+package projecten3.stuckytoys;
 
 import org.junit.Test;
 

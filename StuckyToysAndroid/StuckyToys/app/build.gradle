@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "projecten3.myapplication"
+        applicationId "projecten3.stuckytoys"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1

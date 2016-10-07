@@ -1,4 +1,4 @@
-package projecten3.myapplication;
+package projecten3.stuckytoys;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
