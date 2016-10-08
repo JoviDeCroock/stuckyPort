@@ -14,17 +14,20 @@ var auth = jwt({secret:config.secret,userProperty:config.userProperty});
 //models
 var User = mongoose.model('User');
 
-// API tasks for models
+// Sanity test
 router.get('/',function(req,res,next){
   return res.json({message: 'De api werkt'});
 });
-//louter om te testen
+
+// Louter om te testen
 router.get('/users',function(req,res,next){
   User.find(function(err,users){
     if(err){return next(err);}
     return res.json(users);
   });
 });
+
+// API methods
 router.post('/register',function(req,res,next){
    if(!req.body.login || !req.body.password || !req.body.email){
      return res.status(400).json({message:'Vul alle velden in'});
@@ -38,6 +41,7 @@ router.post('/register',function(req,res,next){
      return res.json(user);
    });
 });
+
 router.post('/login',function(req,res,next){
   if(!req.body.username || !req.body.password){
     return res.status(400).json({message:'Vul alle velden in'});
@@ -52,4 +56,5 @@ router.post('/login',function(req,res,next){
     }
   })(req,res,next);
 });
+
 module.exports = router;
