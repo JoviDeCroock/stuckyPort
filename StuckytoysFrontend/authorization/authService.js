@@ -40,7 +40,10 @@ authService = function($html, $window)
 
     auth.logIn = function(user)
     {
-
+        return $http.post('/login', user).succes(function(data)
+        {
+            auth.saveToken(data.token);
+        });
     };
 
     auth.logOut = function()
@@ -55,5 +58,5 @@ authService = function($html, $window)
             auth.saveToken(data.token);
         });
     };
-    return auth
+    return auth;
 };

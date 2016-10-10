@@ -9,3 +9,5 @@ var drawingSchema = new mongoose.Schema(
     Description: String,
     user: {type: mongoose.schema.Types.ObjectId, ref:'User'}
 });
+
+mongoose.model("Drawing", drawingSchema);
