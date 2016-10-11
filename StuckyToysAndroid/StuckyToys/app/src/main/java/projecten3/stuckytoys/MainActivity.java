@@ -1,24 +1,24 @@
 package projecten3.stuckytoys;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.io.IOException;
-
-import butterknife.BindView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import projecten3.stuckytoys.domein.DomeinController;
+import projecten3.stuckytoys.domain.DomainController;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.editUsername) EditText editUsername;
-    @BindView(R.id.editPassword) EditText editPassword;
-    @BindView(R.id.txtError) TextView txtError;
+    @Bind(R.id.editEmail) EditText editEmail;
+    @Bind(R.id.editPassword) EditText editPassword;
+    @Bind(R.id.txtError) TextView txtError;
 
-    private DomeinController dc;
+    private DomainController dc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,23 +26,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        dc = DomeinController.getInstance();
+        dc = DomainController.getInstance();
     }
 
-    @OnClick (R.id.btnLogin)
-    private void login() {
-        String username = editUsername.getText().toString();
+    @OnClick(R.id.btnLogin)
+    public void login(View view) {
+
+        String username = editEmail.getText().toString();
         String password = editPassword.getText().toString();
 
-        try{
-
-
-
-        } catch (Exception ex) {
-
-        }
-
         //test
-        txtError.setText("error");
+        txtError.setText("error test");
+    }
+
+    @OnClick(R.id.txtNotRegistered)
+    public void register() {
+        Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+        startActivity(intent);
     }
 }

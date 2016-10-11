@@ -1,6 +1,15 @@
 <resources>
+    <!-- login -->
     <string name="app_name">StuckyToys</string>
-    <string name="username">Gebruikersnaam</string>
+    <string name="email">E-mailadres</string>
     <string name="password">Wachtwoord</string>
     <string name="login">Aanmelden</string>
+    <string name="not_registered"><u>Nog geen account?</u></string>
+
+    <!-- register -->
+    <string name="username">Gebruikersnaam</string>
+    <string name="first_name">Voornaam</string>
+    <string name="last_name">Achternaam</string>
+    <string name="password_repeat">Herhaal wachtwoord</string>
+    <string name="register">Registreren</string>
 </resources>
