@@ -6,12 +6,20 @@ var mongoose = require('mongoose');
 var MemberSchema = new mongoose.Schema(
     {
         firstName: String,
-        nickname: String,
+        nickname: {type: String, unique: true},
         familyRole: String, //Daughter Son Dad Mom
         picture: String, //idk yet ok?
-        DateOfBirth: Date,
-        user: {type: mongoose.schema.Types.ObjectId, ref:'User'}
+        dateOfBirth: Date,
+        user: {type: mongoose.Schema.Types.ObjectId, ref:'User'}
     }
 );
+
+MemberSchema.methods.saveDate = function(dateString){
+  var dateArray = dateString.split(' ');
+  var day = dateArray[0];
+  var month = dateArray[1] -1;
+  var year = dateArray[2];
+  this.dateOfBirth = new Date(year,month,day);
+}
 
 mongoose.model("Member", MemberSchema);

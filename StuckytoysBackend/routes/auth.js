@@ -5,12 +5,10 @@
 var mongoose = require('mongoose');
 var express = require('express');
 var passport = require('passport');
-var jwt = require('express-jwt');
 var router = express.Router();
 
-var config = require('../config/config');
 var tokenGenerator = require('../config/tokenGenerator');
-var auth = jwt({secret:config.secret,userProperty:config.userProperty});
+
 //models
 var User = mongoose.model('User');
 
