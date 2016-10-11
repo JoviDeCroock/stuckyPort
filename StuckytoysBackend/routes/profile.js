@@ -13,6 +13,15 @@ var Member = mongoose.model('Member');
 //configuring auth
 var auth = jwt({secret:config.secret,userProperty:config.userProperty});
 
+router.param('member',function(req,rest,next,id){
+  var query = Member.findOne({nickname: id});
+  query.exec(function(err,member){
+    if(err){return next(err);}
+    if(!member){return next(new Error('Kan het familielid niet vinden'));}
+    req.member = member;
+    return next();
+  });
+});
 // Add a family member
 router.post("/addMember",auth,function(req, res, next)
 {
@@ -33,11 +42,16 @@ router.post("/addMember",auth,function(req, res, next)
 });
 
 //Get a specific family member (Get all info) param?
-
+router.get('/getMember/:member',auth,function(req,res,next){
+  return res.json(req.member);
+});
 //Get all family members (Select member screen)
-router.get("/getAll", function(req,res,next)
+router.get("/getAllMembers",auth,function(req,res,next)
 {
-
+  Member.find({user: req.payload._id},function(err,members){
+    if(err){return next(err);}
+    return res.json(members);
+  });
 });
 
 module.exports = router;
