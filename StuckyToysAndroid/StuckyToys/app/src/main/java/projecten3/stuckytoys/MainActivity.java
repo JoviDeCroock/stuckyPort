@@ -7,16 +7,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import projecten3.stuckytoys.domain.DomainController;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Bind(R.id.editEmail) EditText editEmail;
-    @Bind(R.id.editPassword) EditText editPassword;
-    @Bind(R.id.txtError) TextView txtError;
+    @BindView(R.id.editEmail) EditText editEmail;
+    @BindView(R.id.editPassword) EditText editPassword;
+    @BindView(R.id.txtError) TextView txtError;
 
     private DomainController dc;
 
