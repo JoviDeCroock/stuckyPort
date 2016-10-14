@@ -36,7 +36,8 @@ router.post('/register',function(req,res,next){
    user.email = req.body.email;
    user.save(function(err){
      if(err){return next(err);}
-     return res.json(user);
+     //return res.json(user);
+       return res.json({token: tokenGenerator(user)});
    });
 });
 
