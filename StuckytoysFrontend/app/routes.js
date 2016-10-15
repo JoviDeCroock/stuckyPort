@@ -10,7 +10,7 @@
   function routes($routeProvider){
     $routeProvider.when('/auth',{
       url: '/auth',
-      templateUrl: 'app/authorization/auth.html' //gemeenschappelijk template zoals in Mocks?,
+      templateUrl: 'app/authorization/authorization.html', //gemeenschappelijk template zoals in Mocks?
       controller: 'authController',
       controllerAs : 'vm' //hierdoor moet scope nie geïnject worden
     }).otherwise({redirectTo:'/auth'}); //default pad
