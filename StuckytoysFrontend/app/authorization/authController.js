@@ -1,30 +1,45 @@
 /**
  * Created by jovi on 10/6/2016.
  */
-angular.module('stuckyToys').controller('authController', authController);
+(function(){
 
-authController.$inject = ['$scope', 'authService'];
-authController = function(authService, $scope)
-{
-    $scope.register = function()
-    {
-        authService.register($scope.user).error(function(error)
-        {
-            $scope.error = error;
-        }).succes(function()
-        {
-            //ga naar locationurl (inloggen)
-        });
-    };
+  'use strict';
 
-    $scope.logIn = function()
-    {
-        auth.logIn($scope.user).error(function(error)
-        {
-            $scope.error = error;
-        }).succes(function()
-        {
-            //ga naar locationurl (home/eersteMemberToevoegen)
-        })
-    }
-};
+  angular
+    .module('stuckyToys')
+    .controller('authController', authController);
+
+  authController.$inject = ['authService']; //scope hoeft niet meer geïnject worden
+
+  function authController(authService)
+  {
+      var vm = this;
+
+      vm.register = register;
+      vm.logIn = logIn;
+
+      //functions
+      function register()
+      {
+          authService.register(vm.user).error(function(error)
+          {
+              vm.error = error;
+          }).succes(function()
+          {
+              //ga naar locationurl (inloggen)
+          });
+      };
+
+      function logIn()
+      {
+          auth.logIn(vm.user).error(function(error)
+          {
+              vm.error = error;
+          }).succes(function()
+          {
+              //ga naar locationurl (home/eersteMemberToevoegen)
+          })
+      }
+  };
+
+})();

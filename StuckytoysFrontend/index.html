@@ -2,12 +2,16 @@
 <html>
   <head>
     <title>Stuckytoys</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
-    <script src="app/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.js"></script>
+    <script src="./app/app.js"></script>
+    <script src="./app/routes.js"></script>
+    <script src="./app/authorization/authService.js"></script>
+    <script src="./app/authorization/authController.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./styles/style.css"/>
   </head>
   <body ng-app="stuckyToys">
-    <div>
-      
-    </div>
+    <div ng-view></div>
   </body>
 </html>
