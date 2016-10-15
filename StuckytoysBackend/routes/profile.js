@@ -13,8 +13,8 @@ var Member = mongoose.model('Member');
 //configuring auth
 var auth = jwt({secret:config.secret,userProperty:config.userProperty});
 
-router.param('member',function(req,rest,next,id){
-  var query = Member.findOne({nickname: id});
+router.param('member',function(req,res,next,id){
+  var query = Member.findById(id);
   query.exec(function(err,member){
     if(err){return next(err);}
     if(!member){return next(new Error('Kan het familielid niet vinden'));}
