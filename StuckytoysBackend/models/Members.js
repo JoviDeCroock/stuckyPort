@@ -7,7 +7,7 @@ var MemberSchema = new mongoose.Schema(
     {
         firstName: String,
         nickname: {type: String, unique: true},
-        familyRole: String, //Daughter Son Dad Mom
+        role: String, //Daughter Son Dad Mom
         picture: String, //idk yet ok?
         dateOfBirth: Date,
         user: {type: mongoose.Schema.Types.ObjectId, ref:'User'}

@@ -1,23 +1,17 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 var salt = bcrypt.genSaltSync(10);
-/*
-    sources:
-    http://codetheory.in/using-the-node-js-bcrypt-module-to-hash-and-safely-store-passwords/
-    https://www.npmjs.com/package/bcrypt-nodejs
-    http://stackoverflow.com/questions/13582862/mongoose-pre-save-async-middleware-not-working-as-expected
-*/
+
 var UserSchema = new mongoose.Schema(
     {
-        login: {type: String, unique:true},
-        password: String, //begint als normaal string passwoord maar wordt door de pre vervangen met hashed
+        username: {type: String, unique:true},
+        password: String,
         email: {type: String, unique:true},
         isHashed:
         {
             type: Boolean,
             default: false
         }
-        //admin? Kan handig zijn voor portaal?
     }
 );
 

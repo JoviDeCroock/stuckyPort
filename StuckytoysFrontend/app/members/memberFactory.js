@@ -14,24 +14,32 @@
         var memberFactory =
         {
             createMember : create,
-            giveMembers : getMembers
+            giveMembers : getMembers,
+            selectMember : chooseMember
         };
 
         function create(member)
         {
-            return $http.post('localhost:3000/members/addMember', member).succes(function (data)
+            /*
+                Checken op valid data?
+                Geldige datum/Datepicker
+                Afbeelding converteren --> bitmap/String
+            */
+            return $http.post('localhost:3000/profile/addMember', member).succes(function (data)
             {
-                //succes
+                //succes --> toont leden
             });
         };
 
         function getMembers()
         {
-            var token = auth.getToken();
-            var payload = JSON.parse($window.atob(token.split('.')[1]));
-            return $http.post('localhost:')
+            return $http.post('localhost:3000/profile/getAllMembers');
         };
 
+        function chooseMember(member)
+        {
+            // log in als geselecteerde gebruiker
+        }
         return memberFactory;
     };
 });
