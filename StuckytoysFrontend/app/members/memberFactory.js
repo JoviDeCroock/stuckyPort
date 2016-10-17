@@ -23,5 +23,6 @@
                 //succes
             });
         };
+        return memberFactory;
     };
 });

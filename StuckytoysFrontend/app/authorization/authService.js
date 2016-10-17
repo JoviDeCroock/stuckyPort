@@ -19,8 +19,7 @@
            getToken : getToken,
            isLoggedIn : isLoggedIn,
            currentUser : currentUser,
-           logOut : logOut,
-           hasMembers : hasMembers
+           logOut : logOut
        };
 
        function saveToken(token)
@@ -52,14 +51,6 @@
                var payload = JSON.parse($window.atob(token.split('.')[1]));
                return payload.username;
            }
-       };
-
-       function hasMembers(user)
-       {
-             return $http.get('/profile/getAllMembers').succes(function(data)
-             {
-
-             });
        };
 
        function logIn(user)

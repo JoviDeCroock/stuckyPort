@@ -21,7 +21,7 @@
 
         function giveMembers()
         {
-
+            memberFactory.giveMembers();
         };
 
         function selectMember()

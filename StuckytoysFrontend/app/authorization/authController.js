@@ -18,7 +18,6 @@
       vm.register = register;
       vm.logIn = logIn;
       vm.logOut = logOut;
-      vm.hasMembers = hasMembers;
 
       //functions
       function register()
@@ -28,7 +27,7 @@
               vm.error = error;
           }).succes(function()
           {
-              // token is saved --> eerste member aanmaken
+              // ga naar member feature
           });
       };
 
@@ -39,11 +38,7 @@
               vm.error = error;
           }).succes(function()
           {
-              if(hasMembers())
-              {
-               //ga naar create
-              }
-              //ga naar overzicht
+            // ga naar member feature
           })
       };
 
@@ -55,17 +50,6 @@
           }).succes(function()
           {
               //redirect to auth
-          });
-      };
-
-      function hasMembers()
-      {
-          auth.hasMembers(vm.hasMembers).error(function(error)
-          {
-              return false;
-          }).succes(function()
-          {
-              return true;
           });
       };
 
