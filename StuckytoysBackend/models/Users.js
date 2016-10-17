@@ -4,7 +4,8 @@ var salt = bcrypt.genSaltSync(10);
 
 var UserSchema = new mongoose.Schema(
     {
-        username: {type: String, unique:true},
+        //overwegen de unique weg te doen zodat het enige unieke het email is
+        username: {type: String/*,unique:true*/},
         password: String,
         email: {type: String, unique:true},
         isHashed:
