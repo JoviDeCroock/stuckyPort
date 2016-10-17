@@ -8,9 +8,9 @@
      .module('stuckyToys')
      .factory('authService', authService);
 
-   authService.$inject = ['$html', '$window'];
+   authService.$inject = ['$http', '$window'];
 
-   function authService($html, $window){
+   function authService($http, $window){
        var auth = {};
        auth.saveToken = function(token)
        {

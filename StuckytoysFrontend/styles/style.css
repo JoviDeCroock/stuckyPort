@@ -1,0 +1,11 @@
+header img{
+  width : 200px;
+  margin: 5px;
+}
+.auth-content{
+  border: 1px solid black;
+  padding: 20px 5px 20px 5px;
+}
+.register{
+  border-left: 1px solid grey;
+}

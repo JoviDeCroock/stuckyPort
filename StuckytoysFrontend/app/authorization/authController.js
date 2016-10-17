@@ -14,14 +14,14 @@
   function authController(authService)
   {
       var vm = this;
-
+      //vm.test = 'Hehe controllerAs werkt';
       vm.register = register;
       vm.logIn = logIn;
 
       //functions
       function register()
       {
-          authService.register(vm.user).error(function(error)
+          authService.register(vm.registerUser).error(function(error)
           {
               vm.error = error;
           }).succes(function()
@@ -32,7 +32,7 @@
 
       function logIn()
       {
-          auth.logIn(vm.user).error(function(error)
+          auth.logIn(vm.loginUser).error(function(error)
           {
               vm.error = error;
           }).succes(function()
