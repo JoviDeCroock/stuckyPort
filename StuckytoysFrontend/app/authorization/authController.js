@@ -18,6 +18,7 @@
       vm.register = register;
       vm.logIn = logIn;
       vm.logOut = logOut;
+      vm.hasMembers = hasMembers;
 
       //functions
       function register()
@@ -38,13 +39,17 @@
               vm.error = error;
           }).succes(function()
           {
-              // eerste member aanmaken of naar overzicht
+              if(hasMembers())
+              {
+               //ga naar create
+              }
+              //ga naar overzicht
           })
       };
 
       function logOut()
       {
-          auth.logOut().error(function(error)
+          auth.logOut(vm.logOut).error(function(error)
           {
               //optioneel als we errors hebben bvb mid tekening uitloggen
           }).succes(function()
@@ -53,6 +58,16 @@
           });
       };
 
+      function hasMembers()
+      {
+          auth.hasMembers(vm.hasMembers).error(function(error)
+          {
+              return false;
+          }).succes(function()
+          {
+              return true;
+          });
+      };
 
   };
 

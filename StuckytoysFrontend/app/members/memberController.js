@@ -12,15 +12,21 @@
         var vm = this;
         vm.createMember = createMember;
         vm.giveMembers = giveMembers;
+        vm.selectMember = selectMember;
 
         function createMember()
         {
-
+            vm.createMember();
         };
 
         function giveMembers()
         {
 
         };
+
+        function selectMember()
+        {
+
+        }
     }
 });
