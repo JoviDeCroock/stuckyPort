@@ -21,7 +21,8 @@
 
         function giveMembers()
         {
-            memberFactory.giveMembers();
+            //members in object zodat deze op het scherm kunnen getoond worden.
+            vm.members = memberFactory.giveMembers();
         };
 
         function selectMember()

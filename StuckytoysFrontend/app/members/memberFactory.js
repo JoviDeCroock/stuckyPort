@@ -13,7 +13,8 @@
     function memberFactory($http, $window) {
         var memberFactory =
         {
-            createMember : create
+            createMember : create,
+            giveMembers : getMembers
         };
 
         function create(member)
@@ -23,6 +24,14 @@
                 //succes
             });
         };
+
+        function getMembers()
+        {
+            var token = auth.getToken();
+            var payload = JSON.parse($window.atob(token.split('.')[1]));
+            return $http.post('localhost:')
+        };
+
         return memberFactory;
     };
 });
