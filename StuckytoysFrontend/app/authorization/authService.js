@@ -11,18 +11,28 @@
    authService.$inject = ['$http', '$window'];
 
    function authService($http, $window){
-       var auth = {};
-       auth.saveToken = function(token)
+       var auth =
+       {
+           registerUser: register,
+           loginUser : logIn,
+           saveToken: saveToken,
+           getToken : getToken,
+           isLoggedIn : isLoggedIn,
+           currentUser : currentUser,
+           logOut : logOut
+       };
+
+       function saveToken(token)
        {
            $window.localStorage['StuckytoysToken'] = token;
        };
 
-       auth.getToken = function()
+       function getToken()
        {
            return $window.localStorage['StuckytoysToken'];
        };
 
-       auth.isLoggedIn = function(){
+       function isLoggedIn(){
            var token  = auth.getToken();
            if(token){
                var payload = JSON.parse($window.atob(token.split('.')[1]));
@@ -33,7 +43,7 @@
            }
        };
 
-       auth.currentUser = function()
+       function currentUser()
        {
            if(auth.isLoggedIn())
            {
@@ -43,7 +53,7 @@
            }
        };
 
-       auth.logIn = function(user)
+       function logIn(user)
        {
            return $http.post('/login', user).succes(function(data)
            {
@@ -51,12 +61,12 @@
            });
        };
 
-       auth.logOut = function()
+       function logOut()
        {
            $window.localStorage.removeItem('StuckytoysToken');
        };
 
-       auth.register = function(user)
+       function register(user)
        {
            return $http.post('localhost:3000/register', user).succes(function (data)
            {

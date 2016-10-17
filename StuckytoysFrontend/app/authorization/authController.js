@@ -17,6 +17,7 @@
       //vm.test = 'Hehe controllerAs werkt';
       vm.register = register;
       vm.logIn = logIn;
+      vm.logOut = logOut;
 
       //functions
       function register()
@@ -26,7 +27,7 @@
               vm.error = error;
           }).succes(function()
           {
-              //ga naar locationurl (inloggen)
+              // token is saved --> eerste member aanmaken
           });
       };
 
@@ -37,9 +38,22 @@
               vm.error = error;
           }).succes(function()
           {
-              //ga naar locationurl (home/eersteMemberToevoegen)
+              // eerste member aanmaken of naar overzicht
           })
-      }
+      };
+
+      function logOut()
+      {
+          auth.logOut().error(function(error)
+          {
+              //optioneel als we errors hebben bvb mid tekening uitloggen
+          }).succes(function()
+          {
+              //redirect to auth
+          });
+      };
+
+
   };
 
 })();

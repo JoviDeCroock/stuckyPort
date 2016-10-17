@@ -8,14 +8,15 @@
         .module('stuckyToys')
         .config(authRoutes);
 
-    routes.$inject = ['$routeProvider'];
+    authRoutes.$inject = ['$routeProvider'];
 
-    function routes($routeProvider){
+    function authRoutes($routeProvider)
+    {
         $routeProvider.when('/auth',{
             url: '/auth',
-            templateUrl: 'authorization.html', //gemeenschappelijk template zoals in Mocks?
+            templateUrl: 'app/authorization/authorization.html', //gemeenschappelijk template zoals in Mocks?
             controller: 'authController',
             controllerAs : 'vm' //hierdoor moet scope nie geïnject worden
         }).otherwise({redirectTo:'/auth'}); //default pad
-    }
+    };
 })();
