@@ -18,5 +18,6 @@
             controller: 'authController',
             controllerAs : 'vm' //hierdoor moet scope nie geïnject worden
         }).otherwise({redirectTo:'/auth'}); //default pad
+
     };
 })();

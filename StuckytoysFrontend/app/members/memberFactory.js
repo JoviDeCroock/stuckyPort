@@ -8,7 +8,7 @@
         .module('stuckyToys')
         .factory('memberFactory', memberFactory);
 
-    memberFactory.$inject = ['$http', '$window'];
+    memberFactory.$inject = ['$http', '$window', 'auth'];
 
     function memberFactory($http, $window) {
         var memberFactory =

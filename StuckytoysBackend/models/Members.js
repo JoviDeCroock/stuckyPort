@@ -8,6 +8,7 @@ var MemberSchema = new mongoose.Schema(
         firstName: String,
         nickname: {type: String, unique: true},
         role: String, //Daughter Son Dad Mom
+        Authority: Boolean,
         picture: String, //idk yet ok?
         dateOfBirth: Date,
         user: {type: mongoose.Schema.Types.ObjectId, ref:'User'}
