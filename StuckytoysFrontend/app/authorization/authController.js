@@ -9,9 +9,9 @@
     .module('stuckyToys')
     .controller('authController', authController);
 
-  authController.$inject = ['authService']; //scope hoeft niet meer geïnject worden
+  authController.$inject = ['$location','authService']; //scope hoeft niet meer geïnject worden
 
-  function authController(authService)
+  function authController($location, authService)
   {
       var vm = this;
       //vm.test = 'Hehe controllerAs werkt';
@@ -20,34 +20,42 @@
       vm.logOut = logOut;
 
       //functions
-      function register()
+      function register(isValid)
       {
+        if(isValid){
           authService.register(vm.registerUser).error(function(error)
           {
               vm.error = error;
-          }).succes(function()
+          }).success(function()
           {
               // ga naar member feature
+              $location.path('/member');
           });
+        }
+        vm.registerSubmitted = true;
       };
 
-      function logIn()
+      function logIn(isValid)
       {
-          auth.logIn(vm.loginUser).error(function(error)
-          {
-              vm.error = error;
-          }).succes(function()
-          {
-            // ga naar member feature
-          })
+          if(isValid){
+            authService.logIn(vm.loginUser).error(function(error)
+            {
+                vm.error = error;
+            }).success(function()
+            {
+              // ga naar member feature
+              $location.path('/member');
+            });
+          }
+          vm.loginSubmitted = true;
       };
 
       function logOut()
       {
-          auth.logOut(vm.logOut).error(function(error)
+          authService.logOut(vm.logOut).error(function(error)
           {
               //optioneel als we errors hebben bvb mid tekening uitloggen
-          }).succes(function()
+          }).success(function()
           {
               //redirect to auth
           });

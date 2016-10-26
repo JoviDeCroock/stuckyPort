@@ -10,6 +10,7 @@
 
     function memberController(memberFactory) {
         var vm = this;
+        vm.title = 'Wie ben ik?';
         vm.createMember = createMember;
         vm.giveMembers = giveMembers;
         vm.selectMember = selectMember;
@@ -37,4 +38,4 @@
             // succes --> ga naar hoofdscherm met functies
         }
     }
-});
+})();

@@ -3,52 +3,86 @@
   <div class="auth-content row">
     <section class="login col-md-6">
       <h3>Login</h3>
-      <form ng-submit="login()">
+      <form name="loginForm" ng-submit="vm.logIn(loginForm.$valid)" novalidate>
         <div class="form-group">
-            <input type="text"
+            <input name="loginUsername"
+                   type="text"
                    class="form-control"
                    placeholder="Gebruikersnaam"
-                   ng-model="registerUser.username"></input>
+                   ng-model="vm.loginUser.username"
+                   ng-required="true"></input>
         </div>
         <div class="form-group">
-            <input type="password"
+            <input name="loginPassword"
+                   type="password"
                    class="form-control"
                    placeholder="Wachtwoord"
-                   ng-model="registerUser.password"></input>
+                   ng-model="vm.loginUser.password"
+                   ng-required="true"></input>
+            <p ng-show="loginForm.loginPassword.$invalid && vm.loginSubmitted"
+               class="error">
+              Aanmeldgegevens incorrect
+            </p>
         </div>
         <input type="submit" class="btn btn-primary" value="Log in"/>
     </form>
     </section>
     <section class="register col-md-6">
       <h3>Registreer</h3>
-      <form ng-submit="register()">
+      <form name="registerForm" ng-submit="vm.register(registerForm.$valid)" novalidate>
         <div class="form-group">
-            <input type="text"
+            <input name="registerUsername"
+                   type="text"
                    class="form-control"
                    placeholder="Gebruikersnaam"
-                   ng-model="loginUser.username">
+                   ng-model="vm.registerUser.username"
+                   ng-required="true">
             </input>
+            <p ng-show="registerForm.registerUsername.$invalid && vm.registerSubmitted"
+               class="error">
+              Gebruikersnaam is verplicht
+            </p>
         </div>
         <div class="form-group">
-            <input type="text"
+            <input name="registerEmail"
+                   type="text"
                    class="form-control"
                    placeholder = "E-mail"
-                   ng-model="loginUser.email">
+                   ng-model="vm.registerUser.email"
+                   ng-pattern="/[@]{1}/"
+                   ng-required="true">
             </input>
+            <p ng-show="registerForm.registerEmail.$invalid && vm.registerSubmitted"
+               class="error">
+              Ongeldig e-mailadres
+            </p>
         </div>
         <div class="form-group">
-            <input type="password"
+            <input name="registerPassword"
+                   type="password"
                    class="form-control"
                    placeholder="Wachtwoord"
-                   ng-model="loginUser.password">
+                   ng-model="vm.registerUser.password"
+                   ng-pattern="/[a-zA-Z0-9]{6,}/"
+                   ng-required="true">
             </input>
+            <p ng-show="registerForm.registerPassword.$invalid && vm.registerSubmitted"
+               class="error">
+              Ongeldig wachtwoord
+            </p>
         </div>
         <div class="form-group">
-            <input type="password"
+            <input name="registerConfirm"
+                   type="password"
                    class="form-control"
                    placeholder = "Bevestig wachtwoord"
-                   ng-model="loginUser.confirm">
+                   ng-model="vm.registerUser.confirm"
+                   ng-required="true">
             </input>
+            <p ng-show="registerForm.registerConfirm.$invalid && vm.registerSubmitted"
+               class="error">
+              Bevestig wachtwoord is verplicht
+            </p>
         </div>
         <input type="submit" class="btn btn-primary" value="Registreer"/>
     </form>

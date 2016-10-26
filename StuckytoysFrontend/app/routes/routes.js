@@ -14,9 +14,14 @@
     {
         $routeProvider.when('/auth',{
             url: '/auth',
-            templateUrl: 'app/authorization/authorization.html', //gemeenschappelijk template zoals in Mocks?
+            templateUrl: 'app/authorization/authorization.html',
             controller: 'authController',
             controllerAs : 'vm' //hierdoor moet scope nie geïnject worden
-        }).otherwise({redirectTo:'/auth'}); //default pad
+        }).when('/member',{
+            url: '/member',
+            templateUrl: 'app/members/memberOverview.html',
+            controller: 'memberController',
+            controllerAs : 'vm' 
+        }).otherwise({redirectTo: '/auth'});
     };
 })();

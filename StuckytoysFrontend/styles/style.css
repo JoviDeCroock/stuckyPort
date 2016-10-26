@@ -9,3 +9,6 @@ header img{
 .register{
   border-left: 1px solid grey;
 }
+.error{
+  color: red;
+}

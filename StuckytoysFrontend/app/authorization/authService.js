@@ -13,8 +13,8 @@
    function authService($http, $window){
        var auth =
        {
-           registerUser: register,
-           loginUser : logIn,
+           register: register,
+           logIn : logIn,
            saveToken: saveToken,
            getToken : getToken,
            isLoggedIn : isLoggedIn,
@@ -55,7 +55,7 @@
 
        function logIn(user)
        {
-           return $http.post('/login', user).succes(function(data)
+           return $http.post('/login', user).success(function(data)
            {
                auth.saveToken(data.token);
            });
@@ -68,7 +68,7 @@
 
        function register(user)
        {
-           return $http.post('localhost:3000/register', user).succes(function (data)
+           return $http.post('localhost:3000/register', user).success(function (data)
            {
                auth.saveToken(data.token);
            });
