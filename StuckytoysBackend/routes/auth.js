@@ -34,6 +34,7 @@ router.post('/register',function(req,res,next){
    user.username = req.body.username;
    user.password = req.body.password;
    user.email = req.body.email;
+    user.members = [];
    user.save(function(err){
      if(err){return next(err);}
        return res.json({token: tokenGenerator(user)});
