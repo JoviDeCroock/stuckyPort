@@ -1,0 +1,34 @@
+<div class="container">
+    <h3>Voeg lid toe</h3>
+    <form ng-submit="createMember()">
+        <div class="form-group">
+            <input type="text"
+                   class="form-control"
+                   placeholder="Voornaam"
+                   ng-model="">
+            </input>
+        </div>
+        <div class="form-group">
+            <input type="text"
+                   class="form-control"
+                   placeholder = "Bijnaam"
+                   ng-model="">
+            </input>
+        </div>
+        <div class="form-group">
+            <input type="password"
+                   class="form-control"
+                   placeholder="rol bvb kind, leerling, ouder,...."
+                   ng-model="">
+            </input>
+        </div>
+        <div class="form-group">
+            <input type="password"
+                   class="form-control"
+                   placeholder = "Bevestig wachtwoord"
+                   ng-model="">
+            </input>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Registreer"/>
+    </form>
+</div>
