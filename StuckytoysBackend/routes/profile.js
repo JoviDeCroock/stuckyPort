@@ -37,9 +37,15 @@ router.post("/addMember",auth,function(req, res, next)
   member.role = req.body.role;
   member.picture = req.body.picture;
   member.saveDate(req.body.dateOfBirth);
-  member.user = req.payload._id;
   member.save(function(err){
     if(err){return next(err);}
+    var query = User.findById(req.payload._id);
+    query.exec(function(err, user){
+      if(err){return next(err);}
+      if(!user){return next(new Error('Kan de user niet vinden'));}
+      user.members.push(member);
+      return next();
+    });
     return res.json(member);
   });
 });

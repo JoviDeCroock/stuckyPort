@@ -6,7 +6,7 @@
         .module('stuckyToys')
         .controller('memberController', memberController);
 
-    memberController.$inject = ['memberFactory']; //scope hoeft niet meer geïnject worden
+    memberController.$inject = ['memberFactory', 'auth']; //scope hoeft niet meer geïnject worden
 
     function memberController(memberFactory) {
         var vm = this;
