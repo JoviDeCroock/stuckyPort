@@ -19,17 +19,27 @@ router.param('member',function(req,res,next,id){
   var query = Member.findById(id);
   query.exec(function(err,member){
     if(err){return next(err);}
-    if(!member){return next(new Error('Kan het lid niet vinden'));}
+    if(!member){return next(new Error('Kan het lid niet vinden.'));}
     req.member = member;
     return next();
   });
 });
 
+router.param('user',function(req,res,next,id){
+  var query = User.findById(id);
+  query.exec(function(err,user){
+    if(err){return next(err);}
+    if(!user){return next(new Error('Kan de gekozen familie niet vinden.'));}
+    req.user = user;
+    return next();
+  });
+});
+
 // Add a member
-router.post("/addMember",auth,function(req, res, next)
+router.post("/users/:user/addMember",auth,function(req, res, next)
 {
   if(!req.body.firstName || !req.body.nickname || !req.body.role || !req.body.picture || !req.body.dateOfBirth){
-    return res.status(400).json({message: 'Vul alle velden in'});
+    return res.status(400).json({message: 'Vul alle velden in.'});
   }
   var member = new Member();
   member.firstName = req.body.firstName;
@@ -39,29 +49,30 @@ router.post("/addMember",auth,function(req, res, next)
   member.saveDate(req.body.dateOfBirth);
   member.save(function(err){
     if(err){return next(err);}
-    var query = User.findById(req.payload._id);
-    query.exec(function(err, user){
-      if(err){return next(err);}
-      if(!user){return next(new Error('Kan de user niet vinden'));}
-      user.members.push(member);
-      return next();
-    });
-    return res.json(member);
+    /*var query = User.findById(req.payload._id);
+     query.exec(function(err, user){
+     if(err){return next(err);}
+     if(!user){return next(new Error('Kan de gekozen familie niet vinden.'));}*/
+    req.user.members.push(member);
+    return next();
   });
+  return res.json(member);
 });
 
-//Get a specific family member (Get all info) param?
-router.get('/getMember/:member',auth,function(req,res,next){
+// Get a specific member to log in to main screen
+router.get('/users/:user/getMember/:member',auth,function(req,res,next){
   return res.json(req.member);
 });
 
-//Get all family members (Select member screen)
-router.get("/getAllMembers",auth,function(req,res,next)
+// Get all family members (Select member screen)
+router.get("/users/:user/getAllMembers",auth,function(req,res,next)
 {
   Member.find({user: req.payload._id},function(err,members){
     if(err){return next(err);}
     return res.json(members);
   });
 });
+
+// put methode voor een figure in te voegen bij een User?
 
 module.exports = router;

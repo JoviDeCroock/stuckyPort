@@ -6,9 +6,9 @@
         .module('stuckyToys')
         .controller('memberController', memberController);
 
-    memberController.$inject = ['memberFactory', 'auth']; //scope hoeft niet meer geïnject worden
+    memberController.$inject = ['$location','memberFactory', 'authService']; //scope hoeft niet meer geïnject worden
 
-    function memberController(memberFactory) {
+    function memberController(memberFactory, $location) {
         var vm = this;
         vm.title = 'Wie ben ik?';
         vm.createMember = createMember;
@@ -22,7 +22,7 @@
                 vm.error = error;
             }).succes(function(data)
             {
-                // toont alle members om uit te kiezen (member overview)
+                $location.path('/member');
             });
         };
 
@@ -35,7 +35,7 @@
         function selectMember()
         {
             memberFactory.selectMember();
-            // succes --> ga naar hoofdscherm met functies
+            // $location.path('main');
         }
     }
 })();

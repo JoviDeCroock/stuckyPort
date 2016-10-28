@@ -20,12 +20,7 @@
 
         function create(member)
         {
-            /*
-                Checken op valid data?
-                Geldige datum/Datepicker
-                Afbeelding converteren --> bitmap/String
-            */
-            return $http.post('localhost:3000/profile/addMember', member).succes(function (data)
+            return $http.post('188.166.173.147:3000/profile/users/' + /* hier moet de user ID komen */ + '/addMember', member).success(function (data)
             {
                 //succes --> toont leden
             });
@@ -33,12 +28,18 @@
 
         function getMembers()
         {
-            return $http.post('localhost:3000/profile/getAllMembers');
+            return $http.post('188.166.173.147:3000/profile/getAllMembers').success(function(data)
+            {
+                return data;
+            });
         };
 
         function chooseMember(member)
         {
-            // log in als geselecteerde gebruiker
+            return $http.post('188.166.173.147:3000/profile/users/' + /* hier moet de user ID komen */ + '/members/' + member._id).success(function (data)
+            {
+                //succes --> verwijst door naar main
+            });
         }
         return memberFactory;
     };
