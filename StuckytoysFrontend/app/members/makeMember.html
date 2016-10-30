@@ -5,28 +5,35 @@
             <input type="text"
                    class="form-control"
                    placeholder="Voornaam"
-                   ng-model="">
+                   ng-model="vm.member.firstName">
             </input>
         </div>
         <div class="form-group">
             <input type="text"
                    class="form-control"
                    placeholder = "Bijnaam"
-                   ng-model="">
+                   ng-model="vm.member.nickname">
             </input>
         </div>
         <div class="form-group">
-            <input type="password"
+            <input type="text"
                    class="form-control"
                    placeholder="rol bvb kind, leerling, ouder,...."
-                   ng-model="">
+                   ng-model="vm.member.role">
             </input>
         </div>
         <div class="form-group">
-            <input type="password"
+            <input type="text"
                    class="form-control"
-                   placeholder = "Bevestig wachtwoord"
-                   ng-model="">
+                   placeholder="dd mm yyyy"
+                   ng-model="vm.member.dateOfBirth">
+            </input>
+        </div>
+        <div class="form-group">
+            <input type="checkbox"
+                   class="form-control"
+                   value="Autoritair iemand? bvb vader, leeraar,...."
+                   ng-model="vm.member.authority">
             </input>
         </div>
         <input type="submit" class="btn btn-primary" value="Registreer"/>
