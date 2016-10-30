@@ -8,9 +8,9 @@
         .module('stuckyToys')
         .factory('memberFactory', memberFactory);
 
-    memberFactory.$inject = ['$http', 'authService'];
+    memberFactory.$inject = ['$http', 'authService','url'];
 
-    function memberFactory($http, authService) {
+    function memberFactory($http,authService,url) {
         var token = authService.getToken();
         var memberFactory =
         {
@@ -22,7 +22,7 @@
 
         function createMember(member)
         {
-            return $http.post('http://188.166.173.147:3000/profile/users/' + authService.getUserId() + '/addMember', member,{
+            return $http.post(url.dev+'profile/users/' + authService.getUserId() + '/addMember', member,{
               headers: {Authorization: 'Bearer ' + token}
             }).success(function (data)
             {
@@ -33,7 +33,7 @@
 
         function getMembers()
         {
-            return $http.get('http://188.166.173.147:3000/profile/users/' + authService.getUserId() + '/getAllMembers',{
+            return $http.get(url.dev+'profile/users/' + authService.getUserId() + '/getAllMembers',{
               headers: {Authorization: 'Bearer ' + token}
             }).success(function(data){
                 angular.copy(data,memberFactory.members);
@@ -42,7 +42,7 @@
 
         function getMember(member)
         {
-            return $http.get('http://188.166.173.147:3000/profile/users/' + authService.getUserId() + '/members/' + member._id,{
+            return $http.get(url.dev+'profile/users/' + authService.getUserId() + '/members/' + member._id,{
               headers: {Authorization: 'Bearer ' + token}
             }).success(function(data)
             {
