@@ -29,6 +29,16 @@
                     return memberFactory.getMembers();
                 }]
             }
-        }).otherwise({redirectTo: '/auth'});
+        }).when('/createMember', {
+            url: '/createMember',
+            templateUrl: 'app/members/makeMember.html',
+            controller: 'memberController',
+            controllerAs : 'vm'
+        })/*.when('/member', {
+            url: '/member/{id}',
+            templateUrl: 'app/main/main.html',
+            controller: 'mainController',
+            controllerAs : 'vm'
+        })*/.otherwise({redirectTo: '/auth'});
     };
 })();

@@ -6,7 +6,7 @@
         .module('stuckyToys')
         .controller('memberController', memberController);
 
-    memberController.$inject = ['$location','memberFactory']; //scope hoeft niet meer geïnject worden
+    memberController.$inject = ['$location','memberFactory'];
 
     function memberController($location,memberFactory)
     {
@@ -16,12 +16,18 @@
         vm.createMember = createMember;
         vm.selectMember = selectMember;
 
+        /* !!!!!!!!!Sanity Test!!!!!! Check console before Panic*/
+        vm.members.forEach(function(entry)
+        {
+           console.log(entry);
+        });
+
         function createMember()
         {
             memberFactory.createMember(vm.member).error(function(error)
             {
                 vm.error = error;
-            }).succes(function(data)
+            }).success(function(data)
             {
                 $location.path('/member');
             });
@@ -30,7 +36,7 @@
         function selectMember(member)
         {
             memberFactory.getMember(member);
-            // $location.path('main');
+            // $location.path('main'); + selected member meegeven?
         };
 
     };

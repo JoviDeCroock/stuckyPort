@@ -11,3 +11,42 @@ header img{
 .error{
   color: red;
 }
+
+.tile{
+  border: 1px solid black;
+  font-size: 16px;
+  display: inline-block;
+  margin-bottom: 8px;
+  width: calc(50% - 4px);
+  margin-right: 8px;
+}
+
+.tile a{
+  text-align: center;
+  color: #000;
+  display: block;
+  text-decoration: none;
+  width:100%;
+}
+
+.tile a:hover {
+  color:green;
+}
+
+.tile:nth-of-type(2n) {
+  margin-right: 0;
+}
+
+@media screen and (min-width: 50em) {
+  .tile {
+    width: calc(25% - 6px);
+  }
+
+  .tile:nth-of-type(2n) {
+    margin-right: 8px;
+  }
+
+  .tile:nth-of-type(4n) {
+    margin-right: 0;
+  }
+}

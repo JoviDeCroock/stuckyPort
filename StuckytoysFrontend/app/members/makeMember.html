@@ -1,6 +1,6 @@
 <div class="container">
     <h3>Voeg lid toe</h3>
-    <form ng-submit="createMember()">
+    <form ng-submit="vm.createMember()">
         <div class="form-group">
             <input type="text"
                    class="form-control"
@@ -20,6 +20,13 @@
                    class="form-control"
                    placeholder="rol bvb kind, leerling, ouder,...."
                    ng-model="vm.member.role">
+            </input>
+        </div>
+        <div class="form-group">
+            <input type="text"
+                   class="form-control"
+                   placeholder="foto tijdelijk"
+                   ng-model="vm.member.picture">
             </input>
         </div>
         <div class="form-group">

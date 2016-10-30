@@ -11,6 +11,7 @@
     authService.$inject = ['$http', '$window','url'];
 
     function authService($http, $window,url){
+        var usedUrl = url.dev;
 
         var auth =
         {
@@ -67,7 +68,7 @@
 
         function logIn(user)
         {
-            return $http.post(url.dev+'login', user).success(function(data)
+            return $http.post(usedUrl + 'login', user).success(function(data)
             {
                 auth.saveToken(data.token);
             });
@@ -80,7 +81,7 @@
 
         function register(user)
         {
-            return $http.post(url.dev+'register', {
+            return $http.post(usedUrl + 'register', {
               username : user.username,
               password : user.password,
               email : user.email
