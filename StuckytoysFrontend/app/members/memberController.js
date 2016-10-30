@@ -27,7 +27,7 @@
             });
         };
 
-        function getMember(member)
+        function selectMember(member)
         {
             memberFactory.getMember(member);
             // $location.path('main');

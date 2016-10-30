@@ -8,9 +8,9 @@
         .module('stuckyToys')
         .factory('authService', authService);
 
-    authService.$inject = ['$http', '$window'];
+    authService.$inject = ['$http', '$window','url'];
 
-    function authService($http, $window){
+    function authService($http, $window,url){
 
         var auth =
         {
@@ -67,7 +67,7 @@
 
         function logIn(user)
         {
-            return $http.post('http://188.166.173.147:3000/login', user).success(function(data)
+            return $http.post(url.dev+'login', user).success(function(data)
             {
                 auth.saveToken(data.token);
             });
@@ -80,7 +80,11 @@
 
         function register(user)
         {
-            return $http.post('http://188.166.173.147:3000/register', user).success(function (data)
+            return $http.post(url.dev+'register', {
+              username : user.username,
+              password : user.password,
+              email : user.email
+            }).success(function (data)
             {
                 auth.saveToken(data.token);
             });
