@@ -8,9 +8,9 @@
         .module('stuckyToys')
         .config(authRoutes);
 
-    authRoutes.$inject = ['$routeProvider', 'memberController'];
+    authRoutes.$inject = ['$routeProvider'];
 
-    function authRoutes($routeProvider, memberController)
+    function authRoutes($routeProvider)
     {
         $routeProvider.when('/auth',{
             url: '/auth',
@@ -24,9 +24,9 @@
             controllerAs : 'vm',
             resolve:
             {
-                postPromise: ['members', function(members)
+                postPromise: ['memberFactory', function(memberFactory)
                 {
-                    return memberController.giveMembers();
+                    return memberFactory.getMembers();
                 }]
             }
         }).otherwise({redirectTo: '/auth'});

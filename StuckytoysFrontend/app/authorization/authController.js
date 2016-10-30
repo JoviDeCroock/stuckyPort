@@ -26,6 +26,7 @@
           authService.register(vm.registerUser).error(function(error)
           {
               vm.error = error;
+              console.log(error);
           }).success(function()
           {
               // ga naar member feature

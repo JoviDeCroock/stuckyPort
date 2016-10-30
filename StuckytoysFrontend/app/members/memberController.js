@@ -6,14 +6,14 @@
         .module('stuckyToys')
         .controller('memberController', memberController);
 
-    memberController.$inject = ['$location','memberFactory', 'authService']; //scope hoeft niet meer geïnject worden
+    memberController.$inject = ['$location','memberFactory']; //scope hoeft niet meer geïnject worden
 
-    function memberController(memberFactory, $location)
+    function memberController($location,memberFactory)
     {
         var vm = this;
         vm.title = 'Wie ben ik?';
+        vm.members = memberFactory.members;
         vm.createMember = createMember;
-        vm.giveMembers = giveMembers;
         vm.selectMember = selectMember;
 
         function createMember()
@@ -25,12 +25,6 @@
             {
                 $location.path('/member');
             });
-        };
-
-        function giveMembers()
-        {
-            // members in object zodat deze op het scherm kunnen getoond worden.
-            vm.members = memberFactory.giveMembers();
         };
 
         function getMember(member)

@@ -21,7 +21,7 @@
             isLoggedIn : isLoggedIn,
             currentUser : currentUser,
             logOut : logOut,
-            getUserId : currentUserId
+            getUserId : getUserId
         };
 
         function saveToken(token)
@@ -55,7 +55,7 @@
             }
         };
 
-        function currentUserId()
+        function getUserId()
         {
             if(auth.isLoggedIn())
             {
@@ -67,7 +67,7 @@
 
         function logIn(user)
         {
-            return $http.post('188.166.173.147:3000/login', user).success(function(data)
+            return $http.post('http://188.166.173.147:3000/login', user).success(function(data)
             {
                 auth.saveToken(data.token);
             });
@@ -80,7 +80,7 @@
 
         function register(user)
         {
-            return $http.post('188.166.173.147:3000/register', user).success(function (data)
+            return $http.post('http://188.166.173.147:3000/register', user).success(function (data)
             {
                 auth.saveToken(data.token);
             });
