@@ -8,7 +8,11 @@ var MemberSchema = new mongoose.Schema(
         firstName: String,
         nickname: {type: String, unique: true},
         role: String, //Daughter Son Dad Mom
-        Authority: Boolean,
+        Authority:
+        {
+            type:Boolean,
+            default: false
+        },
         picture: String, //idk yet ok?
         dateOfBirth: Date
     }

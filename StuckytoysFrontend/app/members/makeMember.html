@@ -23,11 +23,9 @@
             </input>
         </div>
         <div class="form-group">
-            <input type="text"
-                   class="form-control"
-                   placeholder="foto tijdelijk"
-                   ng-model="vm.member.picture">
-            </input>
+            upload an image:
+            <input type="file" data-ng-file-select="vm.onFileSelect($files)" accept="image/png, image/jpeg">
+            <img data-ng-src="uploadedImage" data-ng-if="uploadedImage">
         </div>
         <div class="form-group">
             <input type="text"
@@ -37,7 +35,7 @@
             </input>
         </div>
         <div class="form-group">
-            <input type="checkbox"
+            Is deze persoon een beheerder voor dit account? Ja of Nee:<input type="checkbox"
                    class="form-control"
                    value="Autoritair iemand? bvb vader, leeraar,...."
                    ng-model="vm.member.authority">
