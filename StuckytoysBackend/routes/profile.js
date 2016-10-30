@@ -49,14 +49,13 @@ router.post("/users/:user/addMember",auth,function(req, res, next)
   member.saveDate(req.body.dateOfBirth);
   member.save(function(err){
     if(err){return next(err);}
-    /*var query = User.findById(req.payload._id);
-     query.exec(function(err, user){
-     if(err){return next(err);}
-     if(!user){return next(new Error('Kan de gekozen familie niet vinden.'));}*/
     req.user.members.push(member);
-    return next();
+      req.user.save(function(err, user)
+      {
+         if(err){return next(err);}
+         res.json(member);
+      });
   });
-  return res.json(member);
 });
 
 // Get a specific member to log in to main screen
@@ -67,10 +66,11 @@ router.get('/users/:user/getMember/:member',auth,function(req,res,next){
 // Get all family members (Select member screen)
 router.get("/users/:user/getAllMembers",auth,function(req,res,next)
 {
-  Member.find({user: req.payload._id},function(err,members){
-    if(err){return next(err);}
-    return res.json(members);
-  });
+    req.user.populate('members', function(err, user)
+    {
+       if(err) {return next(err);}
+       res.json(user.members);
+    });
 });
 
 // put methode voor een figure in te voegen bij een User?
