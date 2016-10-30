@@ -20,7 +20,8 @@
             getToken : getToken,
             isLoggedIn : isLoggedIn,
             currentUser : currentUser,
-            logOut : logOut
+            logOut : logOut,
+            getUserId : currentUserId
         };
 
         function saveToken(token)
@@ -51,6 +52,16 @@
                 var token = auth.getToken();
                 var payload = JSON.parse($window.atob(token.split('.')[1]));
                 return payload.username;
+            }
+        };
+
+        function currentUserId()
+        {
+            if(auth.isLoggedIn())
+            {
+                var token = auth.getToken();
+                var payload = JSON.parse($window.atob(token.split('.')[1]));
+                return payload._id;
             }
         };
 

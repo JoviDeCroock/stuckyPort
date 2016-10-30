@@ -8,7 +8,8 @@
 
     memberController.$inject = ['$location','memberFactory', 'authService']; //scope hoeft niet meer geïnject worden
 
-    function memberController(memberFactory, $location) {
+    function memberController(memberFactory, $location)
+    {
         var vm = this;
         vm.title = 'Wie ben ik?';
         vm.createMember = createMember;
@@ -17,7 +18,7 @@
 
         function createMember()
         {
-            memberFactory.createMember(vm.addMember).error(function(error)
+            memberFactory.createMember(vm.member).error(function(error)
             {
                 vm.error = error;
             }).succes(function(data)
@@ -26,16 +27,17 @@
             });
         };
 
-        function giveMembers(member)
+        function giveMembers()
         {
             // members in object zodat deze op het scherm kunnen getoond worden.
-            vm.members = memberFactory.giveMembers(member);
+            vm.members = memberFactory.giveMembers();
         };
 
-        function selectMember()
+        function getMember(member)
         {
-            memberFactory.selectMember();
+            memberFactory.getMember(member);
             // $location.path('main');
-        }
-    }
+        };
+
+    };
 })();

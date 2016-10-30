@@ -8,39 +8,43 @@
         .module('stuckyToys')
         .factory('memberFactory', memberFactory);
 
-    memberFactory.$inject = ['$http', '$window', 'auth'];
+    memberFactory.$inject = ['$http', 'authService'];
 
-    function memberFactory($http, $window) {
+    function memberFactory($http, authService) {
+        var token = authService.getToken();
         var memberFactory =
         {
             createMember : create,
             giveMembers : getMembers,
-            selectMember : chooseMember
+            getMember : getMember
         };
 
         function create(member)
         {
-            return $http.post('188.166.173.147:3000/profile/users/' + /* hier moet de user ID komen */ + '/addMember', member).success(function (data)
+            return $http.post('188.166.173.147:3000/profile/users/' + authService.getUserId() + '/addMember', member).success(function (data)
             {
+                headers: {Authorization: 'Bearer ' + token}
                 //succes --> toont leden
             });
         };
 
         function getMembers()
         {
-            return $http.post('188.166.173.147:3000/profile/getAllMembers').success(function(data)
+            return $http.get('188.166.173.147:3000/profile/users/' + authService.getUserId() + '/getAllMembers').success(function(data)
             {
+                headers: {Authorization: 'Bearer ' + token}
                 return data;
             });
         };
 
-        function chooseMember(member)
+        function getMember(member)
         {
-            return $http.post('188.166.173.147:3000/profile/users/' + /* hier moet de user ID komen */ + '/members/' + member._id).success(function (data)
+            return $http.get('188.166.173.147:3000/profile/users/' + authService.getUserId() + '/members/' + member._id).success(function (data)
             {
-                //succes --> verwijst door naar main
+                headers: {Authorization: 'Bearer ' + token}
             });
-        }
+        };
+
         return memberFactory;
     };
 })();
