@@ -3,7 +3,7 @@
  */
 var mongoose = require('mongoose');
 
-var storySchema = new mongoose.Schema(
+var StorySchema = new mongoose.Schema(
     {
         /*
             background:
@@ -13,4 +13,4 @@ var storySchema = new mongoose.Schema(
 
     });
 
-mongoose.model("Story", storySchema);
+mongoose.model('Story', StorySchema);

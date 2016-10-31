@@ -36,7 +36,7 @@ router.param('user',function(req,res,next,id){
 });
 
 // Add a member
-router.post("/users/:user/addMember",auth,function(req, res, next)
+router.post('/users/:user/addMember',auth,function(req, res, next)
 {
   if(!req.body.firstName || !req.body.nickname || !req.body.role || !req.body.picture || !req.body.dateOfBirth){
     return res.status(400).json({message: 'Vul alle velden in.'});
@@ -64,7 +64,7 @@ router.get('/users/:user/getMember/:member',auth,function(req,res,next){
 });
 
 // Get all family members (Select member screen)
-router.get("/users/:user/getAllMembers",auth,function(req,res,next)
+router.get('/users/:user/getAllMembers',auth,function(req,res,next)
 {
     req.user.populate('members', function(err, user)
     {

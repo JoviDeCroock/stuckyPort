@@ -27,4 +27,4 @@ MemberSchema.methods.saveDate = function(dateString){
   this.dateOfBirth = new Date(year,month,day);
 }
 
-mongoose.model("Member", MemberSchema);
+mongoose.model('Member', MemberSchema);
