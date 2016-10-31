@@ -16,7 +16,6 @@
       var vm = this;
       vm.register = register;
       vm.logIn = logIn;
-      vm.logOut = logOut;
 
       //functions
       function register(isValid)
@@ -46,17 +45,6 @@
             });
           }
           vm.loginSubmitted = true;
-      };
-
-      function logOut()
-      {
-          authService.logOut(vm.logOut).error(function(error)
-          {
-              vm.error = error;
-          }).success(function()
-          {
-              $location.path('/auth');
-          });
       };
 
   };
