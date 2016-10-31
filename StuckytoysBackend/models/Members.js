@@ -13,7 +13,8 @@ var MemberSchema = new mongoose.Schema(
             type:Boolean,
             default: false
         },
-        picture: String, //idk yet ok?
+        picture: String,
+        //picture: [{type: mongoose.Schema.Types.ObjectId, ref:'Picture'}]
         dateOfBirth: Date
     }
 );

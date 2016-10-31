@@ -24,8 +24,7 @@
         </div>
         <div class="form-group">
             upload an image:
-            <input type="file" data-ng-file-select="vm.onFileSelect($files)" accept="image/png, image/jpeg">
-            <img data-ng-src="uploadedImage" data-ng-if="uploadedImage">
+            <input type="file" data-file="vm.param.file"/>
         </div>
         <div class="form-group">
             <input type="text"

@@ -9,12 +9,11 @@
     .module('stuckyToys')
     .controller('authController', authController);
 
-  authController.$inject = ['$location','authService']; //scope hoeft niet meer geïnject worden
+  authController.$inject = ['$location','authService'];
 
   function authController($location, authService)
   {
       var vm = this;
-      //vm.test = 'Hehe controllerAs werkt';
       vm.register = register;
       vm.logIn = logIn;
       vm.logOut = logOut;
@@ -29,7 +28,6 @@
               console.log(error);
           }).success(function()
           {
-              // ga naar member feature
               $location.path('/member');
           });
         }
@@ -44,7 +42,6 @@
                 vm.error = error;
             }).success(function()
             {
-              // ga naar member feature
               $location.path('/member');
             });
           }
@@ -55,10 +52,10 @@
       {
           authService.logOut(vm.logOut).error(function(error)
           {
-              //optioneel als we errors hebben bvb mid tekening uitloggen
+              vm.error = error;
           }).success(function()
           {
-              //redirect to auth
+              $location.path('/auth');
           });
       };
 

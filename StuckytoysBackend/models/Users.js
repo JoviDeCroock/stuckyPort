@@ -12,7 +12,8 @@ var UserSchema = new mongoose.Schema(
             type: Boolean,
             default: false
         },
-        members: [{type: mongoose.Schema.Types.ObjectId, ref:'Member'}]
+        members: [{type: mongoose.Schema.Types.ObjectId, ref:'Member'}],
+        stories: [{type: mongoose.Schema.Types.ObjectId, ref:'Story'}]
     }
 );
 
