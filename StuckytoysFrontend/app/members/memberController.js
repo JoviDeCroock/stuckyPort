@@ -6,16 +6,16 @@
         .module('stuckyToys')
         .controller('memberController', memberController);
 
-    memberController.$inject = ['$location','memberFactory'];
+    memberController.$inject = ['$location','memberFactory','$base64'];
 
-    function memberController($location,memberFactory)
+    function memberController($location,memberFactory, $base64)
     {
         var vm = this;
         vm.title = 'Wie ben ik?';
         vm.members = memberFactory.members;
         vm.createMember = createMember;
         vm.selectMember = selectMember;
-        vm.param = {};
+        vm.imgData = 'data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/W29iamVjdCBGaWxlXQ==';
 
         /* !!!!!!!!!Sanity Test!!!!!! Check console before Panic*/
         vm.members.forEach(function(entry)
@@ -23,14 +23,13 @@
            console.log(entry);
         });
 
-        //https://github.com/ninjatronic/angular-base64
-        //http://jsfiddle.net/handtrix/YvQ5y/
-
         function createMember()
         {
-            console.log(vm.param);
-            console.log(vm.member);
-           /* memberFactory.createMember(vm.member).error(function(error)
+            vm.x = $base64.encode(vm.member.picture);
+            vm.z = $base64.decode(vm.x);
+            console.log(vm.x);
+            console.log(vm.z);
+           /*memberFactory.createMember(vm.member).error(function(error)
             {
                 vm.error = error;
             }).success(function(data)
