@@ -6,15 +6,16 @@
         .module('stuckyToys')
         .controller('memberController', memberController);
 
-    memberController.$inject = ['$location','memberFactory','$base64'];
+    memberController.$inject = ['$location','authService','memberFactory','$base64'];
 
-    function memberController($location,memberFactory, $base64)
+    function memberController($location,authService,memberFactory, $base64)
     {
         var vm = this;
         vm.title = 'Wie ben ik?';
         vm.members = memberFactory.members;
         vm.createMember = createMember;
         vm.selectMember = selectMember;
+        vm.logOut = logOut;
         vm.imgData = 'data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/W29iamVjdCBGaWxlXQ==';
 
         /* !!!!!!!!!Sanity Test!!!!!! Check console before Panic*/
@@ -43,7 +44,9 @@
             memberFactory.getMember(member);
             // $location.path('main'); + selected member meegeven?
         };
-
+        function logOut(){
+          authService.logOut();
+          $location.path('/auth');
+        };
     };
 })();
-

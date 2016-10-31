@@ -3,7 +3,7 @@ header img{
   margin: 5px;
 }
 .auth-content{
-  padding: 20px 5px 20px 5px; 
+  padding: 20px 5px 20px 5px;
 }
 .register{
   border-left: 1px solid grey;
@@ -35,6 +35,10 @@ header img{
 
 .tile:nth-of-type(2n) {
   margin-right: 0;
+}
+
+.logout{
+  float: right;
 }
 
 @media screen and (min-width: 50em) {

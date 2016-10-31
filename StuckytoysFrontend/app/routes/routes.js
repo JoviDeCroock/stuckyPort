@@ -16,14 +16,13 @@
             url: '/auth',
             templateUrl: 'app/authorization/authorization.html',
             controller: 'authController',
-            controllerAs : 'vm' //hierdoor moet scope nie geïnject worden
+            controllerAs : 'vm',
         }).when('/member',{
             url: '/member',
             templateUrl: 'app/members/memberOverview.html',
             controller: 'memberController',
             controllerAs : 'vm',
-            resolve:
-            {
+            resolve:{
                 postPromise: ['memberFactory', function(memberFactory)
                 {
                     return memberFactory.getMembers();
@@ -39,6 +38,6 @@
             templateUrl: 'app/main/main.html',
             controller: 'mainController',
             controllerAs : 'vm'
-        })*/.otherwise({redirectTo: '/auth'});
+        })*/.otherwise({redirectTo: '/member'});
     };
 })();
