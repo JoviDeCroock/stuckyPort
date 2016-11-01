@@ -50,7 +50,6 @@
           }
           vm.loginSubmitted = true;
       };
-
   };
 
 })();

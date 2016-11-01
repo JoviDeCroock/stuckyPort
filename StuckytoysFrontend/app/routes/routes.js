@@ -33,11 +33,11 @@
             templateUrl: 'app/members/makeMember.html',
             controller: 'memberController',
             controllerAs : 'vm'
-        })/*.when('/member', {
-            url: '/member/{id}',
-            templateUrl: 'app/main/main.html',
+        }).when('/main', {
+            url: '/main',
+            templateUrl: 'app/main/mainOverview.html',
             controller: 'mainController',
             controllerAs : 'vm'
-        })*/.otherwise({redirectTo: '/member'});
+        }).otherwise({redirectTo: '/member'});
     };
 })();

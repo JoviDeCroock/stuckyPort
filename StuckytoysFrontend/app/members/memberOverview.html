@@ -1,8 +1,7 @@
 <div class="container">
   <h1>{{vm.title}}</h1>
-    <div class ="tile" ng-repeat="member in vm.members">
-        <img src="../../resources/images/animals/{{member.picture}}" alt="{{member.picture}}"/>
-        <a href="/#/member/{{member._id}}">{{member.nickname}}</a>
+    <div class ="tile" ng-repeat="member in vm.members" ng-click="vm.selectMember(member)">
+        <img src="../../resources/images/animals/{{member.picture}}"/>
     </div>
     <div class="tile">
         <a href="/#/createMember">Add Member</a>
