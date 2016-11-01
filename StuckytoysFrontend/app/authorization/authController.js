@@ -20,7 +20,7 @@
       //functions
       function register(isValid)
       {
-        if(vm.registerUser.password !== vm.registerUser.confirm){
+        if(vm.registerUser && vm.registerUser.password !== vm.registerUser.confirm){
           vm.confirmError = 'Wachtwoord en Bevestig wachtwoord komen niet overeen';
           isValid = false;
         }
@@ -37,8 +37,7 @@
         vm.registerSubmitted = true;
       };
 
-      function logIn(isValid)
-      {
+      function logIn(isValid){
           if(isValid){
             authService.logIn(vm.loginUser).error(function(error)
             {
