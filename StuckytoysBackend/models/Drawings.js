@@ -5,10 +5,9 @@ var mongoose = require('mongoose');
 
 //Ingescande karakters etc
 var DrawingSchema = new mongoose.Schema({
-    picture:  String, //tijdelijk op String gezet (->bitmap omzetting?)
+    picture:  String,
     //picture: [{type: mongoose.Schema.Types.ObjectId, ref:'Picture'}]
-    Description: String,
-    user: {type: mongoose.Schema.Types.ObjectId, ref:'User'}
+    Description: String
 });
 
 mongoose.model('Drawing', DrawingSchema);

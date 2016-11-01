@@ -7,14 +7,13 @@ var MemberSchema = new mongoose.Schema(
     {
         firstName: String,
         nickname: {type: String},
-        role: String, //Daughter Son Dad Mom
+        role: String,
         Authority:
         {
             type:Boolean,
             default: false
         },
         picture: String,
-        //picture: [{type: mongoose.Schema.Types.ObjectId, ref:'Picture'}]
         dateOfBirth: Date
     }
 );
@@ -25,6 +24,6 @@ MemberSchema.methods.saveDate = function(dateString){
   var month = dateArray[1] -1;
   var year = dateArray[2];
   this.dateOfBirth = new Date(year,month,day);
-}
+};
 
 mongoose.model('Member', MemberSchema);

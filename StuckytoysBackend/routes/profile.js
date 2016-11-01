@@ -73,6 +73,10 @@ router.get('/users/:user/getAllMembers',auth,function(req,res,next)
     });
 });
 
-// put methode voor een figure in te voegen bij een User?
-
+// put methode voor een figure in te voegen bij een User QR android
+router.put('/users/:user/addFigure',auth, function(req,res,next)
+{
+    /*var d = new Drawing();
+    req.user.drawings.push(req.drawing);*/
+});
 module.exports = router;
