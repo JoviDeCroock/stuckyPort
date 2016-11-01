@@ -14,7 +14,7 @@
     function mainController(memberFactory)
     {
         var vm = this;
-        vm.member = memberFactory.getStorageMember();
-        vm.isAuthority = vm.member.authority;
+        vm.member = memberFactory.getLoggedMember();
+        console.log(vm.member);
     };
 })();

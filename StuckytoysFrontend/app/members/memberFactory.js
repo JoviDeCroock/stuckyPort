@@ -13,25 +13,20 @@
     function memberFactory($http,authService,url, $window) {
         var usedUrl = url.dev;
         var token = authService.getToken();
+        var loggedMember = {};
         var memberFactory =
         {
             members : [],
             createMember : createMember,
             getMembers : getMembers,
             getMember : getMember,
-            isAuthority : isAuthority,
-            getStorageMember : getStorageMember
+            getLoggedMember : getLoggedMember
         };
 
-        function saveMember(member)
+        function getLoggedMember()
         {
-            console.log(member);
-            $window.sessionStorage['StuckytoysMember'] = member;
-        };
-
-        function getStorageMember()
-        {
-            return  $window.sessionStorage['StuckytoysMember'];
+            console.log(loggedMember);
+            return loggedMember;
         };
 
         function createMember(member)
@@ -59,19 +54,9 @@
               headers: {Authorization: 'Bearer ' + token}
             }).success(function(data)
             {
-                saveMember(member);
+                loggedMember = member;
                 return data;
             });
-        };
-
-        function isAuthority(member)
-        {
-            if(member.authority)
-            {
-                return true;
-            }else{
-                return false;
-            }
         };
 
         return memberFactory;
