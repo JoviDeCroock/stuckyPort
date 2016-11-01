@@ -88,6 +88,11 @@
                class="error">
               Bevestig wachtwoord is verplicht
             </p>
+            <p
+              ng-show="vm.confirmError"
+              class="error">
+              {{vm.confirmError}}
+            </p>
         </div>
         <input type="submit" class="btn btn-primary" value="Registreer"/>
     </form>

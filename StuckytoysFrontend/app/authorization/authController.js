@@ -20,11 +20,11 @@
       //functions
       function register(isValid)
       {
+        if(vm.registerUser.password !== vm.registerUser.confirm){
+          vm.confirmError = 'Wachtwoord en Bevestig wachtwoord komen niet overeen';
+          isValid = false;
+        }
         if(isValid){
-          if(vm.registerUser.password !== vm.registerUser.confirm){
-            vm.confirmError = 'Wachtwoord en Bevestig wachtwoord komen niet overeen';
-            return;
-          }
           authService.register(vm.registerUser).error(function(error)
           {
               vm.registerError = error;
