@@ -21,9 +21,13 @@
       function register(isValid)
       {
         if(isValid){
+          if(vm.registerUser.password !== vm.registerUser.confirm){
+            vm.confirmError = 'Wachtwoord en Bevestig wachtwoord komen niet overeen';
+            return;
+          }
           authService.register(vm.registerUser).error(function(error)
           {
-              vm.error = error;
+              vm.registerError = error;
               console.log(error);
           }).success(function()
           {
@@ -38,7 +42,7 @@
           if(isValid){
             authService.logIn(vm.loginUser).error(function(error)
             {
-                vm.error = error;
+                vm.loginError = error;
             }).success(function()
             {
               $location.path('/member');

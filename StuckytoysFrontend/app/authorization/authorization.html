@@ -19,9 +19,14 @@
                    placeholder="Wachtwoord"
                    ng-model="vm.loginUser.password"
                    ng-required="true"></input>
-            <p ng-show="loginForm.loginPassword.$invalid && vm.loginSubmitted"
+            <p ng-show="loginForm.loginPassword.$invalid && vm.loginSubmitted && !vm.loginError"
                class="error">
               Aanmeldgegevens incorrect
+            </p>
+            <p
+              ng-show="vm.loginError"
+              class="error">
+              {{vm.loginError.message}}
             </p>
         </div>
         <input type="submit" class="btn btn-primary" value="Log in"/>
