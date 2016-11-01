@@ -29,7 +29,7 @@
         function chooseAvatar(avatar)
         {
             console.log(avatar);
-            chosenImage = /*"../../resources/images/animals/"*/avatar;
+            chosenImage = avatar;
         }
 
         function createMember()
@@ -49,11 +49,13 @@
         function selectMember(member)
         {
             memberFactory.getMember(member);
-            // $location.path('main'); + selected member meegeven?
+            $location.path('main');
         };
+
         function logOut(){
           authService.logOut();
           $location.path('/auth');
         };
     };
+
 })();

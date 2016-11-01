@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var MemberSchema = new mongoose.Schema(
     {
         firstName: String,
-        nickname: {type: String, unique: true},
+        nickname: {type: String},
         role: String, //Daughter Son Dad Mom
         Authority:
         {

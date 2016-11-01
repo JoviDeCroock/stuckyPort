@@ -49,7 +49,6 @@
           }
           vm.loginSubmitted = true;
       };
-
   };
 
 })();

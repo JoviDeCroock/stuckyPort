@@ -8,9 +8,9 @@
         .module('stuckyToys')
         .factory('memberFactory', memberFactory);
 
-    memberFactory.$inject = ['$http', 'authService','url'];
+    memberFactory.$inject = ['$http', 'authService','url','$window'];
 
-    function memberFactory($http,authService,url) {
+    function memberFactory($http,authService,url, $window) {
         var usedUrl = url.dev;
         var token = authService.getToken();
         var memberFactory =
@@ -18,7 +18,20 @@
             members : [],
             createMember : createMember,
             getMembers : getMembers,
-            getMember : getMember
+            getMember : getMember,
+            isAuthority : isAuthority,
+            getStorageMember : getStorageMember
+        };
+
+        function saveMember(member)
+        {
+            console.log(member);
+            $window.sessionStorage['StuckytoysMember'] = member;
+        };
+
+        function getStorageMember()
+        {
+            return  $window.sessionStorage['StuckytoysMember'];
         };
 
         function createMember(member)
@@ -42,12 +55,23 @@
 
         function getMember(member)
         {
-            return $http.get(usedUrl + 'profile/users/' + authService.getUserId() + '/members/' + member._id,{
+            return $http.get(usedUrl + 'profile/users/' + authService.getUserId() + '/getMember/' + member._id,{
               headers: {Authorization: 'Bearer ' + token}
             }).success(function(data)
             {
+                saveMember(member);
                 return data;
             });
+        };
+
+        function isAuthority(member)
+        {
+            if(member.authority)
+            {
+                return true;
+            }else{
+                return false;
+            }
         };
 
         return memberFactory;
