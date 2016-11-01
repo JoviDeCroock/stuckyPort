@@ -23,12 +23,10 @@
             </input>
         </div>
         <div class="form-group">
-            upload an image:
-            <input type="file"
-                   ngf-select ng-model="vm.member.picture"
-                   name="file"
-                   accept="image/*"
-                   ngf-max-size="2MB" required/>
+            <p>kies een avatar (klik op de tegel):</p>
+            <div class="tile" ng-repeat="avatar in vm.avatars">
+                <img src="../../resources/images/animals/{{avatar}}" alt="{{avatar}}" ng-click="vm.chooseAvatar(this.avatar)"/>
+            </div>
         </div>
         <div class="form-group">
             <input type="text"
@@ -47,6 +45,5 @@
             </input>
         </div>
         <input type="submit" class="btn btn-primary" value="Registreer"/>
-        <img src={{vm.imgData}} alt="hier komt het"/>
     </form>
 </div>

@@ -11,12 +11,14 @@
     function memberController($location,authService,memberFactory, $base64)
     {
         var vm = this;
+        vm.avatars = ["bever.png", "geit.png", "wasbeer.png"];
         vm.title = 'Wie ben ik?';
         vm.members = memberFactory.members;
         vm.createMember = createMember;
         vm.selectMember = selectMember;
         vm.logOut = logOut;
-        vm.imgData = 'data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/W29iamVjdCBGaWxlXQ==';
+        vm.chooseAvatar = chooseAvatar;
+        var chosenImage = "";
 
         /* !!!!!!!!!Sanity Test!!!!!! Check console before Panic*/
         vm.members.forEach(function(entry)
@@ -24,19 +26,24 @@
            console.log(entry);
         });
 
+        function chooseAvatar(avatar)
+        {
+            console.log(avatar);
+            chosenImage = /*"../../resources/images/animals/"*/avatar;
+        }
+
         function createMember()
         {
-            vm.x = $base64.encode(vm.member.picture);
-            vm.z = $base64.decode(vm.x);
-            console.log(vm.x);
-            console.log(vm.z);
-           /*memberFactory.createMember(vm.member).error(function(error)
+
+            vm.member.picture = chosenImage;
+            console.log(vm.member);
+           memberFactory.createMember(vm.member).error(function(error)
             {
                 vm.error = error;
             }).success(function(data)
             {
                 $location.path('/member');
-            });*/
+            });
         };
 
         function selectMember(member)
