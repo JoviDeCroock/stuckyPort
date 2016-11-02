@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 
 var PictureSchema = new mongoose.Schema(
     {
-        base64:  String, //tijdelijk op String gezet (->bitmap omzetting?)
+        base64:  String,
         Description: String
     });
 

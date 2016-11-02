@@ -5,12 +5,7 @@ var mongoose = require('mongoose');
 
 var StorySchema = new mongoose.Schema(
     {
-        /*
-            background:
-            characters:
-            Moeten chars gelinkt zijn met hun tekstballon?
-        * */
-
+        scenarios: [{type: mongoose.Schema.Types.ObjectId, ref:'Scenario'}]
     });
 
 mongoose.model('Story', StorySchema);
