@@ -7,15 +7,26 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 
-require('./models/Users');
+//Requiring models
+require('./models/BuildingBlocks');
+require('./models/Figures');
 require('./models/Members');
+require('./models/Pictures');
+require('./models/Scenes');
+require('./models/Stories');
+require('./models/Themes');
+require('./models/Users');
+
+//Creating database
 require('./config/passport');
 var config = require('./config/config');
 mongoose.Promise = global.Promise;
 mongoose.connect(config.database);
 
+//Requiring routes
 var auth = require('./routes/auth');
 var profile = require('./routes/profile');
+var figure = require('./routes/figure');
 
 var app = express();
 
@@ -24,6 +35,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+//Middleware for allowing cross-origin api calls
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');
@@ -37,6 +50,8 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+
+//Using middleware
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -44,8 +59,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 
+//Defining routes
 app.use('/', auth);
 app.use('/profile', profile);
+app.use('/figure', figure);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

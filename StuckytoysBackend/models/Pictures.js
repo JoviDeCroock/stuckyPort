@@ -3,10 +3,8 @@
  */
 var mongoose = require('mongoose');
 
-var PictureSchema = new mongoose.Schema(
-    {
-        base64:  String,
-        Description: String
-    });
+var PictureSchema = new mongoose.Schema({
+    base64:  String
+});
 
 mongoose.model('Picture', PictureSchema);

@@ -4,16 +4,18 @@ var salt = bcrypt.genSaltSync(10);
 
 var UserSchema = new mongoose.Schema(
     {
-        username: {type: String},
+        email: {type: String, unique: true},
+        username: {type: String, unique: true},
         password: String,
-        email: {type: String, unique:true},
         isHashed:
         {
             type: Boolean,
             default: false
         },
         members: [{type: mongoose.Schema.Types.ObjectId, ref:'Member'}],
-        stories: [{type: mongoose.Schema.Types.ObjectId, ref:'Story'}]
+        figures: [{type: mongoose.Schema.Types.ObjectId, ref:'Figure'}]
+        //Story hoort bij member, enkel ouder kan de verhalen van de kinderen zien
+        //stories: [{type: mongoose.Schema.Types.ObjectId, ref:'Story'}]
         //Drawings: [{type: mongoose.Schema.Types.ObjectId, ref:'Drawing'}]
     }
 );

@@ -34,7 +34,8 @@ router.post('/register',function(req,res,next){
    user.username = req.body.username;
    user.password = req.body.password;
    user.email = req.body.email;
-    user.members = [];
+   user.members = [];
+   user.figures = []; //Default figures voorzien voor een user via externe file
    user.save(function(err){
      if(err){return next(err);}
        return res.json({token: tokenGenerator(user)});

@@ -38,15 +38,23 @@ router.param('user',function(req,res,next,id){
 // Add a member
 router.post('/users/:user/addMember',auth,function(req, res, next)
 {
-  if(!req.body.firstName || !req.body.nickname || !req.body.role || !req.body.picture || !req.body.dateOfBirth){
+  if(!req.body.firstName
+     || !req.body.nickname
+     || !req.body.role
+     || !req.body.authority
+     || !req.body.dateOfBirth
+     || !req.body.figure
+      ){
     return res.status(400).json({message: 'Vul alle velden in.'});
   }
   var member = new Member();
   member.firstName = req.body.firstName;
   member.nickname = req.body.nickname;
   member.role = req.body.role;
-  member.picture = req.body.picture;
+  member.authority = req.body.authority;
   member.saveDate(req.body.dateOfBirth);
+  member.figure = req.body.figure;
+  member.stories = [];
   member.save(function(err){
     if(err){return next(err);}
     req.user.members.push(member);
@@ -74,9 +82,9 @@ router.get('/users/:user/getAllMembers',auth,function(req,res,next)
 });
 
 // put methode voor een figure in te voegen bij een User QR android
-router.put('/users/:user/addFigure',auth, function(req,res,next)
-{
+//router.put('/users/:user/addFigure',auth, function(req,res,next)
+//{
     /*var d = new Drawing();
     req.user.drawings.push(req.drawing);*/
-});
+//});
 module.exports = router;

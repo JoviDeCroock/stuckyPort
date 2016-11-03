@@ -3,18 +3,19 @@
  */
 var mongoose = require('mongoose');
 
-var MemberSchema = new mongoose.Schema(
-    {
+var MemberSchema = new mongoose.Schema({
         firstName: String,
-        nickname: {type: String},
+        nickname: String,
         role: String,
-        Authority:
+        authority:
         {
             type:Boolean,
             default: false
         },
-        picture: String,
-        dateOfBirth: Date
+        //picture: String,
+        dateOfBirth: Date,
+        figure: { type: mongoose.Schema.Types.ObjectId, ref: 'Figure'},
+        stories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Story' }]
     }
 );
 
