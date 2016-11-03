@@ -13,4 +13,8 @@
     <string name="password_repeat">Herhaal wachtwoord</string>
     <string name="register">Registreren</string>
     <string name="date_of_birth">Geboortedatum</string>
+
+    <!-- selectmember -->
+    <string name="select_member">Selecteer een familielid</string>
+    <string name="add_member">Nieuw familielid toevoegen</string>
 </resources>
