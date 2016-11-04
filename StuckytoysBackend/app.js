@@ -22,6 +22,8 @@ require('./config/passport');
 var config = require('./config/config');
 mongoose.Promise = global.Promise;
 mongoose.connect(config.database);
+//initializeDatabase 
+require('./config/initializeDatabase');
 
 //Requiring routes
 var auth = require('./routes/auth');
