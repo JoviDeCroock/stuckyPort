@@ -83,14 +83,13 @@ router.get('/users/:user/getMember/:member',auth,function(req,res,next){
 router.get('/users/:user/getAllMembers',auth,function(req,res,next){
     req.user.populate('members', function(err, user){
        if(err) {return next(err);}
-       res.json(user.members);
+       member.figure.populate('picture', function(err,figure)
+       {
+           if(err) {return next(err);}
+           res.json(user.members);
+       });
+
     });
 });
 
-// put methode voor een figure in te voegen bij een User QR android
-//router.put('/users/:user/addFigure',auth, function(req,res,next)
-//{
-    /*var d = new Drawing();
-    req.user.drawings.push(req.drawing);*/
-//});
 module.exports = router;
