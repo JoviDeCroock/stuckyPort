@@ -38,12 +38,12 @@ public class SelectMemberActivity extends AppCompatActivity {
         dc = DomainController.getInstance();
 
         //TODO: Get from backend
-        //hardcoded!
+        //hardcoded! for testing when server is offline; creates some members
         List<Member> members = new ArrayList();
-        members.add(new Member("Test", "bever.png"));
-        members.add(new Member("teadae", "placerholderpic.png"));
-        members.add(new Member("dcddvq", "placerholderpic.png"));
-        members.add(new Member("qsf xvqgacbf", "geit.png"));
+        members.add(new Member("Bever", "bever.png"));
+        members.add(new Member("Wasbeer", "wasbeer.png"));
+        members.add(new Member("Nog een wasbeer", "wasbeer.png"));
+        members.add(new Member("Geit", "geit.png"));
 
         // getting the add_member string from resources here because getResources() doesn't work if not inside an activity
         String plusText = getResources().getString(R.string.add_member);
@@ -51,7 +51,7 @@ public class SelectMemberActivity extends AppCompatActivity {
 
         gridView.setAdapter(mAdapter);
 
-        fillMembers();
+        //fillMembers();
 
     }
 

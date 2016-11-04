@@ -14,11 +14,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import projecten3.stuckytoys.domain.DomainController;
+import projecten3.stuckytoys.domain.Member;
 import projecten3.stuckytoys.domain.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.btnLogin)
     public void login(View view) {
+
+        //for testing when server is offline; creates a user to work with
+        //serverOffline();
 
         btnLogin.setClickable(false);
 
@@ -107,5 +112,17 @@ public class MainActivity extends AppCompatActivity {
     public void register() {
         Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
         startActivity(intent);
+    }
+
+    //for testing while server is offline
+    private void serverOffline() {
+        dc.setUser(new User("5817854b1454c41a82e6c778", "swifties", "swifties", "swifty",
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ODE3ODU0YjE0NTRjNDFhODJlNmM3NzgiLCJleHAiOjE0ODMxOTc2NjYsImlhdCI6MTQ3ODAxMzY2Nn0.iDs223_K8SrtQlDHos5k1r8uRh8Pzq4-axjvZRPID4o",
+                new ArrayList<Member>()));
+            Intent intent = new Intent(MainActivity.this, SelectMemberActivity.class);
+
+            startActivity(intent);
+
+            finish();
     }
 }

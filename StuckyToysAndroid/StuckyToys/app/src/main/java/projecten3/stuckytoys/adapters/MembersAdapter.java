@@ -65,8 +65,8 @@ public class MembersAdapter extends BaseAdapter {
         name = (TextView) v.getTag(R.id.txtMemberName);
         final Member member = getItem(i);
 
-        //interesting; haven't managed to find a better way to get a resource id (ex "R.drawable.bever" from a string)
-        //view ResourceHelper class for more info
+        //interestingly i haven't managed to find a better way to get a resource id (ex "R.drawable.bever") from a string
+        //so i'm using a helper class for this; view ResourceHelper class for more info
         picture.setImageResource(ResourceHelper.getResId(member.getPicture(), R.drawable.class));
         name.setText(member.getNickname());
 
