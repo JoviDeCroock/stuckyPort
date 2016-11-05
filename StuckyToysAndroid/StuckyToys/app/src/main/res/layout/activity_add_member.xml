@@ -21,13 +21,14 @@
             <TableRow
                 android:layout_marginBottom="10dp">
                 <TextView
-                    android:id="@+id/txtEmail"
+                    android:id="@+id/txtFirstName"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/email"/>
+                    android:text="@string/first_name"/>
+
                 <EditText
-                    android:id="@+id/editEmail"
+                    android:id="@+id/editFirstName"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -39,54 +40,14 @@
             <TableRow
                 android:layout_marginBottom="10dp">
                 <TextView
-                    android:id="@+id/txtPassword"
+                    android:id="@+id/txtNickname"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/password"/>
+                    android:text="@string/last_name"/>
 
                 <EditText
-                    android:id="@+id/editPassword"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:backgroundTint="@android:color/holo_blue_light"
-                    android:textCursorDrawable="@null"
-                    android:inputType="textPassword" />
-            </TableRow>
-
-            <TableRow
-                android:layout_marginBottom="10dp">
-                <TextView
-                    android:id="@+id/txtPasswordRepeat"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/password_repeat"/>
-
-                <EditText
-                    android:id="@+id/editPasswordRepeat"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:backgroundTint="@android:color/holo_blue_light"
-                    android:textCursorDrawable="@null"
-                    android:inputType="textPassword"/>
-            </TableRow>
-
-            <TableRow
-                android:layout_marginBottom="10dp">
-                <TextView
-                    android:id="@+id/txtUsername"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/username"/>
-
-                <EditText
-                    android:id="@+id/editUsername"
+                    android:id="@+id/editNickname"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -94,6 +55,34 @@
                     android:backgroundTint="@android:color/holo_blue_light"
                     android:textCursorDrawable="@null" />
             </TableRow>
+
+            <TableRow
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:id="@+id/txtGeboortedatum"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date_of_birth"/>
+                <EditText
+                    android:id="@+id/editDateOfBirth"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    android:backgroundTint="@android:color/holo_blue_light"/>
+            </TableRow>
+
+            <GridView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/gridImages"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:verticalSpacing="20dp"
+                android:horizontalSpacing="20dp"
+                android:numColumns="3"
+                android:stretchMode="columnWidth"
+                android:gravity="center" />
 
             <TextView
                 android:id="@+id/txtError"
@@ -105,11 +94,11 @@
                 android:textSize="20dip" />
 
             <Button
-                android:id="@+id/btnRegister"
+                android:id="@+id/btnAddMember"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/register"/>
+                android:text="@string/confirm"/>
 
         </TableLayout>
     </LinearLayout>

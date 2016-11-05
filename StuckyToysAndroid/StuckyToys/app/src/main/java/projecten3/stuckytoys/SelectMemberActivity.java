@@ -1,6 +1,9 @@
 package projecten3.stuckytoys;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,8 +40,8 @@ public class SelectMemberActivity extends AppCompatActivity {
 
         dc = DomainController.getInstance();
 
-        //TODO: Get from backend
         //hardcoded! for testing when server is offline; creates some members
+        /*
         List<Member> members = new ArrayList();
         members.add(new Member("Bever", "bever.png"));
         members.add(new Member("Wasbeer", "wasbeer.png"));
@@ -50,8 +53,10 @@ public class SelectMemberActivity extends AppCompatActivity {
         mAdapter = new MembersAdapter(this, members, plusText);
 
         gridView.setAdapter(mAdapter);
+        */
 
-        //fillMembers();
+        //during testing: only when server online
+        fillMembers();
 
     }
 
@@ -60,6 +65,9 @@ public class SelectMemberActivity extends AppCompatActivity {
     public void itemClicked(Member member) {
         if (member.getPicture().equals("plus_sign.png")) {
             Toast.makeText(this, "plus sign clicked", Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(SelectMemberActivity.this, AddMemberActivity.class);
+            startActivity(intent);
         } else {
             Toast.makeText(this, "Member clicked: " +
                     member.getFirstName() + "\n" +
@@ -100,5 +108,25 @@ public class SelectMemberActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.logout)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dc.setUser(null);
+                        Intent i = new Intent(SelectMemberActivity.this, MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder.show();
     }
 }

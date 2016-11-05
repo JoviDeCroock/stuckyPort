@@ -24,22 +24,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RegisterActivity extends Activity implements OnClickListener{
-
-    @BindView(R.id.editDateOfBirth)
-    EditText editDateOfBirth;
+public class RegisterActivity extends Activity {
 
     @BindView(R.id.editEmail)
     EditText editEmail;
-
-    @BindView(R.id.editUsername)
-    EditText editUsername;
-
-    @BindView(R.id.editFirstName)
-    EditText editFirstName;
-
-    @BindView(R.id.editLastName)
-    EditText editLastName;
 
     @BindView(R.id.editPassword)
     EditText editPassword;
@@ -50,40 +38,14 @@ public class RegisterActivity extends Activity implements OnClickListener{
     @BindView(R.id.txtError)
     TextView txtError;
 
-    private DatePickerDialog dateOfBirthDialog;
-
-    private SimpleDateFormat dateFormatter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
         ButterKnife.bind(this);
-
-        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.UK);
-
-        setDateTimeField();
     }
 
-    private void setDateTimeField()
-    {
-        //editDateOfBirth = (EditText)findViewById(R.id.editDateOfBirth);
-        editDateOfBirth.setInputType(InputType.TYPE_NULL);
-        editDateOfBirth.setOnClickListener(this);
-
-        Calendar newCalendar = Calendar.getInstance();
-        dateOfBirthDialog = new DatePickerDialog(this, new OnDateSetListener() {
-
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                editDateOfBirth.setText(dateFormatter.format(newDate.getTime()));
-            }
-
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-
-    }
 /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -94,13 +56,6 @@ public class RegisterActivity extends Activity implements OnClickListener{
     }*/
 
 
-    @Override
-    public void onClick(View view)
-    {
-        if(view == editDateOfBirth)
-            dateOfBirthDialog.show();
-    }
-
     @OnClick(R.id.btnRegister)
     public void register()
     {
@@ -109,10 +64,6 @@ public class RegisterActivity extends Activity implements OnClickListener{
 
         //alles ingevuld?
         if( editEmail.getText().toString().isEmpty() ||
-                editUsername.getText().toString().isEmpty() ||
-                editFirstName.getText().toString().isEmpty()||
-                editLastName.getText().toString().isEmpty() ||
-                editDateOfBirth.getText().toString().isEmpty() ||
                 editPassword.getText().toString().isEmpty() ||
                 editPasswordRepeat.getText().toString().isEmpty() )
         {

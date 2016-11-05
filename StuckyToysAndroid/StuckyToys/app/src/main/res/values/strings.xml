@@ -5,6 +5,7 @@
     <string name="password">Wachtwoord</string>
     <string name="login">Aanmelden</string>
     <string name="not_registered"><u>Nog geen account?</u></string>
+    <string name="exit">Wens je af te sluiten?</string>
 
     <!-- register -->
     <string name="username">Gebruikersnaam</string>
@@ -17,4 +18,10 @@
     <!-- selectmember -->
     <string name="select_member">Selecteer een familielid</string>
     <string name="add_member">Nieuw familielid toevoegen</string>
+    <string name="confirm">Bevestigen</string>
+    <string name="logout">Wens je uit te loggen?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+
+
 </resources>

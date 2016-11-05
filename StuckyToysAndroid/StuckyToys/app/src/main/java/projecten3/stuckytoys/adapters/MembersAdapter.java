@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import projecten3.stuckytoys.AddMemberActivity;
 import projecten3.stuckytoys.R;
 import projecten3.stuckytoys.SelectMemberActivity;
 import projecten3.stuckytoys.custom.ResourceHelper;
@@ -21,6 +22,12 @@ public class MembersAdapter extends BaseAdapter {
     private List<Member> members = new ArrayList<Member>();
     private final LayoutInflater mInflater;
     private Context context;
+
+    public MembersAdapter(Context context, List<Member> members) {
+        this.context = context;
+        mInflater = LayoutInflater.from(context);
+        this.members = members;
+    }
 
     //plusText = add_member string from resources; passed in SelectMemberActivity because getResources() doesn't work if not inside an activity
     public MembersAdapter(Context context, List<Member> members, String plusText) {
@@ -55,20 +62,24 @@ public class MembersAdapter extends BaseAdapter {
         ImageView picture;
         TextView name;
 
+        final Member member = getItem(i);
+
         if (v == null) {
             v = mInflater.inflate(R.layout.grid_member, viewGroup, false);
             v.setTag(R.id.memberImage, v.findViewById(R.id.memberImage));
-            v.setTag(R.id.txtMemberName, v.findViewById(R.id.txtMemberName));
+            if (!(context instanceof AddMemberActivity)) {
+                v.setTag(R.id.txtMemberName, v.findViewById(R.id.txtMemberName));
+                name = (TextView) v.getTag(R.id.txtMemberName);
+                name.setText(member.getNickname());
+            }
         }
 
         picture = (ImageView) v.getTag(R.id.memberImage);
-        name = (TextView) v.getTag(R.id.txtMemberName);
-        final Member member = getItem(i);
 
         //interestingly i haven't managed to find a better way to get a resource id (ex "R.drawable.bever") from a string
         //so i'm using a helper class for this; view ResourceHelper class for more info
         picture.setImageResource(ResourceHelper.getResId(member.getPicture(), R.drawable.class));
-        name.setText(member.getNickname());
+        picture.setBackgroundResource(ResourceHelper.getResId("imageview_border", R.drawable.class));
 
         //when view(= text+image) is clicked, alert SelectMemberActivity
         v.setOnClickListener(new View.OnClickListener() {
