@@ -83,12 +83,13 @@ router.get('/users/:user/getMember/:member',auth,function(req,res,next){
 router.get('/users/:user/getAllMembers',auth,function(req,res,next){
     req.user.populate('members', function(err, user){
        if(err) {return next(err);}
-       member.figure.populate('picture', function(err,figure)
-       {
-           if(err) {return next(err);}
-           res.json(user.members);
-       });
-
+        member.populate('figure', function(err, member){
+          if(err){ return next(err); }
+          member.figure.populate('picture', function(err,figure){
+            if(err){ return next(err); }
+                res.json(user.members);
+            });
+          });
     });
 });
 
