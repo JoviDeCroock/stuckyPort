@@ -35,6 +35,11 @@
     <string name="authority">Ben je een beheerder voor deze account (bvb ouder, leerkracht)?</string>
     <string name="didnt_select_image">Gelieve een afbeelding te kiezen.</string>
 
+    <!-- homepage -->
+    <string name="my_stories">Mijn verhalen</string>
+    <string name="agenda">Agenda</string>
+    <string name="my_pictures">Mijn figuren</string>
+    <string name="messages">Boodschappen</string>
 
 
 </resources>
