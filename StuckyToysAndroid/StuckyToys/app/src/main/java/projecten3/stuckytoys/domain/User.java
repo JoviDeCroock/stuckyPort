@@ -33,7 +33,6 @@ public class User {
         this.token = token;
     }
 
-
     public String getId() {
         return _id;
     }

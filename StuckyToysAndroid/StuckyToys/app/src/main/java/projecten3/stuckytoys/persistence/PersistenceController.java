@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 import projecten3.stuckytoys.domain.Member;
+import projecten3.stuckytoys.domain.RetrofitMember;
 import projecten3.stuckytoys.domain.User;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -25,9 +26,11 @@ public class PersistenceController {
                 .build();
 
         dOService = retrofit.create(DOService.class);
+
+
     }
 
-    //can't remember why throws IOException is here...
+    //can't remember why "throws IOException" is here...
     public Call<User> login(User user) throws IOException {
         Call<User> call = dOService.login(user);
 
@@ -42,6 +45,12 @@ public class PersistenceController {
 
     public Call<User> register(User user) {
         Call<User> call = dOService.register(user);
+
+        return call;
+    }
+
+    public Call<Member> addMember(String userId, String token, RetrofitMember member) {
+        Call<Member> call = dOService.addMember(userId, token, member);
 
         return call;
     }

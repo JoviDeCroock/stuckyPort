@@ -1,6 +1,9 @@
 package projecten3.stuckytoys.domain;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import projecten3.stuckytoys.persistence.PersistenceController;
@@ -36,6 +39,12 @@ public class DomainController {
 
     public Call<List<Member>> getAllMembers() {
         return pc.getAllMembers(user.getId(), "Bearer " + user.getToken());
+    }
+
+    public Call<Member> addMember(String firstName, String nickname, String role, boolean authority, String dateOfBirth, String picture) {
+        RetrofitMember member = new RetrofitMember(firstName, nickname, role, authority, dateOfBirth, picture);
+
+        return pc.addMember(user.getId(), "Bearer " + user.getToken(), member);
     }
 
     public User getUser() {

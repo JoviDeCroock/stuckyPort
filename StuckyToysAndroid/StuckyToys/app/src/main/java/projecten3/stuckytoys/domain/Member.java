@@ -28,13 +28,12 @@ public class Member {
     }
 
     public Member(String id, String firstName, String nickname, String role, boolean authority, Date dateOfBirth, String picture, List<Story> stories) {
+        this(nickname, picture);
         this._id = id;
         this.firstName = firstName;
-        this.nickname = nickname;
         this.role = role;
         this.authority = authority;
         this.dateOfBirth = dateOfBirth;
-        this.picture = picture;
         this.stories = stories;
     }
 
