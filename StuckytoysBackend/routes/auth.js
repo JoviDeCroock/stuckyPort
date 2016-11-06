@@ -71,10 +71,10 @@ router.get('/:user/getFigures',function(req,res,next)
         if(err){ return next(err); }
           user.figures.forEach(function(figure){
             figure.populate('picture',function(err, figure){
-              res.json(user.figures); //Todo uit forEach?
+
             });
           });
-        });
+        res.json(user.figures); //Todo uit forEach?
     });
 });
 

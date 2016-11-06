@@ -92,10 +92,11 @@ router.get('/users/:user/getAllMembers',auth,function(req,res,next){
             if(err){ return next(err); }
             theMember.figure.populate('picture', function(err, figure){
               if(err){ return next(err); }
-              res.json(user.members);
+
             });
           });
         });
+        res.json(user.members);
     });
 });
 

@@ -28,7 +28,7 @@
 
         function loggedInUser()
         {
-            return $http.get(usedUrl + 'getUser/'+ getUserId()).success(function(data)
+            return $http.get(usedUrl + getUserId() + '/getFigures').success(function(data)
             {
                 console.log(data);
                 return data;
