@@ -22,8 +22,18 @@
             isLoggedIn : isLoggedIn,
             currentUser : currentUser,
             logOut : logOut,
-            getUserId : getUserId
+            getUserId : getUserId,
+            loggedInUser :  loggedInUser
         };
+
+        function loggedInUser()
+        {
+            return $http.get(usedUrl + 'getUser/'+ getUserId()).success(function(data)
+            {
+                console.log(data);
+                return data;
+            });
+        }
 
         function saveToken(token)
         {

@@ -26,6 +26,16 @@ router.get('/users',function(req,res,next){
   });
 });
 
+router.param('user',function(req,res,next,id){
+    var query = User.findById(id);
+    query.exec(function(err,user){
+        if(err){return next(err);}
+        if(!user){return next(new Error('Kan de gekozen familie niet vinden.'));}
+        req.user = user;
+        return next();
+    });
+});
+
 // API methods
 router.post('/register',function(req,res,next){
    if(!req.body.username || !req.body.password || !req.body.email){
@@ -53,6 +63,17 @@ router.post('/register',function(req,res,next){
         });
     });
 
+});
+
+router.get('/getUser/:user',function(req,res,next)
+{
+    req.user.populate('figures',function(err, figure){
+        if(err){ return next(err); }
+        user.figure.populate('picture',function(err,figure){
+            if(err){ return next(err); }
+            res.json(member);
+        });
+    });
 });
 
 router.post('/login',function(req,res,next){

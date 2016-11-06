@@ -14,6 +14,8 @@
         vm.avatars = ["bever.png", "geit.png", "wasbeer.png"];
         vm.title = 'Wie ben ik?';
         vm.members = memberFactory.members;
+        vm.user = authService.loggedInUser();
+        console.log(vm.user);
         vm.createMember = createMember;
         vm.selectMember = selectMember;
         vm.logOut = logOut;
@@ -34,7 +36,6 @@
 
         function createMember()
         {
-
             vm.member.picture = chosenImage;
             console.log(vm.member);
            memberFactory.createMember(vm.member).error(function(error)
