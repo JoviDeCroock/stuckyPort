@@ -67,15 +67,20 @@ router.post('/register',function(req,res,next){
 
 router.get('/:user/getFigures',function(req,res,next)
 {
-    req.user.populate('figures',function(err, user){
-        if(err){ return next(err); }
-          user.figures.forEach(function(figure){
-            figure.populate('picture',function(err, figure){
-
+    req.user
+        .populate('figures', function(err,figures)
+        {
+            if(err) {return next(err);}
+            User.populate(figures, {
+                path: 'figures.picture',
+                model: 'Picture'
+            },
+            function(err, user)
+            {
+                if(err){return next(err);}
+                res.json(user.figures);
             });
-          });
-        res.json(user.figures); //Todo uit forEach?
-    });
+        });
 });
 
 router.post('/login',function(req,res,next){
