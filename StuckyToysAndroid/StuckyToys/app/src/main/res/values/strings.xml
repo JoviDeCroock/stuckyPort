@@ -17,6 +17,7 @@
     <string name="fill_all_fields">Gelieve alle gegevens in te vullen.</string>
     <string name="invalid_email">E-mailadres is niet geldig</string>
     <string name="different_passwords">Wachtwoorden komen niet overeen.</string>
+    <string name="register_cancel">Registeren annuleren?</string>
 
     <!-- selectmember -->
     <string name="select_member">Selecteer een familielid</string>
