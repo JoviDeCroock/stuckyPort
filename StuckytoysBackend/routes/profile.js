@@ -81,6 +81,10 @@ router.get('/users/:user/getMember/:member',auth,function(req,res,next){
 
 // Get all family members (Select member screen)
 router.get('/users/:user/getAllMembers',auth,function(req,res,next){
+    if(req.user.members.length === 0)
+    {
+        return res.json(req.user.members);
+    }
     req.user.populate('members', function(err, user){
        if(err) { return next(err); }
         user.members.forEach(function(member){
