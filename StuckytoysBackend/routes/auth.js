@@ -65,13 +65,15 @@ router.post('/register',function(req,res,next){
 
 });
 
-router.get('/getUser/:user',function(req,res,next)
+router.get('/:user/getFigures',function(req,res,next)
 {
-    req.user.populate('figures',function(err, figure){
+    req.user.populate('figures',function(err, user){
         if(err){ return next(err); }
-        user.figure.populate('picture',function(err,figure){
-            if(err){ return next(err); }
-            res.json(member);
+          user.figures.forEach(function(figure){
+            figure.populate('picture',function(err, figure){
+              res.json(user.figures); //Todo uit forEach?
+            });
+          });
         });
     });
 });
