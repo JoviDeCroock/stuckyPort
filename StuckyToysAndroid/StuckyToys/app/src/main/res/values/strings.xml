@@ -10,18 +10,30 @@
     <!-- register -->
     <string name="username">Gebruikersnaam</string>
     <string name="first_name">Voornaam</string>
-    <string name="last_name">Achternaam</string>
+    <string name="nickname">Bijnaam</string>
     <string name="password_repeat">Herhaal wachtwoord</string>
     <string name="register">Registreren</string>
     <string name="date_of_birth">Geboortedatum</string>
+    <string name="fill_all_fields">Gelieve alle gegevens in te vullen.</string>
+    <string name="invalid_email">E-mailadres is niet geldig</string>
+    <string name="different_passwords">Wachtwoorden komen niet overeen.</string>
 
     <!-- selectmember -->
     <string name="select_member">Selecteer een familielid</string>
     <string name="add_member">Nieuw familielid toevoegen</string>
-    <string name="confirm">Bevestigen</string>
     <string name="logout">Wens je uit te loggen?</string>
     <string name="yes">Ja</string>
     <string name="no">Nee</string>
+
+    <!--addmember -->
+    <string name="confirm">Bevestigen</string>
+    <string name="add_member_cancel">Familielid aanmaken annuleren?</string>
+    <string name="select_picture">Welk dier past het best bij jou?</string>
+    <string name="role">Rol in het gezin</string>
+    <string name="role_hint"><font size="10">papa, mama, zoon, dochter,...</font></string>
+    <string name="authority">Ben je een beheerder voor deze account (bvb ouder, leerkracht)?</string>
+    <string name="didnt_select_image">Gelieve een afbeelding te kiezen.</string>
+
 
 
 </resources>

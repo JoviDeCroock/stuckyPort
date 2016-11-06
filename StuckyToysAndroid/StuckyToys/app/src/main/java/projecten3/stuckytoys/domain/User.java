@@ -20,6 +20,12 @@ public class User {
         username = email;
     }
 
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
     //TODO: username = email (will change!!)
     public User(String id, String email, String username, String password, String token, List<Member> members) {
         this(email, password);

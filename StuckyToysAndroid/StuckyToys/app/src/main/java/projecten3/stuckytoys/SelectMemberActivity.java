@@ -17,6 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import projecten3.stuckytoys.adapters.MembersAdapter;
+import projecten3.stuckytoys.custom.ServerOfflineHelper;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Member;
 import retrofit2.Call;
@@ -41,22 +42,24 @@ public class SelectMemberActivity extends AppCompatActivity {
         dc = DomainController.getInstance();
 
         //hardcoded! for testing when server is offline; creates some members
-        /*
-        List<Member> members = new ArrayList();
-        members.add(new Member("Bever", "bever.png"));
-        members.add(new Member("Wasbeer", "wasbeer.png"));
-        members.add(new Member("Nog een wasbeer", "wasbeer.png"));
-        members.add(new Member("Geit", "geit.png"));
+        if (ServerOfflineHelper.SERVEROFFLINE) {
+            List<Member> members = new ArrayList();
+            members.add(new Member("Bever", "bever.png"));
+            members.add(new Member("Wasbeer", "wasbeer.png"));
+            members.add(new Member("Nog een wasbeer", "wasbeer.png"));
+            members.add(new Member("Geit", "geit.png"));
 
-        // getting the add_member string from resources here because getResources() doesn't work if not inside an activity
-        String plusText = getResources().getString(R.string.add_member);
-        mAdapter = new MembersAdapter(this, members, plusText);
+            // getting the add_member string from resources here because getResources() doesn't work if not inside an activity
+            String plusText = getResources().getString(R.string.add_member);
+            mAdapter = new MembersAdapter(this, members, plusText);
 
-        gridView.setAdapter(mAdapter);
-        */
+            gridView.setAdapter(mAdapter);
+        }
 
-        //during testing: only when server online
-        fillMembers();
+        //once server is online 24/7 this is all we'll need & if-structure above can be deleted
+        else {
+            fillMembers();
+        }
 
     }
 
@@ -64,8 +67,6 @@ public class SelectMemberActivity extends AppCompatActivity {
     // redirects to homepage of clicked member OR to new member page if plus sign clicked
     public void itemClicked(Member member) {
         if (member.getPicture().equals("plus_sign.png")) {
-            Toast.makeText(this, "plus sign clicked", Toast.LENGTH_LONG).show();
-
             Intent intent = new Intent(SelectMemberActivity.this, AddMemberActivity.class);
             startActivity(intent);
         } else {

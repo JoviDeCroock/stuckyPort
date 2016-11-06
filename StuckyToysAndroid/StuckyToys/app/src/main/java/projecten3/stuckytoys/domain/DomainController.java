@@ -28,6 +28,12 @@ public class DomainController {
         return pc.login(user);
     }
 
+    public Call<User> register(String username, String email, String password) {
+        user = new User(username, email, password);
+
+        return pc.register(user);
+    }
+
     public Call<List<Member>> getAllMembers() {
         return pc.getAllMembers(user.getId(), "Bearer " + user.getToken());
     }
@@ -39,9 +45,8 @@ public class DomainController {
         this.user = user;
     }
 
-    public void updateUser(String id, String password, String token) {
+    public void updateUser(String id, String token) {
         user.setId(id);
-        user.setPassword(password);
         user.setToken(token);
     }
 }

@@ -27,6 +27,7 @@ public class PersistenceController {
         dOService = retrofit.create(DOService.class);
     }
 
+    //can't remember why throws IOException is here...
     public Call<User> login(User user) throws IOException {
         Call<User> call = dOService.login(user);
 
@@ -35,6 +36,12 @@ public class PersistenceController {
 
     public Call<List<Member>> getAllMembers(String userId, String token) {
         Call<List<Member>> call = dOService.getAllMembers(userId, token);
+
+        return call;
+    }
+
+    public Call<User> register(User user) {
+        Call<User> call = dOService.register(user);
 
         return call;
     }

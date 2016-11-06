@@ -2,6 +2,8 @@ package projecten3.stuckytoys.custom;
 
 import java.lang.reflect.Field;
 
+import projecten3.stuckytoys.R;
+
 public abstract class ResourceHelper {
 
     //Class<?> c -> the sort of resource you want to find; resName -> name of the resource you want

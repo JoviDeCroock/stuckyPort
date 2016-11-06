@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import projecten3.stuckytoys.custom.ResourceHelper;
+import projecten3.stuckytoys.custom.ServerOfflineHelper;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Member;
 import projecten3.stuckytoys.domain.User;
@@ -53,60 +55,73 @@ public class MainActivity extends AppCompatActivity {
     public void login(View view) {
 
         //for testing when server is offline; creates a user to work with
-        //serverOffline();
+        if (ServerOfflineHelper.SERVEROFFLINE)
+            serverOffline();
 
-        btnLogin.setClickable(false);
+        //once server is online 24/7 this is all we'll need & if-structure above can be deleted
+        else {
 
-        final String email = editEmail.getText().toString();
-        final String password = editPassword.getText().toString();
+            txtError.setText("");
+            btnLogin.setClickable(false);
 
-        try {
-            Call<User> call = dc.login(email, password);
+            final String email = editEmail.getText().toString();
+            final String password = editPassword.getText().toString();
 
-            call.enqueue(new Callback<User>() {
+            //alles ingevuld?
+            if( email.isEmpty() || password.isEmpty()) {
+                txtError.setText(R.string.fill_all_fields);
+                return;
+            }
 
-                //Call to API using Retrofit; User as model; Body requires username & password (for now, should be email);
-                //API returns a token; token is used to authenticate. also decoded token = id + exp + iat
-                //example token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ODE3ODU0YjE0NTRjNDFhODJlNmM3NzgiLCJleHAiOjE0ODMxOTc2NjYsImlhdCI6MTQ3ODAxMzY2Nn0.iDs223_K8SrtQlDHos5k1r8uRh8Pzq4-axjvZRPID4o
-                //decoded example token: {"_id":"5817854b1454c41a82e6c778","exp":1483197666,"iat":1478013666}
-                @Override
-                public void onResponse(Call<User> call, Response<User> response) {
-                    if (response.isSuccessful()) {
-                        String token = response.body().getToken();
-                        String tokenMiddle = token.split("\\.")[1];
-                        String decoded = new String(Base64.decode(tokenMiddle, Base64.DEFAULT));
-                        try {
-                            JSONObject jObj = new JSONObject(decoded);
-                            //"exp" & "iat" also in this jsonobject
-                            String id = jObj.getString("_id");
-                            dc.updateUser(id, email, token);
+            try {
+                Call<User> call = dc.login(email, password);
 
-                            Log.d("login", "id: " + id + " token: " + token);
+                call.enqueue(new Callback<User>() {
 
-                            Intent intent = new Intent(MainActivity.this, SelectMemberActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } catch (JSONException ex) {
-                            ex.printStackTrace();
+                    //Call to API using Retrofit; User as model; Body requires username & password (for now, should be email);
+                    //API returns a token; token is used to authenticate. also decoded token = id + exp + iat
+                    //example token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ODE3ODU0YjE0NTRjNDFhODJlNmM3NzgiLCJleHAiOjE0ODMxOTc2NjYsImlhdCI6MTQ3ODAxMzY2Nn0.iDs223_K8SrtQlDHos5k1r8uRh8Pzq4-axjvZRPID4o
+                    //decoded example token: {"_id":"5817854b1454c41a82e6c778","exp":1483197666,"iat":1478013666}
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if (response.isSuccessful()) {
+                            String token = response.body().getToken();
+                            String tokenMiddle = token.split("\\.")[1];
+                            String decoded = new String(Base64.decode(tokenMiddle, Base64.DEFAULT));
+                            try {
+                                JSONObject jObj = new JSONObject(decoded);
+                                //"exp" & "iat" also in this jsonobject
+                                String id = jObj.getString("_id");
+                                dc.updateUser(id, token);
+
+                                Log.d("login", "id: " + id + " token: " + token);
+
+                                Intent intent = new Intent(MainActivity.this, SelectMemberActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } catch (JSONException ex) {
+                                ex.printStackTrace();
+                            }
+                        } else {
+                            txtError.setText(response.message());
+                            Log.e("login", response.code() + " " + response.message());
                         }
-                    } else {
-                        txtError.setText(response.message());
-                        Log.e("login", response.code() + " " + response.message());
+                        btnLogin.setClickable(true);
                     }
-                    btnLogin.setClickable(true);
-                }
 
-                @Override
-                public void onFailure(Call<User> call, Throwable t) {
-                    txtError.setText("a");
-                    t.printStackTrace();
-                    btnLogin.setClickable(true);
-                }
-            });
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        //TODO: wat hier zetten?
+                        txtError.setText("Fout");
+                        t.printStackTrace();
+                        btnLogin.setClickable(true);
+                    }
+                });
 
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            btnLogin.setClickable(true);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                btnLogin.setClickable(true);
+            }
         }
     }
 
@@ -124,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, SelectMemberActivity.class);
 
             startActivity(intent);
-
             finish();
     }
 

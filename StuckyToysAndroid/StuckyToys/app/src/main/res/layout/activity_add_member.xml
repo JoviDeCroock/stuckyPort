@@ -16,7 +16,9 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
             <TableRow
                 android:layout_marginBottom="10dp">
@@ -44,7 +46,7 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/last_name"/>
+                    android:text="@string/nickname"/>
 
                 <EditText
                     android:id="@+id/editNickname"
@@ -53,6 +55,28 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:backgroundTint="@android:color/holo_blue_light"
+                    android:imeOptions="actionNext"
+                    android:textCursorDrawable="@null" />
+            </TableRow>
+
+            <TableRow
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:id="@+id/txtRole"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/role"/>
+
+                <EditText
+                    android:id="@+id/editRole"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:backgroundTint="@android:color/holo_blue_light"
+                    android:hint="@string/role_hint"
+                    android:imeOptions="actionNext"
                     android:textCursorDrawable="@null" />
             </TableRow>
 
@@ -64,14 +88,32 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/date_of_birth"/>
-                <EditText
+                <TextView
                     android:id="@+id/editDateOfBirth"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:editable="false"
-                    android:backgroundTint="@android:color/holo_blue_light"/>
+                    android:singleLine="true"
+                    android:textAppearance="?android:attr/textAppearanceMediumInverse"
+                    android:textColor="?attr/editTextColor"
+                    android:background="?attr/editTextBackground"
+                    android:backgroundTint="@android:color/holo_blue_light"
+                    android:freezesText="true"/>
             </TableRow>
+
+            <CheckBox android:id="@+id/checkboxAuthority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/authority" />
+
+            <TextView
+                android:id="@+id/txtAfbeelding"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dip"
+                android:text="@string/select_picture"/>
 
             <GridView
                 xmlns:android="http://schemas.android.com/apk/res/android"

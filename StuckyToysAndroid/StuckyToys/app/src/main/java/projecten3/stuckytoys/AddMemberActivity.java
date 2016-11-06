@@ -2,19 +2,24 @@ package projecten3.stuckytoys;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,10 +34,10 @@ import projecten3.stuckytoys.adapters.MembersAdapter;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Member;
 
-public class AddMemberActivity extends AppCompatActivity implements OnClickListener {
+public class AddMemberActivity extends AppCompatActivity {
 
     @BindView(R.id.editDateOfBirth)
-    EditText editDateOfBirth;
+    TextView editDateOfBirth;
 
     @BindView(R.id.editFirstName)
     EditText editFirstName;
@@ -51,6 +56,7 @@ public class AddMemberActivity extends AppCompatActivity implements OnClickListe
 
     private DomainController dc;
     private MembersAdapter mAdapter;
+    private String selectedImageString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,24 +66,34 @@ public class AddMemberActivity extends AppCompatActivity implements OnClickListe
         ButterKnife.bind(this);
 
         dc = DomainController.getInstance();
+        if (savedInstanceState != null) {
+            selectedImageString = savedInstanceState.getString("selectedImageString");
+        } else {
+            selectedImageString = "";
+        }
 
+        //TODO:backend! hardcoded for now
         List<Member> members = new ArrayList();
         members.add(new Member("Bever", "bever.png"));
         members.add(new Member("Wasbeer", "wasbeer.png"));
         members.add(new Member("Geit", "geit.png"));
-        mAdapter = new MembersAdapter(this, members);
+        mAdapter = new MembersAdapter(this, selectedImageString, members);
         gridImages.setAdapter(mAdapter);
 
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.UK);
         setDateTimeField();
+
+        //upon pressing "next" on keyboard after entering nickname: show calendar dialog
+        editNickname.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                showDobDialog();
+                return true;
+            }
+        });
     }
 
-    private void setDateTimeField()
-    {
-        //editDateOfBirth = (EditText)findViewById(R.id.editDateOfBirth);
-        editDateOfBirth.setInputType(InputType.TYPE_NULL);
-        editDateOfBirth.setOnClickListener(this);
-
+    private void setDateTimeField() {
         Calendar newCalendar = Calendar.getInstance();
         dateOfBirthDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -88,14 +104,15 @@ public class AddMemberActivity extends AppCompatActivity implements OnClickListe
             }
 
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-
     }
 
-    @Override
-    public void onClick(View view)
-    {
-        if(view == editDateOfBirth)
-            dateOfBirthDialog.show();
+    @OnClick(R.id.editDateOfBirth)
+    public void showDobDialog() {
+        dateOfBirthDialog.show();
+
+        //hide keyboard
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
     }
 
     @OnClick(R.id.btnAddMember)
@@ -106,31 +123,24 @@ public class AddMemberActivity extends AppCompatActivity implements OnClickListe
         if( editFirstName.getText().toString().isEmpty()||
                 editNickname.getText().toString().isEmpty() ||
                 editDateOfBirth.getText().toString().isEmpty()) {
-            txtError.setText("Gelieve alle gegevens in te vullen.");
-            return;
+            txtError.setText(R.string.fill_all_fields);
+        } else {
+            if (selectedImageString.isEmpty()) {
+                txtError.setText(R.string.didnt_select_image);
+            } else {
+                //TODO
+            }
         }
     }
 
     public void itemClicked(Member member) {
-        if (member.getPicture().equals("plus_sign.png")) {
-            Toast.makeText(this, "plus sign clicked", Toast.LENGTH_LONG).show();
-
-        } else {
-            Toast.makeText(this, "Member clicked: " +
-                            member.getFirstName() + "\n" +
-                            member.getNickname() + "\n" +
-                            member.getRole() + "\n" +
-                            member.getDateOfBirth() + "\n" +
-                            member.getId() + "\n" +
-                            member.getPicture() + "\n",
-                    Toast.LENGTH_LONG).show();
-        }
+        selectedImageString = member.getPicture();
     }
 
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.logout)
+        builder.setMessage(R.string.add_member_cancel)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         finish();
@@ -142,6 +152,12 @@ public class AddMemberActivity extends AppCompatActivity implements OnClickListe
                     }
                 });
         builder.show();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putString("selectedImageString", selectedImageString);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
 }

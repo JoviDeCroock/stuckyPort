@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Member {
 
+    //has to be _id (not id) because it's _id in backend & retrofit needs fields to be exact same name as backend
     private String _id;
     private String firstName;
     private String nickname;

@@ -19,6 +19,9 @@ public interface DOService {
     @POST("login")
     Call<User> login(@Body User user);
 
+    @POST("register")
+    Call<User> register(@Body User user);
+
     @GET("profile/users/{user}/getAllMembers")
     Call<List<Member>> getAllMembers(@Path("user") String userId, @Header("Authorization") String token);
 
