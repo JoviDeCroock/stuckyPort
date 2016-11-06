@@ -4,8 +4,6 @@
 var mongoose = require('mongoose');
 
 var SceneSchema = new mongoose.Schema({
-        //background: String,
-        //Dialogue: String
         sceneNr: Number,
         story: { type: mongoose.Schema.Types.ObjectId, ref: 'Story' },
         figures: [{

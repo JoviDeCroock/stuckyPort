@@ -25,6 +25,7 @@ Figure.find({}, function(err, figures){
     figure1.type = 'bever';
     figure1.description = 'Dit is een leuke bever die graag dammen bouwt';
     figure1.picture = bever;
+    figure1.default = true;
     figure1.save(function(err){
       if(err){ console.log(err); }
     });
@@ -33,6 +34,7 @@ Figure.find({}, function(err, figures){
     figure2.type = 'geit';
     figure2.description = 'Deze geit klimt graag op rotsen';
     figure2.picture = geit;
+    figure2.default = true;
     figure2.save(function(err){
       if(err){ console.log(err); }
     });
@@ -41,6 +43,7 @@ Figure.find({}, function(err, figures){
     figure3.type = 'wasbeer';
     figure3.description = 'Dit is de vriendelijkste wasbeer die je ooit zal tegenkomen';
     figure3.picture = wasbeer;
+    figure3.default = true;
     figure3.save(function(err){
       if(err){ console.log(err); }
     });

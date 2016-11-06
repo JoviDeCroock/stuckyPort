@@ -11,6 +11,7 @@ var tokenGenerator = require('../config/tokenGenerator');
 
 //models
 var User = mongoose.model('User');
+var Figure = mongoose.model('Figure');
 
 // Sanity test
 router.get('/',function(req,res,next){
@@ -35,11 +36,23 @@ router.post('/register',function(req,res,next){
    user.password = req.body.password;
    user.email = req.body.email;
    user.members = [];
-   user.figures = []; //Default figures voorzien voor een user via externe file
-   user.save(function(err){
-     if(err){return next(err);}
-       return res.json({token: tokenGenerator(user)});
-   });
+    var query = Figure.find();
+    query.exec(function(err, figures)
+    {
+        if(err){return next(err);}
+        figures.forEach(function(figure)
+        {
+            if(figure.default)
+            {
+                user.figures.push(figure);
+            }
+        });
+        user.save(function(err){
+            if(err){return next(err);}
+            res.json({token: tokenGenerator(user)});
+        });
+    });
+
 });
 
 router.post('/login',function(req,res,next){
