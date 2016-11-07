@@ -85,18 +85,22 @@ router.get('/users/:user/getAllMembers',auth,function(req,res,next){
     {
         return res.json(req.user.members);
     }
-    req.user.populate('members', function(err, user){
-       if(err) { return next(err); }
-        user.members.forEach(function(member){
-          member.populate('figure',function(err, theMember){
-            if(err){ return next(err); }
-            theMember.figure.populate('picture', function(err, figure){
-              if(err){ return next(err); }
-
+    req.user.populate('members', function(err, user)
+    {
+        User.populate(user,
+        {
+            path:'members.figure',
+            model:'Figure'
+        }, function(err, member)
+        {
+            Member.populate(member, {
+                path:'members.figure.picture',
+                model:'Picture'
+            }, function(err, figure)
+            {
+                res.json(figure);
             });
-          });
         });
-        res.json(user.members);
     });
 });
 

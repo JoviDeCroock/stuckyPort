@@ -11,11 +11,10 @@
     function memberController($location,authService,memberFactory, $base64)
     {
         var vm = this;
-        vm.avatars = ["bever.png", "geit.png", "wasbeer.png"];
+        //vm.avatars = ["bever.png", "geit.png", "wasbeer.png"];
         vm.title = 'Wie ben ik?';
         vm.members = memberFactory.members;
-        vm.userPics = authService.loggedInUser();
-        console.log(vm.userPics);
+        vm.figures = memberFactory.figures;
         vm.createMember = createMember;
         vm.selectMember = selectMember;
         vm.logOut = logOut;
@@ -25,12 +24,16 @@
         /* !!!!!!!!!Sanity Test!!!!!! Check console before Panic*/
         vm.members.forEach(function(entry)
         {
-           console.log(entry);
+            console.log(entry);
+        });
+
+        vm.figures.forEach(function(entry)
+        {
+            console.log(entry);
         });
 
         function chooseAvatar(avatar)
         {
-            console.log(avatar);
             chosenImage = avatar;
         }
 

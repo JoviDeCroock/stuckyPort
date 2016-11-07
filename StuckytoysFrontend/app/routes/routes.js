@@ -25,6 +25,7 @@
             resolve:{
                 postPromise: ['memberFactory', function(memberFactory)
                 {
+                    memberFactory.loggedInUser();
                     return memberFactory.getMembers();
                 }]
             }

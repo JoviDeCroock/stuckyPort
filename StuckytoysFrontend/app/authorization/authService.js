@@ -22,18 +22,8 @@
             isLoggedIn : isLoggedIn,
             currentUser : currentUser,
             logOut : logOut,
-            getUserId : getUserId,
-            loggedInUser :  loggedInUser
+            getUserId : getUserId
         };
-
-        function loggedInUser()
-        {
-            return $http.get(usedUrl + getUserId() + '/getFigures').success(function(data)
-            {
-                console.log(data);
-                return data;
-            });
-        }
 
         function saveToken(token)
         {

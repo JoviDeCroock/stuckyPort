@@ -17,17 +17,25 @@
         var memberFactory =
         {
             members : [],
+            figures: [],
             createMember : createMember,
             getMembers : getMembers,
             getMember : getMember,
-            getLoggedMember : getLoggedMember
+            getLoggedMember : getLoggedMember,
+            loggedInUser : loggedInUser
         };
 
         function getLoggedMember()
         {
-            console.log(loggedMember);
             return loggedMember;
         };
+
+        function loggedInUser()
+        {
+            return $http.get(usedUrl + authService.getUserId() + '/getFigures').success(function(data){
+                angular.copy(data,memberFactory.figures);
+            });
+        }
 
         function createMember(member)
         {
@@ -44,8 +52,9 @@
             return $http.get(usedUrl + 'profile/users/' + authService.getUserId() + '/getAllMembers',{
               headers: {Authorization: 'Bearer ' + token}
             }).success(function(data){
-                angular.copy(data,memberFactory.members);
+                angular.copy(data.members,memberFactory.members);
             });
+
         };
 
         function getMember(member)
