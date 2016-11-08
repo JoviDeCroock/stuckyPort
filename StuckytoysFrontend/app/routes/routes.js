@@ -38,6 +38,11 @@
             templateUrl: 'app/main/mainOverview.html',
             controller: 'mainController',
             controllerAs : 'vm'
+        }).when('/makeStory', {
+            url: '/makeStory',
+            templateUrl: 'app/stories/makeStory.html',
+            controller: 'storyController',
+            controllerAs: 'vm'
         }).otherwise({redirectTo: '/main'});
     };
 })();

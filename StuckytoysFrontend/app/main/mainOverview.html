@@ -1,12 +1,9 @@
 <div class="container">
     <h3>Welkom {{vm.username}}</h3>
-    <div class="tile" ng-show="vm.isAuthority">
+    <div class="tile" ng-click="vm.navigateTo('makeStory')">
         <p>Maak verhaal</p>
     </div>
-    <div class="tile">
+    <div class="tile" ng-click="vm.navigateTo('stories')">
         <p>Mijn verhalen</p>
-    </div>
-    <div class="tile">
-        <p>Mijn figuren</p>
     </div>
 </div>

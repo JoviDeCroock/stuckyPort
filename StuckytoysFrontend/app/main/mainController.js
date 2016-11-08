@@ -9,10 +9,16 @@
         .module('stuckyToys')
         .controller('mainController', mainController);
 
-    mainController.$inject = ['authService'];
+    mainController.$inject = ['$location','authService'];
 
-    function mainController(authService){
+    function mainController($location, authService){
         var vm = this;
         vm.username = authService.currentUser();
+        vm.navigateTo = navigateTo;
+
+        //functions
+        function navigateTo(state){
+          $location.path('/'+state);
+        }
     };
 })();
