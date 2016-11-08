@@ -89,7 +89,7 @@ Story.find({},function(err, adhd)
 
     /*Figure + Picture*/
     var picture = new Picture();
-    picture.pad = 'sick';
+    picture.path = 'sick';
     picture.save(function(err){
       if(err){ console.log(err); }
     });

@@ -1,39 +1,23 @@
 /**
  * Created by jovi on 10/6/2016.
  */
-// Dependencies express etc
+// Dependencies injecten
 var mongoose = require('mongoose');
 var express = require('express');
 var passport = require('passport');
 var router = express.Router();
 
+// Declare tokengenerator
 var tokenGenerator = require('../config/tokenGenerator');
 
 //models
 var User = mongoose.model('User');
+var Admin = mongoose.model('Admin');
 var Figure = mongoose.model('Figure');
 
 // Sanity test
 router.get('/',function(req,res,next){
   return res.json({message: 'De api werkt'});
-});
-
-// Louter om te testen
-router.get('/users',function(req,res,next){
-  User.find(function(err,users){
-    if(err){return next(err);}
-    return res.json(users);
-  });
-});
-
-router.param('user',function(req,res,next,id){
-    var query = User.findById(id);
-    query.exec(function(err,user){
-        if(err){return next(err);}
-        if(!user){return next(new Error('Kan de gekozen familie niet vinden.'));}
-        req.user = user;
-        return next();
-    });
 });
 
 // API methods
@@ -65,6 +49,7 @@ router.post('/register',function(req,res,next){
 
 });
 
+// Angular admin login
 router.post('/adminLogin', function(req, res, next)
 {
     if(!req.body.username || !req.body.password){
@@ -81,6 +66,7 @@ router.post('/adminLogin', function(req, res, next)
     })(req,res,next);
 });
 
+// Normal login
 router.post('/login',function(req,res,next){
   if(!req.body.username || !req.body.password){
     return res.status(400).json({message:'Vul alle velden in'});
