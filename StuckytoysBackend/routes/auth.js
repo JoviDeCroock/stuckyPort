@@ -70,9 +70,9 @@ router.post('/adminLogin', function(req, res, next)
     if(!req.body.username || !req.body.password){
         return res.status(400).json({message:'Vul alle velden in'});
     }
-    passport.authenticate('local',function(err, admin,info){
+    passport.authenticate('local',function(err, admin, info){
         if(err){return next(err);}
-        if(user){
+        if(admin){
             return res.json({token: tokenGenerator(admin)});
         }
         else{

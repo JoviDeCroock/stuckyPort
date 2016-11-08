@@ -16,6 +16,7 @@ require('./models/Scenes');
 require('./models/Stories');
 require('./models/Themes');
 require('./models/Users');
+require('./models/Admins');
 require('./models/Widgets');
 
 //Creating database
@@ -23,7 +24,7 @@ require('./config/passport');
 var config = require('./config/config');
 mongoose.Promise = global.Promise;
 mongoose.connect(config.database);
-//initializeDatabase 
+//initializeDatabase
 require('./config/initializeDatabase');
 
 //Requiring routes
