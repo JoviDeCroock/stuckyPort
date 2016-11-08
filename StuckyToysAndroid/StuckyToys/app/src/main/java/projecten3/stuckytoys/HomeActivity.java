@@ -7,11 +7,16 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import projecten3.stuckytoys.domain.DomainController;
+import projecten3.stuckytoys.domain.Member;
 
 public class HomeActivity extends AppCompatActivity {
 
     @BindView(R.id.txtMyStories)
     TextView txtMyStories;
+
+    private DomainController dc;
+    private Member member;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +24,10 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         ButterKnife.bind(this);
+
+        dc = DomainController.getInstance();
+
+        member = dc.getMember();
 
     }
 

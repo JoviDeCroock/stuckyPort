@@ -14,6 +14,7 @@ public class DomainController {
     private static DomainController dc;
     private PersistenceController pc;
     private User user;
+    private Member member;
 
     private DomainController() {
         pc = new PersistenceController();
@@ -53,6 +54,9 @@ public class DomainController {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public Member getMember() {return member;}
+    public void setMember(Member member){this.member = member;}
 
     public void updateUser(String id, String token) {
         user.setId(id);

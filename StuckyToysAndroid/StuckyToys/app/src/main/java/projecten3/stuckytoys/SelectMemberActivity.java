@@ -78,6 +78,11 @@ public class SelectMemberActivity extends AppCompatActivity {
                     member.getId() + "\n" +
                     member.getPicture() + "\n",
                     Toast.LENGTH_LONG).show();
+
+            dc.setMember(member);
+
+            Intent intent = new Intent(SelectMemberActivity.this, HomeActivity.class);
+            startActivity(intent);
         }
     }
 
