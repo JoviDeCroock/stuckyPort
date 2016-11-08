@@ -25,6 +25,7 @@
                 postPromise: ['memberFactory', function(memberFactory){
                     memberFactory.getFigures();
                     memberFactory.getMembers();
+                    return;
                 }]
             }
         }).when('/createMember', {

@@ -34,12 +34,13 @@
 
         function chooseAvatar(avatar)
         {
-            chosenImage = avatar;
+            chosenImage = avatar._id;
+            console.log(avatar);
         }
 
         function createMember()
         {
-            vm.member.picture = chosenImage;
+            vm.member.figure = chosenImage;
             console.log(vm.member);
            memberFactory.createMember(vm.member).error(function(error)
             {
