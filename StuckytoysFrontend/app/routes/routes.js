@@ -15,8 +15,8 @@
             url: '/auth',
             templateUrl: 'app/authorization/authorization.html',
             controller: 'authController',
-            controllerAs : 'vm',
-        }).when('/member',{
+            controllerAs : 'vm'
+        })/*.when('/member',{
             url: '/member',
             templateUrl: 'app/members/memberOverview.html',
             controller: 'memberController',
@@ -33,18 +33,11 @@
             templateUrl: 'app/members/makeMember.html',
             controller: 'memberController',
             controllerAs : 'vm'
-        }).when('/main/:member', {
+        })*/.when('/main', {
             url: '/main',
             templateUrl: 'app/main/mainOverview.html',
             controller: 'mainController',
-            controllerAs : 'vm',
-            resolve: {
-              post: ['$route','memberFactory', function($route, memberFactory){
-                //console.log($routeParams);
-                console.log($route.current.params.member);
-                return memberFactory.getMember($route.current.params.member);
-              }]
-            }
-        }).otherwise({redirectTo: '/member'});
+            controllerAs : 'vm'
+        }).otherwise({redirectTo: '/main'});
     };
 })();

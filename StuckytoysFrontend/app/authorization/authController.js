@@ -14,29 +14,9 @@
   function authController($location, authService)
   {
       var vm = this;
-      vm.register = register;
       vm.logIn = logIn;
 
       //functions
-      function register(isValid)
-      {
-        if(vm.registerUser && vm.registerUser.password !== vm.registerUser.confirm){
-          vm.confirmError = 'Wachtwoord en Bevestig wachtwoord komen niet overeen';
-          isValid = false;
-        }
-        if(isValid){
-          authService.register(vm.registerUser).error(function(error)
-          {
-              vm.registerError = error;
-              console.log(error);
-          }).success(function()
-          {
-              $location.path('/member');
-          });
-        }
-        vm.registerSubmitted = true;
-      };
-
       function logIn(isValid){
           if(isValid){
             authService.logIn(vm.loginUser).error(function(error)
@@ -44,11 +24,10 @@
                 vm.loginError = error;
             }).success(function()
             {
-              $location.path('/member');
+              $location.path('/main');
             });
           }
           vm.loginSubmitted = true;
       };
   };
-
 })();

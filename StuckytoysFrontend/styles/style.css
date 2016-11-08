@@ -10,12 +10,6 @@ header img{
   background-image: url('../resources/images/background.png');
   background-repeat: no-repeat;
 }
-.auth-content{
-  padding: 20px 5px 20px 5px;
-}
-.register{
-  border-left: 1px solid grey;
-}
 .error{
   color: red;
 }

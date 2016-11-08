@@ -1,7 +1,4 @@
 <div class="container">
-  <!--{{vm.test}}-->
-  <div class="auth-content row">
-    <section class="login col-md-6">
       <h3>Login</h3>
       <form name="loginForm" ng-submit="vm.logIn(loginForm.$valid)" novalidate>
         <div class="form-group">
@@ -31,73 +28,4 @@
         </div>
         <input type="submit" class="btn btn-primary" value="Log in"/>
     </form>
-    </section>
-    <section class="register col-md-6">
-      <h3>Registreer</h3>
-      <form name="registerForm" ng-submit="vm.register(registerForm.$valid)" novalidate>
-        <div class="form-group">
-            <input name="registerUsername"
-                   type="text"
-                   class="form-control"
-                   placeholder="Gebruikersnaam"
-                   ng-model="vm.registerUser.username"
-                   ng-required="true">
-            </input>
-            <p ng-show="registerForm.registerUsername.$invalid && vm.registerSubmitted"
-               class="error">
-              Gebruikersnaam is verplicht
-            </p>
-        </div>
-        <div class="form-group">
-            <input name="registerEmail"
-                   type="text"
-                   class="form-control"
-                   placeholder = "E-mail"
-                   ng-model="vm.registerUser.email"
-                   ng-pattern="/[@]{1}/"
-                   ng-required="true">
-            </input>
-            <p ng-show="registerForm.registerEmail.$invalid && vm.registerSubmitted"
-               class="error">
-              Ongeldig e-mailadres
-            </p>
-        </div>
-        <div class="form-group">
-            <input name="registerPassword"
-                   type="password"
-                   class="form-control"
-                   placeholder="Wachtwoord"
-                   ng-model="vm.registerUser.password"
-                   ng-pattern="/[a-zA-Z0-9]{6,}/"
-                   ng-required="true">
-            </input>
-            <p ng-show="registerForm.registerPassword.$invalid && vm.registerSubmitted"
-               class="error">
-              Ongeldig wachtwoord
-            </p>
-        </div>
-        <div class="form-group">
-            <input name="registerConfirm"
-                   type="password"
-                   class="form-control"
-                   placeholder = "Bevestig wachtwoord"
-                   ng-model="vm.registerUser.confirm"
-                   ng-required="true">
-            </input>
-            <p ng-show="registerForm.registerConfirm.$invalid && vm.registerSubmitted"
-               class="error">
-              Bevestig wachtwoord is verplicht
-            </p>
-            <p
-              ng-show="vm.confirmError"
-              class="error">
-              {{vm.confirmError}}
-            </p>
-        </div>
-        <input type="submit" class="btn btn-primary" value="Registreer"/>
-    </form>
-    </section>
-  </div>
-  <div class="background">
-  </div>
 </div>

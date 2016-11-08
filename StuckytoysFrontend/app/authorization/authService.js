@@ -10,31 +10,32 @@
 
     authService.$inject = ['$http', '$window','url'];
 
-    function authService($http, $window,url){
+    function authService($http, $window, url){
         var usedUrl = url.dev;
-
         var auth =
         {
-            register: register,
             logIn : logIn,
             saveToken: saveToken,
             getToken : getToken,
             isLoggedIn : isLoggedIn,
             currentUser : currentUser,
-            logOut : logOut,
-            getUserId : getUserId
+            getUserId : getUserId,
+            logOut : logOut
         };
-
-        function saveToken(token)
-        {
+        return auth;
+        //functions
+        function logIn(user){
+            return $http.post(usedUrl + 'login', user).success(function(data)
+            {
+                auth.saveToken(data.token);
+            });
+        };
+        function saveToken(token){
             $window.localStorage['StuckytoysToken'] = token;
         };
-
-        function getToken()
-        {
+        function getToken(){
             return $window.localStorage['StuckytoysToken'];
         };
-
         function isLoggedIn(){
             var token  = auth.getToken();
             if(token){
@@ -45,19 +46,16 @@
                 return false;
             }
         };
-
-        function currentUser()
-        {
+        function currentUser(){
             if(auth.isLoggedIn())
             {
                 var token = auth.getToken();
                 var payload = JSON.parse($window.atob(token.split('.')[1]));
+                console.log(payload);
                 return payload.username;
             }
         };
-
-        function getUserId()
-        {
+        function getUserId(){
             if(auth.isLoggedIn())
             {
                 var token = auth.getToken();
@@ -65,31 +63,8 @@
                 return payload._id;
             }
         };
-
-        function logIn(user)
-        {
-            return $http.post(usedUrl + 'login', user).success(function(data)
-            {
-                auth.saveToken(data.token);
-            });
-        };
-
-        function logOut()
-        {
+        function logOut(){
             $window.localStorage.removeItem('StuckytoysToken');
         };
-
-        function register(user)
-        {
-            return $http.post(usedUrl + 'register', {
-              username : user.username,
-              password : user.password,
-              email : user.email
-            }).success(function (data)
-            {
-                auth.saveToken(data.token);
-            });
-        };
-        return auth;
     };
 })();

@@ -9,12 +9,10 @@
         .module('stuckyToys')
         .controller('mainController', mainController);
 
-    mainController.$inject = ['$routeParams','memberFactory'];
+    mainController.$inject = ['authService'];
 
-    function mainController($routeParams,memberFactory)
-    {
+    function mainController(authService){
         var vm = this;
-        vm.member = memberFactory.loggedMember;
-        //console.log(vm.member);
+        vm.username = authService.currentUser();
     };
 })();
