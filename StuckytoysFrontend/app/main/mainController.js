@@ -9,12 +9,12 @@
         .module('stuckyToys')
         .controller('mainController', mainController);
 
-    mainController.$inject = ['memberFactory'];
+    mainController.$inject = ['$routeParams','memberFactory'];
 
-    function mainController(memberFactory)
+    function mainController($routeParams,memberFactory)
     {
         var vm = this;
-        vm.member = memberFactory.getLoggedMember();
-        console.log(vm.member);
+        vm.member = memberFactory.loggedMember;
+        //console.log(vm.member);
     };
 })();

@@ -52,8 +52,8 @@
 
         function selectMember(member)
         {
-            memberFactory.getMember(member);
-            $location.path('main');
+            //memberFactory.getMember(member);
+            $location.path('/main/'+member._id);
         };
 
         function logOut(){
