@@ -98,7 +98,7 @@ router.get('/users/:user/getAllMembers',auth,function(req,res,next){
                 model:'Picture'
             }, function(err, figure)
             {
-                res.json(figure);
+                res.json(figure.members);
             });
         });
     });
