@@ -8,12 +8,17 @@ var UserSchema = new mongoose.Schema(
         email: {type: String, unique: true},
         username: {type: String, unique: true},
         password: String,
+        admin: {
+            type:Boolean,
+            default: false
+        },
         isHashed:
         {
             type: Boolean,
             default: false
         },
-        members: [{type: mongoose.Schema.Types.ObjectId, ref:'Member'}],
+        stories: [{type: mongoose.Schema.Types.ObjectId, ref:'Story'}],
+        //members: [{type: mongoose.Schema.Types.ObjectId, ref:'Member'}],
         figures: [{type: mongoose.Schema.Types.ObjectId, ref:'Figure'}]
     }
 );

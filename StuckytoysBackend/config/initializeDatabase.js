@@ -1,6 +1,25 @@
 var mongoose = require('mongoose');
 var Figure = mongoose.model('Figure');
 var Picture = mongoose.model('Picture');
+var Admin = mongoose.model('Admin');
+
+/* Admin */
+Admin.find({}, function(err, ad)
+{
+  if(ad.length === 0)
+  {
+    var admin = new Admin();
+    admin.username = "admin";
+    admin.email  = "admin@gmail.com";
+    admin.password = "wachtwoord";
+    admin.save(function(err)
+    {
+      if(err){console.log(err);}
+    });
+
+  }
+});
+
 
 Figure.find({}, function(err, figures){
   if(figures.length === 0){

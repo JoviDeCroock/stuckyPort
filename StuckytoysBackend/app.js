@@ -8,14 +8,15 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 
 //Requiring models
-require('./models/BuildingBlocks');
+//require('./models/BuildingBlocks');
 require('./models/Figures');
-require('./models/Members');
+//require('./models/Members');
 require('./models/Pictures');
 require('./models/Scenes');
 require('./models/Stories');
 require('./models/Themes');
 require('./models/Users');
+require('./models/Widgets');
 
 //Creating database
 require('./config/passport');
@@ -27,8 +28,9 @@ require('./config/initializeDatabase');
 
 //Requiring routes
 var auth = require('./routes/auth');
-var profile = require('./routes/profile');
+//var profile = require('./routes/profile');
 var figure = require('./routes/figure');
+var story = require('./routes/story');
 
 var app = express();
 
@@ -63,8 +65,9 @@ app.use(passport.initialize());
 
 //Defining routes
 app.use('/', auth);
-app.use('/profile', profile);
+//app.use('/profile', profile);
 app.use('/figure', figure);
+app.use('/story', story);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

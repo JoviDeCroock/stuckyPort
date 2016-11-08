@@ -65,22 +65,20 @@ router.post('/register',function(req,res,next){
 
 });
 
-router.get('/:user/getFigures',function(req,res,next)
+router.post('/adminLogin', function(req, res, next)
 {
-    req.user
-        .populate('figures', function(err,figures)
-        {
-            if(err) {return next(err);}
-            User.populate(figures, {
-                path: 'figures.picture',
-                model: 'Picture'
-            },
-            function(err, user)
-            {
-                if(err){return next(err);}
-                res.json(user.figures);
-            });
-        });
+    if(!req.body.username || !req.body.password){
+        return res.status(400).json({message:'Vul alle velden in'});
+    }
+    passport.authenticate('local',function(err, admin,info){
+        if(err){return next(err);}
+        if(user){
+            return res.json({token: tokenGenerator(admin)});
+        }
+        else{
+            return res.status(401).json(info);
+        }
+    })(req,res,next);
 });
 
 router.post('/login',function(req,res,next){
