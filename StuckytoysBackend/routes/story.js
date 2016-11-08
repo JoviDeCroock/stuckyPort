@@ -65,11 +65,29 @@ router.post('/createStory', auth, function(req,res,next)
     story.scenes = [];
     if(req.body.scenes.length !== 0)
     {
-        // add scenes
+        req.body.scenes.forEach(function(entry)
+        {
+            var scene = new Scene();
+            scene.sceneNr = entry.sceneNr;
+            var widget = Widget.find({_id: entry.widget._id});
+            var theme = Theme.find({_id: entry.theme._id});
+            scene.theme = theme;
+            scene.widget = widget;
+            scene.figures = req.body.figures;
+            scene.save(function(err)
+            {
+                if(err){console.log(err);}
+            });
+            story.scenes.push(scene);
+        });
     }
-    // kijken of het bestaand of nieuw thema is
-    story.theme = req.body.theme;
+    var theme = Theme.find({_id: req.body.theme._id});
+    story.theme = theme;
     story.saveDate(req.body.date);
+    story.save(function(err)
+    {
+        if(err) {console.log(err);}
+    });
 });
 
 router.post(':story/addScene', auth, function(req,res,next)
@@ -135,18 +153,40 @@ router.get('/getStory/:story', auth, function(req,res,next)
 
 router.get(':story/download/:scene', auth, function(req,res, next)
 {
-    //download scene files
+    //download scene files (ZIP?) of per scene de widget?
 });
 
 /*Getters voor elementen*/
 router.get("/getAllThemes", auth, function(req,res,next)
 {
-
+    Theme.find(function(err,themes)
+    {
+        if(err){return next(err);}
+        return res.json(themes);
+    });
 });
 
 router.get("/getAllWidgets", auth, function(req,res,next)
 {
-
+    Widget.find(function(err, widgets)
+    {
+        Widget.populate(widgets,
+            {
+                path:'widgets.theme',
+                model:'Theme'
+            }, function(err, theme)
+            {
+                if(err){return next(err);}
+                res.json(theme);
+            });
+    });
 });
+
+/* Jovi's Brainstorm Hoek:
++ Search Story per Theme?
++ Search Widget per Theme?
+*/
+
+
 
 module.exports = router;
