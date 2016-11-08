@@ -70,7 +70,7 @@ router.post('/adminLogin', function(req, res, next)
     if(!req.body.username || !req.body.password){
         return res.status(400).json({message:'Vul alle velden in'});
     }
-    passport.authenticate('local',function(err, admin, info){
+    passport.authenticate('admin-local',function(err, admin, info){
         if(err){return next(err);}
         if(admin){
             return res.json({token: tokenGenerator(admin)});
@@ -85,7 +85,7 @@ router.post('/login',function(req,res,next){
   if(!req.body.username || !req.body.password){
     return res.status(400).json({message:'Vul alle velden in'});
   }
-  passport.authenticate('local',function(err,user,info){
+  passport.authenticate('user-local',function(err,user,info){
     if(err){return next(err);}
     if(user){
       return res.json({token: tokenGenerator(user)});
