@@ -1,7 +1,6 @@
 # Stuckytoys API
 
-## /auth
-| URL           | Method        |expects           |returns|    
+
 ## Table
 | Part             |
 |:----------------:|
@@ -9,6 +8,8 @@
 |[figure](https://github.com/HoGentTIN/projecten-3-g_st_di_1100/tree/WebDevS3#figure)   |
 |[story](https://github.com/HoGentTIN/projecten-3-g_st_di_1100/tree/WebDevS3#story)  | 
 |[Objects](https://github.com/HoGentTIN/projecten-3-g_st_di_1100/tree/WebDevS3#objects)    |
+|[Explanations](https://github.com/HoGentTIN/projecten-3-g_st_di_1100/tree/WebDevS3#Nothing)    |
+
 
 
 ## API Methods
@@ -27,12 +28,11 @@
 |  /{userId}/getFigures      | Get           | nothing | allFigures    | allFigures     |
 
 ### /profile
-| URL           | Method        |expects                      |returns|    
-|:-------------:|:-------------:|:---------------------------:|:-----:|
-|/users/{userId}/addMember| Post           |   |  |
-|/users/{userId}/getMember/{memberId} | Get          |   |  |
-|/users/{userId}/getAllMembers| Get          |   |  |
-
+| URL                                 | Method        |expects                      |returns        |    
+|:-----------------------------------:|:-------------:|:---------------------------:|:-------------:|
+|/users/{userId}/addMember            | Post          | MemberObject                | createdMember |
+|/users/{userId}/getMember/{memberId} | Get           | Nothing                     | specificMember|
+|/users/{userId}/getAllMembers        | Get           | Nothing                     | allMembers    |
 
 ### /story
 | URL                   | Method    |expects                      |returns         |    
@@ -43,6 +43,7 @@
 |  /getStory/{storyId}  | Get       |  Nothing                    | Requested Story|
 |  /getAllThemes        | Get       |  Nothing                    | AllThemes      |
 |  /getAllWidgets       | Get       |  Nothing                    | AllWidgets     |
+
 
 
 ## API Objects
@@ -61,3 +62,17 @@
 |ThemeObject       | name & description                                                                            |
 |UserObject        | email, username, password, arrays of MemberObjects, figureObjects & StoryObjects              |
 |MemberObject      |firstname, nickname, role, authority(boolean), dateOfBirth(DD MM YYYY) & array of figureObjects|
+
+
+
+## Explanations
+
+### expects: Nothing
+
+This is never literally nothing for example in every method apart from the auth it will require you to:
+
+```javascript
+
+headers: {Authorization: 'Bearer ' + token}
+
+in code
