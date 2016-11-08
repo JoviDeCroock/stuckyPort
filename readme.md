@@ -8,7 +8,7 @@
 |[figure](https://github.com/HoGentTIN/projecten-3-g_st_di_1100/tree/WebDevS3#figure)   |
 |[story](https://github.com/HoGentTIN/projecten-3-g_st_di_1100/tree/WebDevS3#story)  | 
 |[Objects](https://github.com/HoGentTIN/projecten-3-g_st_di_1100/tree/WebDevS3#objects)    |
-|[Explanations](https://github.com/HoGentTIN/projecten-3-g_st_di_1100/tree/WebDevS3#Nothing)    |
+|[Explanations](https://github.com/HoGentTIN/projecten-3-g_st_di_1100/tree/WebDevS3#Explanations)    |
 
 
 
