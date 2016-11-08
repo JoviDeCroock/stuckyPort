@@ -2,6 +2,10 @@ var mongoose = require('mongoose');
 var Figure = mongoose.model('Figure');
 var Picture = mongoose.model('Picture');
 var Admin = mongoose.model('Admin');
+var Story = mongoose.model('Story');
+var Theme = mongoose.model('Theme');
+var Scene = mongoose.model('Scene');
+var Widget = mongoose.model('Widget');
 
 /* Admin */
 Admin.find({}, function(err, ad)
@@ -20,7 +24,7 @@ Admin.find({}, function(err, ad)
   }
 });
 
-
+/* Figures */
 Figure.find({}, function(err, figures){
   if(figures.length === 0){
     var bever = new Picture();
@@ -65,6 +69,81 @@ Figure.find({}, function(err, figures){
     figure3.default = true;
     figure3.save(function(err){
       if(err){ console.log(err); }
+    });
+  }
+});
+
+/* Story */
+Story.find({},function(err, adhd)
+{
+  if(adhd.length === 0)
+  {
+    /*Theme*/
+    var theme = new Theme();
+    theme.name = "Vervuiling";
+    theme.description = "dit onderwerp kaart de extreme vervuiling in ons land aan";
+    theme.save(function(err)
+    {
+      if(err){console.log(err);}
+    });
+
+    /*Figure + Picture*/
+    var picture = new Picture();
+    picture.pad = 'sick';
+    picture.save(function(err){
+      if(err){ console.log(err); }
+    });
+    var figure1 = new Figure();
+    figure1.name = 'de bever';
+    figure1.type = 'bever';
+    figure1.description = 'Dit is een leuke bever die graag dammen bouwt';
+    figure1.picture = picture;
+    figure1.default = true;
+    figure1.save(function(err){
+      if(err){ console.log(err); }
+    });
+
+    /*Widget*/
+    var widget = new Widget();
+    widget.type = "sound";
+    widget.id = "android.soundWidget";
+    widget.nameFile = "bushorn.mp3";
+    widget.save(function(err)
+    {
+      if(err){console.log(err);}
+    });
+
+    /*Scenes*/
+    var scene1 = new Scene();
+    var scene2 = new Scene();
+    scene1.widget = widget;
+    scene2.widget = widget;
+    scene1.sceneNr = 1;
+    scene2.sceneNr = 2;
+    scene1.figures = [];
+    scene2.figures = [];
+    scene1.figures.push(figure1);
+    scene2.figures.push(figure1);
+    scene2.save(function(err)
+    {
+      if(err){console.log(err);}
+    });
+    scene1.save(function(err)
+    {
+      if(err){console.log(err);}
+    });
+
+    /*Story*/
+    var story = new Story();
+    story.saveDate("21 09 1995");
+    story.name = "vuilbak";
+    story.scenes = [];
+    story.scenes.push(scene1);
+    story.scenes.push(scene2);
+    story.theme = theme;
+    story.save(function(err)
+    {
+      if(err){console.log(err);}
     });
   }
 });

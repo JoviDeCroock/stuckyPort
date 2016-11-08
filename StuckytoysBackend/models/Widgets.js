@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 
 var WidgetSchema = new mongoose.Schema({
     id: String,
-    addition: String,
+    nameFile: String,
     type: String
 });
 

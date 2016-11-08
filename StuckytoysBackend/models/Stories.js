@@ -10,4 +10,12 @@ var StorySchema = new mongoose.Schema({
   scenes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Scene' }]
 });
 
+StorySchema.methods.saveDate = function(dateString){
+  var dateArray = dateString.split(' ');
+  var day = dateArray[0];
+  var month = dateArray[1] -1;
+  var year = dateArray[2];
+  this.date = new Date(year,month,day);
+};
+
 mongoose.model('Story', StorySchema);

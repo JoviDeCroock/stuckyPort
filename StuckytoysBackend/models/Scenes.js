@@ -6,17 +6,12 @@ var mongoose = require('mongoose');
 var SceneSchema = new mongoose.Schema({
         sceneNr: Number,
         widget: {type: mongoose.Schema.Types.ObjectId, ref:'Widget'},
-        figures: [{
+        figures: [
           //positionX: Number,
           //positionY: Number,
-          figure: { type: mongoose.Schema.Types.ObjectId, ref: 'Figure' }
-        }]/*
-        blocks: [{
-          positionX: Number,
-          positionY: Number,
-          buildingBlock: { type: mongoose.Schema.Types.ObjectId, ref: 'BuildingBlock' }
-        }]*/
-
+          { type: mongoose.Schema.Types.ObjectId, ref: 'Figure' }
+        ]/*,
+        game: { type: mongoose.Schema.Types.ObjectId, ref: 'Game' }*/
     });
 
 mongoose.model('Scene', SceneSchema);
