@@ -13,8 +13,8 @@ var MemberSchema = new mongoose.Schema({
             default: false
         },
         dateOfBirth: Date,
-        figure: { type: mongoose.Schema.Types.ObjectId, ref: 'Figure'},
-        stories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Story' }]
+        figure: { type: mongoose.Schema.Types.ObjectId, ref: 'Figure'}
+        //stories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Story' }]
     }
 );
 

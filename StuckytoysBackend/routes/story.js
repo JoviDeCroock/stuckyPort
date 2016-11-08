@@ -88,6 +88,7 @@ router.post('/createStory', auth, function(req,res,next)
     {
         if(err) {console.log(err);}
     });
+    res.json(story);
 });
 
 router.post(':story/addScene', auth, function(req,res,next)
@@ -112,6 +113,7 @@ router.post(':story/addScene', auth, function(req,res,next)
     {
         if(err) {console.log(err);}
     });
+    res.json(story);
 });
 
 router.get('/getStory/:story', auth, function(req,res,next)

@@ -10,7 +10,7 @@ var passport = require('passport');
 //Requiring models
 //require('./models/BuildingBlocks');
 require('./models/Figures');
-//require('./models/Members');
+require('./models/Members');
 require('./models/Pictures');
 require('./models/Scenes');
 require('./models/Stories');
@@ -29,7 +29,7 @@ require('./config/initializeDatabase');
 
 //Requiring routes
 var auth = require('./routes/auth');
-//var profile = require('./routes/profile');
+var profile = require('./routes/profile');
 var figure = require('./routes/figure');
 var story = require('./routes/story');
 
@@ -66,7 +66,7 @@ app.use(passport.initialize());
 
 //Defining routes
 app.use('/', auth);
-//app.use('/profile', profile);
+app.use('/profile', profile);
 app.use('/figure', figure);
 app.use('/story', story);
 
