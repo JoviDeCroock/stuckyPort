@@ -185,7 +185,7 @@ router.get('/getStory/:story', auth, function(req,res,next)
     });
 });
 
-router.get(':story/download/:widget', auth, function(req,res, next)
+router.get('/download/:widget', auth, function(req,res, next)
 {
     var file =  __dirname + '/downloads/sounds/' + req.widget.nameFile;
     res.download(file);
