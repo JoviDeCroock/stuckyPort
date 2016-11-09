@@ -75,4 +75,6 @@ This is never literally nothing for example in every method apart from the auth 
 
 headers: {Authorization: 'Bearer ' + token}
 
-in code
+```
+in your code.
+AKA fill your headers before requesting.

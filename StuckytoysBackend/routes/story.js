@@ -31,6 +31,30 @@ router.param('story', function(req,res,next,id)
     });
 });
 
+router.param('theme', function(req,res,next,id)
+{
+    var query = Theme.findById(id);
+    query.exec(function(err, theme)
+    {
+        if(err) {return next(err);}
+        if(!theme) {return next(new Error('Kan het gekozen verhaal niet vinden.'));}
+        req.theme = theme;
+        return next();
+    });
+});
+
+router.param('widget', function(req,res,next,id)
+{
+    var query = Widget.findById(id);
+    query.exec(function(err, widget)
+    {
+        if(err) {return next(err);}
+        if(!widget) {return next(new Error('Kan het gekozen verhaal niet vinden.'));}
+        req.widget = widget;
+        return next();
+    });
+});
+
 router.param('scene', function(req,res,next,id)
 {
     var query = Scene.findById(id);
@@ -52,7 +76,6 @@ router.get('/download/test', function(req,res,next)
     file.forEach(function(entry)
     {
         res.json(entry);
-        //res.download(entry);
     });
 });
 
@@ -91,7 +114,7 @@ router.post('/createStory', auth, function(req,res,next)
     res.json(story);
 });
 
-router.post(':story/addScene', auth, function(req,res,next)
+router.post('/:story/addScene', auth, function(req,res,next)
 {
     var story = req.story;
     var x = req.story.scenes.length;
@@ -114,6 +137,15 @@ router.post(':story/addScene', auth, function(req,res,next)
         if(err) {console.log(err);}
     });
     res.json(story);
+});
+
+router.get('/getAllStories', auth, function(req,res,next)
+{
+    Story.find(function(err, stories)
+    {
+        if(err){return next(err);}
+        return res.json(stories);
+    });
 });
 
 router.get('/getStory/:story', auth, function(req,res,next)
@@ -153,9 +185,33 @@ router.get('/getStory/:story', auth, function(req,res,next)
     });
 });
 
-router.get(':story/download/:scene', auth, function(req,res, next)
+router.get(':story/download/:widget', auth, function(req,res, next)
 {
-    //download scene files (ZIP?) of per scene de widget?
+    var file =  __dirname + '/downloads/sounds/' + req.widget.nameFile;
+    res.download(file);
+});
+
+router.post('/addWidget', auth, function(req,res,next)
+{
+    var w = new Widget();
+    w.nameFile = req.body.nameFile;
+    w.type = req.body.type;
+    w.id = req.body.id;
+    w.save(function(err)
+    {
+        if(err){console.log(err);}
+    });
+});
+
+router.post('/addTheme', auth, function(req,res,next)
+{
+    var t = new Theme();
+    t.name = req.body.name;
+    t.description = req.body.description;
+    t.save(function(err)
+    {
+        if(err){console.log(err);}
+    });
 });
 
 /*Getters voor elementen*/
@@ -166,6 +222,11 @@ router.get("/getAllThemes", auth, function(req,res,next)
         if(err){return next(err);}
         return res.json(themes);
     });
+});
+
+router.get("/themes/:theme", auth, function(req,res,next)
+{
+    res.json(req.theme);
 });
 
 router.get("/getAllWidgets", auth, function(req,res,next)
@@ -184,6 +245,15 @@ router.get("/getAllWidgets", auth, function(req,res,next)
     });
 });
 
+router.get("/widgets/:widget", auth, function(req,res,next)
+{
+    res.json(req.widget);
+});
+
+router.get("/:theme/allWidgets", auth, function(req,res,next)
+{
+
+});
 /* Jovi's Brainstorm Hoek:
 + Search Story per Theme?
 + Search Widget per Theme?
