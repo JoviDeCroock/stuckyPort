@@ -25,7 +25,7 @@
         return auth;
         //functions
         function logIn(user){
-            return $http.post(usedUrl + 'login', user).success(function(data)
+            return $http.post(usedUrl + 'adminLogin', user).success(function(data)
             {
                 auth.saveToken(data.token);
             });

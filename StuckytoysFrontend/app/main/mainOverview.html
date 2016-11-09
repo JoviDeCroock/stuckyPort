@@ -1,9 +1,28 @@
-<div class="container">
-    <h3>Welkom {{vm.username}}</h3>
-    <div class="tile" ng-click="vm.navigateTo('makeStory')">
-        <p>Maak verhaal</p>
-    </div>
-    <div class="tile" ng-click="vm.navigateTo('stories')">
-        <p>Mijn verhalen</p>
+<div>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <img alt="StuckyToys" src="./resources/images/logo.png" class="logo" />
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                  <a ng-click="vm.logOut()">
+                    <span class="glyphicon glyphicon-log-out"></span>
+                    Log uit
+                  </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h3>Welkom {{vm.username}}</h3>
+        <div class="tile" ng-click="vm.navigateTo('makeStory')">
+            <img alt="Maak verhaal" src="./resources/images/Tiles/maakVerhaal.png" />
+            <p>Maak verhaal</p>
+        </div>
+        <div class="tile" ng-click="vm.navigateTo('stories')">
+            <img alt="Mijn verhalen" src="./resources/images/Tiles/mijnVerhalen.png" />
+            <p>Mijn verhalen</p>
+        </div>
     </div>
 </div>

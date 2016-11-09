@@ -1,31 +1,21 @@
-<div class="container">
-      <h3>Login</h3>
-      <form name="loginForm" ng-submit="vm.logIn(loginForm.$valid)" novalidate>
-        <div class="form-group">
-            <input name="loginUsername"
-                   type="text"
-                   class="form-control"
-                   placeholder="Gebruikersnaam"
-                   ng-model="vm.loginUser.username"
-                   ng-required="true"></input>
-        </div>
-        <div class="form-group">
-            <input name="loginPassword"
-                   type="password"
-                   class="form-control"
-                   placeholder="Wachtwoord"
-                   ng-model="vm.loginUser.password"
-                   ng-required="true"></input>
-            <p ng-show="loginForm.loginPassword.$invalid && vm.loginSubmitted && !vm.loginError"
-               class="error">
-              Aanmeldgegevens incorrect
-            </p>
-            <p
-              ng-show="vm.loginError"
-              class="error">
-              {{vm.loginError.message}}
-            </p>
-        </div>
-        <input type="submit" class="btn btn-primary" value="Log in"/>
-    </form>
+<div>
+    <img class="logo" src="./resources/images/logo.png" />
+    <div class="container">
+        <h3>Login</h3>
+        <form name="loginForm" ng-submit="vm.logIn(loginForm.$valid)" novalidate>
+            <div class="form-group">
+                <input name="loginUsername" type="text" class="form-control" placeholder="Gebruikersnaam" ng-model="vm.admin.username" ng-required="true"></input>
+            </div>
+            <div class="form-group">
+                <input name="loginPassword" type="password" class="form-control" placeholder="Wachtwoord" ng-model="vm.admin.password" ng-required="true"></input>
+                <p ng-show="loginForm.loginPassword.$invalid && vm.loginSubmitted && !vm.loginError" class="error">
+                    Aanmeldgegevens incorrect
+                </p>
+                <p ng-show="vm.loginError" class="error">
+                    {{vm.loginError.message}}
+                </p>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Log in" />
+        </form>
+    </div>
 </div>
