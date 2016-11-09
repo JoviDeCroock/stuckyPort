@@ -37,12 +37,17 @@
 ### /story
 | URL                   | Method    |expects                      |returns         |    
 |:---------------------:|:---------:|:---------------------------:|:--------------:|
-|  /download/{SceneId}  | Get       |  Nothing                    | Scenefiles     |
+|  /download/{WidgetId} | Get       |  Nothing                    | Scenefiles     |
 |  /createStory         | Post      |  StoryObject                | newStory       |
 |  /{storyId}/addScene  | Post      |  SceneObject                | modified Story |
 |  /getStory/{storyId}  | Get       |  Nothing                    | Requested Story|
 |  /getAllThemes        | Get       |  Nothing                    | AllThemes      |
 |  /getAllWidgets       | Get       |  Nothing                    | AllWidgets     |
+|  /getAllStories       | Get       |  Nothing                    | AllStories     |
+|  /addTheme            | Post      |  ThemeObject                | newTheme       |
+|  /addWidget           | Post      |  WidgetObject               | newWidget      |
+|  /themes/{themeId}    | Get       |  Nothing                    | Requested theme|
+|  /widgets/{widgetId}  | Get       |  Nothing                    |Requested widget|
 
 
 
@@ -78,3 +83,10 @@ headers: {Authorization: 'Bearer ' + token}
 ```
 in your code.
 AKA fill your headers before requesting.
+
+### Widget:
+
+| Type          | nameFile       |
+|:-------------:|:--------------:|
+| Music         | Path in node   |
+| Game          | AndroidActivity|
