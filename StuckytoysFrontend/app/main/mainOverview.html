@@ -6,6 +6,9 @@
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <li>
+                  <a>Welkom {{vm.username}}</a>
+                </li>
+                <li>
                   <a ng-click="vm.logOut()">
                     <span class="glyphicon glyphicon-log-out"></span>
                     Log uit
@@ -15,14 +18,13 @@
         </div>
     </nav>
     <div class="container">
-        <h3>Welkom {{vm.username}}</h3>
         <div class="tile" ng-click="vm.navigateTo('makeStory')">
             <img alt="Maak verhaal" src="./resources/images/Tiles/maakVerhaal.png" />
             <p>Maak verhaal</p>
         </div>
         <div class="tile" ng-click="vm.navigateTo('stories')">
             <img alt="Mijn verhalen" src="./resources/images/Tiles/mijnVerhalen.png" />
-            <p>Mijn verhalen</p>
+            <p>Lijst verhalen</p>
         </div>
     </div>
 </div>

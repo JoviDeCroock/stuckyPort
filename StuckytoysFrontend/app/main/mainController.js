@@ -18,10 +18,10 @@
         vm.logOut = logOut;
 
         //functions
-        function navigateTo(state){
+        function navigateTo (state) {
           $location.path('/'+state);
         };
-        function logOut(){
+        function logOut () {
           authService.logOut();
           $location.path('/auth');
         };

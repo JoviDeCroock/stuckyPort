@@ -1,5 +1,13 @@
+nav ul li a{
+  cursor: pointer;
+}
+.banner{
+  width: inherit;
+  margin-top: 20px;
+}
 .logo{
   width : 200px;
+  margin-top: 5px;
 }
 .background{
   width: 140%;
