@@ -84,7 +84,7 @@ router.get('/download/test', function(req,res,next)
 router.post('/createStory', auth, function(req,res,next)
 {
     var story = new Story();
-    story.name = req.body.name();
+    story.name = req.body.name;
     story.scenes = [];
     if(req.body.scenes.length !== 0)
     {
