@@ -1,6 +1,5 @@
-header img{
+.logo{
   width : 200px;
-  margin: 5px;
 }
 .background{
   width: 140%;
@@ -17,7 +16,7 @@ header img{
 .tile{
   text-align: center;
   border: 3px solid black;
-  font-size: 16px;
+  font-size: 14px;
   display: inline-block;
   margin-bottom: 8px;
   width: calc(50% - 4px);

@@ -15,10 +15,15 @@
         var vm = this;
         vm.username = authService.currentUser();
         vm.navigateTo = navigateTo;
+        vm.logOut = logOut;
 
         //functions
         function navigateTo(state){
           $location.path('/'+state);
-        }
+        };
+        function logOut(){
+          authService.logOut();
+          $location.path('/auth');
+        };
     };
 })();

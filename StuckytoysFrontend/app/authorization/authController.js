@@ -9,21 +9,19 @@
     .module('stuckyToys')
     .controller('authController', authController);
 
-  authController.$inject = ['$location','authService'];
+  authController.$inject = [ '$location', 'authService' ];
 
-  function authController($location, authService)
-  {
+  function authController ($location, authService) {
       var vm = this;
+
       vm.logIn = logIn;
 
       //functions
       function logIn(isValid){
           if(isValid){
-            authService.logIn(vm.loginUser).error(function(error)
-            {
+            authService.logIn(vm.admin).error(function(error){
                 vm.loginError = error;
-            }).success(function()
-            {
+            }).success(function(){
               $location.path('/main');
             });
           }
