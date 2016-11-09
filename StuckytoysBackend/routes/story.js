@@ -71,8 +71,8 @@ router.param('scene', function(req,res,next,id)
 router.get('/download/test', function(req,res,next)
 {
     var file = [];
-    file.push(__dirname + '/downloads/sounds/cash_register.ogg');
-    file.push(__dirname + '/downloads/sounds/bushorn.mp3');
+    file.push(__dirname + '/downloads/music/cash_register.ogg');
+    file.push(__dirname + '/downloads/music/bushorn.mp3');
     file.forEach(function(entry)
     {
         res.json(entry);
@@ -119,12 +119,38 @@ router.post('/:story/addScene', auth, function(req,res,next)
     var story = req.story;
     var x = req.story.scenes.length;
     var newScene = new Scene();
-    //if implementeren voor not found == nieuwe maken
     var theme = Theme.find({_id: req.body.theme._id});
-    newScene.theme = theme;
-    //if implementeren voor not found == nieuwe maken
+
+    if(!theme)
+    {
+        var t = new Theme();
+        t.name = req.body.theme.name;
+        t.description = req.body.theme.description;
+        t.save(function(err)
+        {
+            if(err){console.log(err);}
+            newScene.theme = t;
+        });
+    }else{
+        newScene.theme = theme;
+    }
+
     var widget = Widget.find({_id: req.body.widget._id});
-    newScene.widget = widget;
+    if(!widget)
+    {
+        var w = new Widget();
+        w.nameFile = req.body.widget.nameFile;
+        w.type = req.body.widget.type;
+        w.id = req.body.widget.id;
+        w.save(function(err)
+        {
+            if(err){console.log(err);}
+            newScene.widget = w;
+        });
+    }else{
+        newScene.widget = widget;
+    }
+
     newScene.sceneNr = x;
     newScene.figures = req.body.figures;
     newScene.save(function(err)
@@ -137,15 +163,6 @@ router.post('/:story/addScene', auth, function(req,res,next)
         if(err) {console.log(err);}
     });
     res.json(story);
-});
-
-router.get('/getAllStories', auth, function(req,res,next)
-{
-    Story.find(function(err, stories)
-    {
-        if(err){return next(err);}
-        return res.json(stories);
-    });
 });
 
 router.get('/getStory/:story', auth, function(req,res,next)
@@ -185,36 +202,63 @@ router.get('/getStory/:story', auth, function(req,res,next)
     });
 });
 
+/*TODO: change download per scene*/
+//in android if more widgets in scene download widgets individually?
 router.get('/download/:widget', auth, function(req,res, next)
 {
-    var file =  __dirname + '/downloads/sounds/' + req.widget.nameFile;
+    var file =  __dirname + '/downloads/music/' + req.widget.nameFile;
     res.download(file);
 });
 
+/*Element adders*/
 router.post('/addWidget', auth, function(req,res,next)
 {
-    var w = new Widget();
-    w.nameFile = req.body.nameFile;
-    w.type = req.body.type;
-    w.id = req.body.id;
-    w.save(function(err)
+    var widget = Widget.find({nameFile: req.body.widget.nameFile});
+    if(!widget)
     {
-        if(err){console.log(err);}
-    });
+        var w = new Widget();
+        w.nameFile = req.body.nameFile;
+        w.type = req.body.type;
+        w.id = req.body.id;
+        w.save(function(err)
+        {
+            if(err){console.log(err);}
+            res.json(w);
+        });
+    }else{
+        res.json(widget);
+    }
 });
 
 router.post('/addTheme', auth, function(req,res,next)
 {
-    var t = new Theme();
-    t.name = req.body.name;
-    t.description = req.body.description;
-    t.save(function(err)
+    var theme = Theme.find({name: req.body.theme.name});
+    if(!theme)
     {
-        if(err){console.log(err);}
-    });
+        var t = new Theme();
+        t.name = req.body.name;
+        t.description = req.body.description;
+        t.save(function(err)
+        {
+            if(err){console.log(err);}
+            res.json(t);
+        });
+    }else{
+        res.json(theme);
+    }
 });
 
 /*Getters voor elementen*/
+router.get('/getAllStories', auth, function(req,res,next)
+{
+    /*TODO: populates*/
+    Story.find(function(err, stories)
+    {
+        if(err){return next(err);}
+        return res.json(stories);
+    });
+});
+
 router.get("/getAllThemes", auth, function(req,res,next)
 {
     Theme.find(function(err,themes)
@@ -222,11 +266,6 @@ router.get("/getAllThemes", auth, function(req,res,next)
         if(err){return next(err);}
         return res.json(themes);
     });
-});
-
-router.get("/themes/:theme", auth, function(req,res,next)
-{
-    res.json(req.theme);
 });
 
 router.get("/getAllWidgets", auth, function(req,res,next)
@@ -245,6 +284,11 @@ router.get("/getAllWidgets", auth, function(req,res,next)
     });
 });
 
+router.get("/themes/:theme", auth, function(req,res,next)
+{
+    res.json(req.theme);
+});
+
 router.get("/widgets/:widget", auth, function(req,res,next)
 {
     res.json(req.widget);
@@ -252,13 +296,17 @@ router.get("/widgets/:widget", auth, function(req,res,next)
 
 router.get("/:theme/allWidgets", auth, function(req,res,next)
 {
-
+    /*TODO*/
 });
+
+router.get("/:theme/allStories", auth, function(req,res,next)
+{
+    /*TODO*/
+});
+
 /* Jovi's Brainstorm Hoek:
 + Search Story per Theme?
 + Search Widget per Theme?
 */
-
-
 
 module.exports = router;
