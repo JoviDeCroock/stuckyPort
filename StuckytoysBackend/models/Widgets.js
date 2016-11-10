@@ -5,8 +5,7 @@ var mongoose = require('mongoose');
 
 var WidgetSchema = new mongoose.Schema({
     id: String,
-    nameFile: String,
-    type: String
+    widgetFiles: [{type: mongoose.Schema.Types.ObjectId, ref:'WidgetFile'}]
 });
 
 mongoose.model('Widget', WidgetSchema);

@@ -15,39 +15,40 @@
 ## API Methods
 
 ### /auth
-| URL           | Method        |expects (body)    |returns|    
+| URL           | Method        | Body             |returns|
 |:-------------:|:-------------:|:----------------:|:-----:|
 |  /register    | Post          | RegisterObject   |token  |
 |  /login       | Post          | loginUserObject  |token  |
 |  /adminLogin  | Post          | loginAdminObject |token  |
 
 ### /figure
-| URL                        | Method        |expects (body)           |returns         |    
+| URL                        | Method        | Body                    |returns         |
 |:--------------------------:|:-------------:|:-----------------------:|:--------------:|
 |  /addFigure                | Post          | figureObject            | Createdfigure  |
 |  /{userId}/getFigures      | Get           | nothing | allFigures    | allFigures     |
 
 ### /profile
-| URL                                 | Method        |expects                      |returns        |    
+| URL                                 | Method        | Body                        |returns        |
 |:-----------------------------------:|:-------------:|:---------------------------:|:-------------:|
 |/users/{userId}/addMember            | Post          | MemberObject                | createdMember |
 |/users/{userId}/getMember/{memberId} | Get           | Nothing                     | specificMember|
 |/users/{userId}/getAllMembers        | Get           | Nothing                     | allMembers    |
 
 ### /story
-| URL                   | Method    |expects                      |returns         |    
-|:---------------------:|:---------:|:---------------------------:|:--------------:|
-|  /download/{WidgetId} | Get       |  Nothing                    | Scenefiles     |
-|  /createStory         | Post      |  StoryObject                | newStory       |
-|  /{storyId}/addScene  | Post      |  SceneObject                | modified Story |
-|  /getStory/{storyId}  | Get       |  Nothing                    | Requested Story|
-|  /getAllThemes        | Get       |  Nothing                    | AllThemes      |
-|  /getAllWidgets       | Get       |  Nothing                    | AllWidgets     |
-|  /getAllStories       | Get       |  Nothing                    | AllStories     |
-|  /addTheme            | Post      |  ThemeObject                | newTheme       |
-|  /addWidget           | Post      |  WidgetObject               | newWidget      |
-|  /themes/{themeId}    | Get       |  Nothing                    | Requested theme|
-|  /widgets/{widgetId}  | Get       |  Nothing                    |Requested widget|
+| URL                                  | Method    | Body                        |returns         |
+|:------------------------------------:|:---------:|:---------------------------:|:--------------:|
+|  /download/{WidgetId}                | Get       |  Nothing                    | Scenefiles     |
+|  /createStory                        | Post      |  StoryObject                | newStory       |
+|  /{storyId}/addScene                 | Post      |  SceneObject                | modified Story |
+|  /getStory/{storyId}                 | Get       |  Nothing                    | Requested Story|
+|  /getAllThemes                       | Get       |  Nothing                    | AllThemes      |
+|  /getAllWidgets                      | Get       |  Nothing                    | AllWidgets     |
+|  /getAllStories                      | Get       |  Nothing                    | AllStories     |
+|  /addTheme                           | Post      |  ThemeObject                | newTheme       |
+|  /addWidget                          | Post      |  WidgetObject               | newWidget      |
+|  /themes/{themeId}                   | Get       |  Nothing                    | Requested theme|
+|  /widgets/{widgetId}                 | Get       |  Nothing                    |Requested widget|
+|  /{StoryObject}/DeleteScene/{SceneId}| Get       |  Nothing                    | modified story |
 
 
 
@@ -84,9 +85,12 @@ headers: {Authorization: 'Bearer ' + token}
 in your code.
 AKA fill your headers before requesting.
 
-### Widget:
+### WidgetFiles:
 
-| Type          | nameFile       |
-|:-------------:|:--------------:|
-| Music         | Path in node   |
-| Game          | AndroidActivity|
+| Type          | nameFile                |
+|:-------------:|:-----------------------:|
+| Music         | Path in node            |
+| Game          | AndroidActivity         |
+| Image         | Pah in node             |
+| Hint          | Text to help story      |
+| Recording     | Command towards Android |

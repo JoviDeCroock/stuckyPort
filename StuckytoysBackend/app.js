@@ -18,6 +18,7 @@ require('./models/Themes');
 require('./models/Users');
 require('./models/Admins');
 require('./models/Widgets');
+require('./models/WidgetFiles');
 
 //Creating database
 require('./config/passport');

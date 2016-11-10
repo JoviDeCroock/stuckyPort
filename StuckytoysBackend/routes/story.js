@@ -15,6 +15,7 @@ var Scene = mongoose.model('Scene');
 var Theme = mongoose.model('Theme');
 var Widget = mongoose.model('Widget');
 var Figure = mongoose.model('Figure');
+var WidgetFile = mongoose.model('WidgetFile');
 
 // configuring auth
 var auth = jwt({secret:config.secret,userProperty:config.userProperty});
@@ -28,6 +29,18 @@ router.param('story', function(req,res,next,id)
         if(err) {return next(err);}
         if(!story) {return next(new Error('Kan het gekozen verhaal niet vinden.'));}
         req.story = story;
+        return next();
+    });
+});
+
+router.param('widgetFile', function(req,res,next,id)
+{
+    var query = WidgetFile.findById(id);
+    query.exec(function(err, wfile)
+    {
+        if(err) {return next(err);}
+        if(!wfile) {return next(new Error('Kan de gekozen file niet vinden.'));}
+        req.widgetFile = wfile;
         return next();
     });
 });
@@ -181,34 +194,37 @@ router.get('/getStory/:story', auth, function(req,res,next)
 });
 
 /*Download widget per widget*/
-router.get('/download/:widget', auth, function(req,res, next)
+router.get('/download/:widgetFile', auth, function(req,res, next)
 {
-    var file =  __dirname + '/downloads/' + req.widget.type + '/' + req.widget.nameFile;
+    var file =  __dirname + '/downloads/' + req.widgetFile.type + '/' + req.widgetFile.nameFile;
     res.download(file);
 });
 
 /*Get all download maps for widget types*/
-
+/*TODO: get types according to folder*/
 /*Get all widgets from one type*/
-
+/*TODO: get all files in one folder*/
 /*Element adders*/
 router.post('/addWidget', auth, function(req,res,next)
 {
-    var widget = Widget.find({nameFile: req.body.widget.nameFile});
-    if(!widget)
+    var w = new Widget();
+    w.widgetFiles = [];
+    w.id = req.body.id;
+    req.body.widgetFiles.forEach(function(widgetFile)
     {
-        var w = new Widget();
-        w.nameFile = req.body.nameFile;
-        w.type = req.body.type;
-        w.id = req.body.id;
-        w.save(function(err)
+       var f = new WidgetFile();
+        f.fileName = widgetFile.fileName;
+        f.type = widgetFile.type;
+        f.save(function(err)
         {
-            if(err){console.log(err);}
-            res.json(w);
+            w.files.push(f);
         });
-    }else{
-        res.json(widget);
-    }
+    });
+    w.save(function(err)
+    {
+        if(err){console.log(err);}
+        res.json(w);
+    });
 });
 
 router.post('/addTheme', auth, function(req,res,next)
@@ -253,7 +269,10 @@ router.get("/getAllWidgets", auth, function(req,res,next)
 {
     Widget.find(function(err, widgets)
     {
-        res.json(widgets);
+        widgets.populate('files', function(err,file)
+        {
+            res.json(file);
+        });
     });
 });
 
@@ -264,7 +283,10 @@ router.get("/themes/:theme", auth, function(req,res,next)
 
 router.get("/widgets/:widget", auth, function(req,res,next)
 {
-    res.json(req.widget);
+    req.widget.populate('files', function(err, file)
+    {
+       res.json(file);
+    });
 });
 
 router.get("/:theme/allStories", auth, function(req,res,next)
