@@ -3,19 +3,18 @@
 
   angular
     .module('stuckyToys')
-    .directive('displayScenes', displayScenes);
+    .directive('makeStory', makeStory);
 
-  function displayScenes () {
+  function makeStory () {
     var directive = {
       link: link,
-      templateUrl: 'app/stories/displayScenes.html',
+      templateUrl: 'app/stories/directives/makeStory.html',
       restrict: 'EA'
     };
     return directive;
 
     function link (scope, element, attrs) {
-      
-    };
 
-  }
+    };
+  };
 })();
