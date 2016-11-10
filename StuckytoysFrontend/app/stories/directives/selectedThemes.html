@@ -1,0 +1,10 @@
+<div ng-repeat="theme in vm.selectedThemes">
+    <p>{{theme}}</p>
+</div>
+<button ng-click="vm.addTheme()" class="btn btn-default">+ Thema</button>
+<select class="form-control themeChooser"
+  ng-model = "vm.selectedTheme"
+  ng-change="vm.selectTheme()"
+  ng-show="vm.themeChooserClicked">
+  <option ng-repeat="theme in vm.themes">{{theme.name}}</option>
+</select>

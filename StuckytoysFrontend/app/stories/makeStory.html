@@ -2,7 +2,7 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <img alt="StuckyToys" src="./resources/images/logo.png" class="logo" />
+                <a href="/#/main"><img alt="StuckyToys" src="./resources/images/logo.png" class="logo" /></a>
             </div>
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -21,22 +21,16 @@
         <div class="row">
             <div class="col-md-3 scenes">
                 <h4>Scenes</h4>
+                <display-scenes></display-scenes>
             </div>
             <div class="col-md-6">
                 <h3>Maak verhaal</h3>
-                <input type="text" placeholder="Titel" ng-model="vm.activeStory.name" class="form-control" />
+                <make-story></make-story>                
             </div>
             <div class="col-md-3 theme">
               <div>
                 <!--TODO insert directive here-->
                 <selected-themes></selected-themes>
-                <button ng-click="vm.addTheme()" class="btn btn-default">+ Thema</button>
-                <select class="form-control themeChooser"
-                  ng-model = "vm.selectedTheme"
-                  ng-change="vm.selectTheme()"
-                  ng-show="vm.themeChooserClicked">
-                  <option ng-repeat="theme in vm.themes">{{theme.name}}</option>
-                </select>
               </div>
             </div>
         </div>

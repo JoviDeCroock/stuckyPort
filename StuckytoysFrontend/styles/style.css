@@ -63,6 +63,13 @@ nav ul li a{
   margin-top: 50px;
   border-right: 1px solid grey;
 }
+.scene {
+  border: 1px solid black;
+  height: 100px;
+  margin: 5px;
+  border-radius: 5px;
+  text-align: center;
+}
 .theme {
   margin-top: 55px;
   border-left: 1px solid grey;
