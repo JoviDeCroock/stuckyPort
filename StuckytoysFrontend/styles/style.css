@@ -59,6 +59,14 @@ nav ul li a{
 .logout{
   float: right;
 }
+.scenes {
+  margin-top: 50px;
+  border-right: 1px solid grey;
+}
+.theme {
+  margin-top: 55px;
+  border-left: 1px solid grey;
+}
 
 @media screen and (min-width: 50em) {
   .tile {
