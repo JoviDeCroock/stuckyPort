@@ -5,12 +5,14 @@
     .module('stuckyToys')
     .controller('storyController', storyController);
 
-  storyController.$inject = ['$location', 'authService'];
+  storyController.$inject = ['$location', 'authService', 'storyService'];
 
-  function storyController ($location, authService) {
+  function storyController ($location, authService, storyService) {
     var vm = this;
-    vm.title = "Maak verhaal";
     vm.username = authService.currentUser();
+    //maak verhaal
+    
+    //alle verhalen
     vm.logOut = logOut;
 
     function logOut () {

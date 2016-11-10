@@ -5,19 +5,64 @@
     .module('stuckyToys')
     .factory('storyService', storyService);
 
-  storyService.$inject = ['$http', 'url'];
+  storyService.$inject = ['$http', 'url', 'authService'];
 
-  function storyService ($http, url) {
+  function storyService ($http, url, authService) {
     var usedUrl = url.dev;
+    var token = authService.getToken();
     var story = {
       stories: [],
-      getStories: getStories //TODO
+      activeStory: {},
+      setActiveStory : setActiveStory,
+      getStories: getStories,
+      createStory: createStory,
+      addSceneToStory: addSceneToStory,
+      removeSceneFromStory: removeSceneFromStory,
+      addScene: addScene
     };
 
     return story;
 
-    /*function getStories () {
-      return $http.get()
-    }*/
+    function setActiveStory (aStory) {
+      story.activeStory = aStory;
+    };
+    function getStories () {
+      return $http.get(usedUrl+'story/getAllStories', {
+        headers: { Authorization: 'Bearer '+token }
+      })
+        .success(function (data) {
+          angular.copy(data, story.stories);
+          //console.log(story.stories);
+        });
+    };
+    function createStory () {
+      return $http.post(usedUrl+'story/', story.activeStory, {
+        headers: { Authorization: 'Bearer '+token }
+      })
+       .success(function (data) {
+         story.stories.push(data);
+       });
+    };
+    //tijdens aanmaken => createStory
+    function addSceneToStory (scene) {
+      story.activeStory.scenes.push(scene);
+    };
+    function removeSceneFromStory (scene) {
+      for (aScene in story.activeStory.scenes) {
+        if (aScene.sceneNr = scene.sceneNr) {
+          var pos = story.activeStory.scenes.indexOf(aScene);
+          story.activeStory.scenes.splice(pos, 1);
+        }
+      }
+    };
+    //tijdens bewerken
+    function addScene (storyId, scene) {
+      return $http.post(usedUrl+'story/'+storyId+'/addScene', scene, {
+        headers: { Authorization: 'Bearer '+token }
+      })
+      .success(function (data) {
+        story.activeStory = data;
+      })
+    }
   };
 })();
