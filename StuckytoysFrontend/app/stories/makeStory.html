@@ -27,8 +27,16 @@
                 <input type="text" placeholder="Titel" ng-model="vm.activeStory.name" class="form-control" />
             </div>
             <div class="col-md-3 theme">
-              <div class="themeChooser">
+              <div>
+                <!--TODO insert directive here-->
+                <selected-themes></selected-themes>
                 <button ng-click="vm.addTheme()" class="btn btn-default">+ Thema</button>
+                <select class="form-control themeChooser"
+                  ng-model = "vm.selectedTheme"
+                  ng-change="vm.selectTheme()"
+                  ng-show="vm.themeChooserClicked">
+                  <option ng-repeat="theme in vm.themes">{{theme.name}}</option>
+                </select>
               </div>
             </div>
         </div>

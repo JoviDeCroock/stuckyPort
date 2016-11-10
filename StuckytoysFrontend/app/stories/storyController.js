@@ -11,6 +11,7 @@
     var vm = this;
     vm.username = authService.currentUser();
     //maak verhaal
+    vm.themeChooserClicked = false;
     vm.selectedThemes = [];
     vm.themes = [{
       name: 'Recyclage',
@@ -26,9 +27,15 @@
       scenes: []
     };
     vm.addTheme = addTheme;
+    vm.selectTheme = selectTheme;
 
-    function addTheme(){
-      
+    function addTheme () {
+      vm.themeChooserClicked = true;
+    };
+    function selectTheme () {
+      vm.selectedThemes.push(vm.selectedTheme);
+      vm.themeChooserClicked = false;
+      vm.selectedTheme = {};
     };
 
     //alle verhalen
