@@ -67,6 +67,9 @@ nav ul li a{
   margin-top: 55px;
   border-left: 1px solid grey;
 }
+.themeChooser {
+  margin-top: 5px;
+}
 
 @media screen and (min-width: 50em) {
   .tile {
