@@ -183,7 +183,7 @@ router.get('/getStory/:story', auth, function(req,res,next)
 /*Download widget per widget*/
 router.get('/download/:widget', auth, function(req,res, next)
 {
-    var file =  __dirname + '/downloads/music/' + req.widget.nameFile;
+    var file =  __dirname + '/downloads/' + req.widget.type + '/' + req.widget.nameFile;
     res.download(file);
 });
 
