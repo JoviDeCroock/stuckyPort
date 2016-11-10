@@ -14,6 +14,7 @@ var Story = mongoose.model('Story');
 var Scene = mongoose.model('Scene');
 var Theme = mongoose.model('Theme');
 var Widget = mongoose.model('Widget');
+var Figure = mongoose.model('Figure');
 
 // configuring auth
 var auth = jwt({secret:config.secret,userProperty:config.userProperty});
@@ -37,7 +38,7 @@ router.param('theme', function(req,res,next,id)
     query.exec(function(err, theme)
     {
         if(err) {return next(err);}
-        if(!theme) {return next(new Error('Kan het gekozen verhaal niet vinden.'));}
+        if(!theme) {return next(new Error('Kan het gekozen thema niet vinden.'));}
         req.theme = theme;
         return next();
     });
@@ -49,7 +50,7 @@ router.param('widget', function(req,res,next,id)
     query.exec(function(err, widget)
     {
         if(err) {return next(err);}
-        if(!widget) {return next(new Error('Kan het gekozen verhaal niet vinden.'));}
+        if(!widget) {return next(new Error('Kan het gekozen widget niet vinden.'));}
         req.widget = widget;
         return next();
     });
@@ -61,24 +62,11 @@ router.param('scene', function(req,res,next,id)
     query.exec(function(err, scene)
     {
         if(err) {return next(err);}
-        if(!scene) {return next(new Error('Kan het gekozen verhaal niet vinden.'));}
+        if(!scene) {return next(new Error('Kan de gekozen scene niet vinden.'));}
         req.scene = scene;
         return next();
     });
 });
-
-/*Test Method*/
-router.get('/download/test', function(req,res,next)
-{
-    var file = [];
-    file.push(__dirname + '/downloads/music/cash_register.ogg');
-    file.push(__dirname + '/downloads/music/bushorn.mp3');
-    file.forEach(function(entry)
-    {
-        res.json(entry);
-    });
-});
-
 
 // API methods
 router.post('/createStory', auth, function(req,res,next)
@@ -86,17 +74,25 @@ router.post('/createStory', auth, function(req,res,next)
     var story = new Story();
     story.name = req.body.name;
     story.scenes = [];
+    story.themes = [];
     if(req.body.scenes.length !== 0)
     {
         req.body.scenes.forEach(function(entry)
         {
             var scene = new Scene();
             scene.sceneNr = entry.sceneNr;
-            var widget = Widget.find({_id: entry.widget._id});
-            var theme = Theme.find({_id: entry.theme._id});
-            scene.theme = theme;
-            scene.widget = widget;
-            scene.figures = req.body.figures;
+            scene.widgets = [];
+            scene.figures = [];
+            entry.widgets.forEach(function(widgetEntry)
+            {
+                var widget = Widget.findById(widgetEntry._id);
+                scene.widgets.push(widget);
+            });
+            req.body.figures.forEach(function(figureEntry)
+            {
+                var figure = Figure.findById(figureEntry._id);
+                scene.figures.push(figure);
+            });
             scene.save(function(err)
             {
                 if(err){console.log(err);}
@@ -104,8 +100,11 @@ router.post('/createStory', auth, function(req,res,next)
             story.scenes.push(scene);
         });
     }
-    var theme = Theme.find({_id: req.body.theme._id});
-    story.theme = theme;
+    req.body.themes.forEach(function(themeEntry)
+    {
+        var theme = Theme.findById(themeEntry._id);
+        story.themes.push(theme);
+    });
     story.saveDate(req.body.date);
     story.save(function(err)
     {
@@ -114,45 +113,25 @@ router.post('/createStory', auth, function(req,res,next)
     res.json(story);
 });
 
-router.post('/:story/addScene', auth, function(req,res,next)
-{
+router.post('/:story/addScene', auth, function(req,res,next) {
     var story = req.story;
     var x = req.story.scenes.length;
     var newScene = new Scene();
-    var theme = Theme.find({_id: req.body.theme._id});
 
-    if(!theme)
+    newScene.widgets = [];
+    req.body.widgets.forEach(function(widgetEntry)
     {
-        var t = new Theme();
-        t.name = req.body.theme.name;
-        t.description = req.body.theme.description;
-        t.save(function(err)
-        {
-            if(err){console.log(err);}
-            newScene.theme = t;
-        });
-    }else{
-        newScene.theme = theme;
-    }
-
-    var widget = Widget.find({_id: req.body.widget._id});
-    if(!widget)
-    {
-        var w = new Widget();
-        w.nameFile = req.body.widget.nameFile;
-        w.type = req.body.widget.type;
-        w.id = req.body.widget.id;
-        w.save(function(err)
-        {
-            if(err){console.log(err);}
-            newScene.widget = w;
-        });
-    }else{
-        newScene.widget = widget;
-    }
+        var widget = Widget.findById(widgetEntry._id);
+        newScene.widgets.push(widget);
+    });
 
     newScene.sceneNr = x;
-    newScene.figures = req.body.figures;
+    newScene.figures = [];
+    req.body.figures.forEach(function(figureEntry)
+    {
+        var figure = Figure.findById(figureEntry._id);
+        newScene.figures.push(figure);
+    });
     newScene.save(function(err)
     {
         if(err){console.log(err);}
@@ -171,7 +150,7 @@ router.get('/getStory/:story', auth, function(req,res,next)
     {
         Story.populate(story,
             {
-                path:'theme',
+                path:'themes',
                 model:'Theme'
             },function(err, x)
             {
@@ -183,7 +162,7 @@ router.get('/getStory/:story', auth, function(req,res,next)
                     {
                         Story.populate(scene,
                             {
-                                path:'scenes.widget',
+                                path:'scenes.widgets',
                                 model:'Widget'
                             }, function(err, y)
                             {
@@ -198,17 +177,19 @@ router.get('/getStory/:story', auth, function(req,res,next)
                             });
                     });
             });
-
     });
 });
 
-/*TODO: change download per scene*/
-//in android if more widgets in scene download widgets individually?
+/*Download widget per widget*/
 router.get('/download/:widget', auth, function(req,res, next)
 {
-    var file =  __dirname + '/downloads/music/' + req.widget.nameFile;
+    var file =  __dirname + '/downloads/' + req.widget.type + '/' + req.widget.nameFile;
     res.download(file);
 });
+
+/*Get all download maps for widget types*/
+
+/*Get all widgets from one type*/
 
 /*Element adders*/
 router.post('/addWidget', auth, function(req,res,next)
@@ -272,15 +253,7 @@ router.get("/getAllWidgets", auth, function(req,res,next)
 {
     Widget.find(function(err, widgets)
     {
-        Widget.populate(widgets,
-            {
-                path:'widgets.theme',
-                model:'Theme'
-            }, function(err, theme)
-            {
-                if(err){return next(err);}
-                res.json(theme);
-            });
+        res.json(widgets);
     });
 });
 
@@ -294,19 +267,17 @@ router.get("/widgets/:widget", auth, function(req,res,next)
     res.json(req.widget);
 });
 
-router.get("/:theme/allWidgets", auth, function(req,res,next)
-{
-    /*TODO*/
-});
-
 router.get("/:theme/allStories", auth, function(req,res,next)
 {
     /*TODO*/
 });
 
-/* Jovi's Brainstorm Hoek:
-+ Search Story per Theme?
-+ Search Widget per Theme?
+
+/*TODO: remove scene from story (scene nr aanpassen)*/
+/*
+Jovi's Brainstorm Hoek:
+
+
 */
 
 module.exports = router;
