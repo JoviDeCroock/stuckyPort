@@ -13,6 +13,8 @@
     //maak verhaal
     vm.themeChooserClicked = false;
     vm.selectedThemes = [];
+    vm.scenes = [];
+    //Wordt uit service gehaald
     vm.themes = [{
       name: 'Recyclage',
       description: 'Het kind leren omgaan met afval'
@@ -28,6 +30,7 @@
     };
     vm.addTheme = addTheme;
     vm.selectTheme = selectTheme;
+    vm.addScene = addScene;
 
     function addTheme () {
       vm.themeChooserClicked = true;
@@ -36,6 +39,11 @@
       vm.selectedThemes.push(vm.selectedTheme);
       vm.themeChooserClicked = false;
       vm.selectedTheme = {};
+    };
+    function addScene () {
+      vm.scenes.push({
+        sceneNr: vm.scenes.length + 1
+      });
     };
 
     //alle verhalen

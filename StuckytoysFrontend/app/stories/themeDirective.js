@@ -7,13 +7,15 @@
 
     function selectedThemes () {
       var directive = {
+        link: link,
         templateUrl: 'app/stories/selectedThemes.html',
-        restrict: 'EA',
-        controller: 'storyController',
-        controllerAs: 'vm',
-        bindToController: true
+        restrict: 'EA'
       };
       return directive;
+
+      function link (scope, element, attrs) {
+        
+      };
     };
 
 })();
