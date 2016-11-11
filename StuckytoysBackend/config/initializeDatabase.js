@@ -6,7 +6,7 @@ var Story = mongoose.model('Story');
 var Theme = mongoose.model('Theme');
 var Scene = mongoose.model('Scene');
 var Widget = mongoose.model('Widget');
-
+var WidgetFile = mongoose.model('WidgetFile');
 /* Admin */
 Admin.find({}, function(err, ad)
 {
@@ -105,17 +105,50 @@ Story.find({},function(err, adhd)
 
     /*Widget*/
     var widget = new Widget();
-    widget.type = "music";
-    widget.id = "bushorn";
-    widget.nameFile = "bushorn.mp3";
+    widget.id = 'bushorn';
+    widget.widgetFiles = [];
+    var wf = new WidgetFile();
+    wf.fileName  = 'bushorn.mp3';
+    wf.type = 'music';
+    var wf2 = new WidgetFile();
+    wf2.fileName  = 'bushorn.jpg';
+    wf2.type = 'image';
+    wf.save(function(err)
+    {
+      if(err){console.log(err);}
+    });
+    widget.widgetFiles.push(wf);
+    wf2.save(function(err)
+    {
+      if(err){console.log(err);}
+    });
+    widget.widgetFiles.push(wf2);
     widget.save(function(err)
     {
       if(err){console.log(err);}
     });
+
     var widget2 = new Widget();
-    widget2.type = "image";
-    widget2.id = "bushorn";
-    widget2.nameFile = "bushorn.jpg";
+    widget2.id = 'cash';
+    widget2.widgetFiles = [];
+    var wf = new WidgetFile();
+    wf.fileName = 'cash.ogg';
+    wf.type = 'music';
+    var wf2 = new WidgetFile();
+    wf2.fileName = 'cash.jpg';
+    wf2.type = 'image';
+    wf.save(function(err)
+    {
+      if(err){console.log(err);}
+
+    });
+    widget2.widgetFiles.push(wf);
+    wf2.save(function(err)
+    {
+      if(err){console.log(err);}
+
+    });
+    widget2.widgetFiles.push(wf2);
     widget2.save(function(err)
     {
       if(err){console.log(err);}
@@ -124,8 +157,8 @@ Story.find({},function(err, adhd)
     /*Scenes*/
     var scene1 = new Scene();
     var scene2 = new Scene();
-    scene1.widgets = [];scene1.widgets.push(widget); scene1.widgets.push(widget2);
-    scene2.widgets = []; scene2.widgets.push(widget);
+    scene1.widgets = [];scene1.widgets.push(widget);
+    scene2.widgets = []; scene2.widgets.push(widget2);
     scene1.sceneNr = 1;
     scene2.sceneNr = 2;
     scene1.figures = [];

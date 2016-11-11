@@ -179,13 +179,20 @@ router.get('/getStory/:story', auth, function(req,res,next)
                                 model:'Widget'
                             }, function(err, y)
                             {
-                                Scene.populate(y,
+                                Story.populate(y,
                                     {
-                                        path: 'scenes.figures.picture',
-                                        model: 'Picture'
-                                    }, function(err, figures)
+                                        path:'scenes.widgets.widgetFiles',
+                                        model:'WidgetFile'
+                                    }, function(err, z)
                                     {
-                                        res.json(figures);
+                                        Scene.populate(z,
+                                            {
+                                                path: 'scenes.figures.picture',
+                                                model: 'Picture'
+                                            }, function(err, figures)
+                                            {
+                                                res.json(figures);
+                                            });
                                     });
                             });
                     });
@@ -196,14 +203,28 @@ router.get('/getStory/:story', auth, function(req,res,next)
 /*Download widget per widget*/
 router.get('/download/:widgetFile', auth, function(req,res, next)
 {
-    var file =  __dirname + '/downloads/' + req.widgetFile.type + '/' + req.widgetFile.nameFile;
+    var file =  __dirname + '/downloads/' + req.widgetFile.type + '/' + req.widgetFile.fileName;
     res.download(file);
 });
 
-/*Get all download maps for widget types*/
-/*TODO: get types according to folder*/
-/*Get all widgets from one type*/
-/*TODO: get all files in one folder*/
+router.get('/widgetTypes', auth, function(req,res,next)
+{
+    var fs = require('fs');
+    var path = __dirname + '/downloads/';
+    fs.readdir(path, function(err, items) {
+        res.json(items);
+    });
+});
+
+router.post('/widgetsOfType', auth, function(req,res,next)
+{
+    var fs = require('fs');
+    var path = __dirname + '/downloads/' + req.body.type;
+    fs.readdir(path, function(err, items) {
+        res.json(items);
+    });
+});
+
 /*Element adders*/
 router.post('/addWidget', auth, function(req,res,next)
 {
@@ -217,8 +238,9 @@ router.post('/addWidget', auth, function(req,res,next)
         f.type = widgetFile.type;
         f.save(function(err)
         {
-            w.files.push(f);
+            if(err){console.log(err);}
         });
+        w.files.push(f);
     });
     w.save(function(err)
     {
@@ -245,6 +267,15 @@ router.post('/addTheme', auth, function(req,res,next)
     }
 });
 
+router.post('/editTheme', auth, function(req,res,next)
+{
+    var query = {_id: req.body.theme._id};
+    Theme.findOneAndUpdate(query, req.body.theme,{upsert:true}, function(err, doc) {
+            if (err) return res.send(500, {error: err});
+            return res.send("succesfully saved");
+        });
+});
+
 /*Getters voor elementen*/
 router.get('/getAllStories', auth, function(req,res,next)
 {
@@ -269,9 +300,13 @@ router.get("/getAllWidgets", auth, function(req,res,next)
 {
     Widget.find(function(err, widgets)
     {
-        widgets.populate('files', function(err,file)
+        Widget.populate(widgets,
         {
-            res.json(file);
+            path:'widgetFiles',
+            model:'WidgetFile'
+        },function(err, x)
+        {
+            res.json(x);
         });
     });
 });
@@ -294,12 +329,38 @@ router.get("/:theme/allStories", auth, function(req,res,next)
     /*TODO*/
 });
 
+router.post("/removeWidget/:widget", auth, function(req,res,next)
+{
+    Widget.remove({_id: req.widget._id}, function(err)
+    {
+        if (!err) {
+            res.json('fail');
+        }
+        else {
+            res.json('succes');
+        }
+    });
+});
 
-/*TODO: remove scene from story (scene nr aanpassen)*/
+router.post("/removeTheme/:theme", auth, function(req,res,next)
+{
+    Theme.remove({_id: req.theme._id}, function(err)
+    {
+        if (!err) {
+            res.json('fail');
+        }
+        else {
+            res.json('succes');
+        }
+    });
+});
 /*
-Jovi's Brainstorm Hoek:
-
-
-*/
+TODO:
+*
+* remove scene from story (scene nr aanpassen)*
+* getAllStories populates
+* allStories per theme
+*
+* */
 
 module.exports = router;
