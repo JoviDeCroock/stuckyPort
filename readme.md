@@ -43,12 +43,12 @@
 |  /getStory/{storyId}                 | Get       |  Nothing                    | Requested Story|
 |  /getAllThemes                       | Get       |  Nothing                    | AllThemes      |
 |  /getAllWidgets                      | Get       |  Nothing                    | AllWidgets     |
-|  /getAllStories                      | Get       |  Nothing                    | AllStories     | (TODO populates)
+|  /getAllStories (not populated YET)  | Get       |  Nothing                    | AllStories     | 
 |  /addTheme                           | Post      |  ThemeObject                | newTheme       |
 |  /addWidget                          | Post      |  WidgetObject               | newWidget      |
 |  /themes/{themeId}                   | Get       |  Nothing                    | Requested theme|
 |  /widgets/{widgetId}                 | Get       |  Nothing                    |Requested widget|
-|  /{StoryObject}/DeleteScene/{SceneId}| Get       |  Nothing                    | modified story | (not implemented)
+|  /{StoryObject}/DeleteScene/{SceneId}| Get       | Nothing(not implemented yet)| modified story | 
 |  /widgetTypes                        | Get       |  Nothing                    | allWidgetTypes |
 |  /WigetsOfType                       | Post      |  type                       | allItemsOfType |
 |  /editTheme                          | Post      |  ThemeObject                | modifiedTheme  |
