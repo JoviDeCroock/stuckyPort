@@ -276,14 +276,70 @@ router.post('/editTheme', auth, function(req,res,next)
         });
 });
 
-/*Getters voor elementen*/
+router.post('/editScene', auth, function(req,res,next)
+{
+    var query = {_id: req.body.scene._id};
+    Scene.findOneAndUpdate(query, req.body.scene,{upsert:true}, function(err, doc) {
+        if (err) return res.send(500, {error: err});
+        return res.send("succesfully saved");
+    });
+});
+
 router.get('/getAllStories', auth, function(req,res,next)
 {
     /*TODO: populates*/
     Story.find(function(err, stories)
     {
-        if(err){return next(err);}
-        return res.json(stories);
+        Story.populate(stories,
+            {
+                path:'scenes',
+                model:'Scene'
+            }, function(err, scenes)
+            {
+                Story.populate(scenes,
+                    {
+                        path:'themes',
+                        model:'Theme'
+                    }, function(err, themes)
+                    {
+                        Story.populate(themes,
+                            {
+                                path:'picture',
+                                model:'Picture'
+                            }, function(err, pic)
+                            {
+                                Story.populate(pic,
+                                    {
+                                        path:'scenes.figures',
+                                        model:'Figure'
+                                    }, function(err, figures)
+                                    {
+                                        Story.populate(figures,
+                                            {
+                                                path:'scenes.widgets',
+                                                model:'Widget'
+                                            }, function(err, widgets)
+                                            {
+                                                Story.populate(widgets,
+                                                    {
+                                                        path:'scenes.widgets.widgetFiles',
+                                                        model:'WidgetFile'
+                                                    }, function(err, files)
+                                                    {
+                                                        Story.populate(files,
+                                                            {
+                                                                path:'scenes.figures.picture',
+                                                                model:'Picture'
+                                                            }, function(err, figPics)
+                                                            {
+                                                                res.json(figPics);
+                                                            });
+                                                    });
+                                            });
+                                    });
+                            });
+                    });
+            });
     });
 });
 
@@ -354,11 +410,23 @@ router.post("/removeTheme/:theme", auth, function(req,res,next)
         }
     });
 });
+
+router.post("/:story/removeScene/:scene", auth, function(req,res,next)
+{
+    var sceneNr = req.scene.sceneNr;
+   Scene.remove({_id:req.scene._id}, function(err)
+   {
+      if(!err)
+      {
+          //remove from story TODO
+          res.json(req.story);
+      }
+   });
+});
 /*
 TODO:
 *
-* remove scene from story (scene nr aanpassen)*
-* getAllStories populates
+* remove scene from story (scene nr aanpassen)
 * allStories per theme
 *
 * */

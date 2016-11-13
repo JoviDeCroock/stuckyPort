@@ -37,21 +37,22 @@
 ### /story
 | URL                                  | Method    | Body                        |returns         |
 |:------------------------------------:|:---------:|:---------------------------:|:--------------:|
-|  /download/{WidgetId}                | Get       |  Nothing                    | Scenefiles     |
+|  /download/{WidgetFileId}            | Get       |  Nothing                    | Scenefiles     |
 |  /createStory                        | Post      |  StoryObject                | newStory       |
 |  /{storyId}/addScene                 | Post      |  SceneObject                | modified Story |
 |  /getStory/{storyId}                 | Get       |  Nothing                    | Requested Story|
 |  /getAllThemes                       | Get       |  Nothing                    | AllThemes      |
 |  /getAllWidgets                      | Get       |  Nothing                    | AllWidgets     |
-|  /getAllStories (not populated YET)  | Get       |  Nothing                    | AllStories     | 
+|  /getAllStories                      | Get       |  Nothing                    | AllStories     |
 |  /addTheme                           | Post      |  ThemeObject                | newTheme       |
 |  /addWidget                          | Post      |  WidgetObject               | newWidget      |
 |  /themes/{themeId}                   | Get       |  Nothing                    | Requested theme|
 |  /widgets/{widgetId}                 | Get       |  Nothing                    |Requested widget|
-|  /{StoryObject}/DeleteScene/{SceneId}| Get       | Nothing(not implemented yet)| modified story | 
+|  /{StoryObject}/DeleteScene/{SceneId}| Get       |  Nothing                    | modified story | 
 |  /widgetTypes                        | Get       |  Nothing                    | allWidgetTypes |
 |  /WigetsOfType                       | Post      |  type                       | allItemsOfType |
 |  /editTheme                          | Post      |  ThemeObject                | modifiedTheme  |
+|  /editScene                          | Post      |  SceneObject                | modifiedScene  |
 |  /removeWidget/{widgetId}            | Post      |  Nothing                    | succes/fail    |
 |  /removeTheme/{themeId}              | Post      |  Nothing                    | succes/fail    |
 

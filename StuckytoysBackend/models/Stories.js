@@ -8,7 +8,7 @@ var StorySchema = new mongoose.Schema({
   date: Date,
   themes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Theme' }],
   scenes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Scene' }],
-  picture: [{type: mongoose.Schema.Types.ObjectId, ref:'Picture'}]
+  picture: {type: mongoose.Schema.Types.ObjectId, ref:'Picture'}
 });
 
 StorySchema.methods.saveDate = function(dateString){
