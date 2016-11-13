@@ -33,6 +33,8 @@ var auth = require('./routes/auth');
 var profile = require('./routes/profile');
 var figure = require('./routes/figure');
 var story = require('./routes/story');
+var theme = require('./routes/theme');
+var widget = require('./routes/widget');
 
 var app = express();
 
@@ -70,6 +72,8 @@ app.use('/', auth);
 app.use('/profile', profile);
 app.use('/figure', figure);
 app.use('/story', story);
+app.use('/theme', theme);
+app.use('/widget', widget);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

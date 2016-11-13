@@ -41,21 +41,28 @@
 |  /createStory                        | Post      |  StoryObject                | newStory       |
 |  /{storyId}/addScene                 | Post      |  SceneObject                | modified Story |
 |  /getStory/{storyId}                 | Get       |  Nothing                    | Requested Story|
-|  /getAllThemes                       | Get       |  Nothing                    | AllThemes      |
-|  /getAllWidgets                      | Get       |  Nothing                    | AllWidgets     |
 |  /getAllStories                      | Get       |  Nothing                    | AllStories     |
-|  /addTheme                           | Post      |  ThemeObject                | newTheme       |
-|  /addWidget                          | Post      |  WidgetObject               | newWidget      |
-|  /themes/{themeId}                   | Get       |  Nothing                    | Requested theme|
-|  /widgets/{widgetId}                 | Get       |  Nothing                    |Requested widget|
 |  /{StoryObject}/DeleteScene/{SceneId}| Get       |  Nothing                    | modified story | 
-|  /widgetTypes                        | Get       |  Nothing                    | allWidgetTypes |
-|  /WigetsOfType                       | Post      |  type                       | allItemsOfType |
-|  /editTheme                          | Post      |  ThemeObject                | modifiedTheme  |
 |  /editScene                          | Post      |  SceneObject                | modifiedScene  |
-|  /removeWidget/{widgetId}            | Post      |  Nothing                    | succes/fail    |
+
+### /theme
+| URL                                  | Method    | Body                        |returns         |
+|:------------------------------------:|:---------:|:---------------------------:|:--------------:|
+|  /getAllThemes                       | Get       |  Nothing                    | AllThemes      |
+|  /addTheme                           | Post      |  ThemeObject                | newTheme       |
+|  /themes/{themeId}                   | Get       |  Nothing                    | Requested theme|
+|  /editTheme                          | Post      |  ThemeObject                | modifiedTheme  |
 |  /removeTheme/{themeId}              | Post      |  Nothing                    | succes/fail    |
 
+### /widget
+| URL                                  | Method    | Body                        |returns         |
+|:------------------------------------:|:---------:|:---------------------------:|:--------------:|
+|  /getAllWidgets                      | Get       |  Nothing                    | AllWidgets     |
+|  /addWidget                          | Post      |  WidgetObject               | newWidget      |
+|  /widgets/{widgetId}                 | Get       |  Nothing                    |Requested widget|
+|  /widgetTypes                        | Get       |  Nothing                    | allWidgetTypes |
+|  /WigetsOfType                       | Post      |  type                       | allItemsOfType |
+|  /removeWidget/{widgetId}            | Post      |  Nothing                    | succes/fail    |
 
 
 ## API Objects
