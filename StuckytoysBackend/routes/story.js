@@ -74,6 +74,9 @@ router.param('scene', function(req,res,next,id)
 // API methods
 router.post('/createStory', auth, function(req,res,next)
 {
+    if(!req.body.scenes || !req.body.name || !req.body.themes || !req.body.date){
+        return res.status(400).json({message:'Vul alle velden in'});
+    }
     var story = new Story();
     story.name = req.body.name;
     story.scenes = [];
@@ -116,7 +119,11 @@ router.post('/createStory', auth, function(req,res,next)
     res.json(story);
 });
 
-router.post('/:story/addScene', auth, function(req,res,next) {
+router.post('/:story/addScene', auth, function(req,res,next)
+{
+    if(!req.body.widgets || !req.body.figures){
+        return res.status(400).json({message:'Vul alle velden in'});
+    }
     var story = req.story;
     var x = req.story.scenes.length;
     var newScene = new Scene();

@@ -25,6 +25,9 @@ router.param('theme', function(req,res,next,id)
 
 router.post('/addTheme', auth, function(req,res,next)
 {
+    if(!req.body.name || !req.body.description){
+        return res.status(400).json({message:'Vul alle velden in'});
+    }
     var theme = Theme.find({name: req.body.theme.name});
     if(!theme)
     {

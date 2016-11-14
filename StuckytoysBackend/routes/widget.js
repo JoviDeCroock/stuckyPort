@@ -47,6 +47,9 @@ router.post('/widgetsOfType', auth, function(req,res,next)
 
 router.post('/addWidget', auth, function(req,res,next)
 {
+    if(!req.body.widgetFiles || !req.body.id){
+        return res.status(400).json({message:'Vul alle velden in'});
+    }
     var w = new Widget();
     w.widgetFiles = [];
     w.id = req.body.id;
