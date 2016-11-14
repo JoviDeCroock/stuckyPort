@@ -15,6 +15,8 @@
       themes: [],
       getAllThemes: getThemes,
       addTheme: addTheme;
+      editTheme: editTheme,
+      removeTheme: removeTheme
     }
 
     function getThemes() {
@@ -45,6 +47,17 @@
           themesFactory.themes.splice(themesFactory.themes.indexOf(theme),
             1);
           themesFactory.themes.push(data);
+        });
+      }
+
+      function removeTheme(theme) {
+        return $http.post(usedUrl + 'removeTheme/' + theme.id, {
+          headers: {
+            Authorization: 'Bearer' + token
+          }
+        }).succes(function(data) {
+          themesFactory.themes.splice(themesFactory.themes.indexOf(theme),
+            1);
         });
       }
     }
