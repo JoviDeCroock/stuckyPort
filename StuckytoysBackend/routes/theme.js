@@ -11,6 +11,9 @@ var mime = require('mime');
 var config = require('../config/config');
 var Theme = mongoose.model('Theme');
 
+//Configuring auth
+var auth = jwt({secret:config.secret,userProperty:config.userProperty});
+
 router.param('theme', function(req,res,next,id)
 {
     var query = Theme.findById(id);
