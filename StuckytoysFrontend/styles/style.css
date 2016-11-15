@@ -77,7 +77,12 @@ nav ul li a{
 .themeChooser {
   margin-top: 5px;
 }
-
+.make-story-selection {
+  margin-top: 5px;
+}
+textarea {
+  margin-top: 5px;
+}
 @media screen and (min-width: 50em) {
   .tile {
     width: calc(25% - 6px);

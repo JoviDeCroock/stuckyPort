@@ -12,8 +12,6 @@
     vm.username = authService.currentUser();
     //maak verhaal
     vm.themeChooserClicked = false;
-    vm.selectedThemes = [];
-    vm.scenes = [];
     //Wordt uit service gehaald
     vm.themes = [{
       name: 'Recyclage',
@@ -25,25 +23,42 @@
     vm.activeStory = {
       name: '',
       date: '',
-      theme: {},
+      themes: [],
       scenes: []
     };
     vm.addTheme = addTheme;
     vm.selectTheme = selectTheme;
     vm.addScene = addScene;
+    vm.addText = addText;
+    vm.addWidget = addWidget;
+    vm.selectScene = selectScene;
 
     function addTheme () {
       vm.themeChooserClicked = true;
     };
     function selectTheme () {
-      vm.selectedThemes.push(vm.selectedTheme);
+      vm.activeStory.themes.push(vm.selectedTheme);
       vm.themeChooserClicked = false;
       vm.selectedTheme = {};
     };
     function addScene () {
-      vm.scenes.push({
-        sceneNr: vm.scenes.length + 1
-      });
+      var temp = {
+        sceneNr: vm.activeStory.scenes.length + 1,
+        texts: [],
+        widgets: []
+      };
+      vm.activeStory.scenes.push(temp);
+      vm.activeScene = temp;
+    };
+    function addText () {
+      //alert('addText correct');
+      vm.activeScene.texts.push({});
+    };
+    function addWidget () {
+      //alert('addWidget correct');
+    };
+    function selectScene (scene) {
+      vm.activeScene = scene;
     };
 
     //alle verhalen
