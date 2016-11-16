@@ -45,6 +45,17 @@ router.post('/widgetsOfType', auth, function(req,res,next)
     });
 });
 
+router.post(':widget/addFile', auth, function(req,res,next)
+{
+    var query = {_id: req.widget._id};
+    var w = Widget.findById(req.widget._id);
+    w.widgetFiles.push(req.widgetFile);
+    Widget.findOneAndUpdate(query, w,{upsert:true}, function(err, doc) {
+        if (err) return res.send(500, {error: err});
+        return res.send("succesfully saved");
+    });
+});
+
 router.post('/addWidget', auth, function(req,res,next)
 {
     if(!req.body.widgetFiles || !req.body.id){

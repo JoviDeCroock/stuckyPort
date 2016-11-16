@@ -157,14 +157,12 @@ Story.find({},function(err, adhd)
     /*Scenes*/
     var scene1 = new Scene();
     var scene2 = new Scene();
+    scene1.text = "sound the horn!";
+    scene2.text = "CASHINGS!";
     scene1.widgets = [];scene1.widgets.push(widget);
     scene2.widgets = []; scene2.widgets.push(widget2);
     scene1.sceneNr = 1;
     scene2.sceneNr = 2;
-    scene1.figures = [];
-    scene2.figures = [];
-    scene1.figures.push(figure1);
-    scene2.figures.push(figure1);
     scene2.save(function(err)
     {
       if(err){console.log(err);}
