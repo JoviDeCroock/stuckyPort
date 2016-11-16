@@ -15,6 +15,17 @@ var WidgetFile = mongoose.model('WidgetFile');
 // configuring auth
 var auth = jwt({secret:config.secret,userProperty:config.userProperty});
 
+router.param('widgetFile', function(req,res,next,id)
+{
+    var query = WidgetFile.findById(id);
+    query.exec(function(err, wfile)
+    {
+        if(err) {return next(err);}
+        if(!wfile) {return next(new Error('Kan de gekozen file niet vinden.'));}
+        req.widgetFile = wfile;
+        return next();
+    });
+});
 router.param('widget', function(req,res,next,id)
 {
     var query = Widget.findById(id);
@@ -49,10 +60,37 @@ router.post(':widget/addFile', auth, function(req,res,next)
 {
     var query = {_id: req.widget._id};
     var w = Widget.findById(req.widget._id);
-    w.widgetFiles.push(req.widgetFile);
+    w.widgetFiles.push(req.body.widgetFile);
     Widget.findOneAndUpdate(query, w,{upsert:true}, function(err, doc) {
         if (err) return res.send(500, {error: err});
         return res.send("succesfully saved");
+    });
+});
+
+router.post(':widget/removeFile/:widgetFile',auth,function(req,res,next)
+{
+    var query = {_id: req.widget._id};
+    var id = req.widgetFile._id;
+    WidgetFile.remove({_id: req.widgetFile._id}, function(err)
+    {
+        if(!err)
+        {
+            req.widget.widgetFiles.forEach(function(entry) {
+                if (entry._id === id)
+                {
+                    var x = req.widget.widgetFiles.indexOf(entry);
+                    req.widget.widgetFiles.splice(x,1);
+                }
+            });
+            Widget.findOneAndUpdate(query, req.widget, {upsert:true}, function(err,doc)
+            {
+                if(err)
+                {
+                    return err;
+                }
+                res.json(req.widget);
+            });
+        }
     });
 });
 
