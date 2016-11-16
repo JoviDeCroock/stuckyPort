@@ -16,3 +16,10 @@
   </button>
    .
  </p>
+ <select
+  class="form-control"
+  ng-show="vm.widgetChooserClicked"
+  ng-model="vm.selectedType"
+  ng-change="vm.selectType()">
+  <option ng-repeat="type in vm.types">{{type}}</option>
+ </select>
