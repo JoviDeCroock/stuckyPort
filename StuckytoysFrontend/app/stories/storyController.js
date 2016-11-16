@@ -12,6 +12,7 @@
     vm.username = authService.currentUser();
     //maak verhaal
     vm.themeChooserClicked = false;
+    vm.widgetChooserClicked = false;
     //Wordt uit service gehaald
     vm.themes = [{
       name: 'Recyclage',
@@ -20,6 +21,11 @@
       name: 'Pesten',
       description: 'Moeilijk thema om over te praten'
     }]; // test
+    vm.types = [
+      'geluid',
+      'spel',
+      'afbeelding'
+    ]; //test
     vm.activeStory = {
       name: '',
       date: '',
@@ -32,6 +38,7 @@
     vm.addText = addText;
     vm.addWidget = addWidget;
     vm.selectScene = selectScene;
+    vm.selectType = selectType;
 
     function addTheme () {
       vm.themeChooserClicked = true;
@@ -56,9 +63,13 @@
     };
     function addWidget () {
       //alert('addWidget correct');
+      vm.widgetChooserClicked = true;
     };
     function selectScene (scene) {
       vm.activeScene = scene;
+    };
+    function selectType () {
+      vm.widgetChooserClicked = false;
     };
 
     //alle verhalen
