@@ -74,23 +74,20 @@
           vm.activeScene.activeWidget = {
             type: 'music',
             soundFile: {},
-            imageFile: {},
-            tip: ''
+            imageFile: {}
           };
         break;
         case 'game': console.log('game');
           vm.activeScene.activeWidget = {
             type: 'game',
             gameFile: {},
-            imageFile: {},
-            tip: ''
+            imageFile: {}
           };
         break;
         case 'image': console.log('image');
           vm.activeScene.activeWidget = {
             type: 'image',
-            imageFile: {},
-            tip: ''
+            imageFile: {}
           };
         break;
         default: console.log('niks');
