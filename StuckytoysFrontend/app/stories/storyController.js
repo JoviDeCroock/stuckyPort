@@ -51,7 +51,6 @@
     function addScene () {
       var temp = {
         sceneNr: vm.activeStory.scenes.length + 1,
-        texts: [],
         widgets: []
       };
       vm.activeStory.scenes.push(temp);
@@ -59,7 +58,7 @@
     };
     function addText () {
       //alert('addText correct');
-      vm.activeScene.texts.push({});
+      vm.activeScene.text = {};
     };
     function addWidget () {
       //alert('addWidget correct');
@@ -72,7 +71,7 @@
       vm.widgetChooserClicked = false;
       switch(vm.selectedType) {
         case 'music': console.log('music');
-          vm.activeWidget = {
+          vm.activeScene.activeWidget = {
             type: 'music',
             soundFile: {},
             imageFile: {},
@@ -80,7 +79,7 @@
           };
         break;
         case 'game': console.log('game');
-          vm.activeWidget = {
+          vm.activeScene.activeWidget = {
             type: 'game',
             gameFile: {},
             imageFile: {},
@@ -88,11 +87,11 @@
           };
         break;
         case 'image': console.log('image');
-          vm.activeWidget = {
+          vm.activeScene.activeWidget = {
             type: 'image',
             imageFile: {},
             tip: ''
-          }
+          };
         break;
         default: console.log('niks');
       }
