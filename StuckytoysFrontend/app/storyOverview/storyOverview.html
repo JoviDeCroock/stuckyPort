@@ -1,0 +1,39 @@
+<div>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="/#/main"><img alt="StuckyToys" src="./resources/images/logo.png" class="logo" /></a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a>Welkom {{vm.username}}</a>
+                </li>
+                <li>
+                    <a ng-click="vm.logOut()">
+                        <span class="glyphicon glyphicon-log-out"></span> Log uit
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Mijn verhalen</h1>
+        <table class="table">
+          <tr>
+            <th>Afbeelding</th>
+            <th>Naam</th>
+            <th>Datum</th>
+            <th>Aantal scenes</th>
+            <th>Thema's</th>
+         </tr>
+         <tr ng-repeat="story in vm.stories">
+           <td><img alt="verhaal" src="{{story.picture.base64}}"/></td>
+           <td>{{story.name}}</td>
+           <td>{{story.date}}</td>
+           <td>{{story.scenes.length}}</td>
+           <td><p ng-repeat="theme in story.themes">{{theme.name}}</p></td>
+         </tr>
+        </table>
+    </div>
+</div>

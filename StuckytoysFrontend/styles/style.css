@@ -89,6 +89,10 @@ nav ul li a{
 .widget-form input{
   margin-top: 5px;
 }
+table img {
+  width: 100px;
+  height: 100px;
+}
 textarea {
   margin-top: 5px;
 }
