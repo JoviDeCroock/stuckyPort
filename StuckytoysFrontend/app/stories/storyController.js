@@ -22,9 +22,9 @@
       description: 'Moeilijk thema om over te praten'
     }]; // test
     vm.types = [
-      'geluid',
-      'spel',
-      'afbeelding'
+      'music',
+      'game',
+      'image'
     ]; //test
     vm.activeStory = {
       name: '',
@@ -70,6 +70,32 @@
     };
     function selectType () {
       vm.widgetChooserClicked = false;
+      switch(vm.selectedType) {
+        case 'music': console.log('music');
+          vm.activeWidget = {
+            type: 'music',
+            soundFile: {},
+            imageFile: {},
+            tip: ''
+          };
+        break;
+        case 'game': console.log('game');
+          vm.activeWidget = {
+            type: 'game',
+            gameFile: {},
+            imageFile: {},
+            tip: ''
+          };
+        break;
+        case 'image': console.log('image');
+          vm.activeWidget = {
+            type: 'image',
+            imageFile: {},
+            tip: ''
+          }
+        break;
+        default: console.log('niks');
+      }
     };
 
     //alle verhalen

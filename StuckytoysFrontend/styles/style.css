@@ -86,6 +86,9 @@ nav ul li a{
 .save-story{
   margin-top: 5px;
 }
+.widget-form input{
+  margin-top: 5px;
+}
 textarea {
   margin-top: 5px;
 }
