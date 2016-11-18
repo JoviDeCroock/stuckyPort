@@ -43,6 +43,16 @@
             templateUrl: 'app/stories/makeStory.html',
             controller: 'storyController',
             controllerAs: 'vm'
+        }).when('/stories', {
+           url: '/stories',
+           templateUrl: 'app/storyOverview/storyOverview.html',
+           controller: 'storyOverviewController',
+           controllerAs: 'vm',
+           resolve: {
+             postPromise: ['storyService', function(storyService) {
+               return storyService.getStories();
+             }]
+           }
         }).otherwise({redirectTo: '/main'});
     };
 })();

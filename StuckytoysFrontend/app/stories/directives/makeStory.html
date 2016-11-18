@@ -1,10 +1,11 @@
 <input type="text" placeholder="Titel" ng-model="vm.activeStory.name" class="form-control" />
 <textarea
-  ng-repeat="text in vm.activeScene.texts"
+  ng-show="vm.activeScene.text"
   class="form-control"
-  ng-model="text.theText"></textarea>
+  ng-model="vm.activeScene.text.theText"></textarea>
 <p class="make-story-selection" ng-show="vm.activeScene">Voeg
   <button
+    ng-hide="vm.activeScene.text"
     class="btn btn-default"
     ng-click="vm.addText()">Tekst
   </button>
@@ -23,3 +24,17 @@
   ng-change="vm.selectType()">
   <option ng-repeat="type in vm.types">{{type}}</option>
  </select>
+ <form class="widget-form" ng-show="vm.activeScene.activeWidget && vm.activeScene.activeWidget.type === 'music'">
+   <input class="form-control" type="text" placeholder="geluidsfile" />
+   <input class="form-control" type="text" placeholder="afbeeldingsfile"/>
+   <input class="btn btn-default" type="submit" value="+" />
+ </form>
+ <form class="widget-form" ng-show="vm.activeScene.activeWidget && vm.activeScene.activeWidget.type === 'image'">
+   <input class="form-control" type="text" placeholder="afbeeldingsfile" />
+   <input class="btn btn-default" type="submit" value="+" />
+ </form>
+ <form class="widget-form" ng-show="vm.activeScene.activeWidget && vm.activeScene.activeWidget.type === 'game'">
+   <input class="form-control" type="text" placeholder="spelfile" />
+   <input class="form-control" type="text" placeholder="afbeeldingsfile" />
+   <input class="btn btn-default" type="submit" value="+" />
+ </form>
