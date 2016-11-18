@@ -150,6 +150,20 @@ router.post('/:story/addScene', auth, function(req,res,next)
     res.json(story);
 });
 
+router.post('/publish/:story', auth, function(req,res,next)
+{
+    var query = {_id: req.story._id};
+    var x = req.story.published;
+    if(!x)
+    {
+        req.story.published = true;
+        Story.findOneAndUpdate(query, w,{upsert:true}, function(err, doc) {
+            if (err) return res.send(500, {error: err});
+            return res.send("succesfully published");
+        });
+    }
+});
+
 router.get('/getStory/:story', auth, function(req,res,next)
 {
     req.story.populate('scenes', function(err, story)

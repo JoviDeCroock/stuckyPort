@@ -187,6 +187,7 @@ Story.find({},function(err, adhd)
     {
       if(err){console.log(err);}
     });
+    story.published = true;
     story.picture = pic;
     story.save(function(err)
     {
