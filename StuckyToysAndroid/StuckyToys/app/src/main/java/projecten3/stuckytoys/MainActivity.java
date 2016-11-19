@@ -25,6 +25,7 @@ import projecten3.stuckytoys.custom.ResourceHelper;
 import projecten3.stuckytoys.custom.ServerOfflineHelper;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Member;
+import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.domain.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,16 +48,18 @@ public class MainActivity extends AppCompatActivity {
 
         dc = DomainController.getInstance();
 
-        editEmail.setText("swifties");
-        editPassword.setText("swifty");
+        editEmail.setText("user@user.user");
+        editPassword.setText("user");
+        login(btnLogin);
     }
 
     @OnClick(R.id.btnLogin)
     public void login(View view) {
 
         //for testing when server is offline; creates a user to work with
-        if (ServerOfflineHelper.SERVEROFFLINE)
+        if (ServerOfflineHelper.SERVEROFFLINE) {
             serverOffline();
+        }
 
         //once server is online 24/7 this is all we'll need & if-structure above can be deleted
         else {
@@ -92,11 +95,12 @@ public class MainActivity extends AppCompatActivity {
                                 JSONObject jObj = new JSONObject(decoded);
                                 //"exp" & "iat" also in this jsonobject
                                 String id = jObj.getString("_id");
-                                dc.updateUser(id, token);
+                                String username = jObj.getString("username");
+                                dc.updateUser(id, token, username);
 
                                 Log.d("login", "id: " + id + " token: " + token);
 
-                                Intent intent = new Intent(MainActivity.this, SelectMemberActivity.class);
+                                Intent intent = new Intent(MainActivity.this, StoryOverviewActivity.class);
                                 startActivity(intent);
                                 finish();
                             } catch (JSONException ex) {
@@ -111,8 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-                        //TODO: wat hier zetten?
-                        txtError.setText("Fout");
+                        txtError.setText(R.string.connection_error);
                         t.printStackTrace();
                         btnLogin.setClickable(true);
                     }
@@ -133,15 +136,14 @@ public class MainActivity extends AppCompatActivity {
 
     //for testing while server is offline
     private void serverOffline() {
-        dc.setUser(new User("5817854b1454c41a82e6c778", "swifties", "swifties", "swifty",
+        dc.setUser(new User("5817854b1454c41a82e6c778", "hjeroen@gmail.com", "jeroen", "swift",
                 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ODE3ODU0YjE0NTRjNDFhODJlNmM3NzgiLCJleHAiOjE0ODMxOTc2NjYsImlhdCI6MTQ3ODAxMzY2Nn0.iDs223_K8SrtQlDHos5k1r8uRh8Pzq4-axjvZRPID4o",
-                new ArrayList<Member>()));
-            Intent intent = new Intent(MainActivity.this, SelectMemberActivity.class);
+                new ArrayList<Story>()));
+            Intent intent = new Intent(MainActivity.this, StoryOverviewActivity.class);
 
             startActivity(intent);
             finish();
     }
-
 
     @Override
     public void onBackPressed() {

@@ -9,15 +9,16 @@ public class User {
     private String username;
     private String password;
     private List<Member> members;
+    private List<Story> stories;
     private String token;
 
-    //Constructor used for logging in (retrofit)
+    //CONSTRUCTOR ONLY USED FOR LOGGING IN (RETROFIT); DON'T USE THIS ANYWHERE ELSE!!!
     public User(String email, String password) {
         this.email = email;
         this.password = password;
 
-        //TEMPORARY (login should be with email but uses username atm
-        username = email;
+        //backend requires the field username to be entered, but it's actually email...
+        this.username = email;
     }
 
     public User(String username, String email, String password) {
@@ -26,11 +27,11 @@ public class User {
         this.password = password;
     }
 
-    //TODO: username = email (will change!!)
-    public User(String id, String email, String username, String password, String token, List<Member> members) {
-        this(email, password);
+    public User(String id, String email, String username, String password, String token, List<Story> stories) {
+        this(username, email, password);
         this._id = id;
         this.token = token;
+        this.stories = stories;
     }
 
     public String getId() {
@@ -57,15 +58,15 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public List<Member> getMembers() {
-        return members;
+    public List<Member> getMembers() { return members; }
+    public void setMembers(List<Member> members) { this.members = members; }
+    public List<Story> getStories() {
+        return stories;
     }
-    public void setMembers(List<Member> members) {
-        this.members = members;
+    public void setStories(List<Story> stories) {
+        this.stories = stories;
     }
-    public String getToken() {
-        return token;
-    }
+    public String getToken() { return token; }
     public void setToken(String token) {
         this.token = token;
     }

@@ -23,6 +23,10 @@
         </activity>
         <activity android:name=".AddMemberActivity" >
         </activity>
+        <activity android:name=".StoryOverviewActivity" >
+        </activity>
+        <activity android:name=".SceneActivity" >
+        </activity>
     </application>
 
 </manifest>

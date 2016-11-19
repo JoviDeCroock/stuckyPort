@@ -8,6 +8,7 @@ import java.util.List;
 
 import projecten3.stuckytoys.domain.Member;
 import projecten3.stuckytoys.domain.RetrofitMember;
+import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.domain.User;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -39,6 +40,13 @@ public class PersistenceController {
 
     public Call<List<Member>> getAllMembers(String userId, String token) {
         Call<List<Member>> call = dOService.getAllMembers(userId, token);
+
+        return call;
+    }
+
+    //TODO: doesn't use userId atm but should in the future
+    public Call<List<Story>> getAllStories(String userId, String token) {
+        Call<List<Story>> call = dOService.getAllStories(token);
 
         return call;
     }

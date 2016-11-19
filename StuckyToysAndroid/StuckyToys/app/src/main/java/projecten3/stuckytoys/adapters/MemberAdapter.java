@@ -1,7 +1,6 @@
 package projecten3.stuckytoys.adapters;
 
 import android.content.Context;
-import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,7 @@ import projecten3.stuckytoys.SelectMemberActivity;
 import projecten3.stuckytoys.custom.ResourceHelper;
 import projecten3.stuckytoys.domain.Member;
 
-public class MembersAdapter extends BaseAdapter {
+public class MemberAdapter extends BaseAdapter {
     private List<Member> members = new ArrayList<Member>();
     private final LayoutInflater mInflater;
     private Context context;
@@ -31,7 +30,7 @@ public class MembersAdapter extends BaseAdapter {
     private ImageView selectedPicture; private String selectedImageString;
 
     //addmemberactivity constructor
-    public MembersAdapter(Context context, String selectedImageString, List<Member> members) {
+    public MemberAdapter(Context context, String selectedImageString, List<Member> members) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
         this.members = members;
@@ -44,7 +43,7 @@ public class MembersAdapter extends BaseAdapter {
     //selectmemberactivity constructor
     //plusText = add_member string from resources; passed in SelectMemberActivity because getResources() doesn't work if not inside an activity
     //starting to get the feeling i shoulda used two different adapters for selectmemberactivity & addmemberactivity...
-    public MembersAdapter(Context context, List<Member> members, String plusText) {
+    public MemberAdapter(Context context, List<Member> members, String plusText) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
         this.members = members;
@@ -80,19 +79,19 @@ public class MembersAdapter extends BaseAdapter {
         final Member member = getItem(i);
 
         if (v == null) {
-            v = mInflater.inflate(R.layout.grid_member, viewGroup, false);
-            v.setTag(R.id.memberImage, v.findViewById(R.id.memberImage));
+            v = mInflater.inflate(R.layout.grid_item, viewGroup, false);
+            v.setTag(R.id.itemImage, v.findViewById(R.id.itemImage));
             if (addMemberActivity) {
-                TextView txtMemberName = (TextView) v.findViewById(R.id.txtMemberName);
+                TextView txtMemberName = (TextView) v.findViewById(R.id.txtItemName);
                 txtMemberName.setVisibility(View.GONE);
             } else {
-                v.setTag(R.id.txtMemberName, v.findViewById(R.id.txtMemberName));
-                name = (TextView) v.getTag(R.id.txtMemberName);
+                v.setTag(R.id.txtItemName, v.findViewById(R.id.txtItemName));
+                name = (TextView) v.getTag(R.id.txtItemName);
                 name.setText(member.getNickname());
             }
         }
 
-        picture = (ImageView) v.getTag(R.id.memberImage);
+        picture = (ImageView) v.getTag(R.id.itemImage);
 
         //interestingly i haven't managed to find a better way to get a resource id (ex "R.drawable.bever") from a string
         //so i'm using a helper class for this; view ResourceHelper class for more info

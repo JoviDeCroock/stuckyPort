@@ -42,15 +42,17 @@ public class DomainController {
         return pc.getAllMembers(user.getId(), "Bearer " + user.getToken());
     }
 
+    public Call<List<Story>> getAllStories() {
+        return pc.getAllStories(user.getId(), "Bearer " + user.getToken());
+    }
+
     public Call<Member> addMember(String firstName, String nickname, String role, boolean authority, String dateOfBirth, String picture) {
         RetrofitMember member = new RetrofitMember(firstName, nickname, role, authority, dateOfBirth, picture);
 
         return pc.addMember(user.getId(), "Bearer " + user.getToken(), member);
     }
 
-    public User getUser() {
-        return user;
-    }
+    public User getUser() { return user; }
     public void setUser(User user) {
         this.user = user;
     }
@@ -58,8 +60,16 @@ public class DomainController {
     public Member getMember() {return member;}
     public void setMember(Member member){this.member = member;}
 
+    //called after registering
     public void updateUser(String id, String token) {
         user.setId(id);
         user.setToken(token);
+    }
+
+    //called after logging in
+    public void updateUser(String id, String token, String username) {
+        user.setId(id);
+        user.setToken(token);
+        user.setUsername(username);
     }
 }

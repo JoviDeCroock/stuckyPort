@@ -4,6 +4,7 @@ import java.util.List;
 
 import projecten3.stuckytoys.domain.Member;
 import projecten3.stuckytoys.domain.RetrofitMember;
+import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.domain.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -26,6 +27,9 @@ public interface DOService {
 
     @GET("profile/users/{user}/getAllMembers")
     Call<List<Member>> getAllMembers(@Path("user") String userId, @Header("Authorization") String token);
+
+    @GET("story/getAllStories")
+    Call<List<Story>> getAllStories(@Header("Authorization") String token);
 
     @POST("profile/users/{user}/addMember")
     Call<Member> addMember(@Path("user") String userId, @Header("Authorization") String token, @Body RetrofitMember member);

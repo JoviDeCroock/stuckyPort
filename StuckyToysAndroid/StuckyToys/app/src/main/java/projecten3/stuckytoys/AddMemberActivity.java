@@ -7,25 +7,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
-import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -39,10 +29,9 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import projecten3.stuckytoys.adapters.MembersAdapter;
+import projecten3.stuckytoys.adapters.MemberAdapter;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Member;
-import projecten3.stuckytoys.domain.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -77,7 +66,7 @@ public class AddMemberActivity extends AppCompatActivity {
     private SimpleDateFormat dateFormatter;
 
     private DomainController dc;
-    private MembersAdapter mAdapter;
+    private MemberAdapter mAdapter;
     private String selectedImageString;
 
     @Override
@@ -99,7 +88,7 @@ public class AddMemberActivity extends AppCompatActivity {
         members.add(new Member("Bever", "bever.png"));
         members.add(new Member("Wasbeer", "wasbeer.png"));
         members.add(new Member("Geit", "geit.png"));
-        mAdapter = new MembersAdapter(this, selectedImageString, members);
+        mAdapter = new MemberAdapter(this, selectedImageString, members);
         gridImages.setAdapter(mAdapter);
 
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.UK);

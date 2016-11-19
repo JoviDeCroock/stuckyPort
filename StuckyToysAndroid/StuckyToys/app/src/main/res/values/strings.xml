@@ -6,6 +6,7 @@
     <string name="login">Aanmelden</string>
     <string name="not_registered"><u>Nog geen account?</u></string>
     <string name="exit">Wens je af te sluiten?</string>
+    <string name="connection_error">Kon niet verbinden met de server, controleer je internetverbinding en probeer het later nog eens.</string>
 
     <!-- register -->
     <string name="username">Gebruikersnaam</string>
@@ -41,5 +42,10 @@
     <string name="my_pictures">Mijn figuren</string>
     <string name="messages">Boodschappen</string>
 
+    <!--storyoverview -->
+    <string name="select_story">Welkom %s, selecteer een van de verhalen voor meer info.</string>
+    <string name="date">Datum toegevoegd:</string>
+    <string name="scenes">Aantal scene\'s:</string>
+    <string name="themes">Thema\'s die aan bod komen:</string>
 
 </resources>

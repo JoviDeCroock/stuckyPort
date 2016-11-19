@@ -16,7 +16,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import projecten3.stuckytoys.adapters.MembersAdapter;
+import projecten3.stuckytoys.adapters.MemberAdapter;
 import projecten3.stuckytoys.custom.ServerOfflineHelper;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Member;
@@ -30,7 +30,7 @@ public class SelectMemberActivity extends AppCompatActivity {
     @BindView(R.id.txtError) TextView txtError;
 
     private DomainController dc;
-    private MembersAdapter mAdapter;
+    private MemberAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class SelectMemberActivity extends AppCompatActivity {
 
             // getting the add_member string from resources here because getResources() doesn't work if not inside an activity
             String plusText = getResources().getString(R.string.add_member);
-            mAdapter = new MembersAdapter(this, members, plusText);
+            mAdapter = new MemberAdapter(this, members, plusText);
 
             gridView.setAdapter(mAdapter);
         }
@@ -100,7 +100,7 @@ public class SelectMemberActivity extends AppCompatActivity {
 
                     //getting the add_member string from resources here because getResources() doesn't work if not inside an activity
                     String plusText = getResources().getString(R.string.add_member);
-                    mAdapter = new MembersAdapter(context, rMembers, plusText);
+                    mAdapter = new MemberAdapter(context, rMembers, plusText);
                     gridView.setAdapter(mAdapter);
                 } else {
                     txtError.setText(response.message());
