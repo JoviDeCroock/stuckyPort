@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var multer = require('multer');
 
 //Requiring models
 //require('./models/BuildingBlocks');
@@ -58,6 +59,10 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+
+apps.use(express.static('../client'));
+
+
 
 //Using middleware
 app.use(logger('dev'));
