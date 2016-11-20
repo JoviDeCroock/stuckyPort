@@ -64,11 +64,14 @@ nav ul li a{
   border-right: 1px solid grey;
 }
 .scene {
-  border: 1px solid black;
+  border: 5px solid black;
   height: 100px;
   margin: 5px;
   border-radius: 5px;
   text-align: center;
+}
+.activeScene {
+  border: 5px solid green;
 }
 .theme {
   margin-top: 55px;
@@ -79,6 +82,16 @@ nav ul li a{
 }
 .make-story-selection {
   margin-top: 5px;
+}
+.save-story{
+  margin-top: 5px;
+}
+.widget-form input{
+  margin-top: 5px;
+}
+table img {
+  width: 100px;
+  height: 100px;
 }
 textarea {
   margin-top: 5px;

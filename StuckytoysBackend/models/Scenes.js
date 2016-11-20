@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var SceneSchema = new mongoose.Schema({
         sceneNr: Number,
         widgets: [{type: mongoose.Schema.Types.ObjectId, ref:'Widget'}],
-        figures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Figure' }]
+        text: String
     });
 
 mongoose.model('Scene', SceneSchema);

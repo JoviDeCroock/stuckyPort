@@ -89,15 +89,11 @@ router.post('/createStory', auth, function(req,res,next)
             scene.sceneNr = entry.sceneNr;
             scene.widgets = [];
             scene.figures = [];
+            scene.text = entry.text;
             entry.widgets.forEach(function(widgetEntry)
             {
                 var widget = Widget.findById(widgetEntry._id);
                 scene.widgets.push(widget);
-            });
-            req.body.figures.forEach(function(figureEntry)
-            {
-                var figure = Figure.findById(figureEntry._id);
-                scene.figures.push(figure);
             });
             scene.save(function(err)
             {
@@ -134,7 +130,7 @@ router.post('/:story/addScene', auth, function(req,res,next)
         var widget = Widget.findById(widgetEntry._id);
         newScene.widgets.push(widget);
     });
-
+    /*TODO: Rearrange scenenrs if >><<*/
     newScene.sceneNr = x;
     newScene.figures = [];
     req.body.figures.forEach(function(figureEntry)
@@ -152,6 +148,20 @@ router.post('/:story/addScene', auth, function(req,res,next)
         if(err) {console.log(err);}
     });
     res.json(story);
+});
+
+router.post('/publish/:story', auth, function(req,res,next)
+{
+    var query = {_id: req.story._id};
+    var x = req.story.published;
+    if(!x)
+    {
+        req.story.published = true;
+        Story.findOneAndUpdate(query, w,{upsert:true}, function(err, doc) {
+            if (err) return res.send(500, {error: err});
+            return res.send("succesfully published");
+        });
+    }
 });
 
 router.get('/getStory/:story', auth, function(req,res,next)
@@ -281,41 +291,40 @@ router.post("/:story/removeScene/:scene", auth, function(req,res,next)
     var sceneNr = req.scene.sceneNr;
     var deleted = false;
     var query = {_id: req.story._id};
-   Scene.remove({_id:req.scene._id}, function(err)
-   {
-      if(!err)
-      {
-          req.story.scenes.forEach(function(entry)
-          {
+    Scene.remove({_id:req.scene._id}, function(err)
+    {
+        if(!err)
+        {
+            req.story.scenes.forEach(function(entry)
+            {
+                var x = req.story.scenes.indexOf(entry);
                 if(entry.sceneNr === sceneNr)
                 {
-                    var x = req.story.scenes.indexOf(entry);
                     req.story.scenes.splice(x, 1);
                 }
                 if(entry.sceneNr>sceneNr)
                 {
                     var y = entry.sceneNr-1;
-                    var x = req.story.scenes.indexOf(entry);
                     req.story.scenes[x].sceneNr = y;
                 }
-          });
-          Story.findOneAndUpdate(query, req.story,{upsert:true}, function(err, doc)
-          {
-              if(err)
-              {
-                  return err;
-              }
-          });
-          res.json(req.story);
-      }
-   });
+            });
+            Story.findOneAndUpdate(query, req.story,{upsert:true}, function(err, doc)
+            {
+                if(err)
+                {
+                    return err;
+                }
+            });
+            res.json(req.story);
+        }
+    });
 });
 /*
-TODO:
-*
-* remove scene from story (scene nr aanpassen)
-* allStories per theme
-*
-* */
+ TODO:
+ *
+ * remove scene from story (scene nr aanpassen)
+ * allStories per theme
+ *
+ * */
 
 module.exports = router;

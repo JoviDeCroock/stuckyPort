@@ -18,21 +18,22 @@
     </nav>
 
     <div class="container">
-        <div class="row">
-            <div class="col-md-3 scenes">
-                <h4>Scenes</h4>
-                <display-scenes></display-scenes>
-            </div>
-            <div class="col-md-6">
-                <h3>Maak verhaal</h3>
-                <make-story></make-story>
-                <button class="btn btn-default save-story">Sla verhaal op</button>
-            </div>
-            <div class="col-md-3 theme">
-              <div>
-                <selected-themes></selected-themes>
-              </div>
-            </div>
-        </div>
+        <h1>Mijn verhalen</h1>
+        <table class="table">
+          <tr>
+            <th>Afbeelding</th>
+            <th>Naam</th>
+            <th>Datum</th>
+            <th>Aantal scenes</th>
+            <th>Thema's</th>
+         </tr>
+         <tr ng-repeat="story in vm.stories">
+           <td><img alt="verhaal" src="{{story.picture.base64}}"/></td>
+           <td>{{story.name}}</td>
+           <td>{{story.date}}</td>
+           <td>{{story.scenes.length}}</td>
+           <td><p ng-repeat="theme in story.themes">{{theme.name}}</p></td>
+         </tr>
+        </table>
     </div>
 </div>
