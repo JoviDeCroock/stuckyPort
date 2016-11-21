@@ -207,7 +207,7 @@ router.post('/addWidget', auth, function(req, res, next) {
     });
   });
 
-  router.post('/uploadResource/:widget', auth, function (req, res) {
+  router.post('/uploadWidget/:widget', auth, function (req, res) {
 
     if (req.file) {
       req.file.widgetId = req.widget.id;
@@ -229,7 +229,16 @@ router.post('/addWidget', auth, function(req, res, next) {
       var widgetFile = new widgetFile();
       widgetFile.type = file.originalname.split('.')[file.originalname.split('.').length - 1];
       widgetFile.fileName = req.file.widgetId + widgetFile.type;
-      req.widget.resources.push(widgetFile);
+      widgetFile.save(function(err)
+      {
+        console.log(err);
+      });
+      req.widget.widgetFiles.push(widgetFile);
+      req.widget.save(function(err)
+      {
+        console.log(err);
+        res.json(req.widget);
+      });
     });
   });
 

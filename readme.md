@@ -39,13 +39,13 @@
 ### /story
 | URL                                  | Method    | Body                        |returns         |
 |:------------------------------------:|:---------:|:---------------------------:|:--------------:|
-|  /download/{WidgetFileId}            | Get       |  Nothing                    | Scenefiles     |
 |  /createStory                        | Post      |  StoryObject                | newStory       |
 |  /{storyId}/addScene                 | Post      |  SceneObject                | modified Story |
 |  /getStory/{storyId}                 | Get       |  Nothing                    | Requested Story|
 |  /getAllStories                      | Get       |  Nothing                    | AllStories     |
 |  /{StoryObject}/DeleteScene/{SceneId}| Get       |  Nothing                    | modified story | 
 |  /editScene                          | Post      |  SceneObject                | modifiedScene  |
+|  /publish/{storyId}                  | Post      |  Nothing                    | bool succes    |
 
 ### /theme
 | URL                                  | Method    | Body                        |returns         |
@@ -60,6 +60,7 @@
 | URL                                  | Method    | Body                        |returns         |
 |:------------------------------------:|:---------:|:---------------------------:|:--------------:|
 |  /getAllWidgets                      | Get       |  Nothing                    | AllWidgets     |
+|  /download/{WidgetFileId}            | Get       |  Nothing                    | File           |
 |  /addWidget                          | Post      |  WidgetObject               | newWidget      |
 |  /widgets/{widgetId}                 | Get       |  Nothing                    |Requested widget|
 |  /widgetTypes                        | Get       |  Nothing                    | allWidgetTypes |
