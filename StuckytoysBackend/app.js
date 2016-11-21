@@ -60,7 +60,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-apps.use(express.static('../client'));
+app.use(express.static('../client'));
 
 
 
