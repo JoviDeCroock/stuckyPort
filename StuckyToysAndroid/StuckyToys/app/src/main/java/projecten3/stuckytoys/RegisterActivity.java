@@ -1,5 +1,6 @@
 package projecten3.stuckytoys;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -7,39 +8,40 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import projecten3.stuckytoys.domain.DomainController;
+import projecten3.stuckytoys.domain.User;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class RegisterActivity extends Activity implements OnClickListener{
-
-    @BindView(R.id.editDateOfBirth)
-    EditText editDateOfBirth;
+public class RegisterActivity extends AppCompatActivity {
 
     @BindView(R.id.editEmail)
     EditText editEmail;
-
-    @BindView(R.id.editUsername)
-    EditText editUsername;
-
-    @BindView(R.id.editFirstName)
-    EditText editFirstName;
-
-    @BindView(R.id.editLastName)
-    EditText editLastName;
 
     @BindView(R.id.editPassword)
     EditText editPassword;
@@ -47,43 +49,27 @@ public class RegisterActivity extends Activity implements OnClickListener{
     @BindView(R.id.editPasswordRepeat)
     EditText editPasswordRepeat;
 
+    @BindView(R.id.editUsername)
+    EditText editUsername;
+
     @BindView(R.id.txtError)
     TextView txtError;
 
-    private DatePickerDialog dateOfBirthDialog;
+    @BindView(R.id.btnRegister)
+    Button btnRegister;
 
-    private SimpleDateFormat dateFormatter;
+    private DomainController dc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        dc = DomainController.getInstance();
+
         ButterKnife.bind(this);
-
-        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.UK);
-
-        setDateTimeField();
     }
 
-    private void setDateTimeField()
-    {
-        //editDateOfBirth = (EditText)findViewById(R.id.editDateOfBirth);
-        editDateOfBirth.setInputType(InputType.TYPE_NULL);
-        editDateOfBirth.setOnClickListener(this);
-
-        Calendar newCalendar = Calendar.getInstance();
-        dateOfBirthDialog = new DatePickerDialog(this, new OnDateSetListener() {
-
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                editDateOfBirth.setText(dateFormatter.format(newDate.getTime()));
-            }
-
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-
-    }
 /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -94,45 +80,77 @@ public class RegisterActivity extends Activity implements OnClickListener{
     }*/
 
 
-    @Override
-    public void onClick(View view)
-    {
-        if(view == editDateOfBirth)
-            dateOfBirthDialog.show();
-    }
-
     @OnClick(R.id.btnRegister)
     public void register()
     {
         //resetten error
         txtError.setText("");
 
+        btnRegister.setClickable(false);
+
+        final String email = editEmail.getText().toString();
+        final String password = editPassword.getText().toString();
+        final String passwordRepeat = editPasswordRepeat.getText().toString();
+        final String username = editUsername.getText().toString();
+
         //alles ingevuld?
-        if( editEmail.getText().toString().isEmpty() ||
-                editUsername.getText().toString().isEmpty() ||
-                editFirstName.getText().toString().isEmpty()||
-                editLastName.getText().toString().isEmpty() ||
-                editDateOfBirth.getText().toString().isEmpty() ||
-                editPassword.getText().toString().isEmpty() ||
-                editPasswordRepeat.getText().toString().isEmpty() )
-        {
-            txtError.setText("Gelieve alle gegevens in te vullen.");
-            return;
+        if( email.isEmpty() ||
+                password.isEmpty() ||
+                passwordRepeat.isEmpty() ||
+                username.isEmpty()) {
+            txtError.setText(R.string.fill_all_fields);
         }
-
-        if(!isEmailValid(editEmail.getText().toString()))
-        {
-            txtError.setText("e-mailadres is niet geldig.");
-            return;
+        else if(!isEmailValid(email)) {
+            txtError.setText(R.string.invalid_email);
         }
+        else if (!password.equals(passwordRepeat)) {
+            txtError.setText(R.string.different_passwords);
+        } else {
 
-        if(!editPassword.getText().toString().equals(editPasswordRepeat.getText().toString()))
-        {
-            txtError.setText("Wachtwoorden komen niet overeen.");
-            return;
+            Call<User> call = dc.register(username, email, password);
+
+            call.enqueue(new Callback<User>() {
+
+                //Call to API using Retrofit; User as model; Body requires username, email & password;
+                //API returns a token; token is used to authenticate. also decoded token = id + exp + iat
+                //example token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ODE3ODU0YjE0NTRjNDFhODJlNmM3NzgiLCJleHAiOjE0ODMxOTc2NjYsImlhdCI6MTQ3ODAxMzY2Nn0.iDs223_K8SrtQlDHos5k1r8uRh8Pzq4-axjvZRPID4o
+                //decoded example token: {"_id":"5817854b1454c41a82e6c778","exp":1483197666,"iat":1478013666}
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.isSuccessful()) {
+                        String token = response.body().getToken();
+                        String tokenMiddle = token.split("\\.")[1];
+                        String decoded = new String(Base64.decode(tokenMiddle, Base64.DEFAULT));
+                        try {
+                            JSONObject jObj = new JSONObject(decoded);
+                            //"exp" & "iat" also in this jsonobject
+                            String id = jObj.getString("_id");
+                            dc.updateUser(id, token);
+
+                            Log.d("register", "id: " + id + " token: " + token);
+
+                            Intent intent = new Intent(RegisterActivity.this, SelectMemberActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } catch (JSONException ex) {
+                            ex.printStackTrace();
+                        }
+                    } else {
+                        txtError.setText(response.message());
+                        Log.e("register", response.code() + " " + response.message());
+                    }
+                    btnRegister.setClickable(true);
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    txtError.setText("a");
+                    t.printStackTrace();
+                    btnRegister.setClickable(true);
+                }
+            });
         }
-
-        //registreer actie komt hier.
+        btnRegister.setClickable(true);
     }
 
     /**
@@ -153,5 +171,22 @@ public class RegisterActivity extends Activity implements OnClickListener{
             isValid = true;
         }
         return isValid;
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.register_cancel)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder.show();
     }
 }
