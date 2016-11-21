@@ -53,6 +53,17 @@
                return storyService.getStories();
              }]
            }
-        }).otherwise({redirectTo: '/main'});
+        }).when('/story/:id',{
+          url: 'story/:id',
+          templateUrl: 'app/storyDetail/storyDetail.html',
+          controller: 'storyDetailController',
+          controllerAs: 'vm',
+          resolve: {
+            postPromise: ['$route', 'storyService', function($route, storyService) {
+              return storyService.getStory($route.current.params.id);
+            }]
+          }
+        })
+        .otherwise({redirectTo: '/main'});
     };
 })();

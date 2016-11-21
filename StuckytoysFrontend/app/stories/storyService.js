@@ -11,10 +11,12 @@
     var usedUrl = url.dev;
     var token = authService.getToken();
     var story = {
-      stories: [],
+      stories: [], // voor storyOverview
       activeStory: {},
+      story: {}, // voor storyDetail
       setActiveStory : setActiveStory,
       getStories: getStories,
+      getStory: getStory,
       createStory: createStory,
       addSceneToStory: addSceneToStory,
       removeSceneFromStory: removeSceneFromStory,
@@ -34,6 +36,14 @@
           angular.copy(data, story.stories);
           //console.log(story.stories);
         });
+    };
+    function getStory (id) {
+      return $http.get(usedUrl+'story/getStory/'+id, {
+        headers: { Authorization: 'Bearer '+token }
+      })
+      .success(function (data) {
+         story.story = data;
+      });
     };
     function createStory () {
       return $http.post(usedUrl+'story/', story.activeStory, {

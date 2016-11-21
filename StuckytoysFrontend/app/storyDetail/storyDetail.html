@@ -18,22 +18,23 @@
     </nav>
 
     <div class="container">
-        <h1>Mijn verhalen</h1>
-        <table class="table">
-          <tr>
-            <th>Afbeelding</th>
-            <th>Naam</th>
-            <th>Datum</th>
-            <th>Aantal scenes</th>
-            <th>Thema's</th>
-         </tr>
-         <tr ng-repeat="story in vm.stories">
-           <td><img alt="verhaal" src="{{story.picture.base64}}"/></td>
-           <td><a href="#/story/{{story._id}}">{{story.name}}</a></td>
-           <td>{{story.date}}</td>
-           <td>{{story.scenes.length}}</td>
-           <td><p ng-repeat="theme in story.themes">{{theme.name}}</p></td>
-         </tr>
-        </table>
+      <div class="row">
+        <div class="col-md-3">
+          <div ng-repeat="scene in vm.story.scenes"
+              class="scene"
+              ng-click="vm.selectScene(scene)"
+              ng-class="{activeScene : vm.activeScene === scene}">
+            <p>{{scene.sceneNr}}</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <input type="text"
+            ng-model="vm.story.name"
+            ng-disabled="!vm.editMode"
+            class="form-control" />
+        </div>
+        <div class="col-md-3">
+
+        </div>
+      </div>
     </div>
-</div>
