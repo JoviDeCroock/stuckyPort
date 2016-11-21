@@ -25,6 +25,10 @@ router.post('/register',function(req,res,next){
    if(!req.body.username || !req.body.password || !req.body.email){
      return res.status(400).json({message:'Vul alle velden in'});
    }
+   if(User.findOne({email: req.body.email}))
+   {
+       return res.status(400).json({message:'Het emailadres is al bezet.'})
+   }
    var user = new User();
    user.username = req.body.username;
    user.password = req.body.password;

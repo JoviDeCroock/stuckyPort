@@ -45,7 +45,6 @@ router.param('widgetFile', function(req,res,next,id)
         return next();
     });
 });
-
 router.param('theme', function(req,res,next,id)
 {
     var query = Theme.findById(id);

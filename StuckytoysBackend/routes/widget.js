@@ -107,36 +107,6 @@ router.post(':widget/removeFile/:widgetFile', auth, function(req, res, next) {
 });
 
 router.post('/addWidget', auth, function(req, res, next) {
-if (!req.body.widgetFiles || !req.body.id) {
-  return res.status(400).json({
-    message: 'Vul alle velden in'
-  });
-}
-if (!widget) {
-  return next(new Error('Kan het gekozen widget niet vinden.'));
-}
-req.widget = widget;
-return next();
-});
-});
-
-router.get('/widgetTypes', auth, function(req, res, next) {
-  var fs = require('fs');
-  var path = __dirname + '/downloads/';
-  fs.readdir(path, function(err, items) {
-    res.json(items);
-  });
-});
-
-router.post('/widgetsOfType', auth, function(req, res, next) {
-  var fs = require('fs');
-  var path = __dirname + '/downloads/' + req.body.type;
-  fs.readdir(path, function(err, items) {
-    res.json(items);
-  });
-});
-
-router.post('/addWidget', auth, function(req, res, next) {
   if (!req.body.widgetFiles || !req.body.id) {
     return res.status(400).json({
       message: 'Vul alle velden in'
@@ -145,62 +115,105 @@ router.post('/addWidget', auth, function(req, res, next) {
   var w = new Widget();
   w.widgetFiles = [];
   w.id = req.body.id;
-  req.body.widgetFiles.forEach(function(widgetFile) {
+  req.body.widgetFiles.forEach(function (widgetFile) {
     var f = new WidgetFile();
     f.fileName = widgetFile.fileName;
     f.type = widgetFile.type;
-    f.save(function(err) {
+    f.save(function (err) {
       if (err) {
         console.log(err);
       }
     });
     w.files.push(f);
   });
-  w.save(function(err) {
-    if (err) {
-      console.log(err);
-    }
+  w.save(function(err)
+  {
+    if(err){console.log(err);}
     res.json(w);
   });
 });
 
-router.get("/getAllWidgets", auth, function(req, res, next) {
-  Widget.find(function(err, widgets) {
-    Widget.populate(widgets, {
-      path: 'widgetFiles',
-      model: 'WidgetFile'
-    }, function(err, x) {
-      res.json(x);
+  router.get('/widgetTypes', auth, function (req, res, next) {
+    var fs = require('fs');
+    var path = __dirname + '/downloads/';
+    fs.readdir(path, function (err, items) {
+      res.json(items);
     });
   });
-});
 
-router.post("/removeWidget/:widget", auth, function(req, res, next) {
-  Widget.remove({
-    _id: req.widget._id
-  }, function(err) {
-    if (!err) {
-      res.json('fail');
-    } else {
-      res.json('succes');
+  router.post('/widgetsOfType', auth, function (req, res, next) {
+    var fs = require('fs');
+    var path = __dirname + '/downloads/' + req.body.type;
+    fs.readdir(path, function (err, items) {
+      res.json(items);
+    });
+  });
+
+  router.post('/addWidget', auth, function (req, res, next) {
+    if (!req.body.widgetFiles || !req.body.id) {
+      return res.status(400).json({
+        message: 'Vul alle velden in'
+      });
     }
+    var w = new Widget();
+    w.widgetFiles = [];
+    w.id = req.body.id;
+    req.body.widgetFiles.forEach(function (widgetFile) {
+      var f = new WidgetFile();
+      f.fileName = widgetFile.fileName;
+      f.type = widgetFile.type;
+      f.save(function (err) {
+        if (err) {
+          console.log(err);
+        }
+      });
+      w.files.push(f);
+    });
+    w.save(function (err) {
+      if (err) {
+        console.log(err);
+      }
+      res.json(w);
+    });
   });
-});
 
-
-router.get("/widgets/:widget", auth, function(req, res, next) {
-  req.widget.populate('files', function(err, file) {
-    res.json(file);
+  router.get("/getAllWidgets", auth, function (req, res, next) {
+    Widget.find(function (err, widgets) {
+      Widget.populate(widgets, {
+        path: 'widgetFiles',
+        model: 'WidgetFile'
+      }, function (err, x) {
+        res.json(x);
+      });
+    });
   });
-});
 
-router.post('/uploadResource/:widget', auth, function(req, res) {
+  router.post("/removeWidget/:widget", auth, function (req, res, next) {
+    Widget.remove({
+      _id: req.widget._id
+    }, function (err) {
+      if (!err) {
+        res.json('fail');
+      } else {
+        res.json('succes');
+      }
+    });
+  });
 
-  if (req.file) {
-    req.file.widgetId = req.widget.id;
-  }
 
-  upload(req, res, function(err) {
+  router.get("/widgets/:widget", auth, function (req, res, next) {
+    req.widget.populate('files', function (err, file) {
+      res.json(file);
+    });
+  });
+
+  router.post('/uploadResource/:widget', auth, function (req, res) {
+
+    if (req.file) {
+      req.file.widgetId = req.widget.id;
+    }
+
+    upload(req, res, function (err) {
       if (err) {
         res.json({
           error_code: 1,
@@ -214,13 +227,11 @@ router.post('/uploadResource/:widget', auth, function(req, res) {
       });
 
       var widgetFile = new widgetFile();
-      widgetFile.type = file.originalname.split('.')[file.originalname.split(
-        '.').length - 1]); widgetFile.fileName = req.file.widgetId +
-    widgetFile.type; req.widget.resources.push(widgetFile);
-
+      widgetFile.type = file.originalname.split('.')[file.originalname.split('.').length - 1];
+      widgetFile.fileName = req.file.widgetId + widgetFile.type;
+      req.widget.resources.push(widgetFile);
+    });
   });
-})
-
 
 
 module.exports = router;
