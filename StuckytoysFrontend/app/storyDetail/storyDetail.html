@@ -18,8 +18,10 @@
     </nav>
 
     <div class="container">
+      <h1>{{vm.story.name}}</h1>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 scenes">
+          <h4>Scenes</h4>
           <div ng-repeat="scene in vm.story.scenes"
               class="scene"
               ng-click="vm.selectScene(scene)"
@@ -32,9 +34,30 @@
             ng-model="vm.story.name"
             ng-disabled="!vm.editMode"
             class="form-control" />
+          <p>Gecreëerd op {{vm.niceDate}}</p>
+          <div ng-show="vm.activeScene">
+            <h4>Tekst</h4>
+            <textarea ng-disabled="!vm.editMode"
+              class="form-control"
+              ng-model="vm.activeScene.text">
+            </textarea>
+            <h4>Widgets</h4>
+            <div ng-repeat="widget in vm.activeScene.widgets">
+              <div class="widget">
+                <a href="/#/widget/{{widget._id}}">{{widget.id}}</a>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-3">
-
+        <div class="col-md-3 theme">
+          <h4>Thema's</h4>
+          <div ng-repeat="theme in vm.story.themes">
+              <p>{{theme.name}}</p>
+              <textarea ng-disabled="!vm.editMode"
+                class="form-control"
+                ng-model="theme.description">
+              </textarea>
+          </div>
         </div>
       </div>
     </div>
