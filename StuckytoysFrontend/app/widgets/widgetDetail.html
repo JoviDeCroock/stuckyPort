@@ -1,0 +1,22 @@
+<div>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="/#/main"><img alt="StuckyToys" src="./resources/images/logo.png" class="logo" /></a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a>Welkom {{vm.username}}</a>
+                </li>
+                <li>
+                    <a ng-click="vm.logOut()">
+                        <span class="glyphicon glyphicon-log-out"></span> Log uit
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+      <h1>{{vm.widget.id}}</h1>
+    </div>
+  </div>

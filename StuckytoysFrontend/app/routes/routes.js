@@ -63,6 +63,16 @@
               return storyService.getStory($route.current.params.id);
             }]
           }
+        }).when('/widget/:id', {
+          url:'/widget/:id',
+          templateUrl: 'app/widgets/widgetDetail.html',
+          controller: 'widgetDetailController',
+          controllerAs: 'vm',
+          resolve: {
+            postPromise: ['$route', 'widgetService', function($route, widgetService) {
+              return widgetService.getWidget($route.current.params.id);
+            }]
+          }
         })
         .otherwise({redirectTo: '/main'});
     };
