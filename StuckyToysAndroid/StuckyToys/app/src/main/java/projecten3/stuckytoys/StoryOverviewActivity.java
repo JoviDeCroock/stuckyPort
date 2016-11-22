@@ -41,6 +41,8 @@ public class StoryOverviewActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        dc = DomainController.getInstance();
+
         StoryListFragment storyList = new StoryListFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.stories, storyList);
@@ -77,6 +79,16 @@ public class StoryOverviewActivity extends AppCompatActivity {
                     });
             builder.show();
         }
+    }
+
+    public void startOrBuy() {
+        Intent i = new Intent(StoryOverviewActivity.this, SceneActivity.class);
+        i.putExtra("SCENE_NUMBER", 1);
+        startActivity(i);
+    }
+
+    public void purchaseStory(String _id) {
+        dc.getUser().getBoughtStories().add(_id);
     }
 
     @Override

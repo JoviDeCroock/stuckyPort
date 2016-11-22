@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
         //once server is online 24/7 this is all we'll need & if-structure above can be deleted
         else {
-
             txtError.setText("");
             btnLogin.setClickable(false);
 

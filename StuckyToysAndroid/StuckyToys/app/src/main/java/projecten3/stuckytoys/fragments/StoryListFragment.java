@@ -258,7 +258,8 @@ public class StoryListFragment extends Fragment {
                 ServerOfflineHelper.THEMES,
                 true));
 
-        dc.getUser().setStories(stories);
+        if(dc.getUser().getStories().isEmpty())
+            dc.getUser().setStories(stories);
 
         User user = dc.getUser();
         for (int i = 0; i < stories.size(); i++) {

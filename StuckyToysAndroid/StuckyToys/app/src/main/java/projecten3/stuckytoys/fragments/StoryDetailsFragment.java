@@ -1,13 +1,13 @@
 package projecten3.stuckytoys.fragments;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,14 +22,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
-import org.w3c.dom.Text;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import projecten3.stuckytoys.R;
+import projecten3.stuckytoys.StoryOverviewActivity;
 import projecten3.stuckytoys.custom.MemberImageView;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Story;
@@ -46,6 +46,7 @@ public class StoryDetailsFragment extends Fragment {
     @BindView(R.id.startOrBuyButton) Button startOrBuyButton;
 
     private Context context;
+    private Story story;
 
     public static StoryDetailsFragment newInstance(int index) {
         StoryDetailsFragment f = new StoryDetailsFragment();
@@ -96,6 +97,7 @@ public class StoryDetailsFragment extends Fragment {
     }
 
     public void setDetails(Story story) {
+        this.story = story;
         storyName.setText(story.getName());
 
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -142,6 +144,32 @@ public class StoryDetailsFragment extends Fragment {
                 })
                 .error(R.drawable.error)
                 .into(storyImage);
+    }
+
+    @OnClick(R.id.startOrBuyButton)
+    public void startOrBuy() {
+        if(story.isPurchased()) {
+            StoryOverviewActivity mContext = (StoryOverviewActivity) context;
+            mContext.startOrBuy();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(R.string.confirm_buy_story)
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            StoryOverviewActivity mContext = (StoryOverviewActivity) context;
+                            mContext.purchaseStory(story.get_id());
+                            story.setPurchased(true);
+                            startOrBuyButton.setText(R.string.start_story);
+                        }
+                    })
+                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            builder.show();
+        }
     }
 
     @Override

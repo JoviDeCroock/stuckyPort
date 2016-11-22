@@ -55,5 +55,13 @@
         <item>Datum</item>
         <item>Gekocht</item>
     </string-array>
+    <string name="confirm_buy_story">Verhaal kopen?</string>
+
+    <string name="scene1">Iedereen stapt in en is klaar om te vertrekken. Dan gooit een vervuiler een blikje op straat! Tuut de vervuiler weg!</string>
+    <string name="scene2">Gooi het blikje nu in de vuilbak.</string>
+    <string name="next_scene">Volgende scene</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
