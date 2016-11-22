@@ -12,12 +12,21 @@
 
      vm.username = authService.currentUser();
      vm.widget = widgetService.widget;
+     vm.download = download;
+
+     function download(file) {
+       widgetService.download(file)
+        .success(function(data) {
+          // var reader = new FileReader();
+          console.log(data);
+        });
+     };
 
      vm.logOut = logOut;
 
      function logOut() {
        authService.logOut();
        $location.path('/auth');
-     }
+     };
    }
 })();

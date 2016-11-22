@@ -202,7 +202,7 @@ router.post('/addWidget', auth, function(req, res, next) {
 
 
   router.get("/widgets/:widget", auth, function (req, res, next) {
-    req.widget.populate('files', function (err, file) {
+    req.widget.populate('widgetFiles', function (err, file) {
       res.json(file);
     });
   });

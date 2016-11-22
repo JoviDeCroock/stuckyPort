@@ -26,6 +26,8 @@
             <th>Datum</th>
             <th>Aantal scenes</th>
             <th>Thema's</th>
+            <th>Gepubliceerd</th>
+            <th></th>
          </tr>
          <tr ng-repeat="story in vm.stories">
            <td><img alt="verhaal" src="{{story.picture.base64}}"/></td>
@@ -33,6 +35,8 @@
            <td>{{story.date}}</td>
            <td>{{story.scenes.length}}</td>
            <td><p ng-repeat="theme in story.themes">{{theme.name}}</p></td>
+           <td><input type="checkbox" ng-model="story.published" /></td>
+           <td><button ng-show="!story.published">Publiceer</button></td>
          </tr>
         </table>
     </div>
