@@ -46,6 +46,7 @@
 |  /{StoryObject}/DeleteScene/{SceneId}| Get       |  Nothing                    | modified story | 
 |  /editScene                          | Post      |  SceneObject                | modifiedScene  |
 |  /publish/{storyId}                  | Post      |  Nothing                    | bool succes    |
+|  /download/{WidgetFileId}            | Get       |  Nothing                    | File           |
 
 ### /theme
 | URL                                  | Method    | Body                        |returns         |
@@ -60,7 +61,6 @@
 | URL                                  | Method    | Body                        |returns         |
 |:------------------------------------:|:---------:|:---------------------------:|:--------------:|
 |  /getAllWidgets                      | Get       |  Nothing                    | AllWidgets     |
-|  /download/{WidgetFileId}            | Get       |  Nothing                    | File           |
 |  /addWidget                          | Post      |  WidgetObject               | newWidget      |
 |  /widgets/{widgetId}                 | Get       |  Nothing                    |Requested widget|
 |  /widgetTypes                        | Get       |  Nothing                    | allWidgetTypes |

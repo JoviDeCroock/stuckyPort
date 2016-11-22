@@ -14,7 +14,6 @@ var MemberSchema = new mongoose.Schema({
         },
         dateOfBirth: Date,
         figure: { type: mongoose.Schema.Types.ObjectId, ref: 'Figure'}
-        //stories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Story' }]
     }
 );
 

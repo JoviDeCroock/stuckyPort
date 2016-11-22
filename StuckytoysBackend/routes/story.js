@@ -34,6 +34,15 @@ router.param('story', function(req,res,next,id)
         return next();
     });
 });
+router.param('user',function(req,res,next,id){
+    var query = User.findById(id);
+    query.exec(function(err,user){
+        if(err){return next(err);}
+        if(!user){return next(new Error('Kan de gekozen familie niet vinden.'));}
+        req.user = user;
+        return next();
+    });
+});
 router.param('widgetFile', function(req,res,next,id)
 {
     var query = WidgetFile.findById(id);
@@ -213,9 +222,66 @@ router.get('/download/:widgetFile', auth, function(req,res, next)
     res.download(file);
 });
 
+router.get(':user/getAllStories', auth, function(req,res,next)
+{
+    /*TODO: TEST*/
+    req.user.stories.find(function(err, stories)
+    {
+        Story.populate(stories,
+            {
+                path:'scenes',
+                model:'Scene'
+            }, function(err, scenes)
+            {
+                Story.populate(scenes,
+                    {
+                        path:'themes',
+                        model:'Theme'
+                    }, function(err, themes)
+                    {
+                        Story.populate(themes,
+                            {
+                                path:'picture',
+                                model:'Picture'
+                            }, function(err, pic)
+                            {
+                                Story.populate(pic,
+                                    {
+                                        path:'scenes.figures',
+                                        model:'Figure'
+                                    }, function(err, figures)
+                                    {
+                                        Story.populate(figures,
+                                            {
+                                                path:'scenes.widgets',
+                                                model:'Widget'
+                                            }, function(err, widgets)
+                                            {
+                                                Story.populate(widgets,
+                                                    {
+                                                        path:'scenes.widgets.widgetFiles',
+                                                        model:'WidgetFile'
+                                                    }, function(err, files)
+                                                    {
+                                                        Story.populate(files,
+                                                            {
+                                                                path:'scenes.figures.picture',
+                                                                model:'Picture'
+                                                            }, function(err, figPics)
+                                                            {
+                                                                res.json(figPics);
+                                                            });
+                                                    });
+                                            });
+                                    });
+                            });
+                    });
+            });
+    });
+});
+
 router.get('/getAllStories', auth, function(req,res,next)
 {
-    /*TODO: populates*/
     Story.find(function(err, stories)
     {
         Story.populate(stories,
@@ -271,11 +337,6 @@ router.get('/getAllStories', auth, function(req,res,next)
     });
 });
 
-router.get("/:theme/allStories", auth, function(req,res,next)
-{
-    /*TODO*/
-});
-
 router.post('/editScene', auth, function(req,res,next)
 {
     var query = {_id: req.body.scene._id};
@@ -318,12 +379,40 @@ router.post("/:story/removeScene/:scene", auth, function(req,res,next)
         }
     });
 });
+
+router.get("/getPublishedStories", auth, function(req,res,next)
+{
+    Story.find({published: true}, function(err, stories) {
+        Story.populate(stories,
+            {
+                path:'themes',
+                model:'Theme'
+            },
+            function(err, themes)
+            {
+                res.json(themes);
+            });
+    });
+});
+
+router.post(":user/buyStory/:story", auth,function(req,res,next)
+{
+    req.user.stories.push(req.story);
+    req.user.save(function(err)
+    {
+        console.log(err);
+        res.json(req.user.stories);
+    });
+});
 /*
  TODO:
  *
  * remove scene from story (scene nr aanpassen)
- * allStories per theme
  *
+ * TOTEST:
+ * getpublishedStories
+ * BuyStory
+ * get User's stories!
  * */
 
 module.exports = router;

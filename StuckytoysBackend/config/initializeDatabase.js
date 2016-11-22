@@ -160,6 +160,9 @@ Story.find({},function(err, adhd)
     scene1.text = "Vervuiler gooit blikje op straat. Tuut de vervuiler weg";
     scene2.text = "vertel verhaal over hoe slecht vervuiling is voor de diertjes";
     scene3.text = "Gooi het blikje in de vuilbak";
+    scene1.layout = 3;
+    scene2.layout = 2;
+    scene3.layout = 1;
     scene1.widgets = [];
     scene1.widgets.push(widget);
     scene2.widgets = [];
@@ -264,9 +267,12 @@ Story.find({},function(err, adhd)
     scene1.text = "De bus rijdt een winkel voorbij en hoort dat een overvaller vraagt voor het geld.";
     scene2.text = "De dief loopt weg en het kind moet hem zoeken";
     scene3.text = "Gooi het blikje in de vuilbak";
+    scene1.layout = 1;
+    scene2.layout = 3;
+    scene3.layout = 4;
     scene1.widgets = [];scene1.widgets.push(widget2);
     scene2.widgets = [];
-    scene3.widgets = [];scene3.widgets.push(gameW);
+    scene3.widgets = [];scene3.widgets.push(ARWidget);
     scene1.sceneNr = 1;
     scene2.sceneNr = 2;
     scene3.sceneNr = 3;
