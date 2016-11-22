@@ -161,6 +161,17 @@ Story.find({},function(err, adhd)
     scene2.text = "vertel verhaal over hoe slecht vervuiling is voor de diertjes";
     scene3.text = "Gooi het blikje in de vuilbak";
     scene1.layout = 3;
+    scene1.hints = [];
+    scene2.hints = [];
+    scene3.hints = [];
+    var text = "TIP: Recyclage vermindert uitstoot";
+    scene1.hints.push(text);
+    var text = "TIP: Er staan boetes op vervuilen";
+    scene1.hints.push(text);
+    var text = "TIP: Zeedieren kunnen verstrikt raken";
+    scene2.hints.push(text);
+    var text = "TIP: Dankzij het goed sorteren in de juiste vuilbak betert het milieu";
+    scene3.hints.push(text);
     scene2.layout = 2;
     scene3.layout = 1;
     scene1.widgets = [];
@@ -270,6 +281,8 @@ Story.find({},function(err, adhd)
     scene1.layout = 1;
     scene2.layout = 3;
     scene3.layout = 4;
+    var text = "TIP: Stelen is slecht in ieder scenario";
+    scene1.hints.push(text);
     scene1.widgets = [];scene1.widgets.push(widget2);
     scene2.widgets = [];
     scene3.widgets = [];scene3.widgets.push(ARWidget);

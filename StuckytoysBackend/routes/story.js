@@ -95,9 +95,15 @@ router.post('/createStory', auth, function(req,res,next)
         {
             var scene = new Scene();
             scene.sceneNr = entry.sceneNr;
+            scene.layout = entry.layout;
             scene.widgets = [];
             scene.figures = [];
+            scene.hints = [];
             scene.text = entry.text;
+            entry.hints.forEach(function(hint)
+            {
+               scene.hints.push(hint);
+            });
             entry.widgets.forEach(function(widgetEntry)
             {
                 var widget = Widget.findById(widgetEntry._id);
@@ -115,6 +121,7 @@ router.post('/createStory', auth, function(req,res,next)
         var theme = Theme.findById(themeEntry._id);
         story.themes.push(theme);
     });
+    story.published = req.body.published;
     story.saveDate(req.body.date);
     story.save(function(err)
     {
@@ -133,6 +140,12 @@ router.post('/:story/addScene', auth, function(req,res,next)
     var newScene = new Scene();
 
     newScene.widgets = [];
+    newScene.hints = [];
+    newScene.layout = req.body.layout;
+    req.body.hints.forEach(function(hint)
+    {
+        newScene.hints.push(hint);
+    });
     req.body.widgets.forEach(function(widgetEntry)
     {
         var widget = Widget.findById(widgetEntry._id);
