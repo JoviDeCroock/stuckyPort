@@ -54,7 +54,7 @@ public class StoryOverviewActivity extends AppCompatActivity {
             //if in singlepane view & in storydetails view -> go back to storylist view
             StoryListFragment storyList = new StoryListFragment();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.setCustomAnimations(FragmentTransaction.TRANSIT_NONE, R.anim.exit_to_bot);
+            ft.setCustomAnimations(R.anim.stay700ticks, R.anim.exit_to_bot);
             ft.replace(R.id.stories, storyList);
             ft.commit();
 

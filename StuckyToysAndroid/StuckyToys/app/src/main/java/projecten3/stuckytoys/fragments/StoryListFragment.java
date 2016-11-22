@@ -1,31 +1,38 @@
 package projecten3.stuckytoys.fragments;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
+import butterknife.OnItemSelected;
 import projecten3.stuckytoys.R;
 import projecten3.stuckytoys.adapters.StoryAdapter;
 import projecten3.stuckytoys.custom.ServerOfflineHelper;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Story;
+import projecten3.stuckytoys.domain.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,11 +42,12 @@ public class StoryListFragment extends Fragment {
     @BindView(R.id.gridStories) GridView gridView;
     @BindView(R.id.txtError) TextView txtError;
     @BindView(R.id.txtSelectStory) TextView txtSelectStory;
+    @BindView(R.id.sortSpinner) Spinner sortSpinner;
 
     boolean dualPane;
     int selectedStoryPosition = 0;
+    int sortMode = 0;
     private Bundle savedState = null;
-
     private DomainController dc;
     private StoryAdapter mAdapter;
     private Context context;
@@ -66,6 +74,13 @@ public class StoryListFragment extends Fragment {
 
         View detailsFragment = getActivity().findViewById(R.id.storyDetail);
         dualPane = detailsFragment != null && detailsFragment.getVisibility() == View.VISIBLE;
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
+                R.array.sort_options, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        sortSpinner.setAdapter(adapter);
 
         //if layout mode: 3 colums instead of 2
         if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -112,10 +127,54 @@ public class StoryListFragment extends Fragment {
         } else {
             StoryDetailsFragment details = StoryDetailsFragment.newInstance(index);
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.setCustomAnimations(R.anim.enter_from_bot, FragmentTransaction.TRANSIT_NONE);
+            ft.setCustomAnimations(R.anim.enter_from_bot, R.anim.stay700ticks);
             ft.replace(R.id.stories, details, "DETAILS");
             ft.commit();
         }
+    }
+
+    @OnItemSelected(R.id.sortSpinner)
+    public void spinnerItemSelected(Spinner spinner, int position) {
+        //0 = alfabetical; 1 = date; 2 = purchased
+        List<Story> stories = dc.getUser().getStories();
+        if (sortMode != position) {
+            sortMode = position;
+            switch (position) {
+                case 0:
+                    Collections.sort(stories, new Comparator<Story>() {
+                        public int compare(Story s1, Story s2) {
+                            if (s1.getName() == null || s2.getName() == null)
+                                return 0;
+                            return s1.getName().compareTo(s2.getName());
+                        }
+                    });
+                    break;
+                case 1:
+                    Collections.sort(stories, new Comparator<Story>() {
+                        public int compare(Story s1, Story s2) {
+                            if (s1.getDate() == null || s2.getDate() == null)
+                                return 0;
+                            return s1.getDate().compareTo(s2.getDate());
+                        }
+                    });
+                    break;
+                case 2:
+                    Collections.sort(stories, new Comparator<Story>() {
+                        public int compare(Story s1, Story s2) {
+                            if (s1.isPurchased() && !s2.isPurchased())
+                                return -1;
+                            if (!s1.isPurchased() && s2.isPurchased())
+                                return 1;
+                            return 0;
+                        }
+                    });
+                    break;
+                default:
+                    break;
+            }
+        }
+        mAdapter = new StoryAdapter(context, stories);
+        gridView.setAdapter(mAdapter);
     }
 
     private void fillStories() {
@@ -127,7 +186,14 @@ public class StoryListFragment extends Fragment {
             public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
                 if (response.isSuccessful()) {
                     List<Story> stories = response.body();
-                    dc.getUser().setStories(stories);
+                    User user = dc.getUser();
+                    user.setStories(stories);
+
+                    for (int i = 0; i < stories.size(); i++) {
+                        if (user.getBoughtStories().contains(stories.get(i).get_id())) {
+                            stories.get(i).setPurchased(true);
+                        }
+                    }
 
                     mAdapter = new StoryAdapter(context, stories);
                     gridView.setAdapter(mAdapter);
@@ -163,7 +229,7 @@ public class StoryListFragment extends Fragment {
                 ServerOfflineHelper.SCENES,
                 ServerOfflineHelper.THEMES,
                 true));
-        stories.add(new Story(ServerOfflineHelper.USERID,
+        stories.add(new Story("notYetBought",
                 ServerOfflineHelper.STORYNAME + " 2",
                 date,
                 ServerOfflineHelper.PICTURE,
@@ -193,6 +259,14 @@ public class StoryListFragment extends Fragment {
                 true));
 
         dc.getUser().setStories(stories);
+
+        User user = dc.getUser();
+        for (int i = 0; i < stories.size(); i++) {
+            if (user.getBoughtStories().contains(stories.get(i).get_id())) {
+                stories.get(i).setPurchased(true);
+            }
+        }
+
         mAdapter = new StoryAdapter(context, stories);
         gridView.setAdapter(mAdapter);
     }

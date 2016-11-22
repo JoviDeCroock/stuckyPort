@@ -2,73 +2,110 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="projecten3.stuckytoys.fragments.StoryDetailsFragment">
-
-    <TextView
-        android:id="@+id/storyName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
-
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0.5dp"
-            android:layout_weight="1" />
-        <projecten3.stuckytoys.custom.MemberImageView
-            android:id="@+id/storyImage"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2" />
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0.5dp"
-            android:layout_weight="1" />
-    </LinearLayout>
+    tools:context="projecten3.stuckytoys.fragments.StoryDetailsFragment"
+    android:background="@color/defaultBackground"
+    android:layout_margin="5dp">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <GridLayout
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="2">
-
+            android:orientation="vertical"
+            android:layout_margin="10dp">
             <TextView
+                android:id="@+id/storyName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/date"/>
-
-            <TextView
-                android:id="@+id/storyDate"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_horizontal"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0.5dp"
+                    android:layout_weight="1" />
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_marginBottom="5dp">
+                    <projecten3.stuckytoys.custom.MemberImageView
+                        android:id="@+id/storyImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="?android:attr/progressBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:visibility="visible"/>
+                </RelativeLayout>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0.5dp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date"/>
 
+                <TextView
+                    android:id="@+id/storyDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/scenes"/>
+
+                <TextView
+                    android:id="@+id/storyScenes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/scenes"/>
+                android:text="@string/themes"
+                android:layout_columnSpan="2"/>
 
-            <TextView
-                android:id="@+id/storyScenes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
+            <LinearLayout
+                android:id="@+id/themesContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/themes"/>
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="20dp"/>
 
-            <TextView
-                android:id="@+id/storyThemes"
+            <Button
+                android:id="@+id/startOrBuyButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:text="@string/start_story"
+                android:background="@android:color/holo_green_light"
+                android:textColor="@android:color/white"/>
 
-        </GridLayout>
+        </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

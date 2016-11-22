@@ -43,9 +43,17 @@
     <string name="messages">Boodschappen</string>
 
     <!--storyoverview -->
-    <string name="select_story">Welkom %s, selecteer een van de verhalen voor meer info.</string>
-    <string name="date">Datum toegevoegd:</string>
+    <string name="select_story">Welkom %s</string>
+    <string name="date">Datum toegevoegd: </string>
     <string name="scenes">Aantal scene\'s:</string>
     <string name="themes">Thema\'s die aan bod komen:</string>
+    <string name="start_story">Begin verhaal</string>
+    <string name="buy_story">Koop verhaal</string>
+    <string name="sort_by">\t\t\tSorteren op:</string>
+    <string-array name="sort_options">
+        <item>Naam</item>
+        <item>Datum</item>
+        <item>Gekocht</item>
+    </string-array>
 
 </resources>

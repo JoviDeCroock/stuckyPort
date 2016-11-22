@@ -17,6 +17,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,9 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
         dc = DomainController.getInstance();
 
-        editEmail.setText("user@user.user");
-        editPassword.setText("user");
-        login(btnLogin);
+        editEmail.setText("jeroen@gmail.com");
+        editPassword.setText("jeroen");
     }
 
     @OnClick(R.id.btnLogin)
@@ -136,13 +137,15 @@ public class MainActivity extends AppCompatActivity {
 
     //for testing while server is offline
     private void serverOffline() {
-        dc.setUser(new User("5817854b1454c41a82e6c778", "hjeroen@gmail.com", "jeroen", "swift",
+        dc.setUser(new User("5817854b1454c41a82e6c778", "jeroen@gmail.com", "jeroen", "swift",
                 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ODE3ODU0YjE0NTRjNDFhODJlNmM3NzgiLCJleHAiOjE0ODMxOTc2NjYsImlhdCI6MTQ3ODAxMzY2Nn0.iDs223_K8SrtQlDHos5k1r8uRh8Pzq4-axjvZRPID4o",
-                new ArrayList<Story>()));
-            Intent intent = new Intent(MainActivity.this, StoryOverviewActivity.class);
+                new ArrayList<Story>(), new ArrayList<String>(Arrays.asList("58285b7070f1457fcf7f3bc4"))));
 
-            startActivity(intent);
-            finish();
+        User user = dc.getUser();
+        Intent intent = new Intent(MainActivity.this, StoryOverviewActivity.class);
+
+        startActivity(intent);
+        finish();
     }
 
     @Override

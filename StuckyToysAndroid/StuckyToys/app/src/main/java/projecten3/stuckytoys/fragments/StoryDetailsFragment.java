@@ -3,13 +3,19 @@ package projecten3.stuckytoys.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +23,9 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
 import org.w3c.dom.Text;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +41,9 @@ public class StoryDetailsFragment extends Fragment {
     @BindView(R.id.storyImage) MemberImageView storyImage;
     @BindView(R.id.storyDate) TextView storyDate;
     @BindView(R.id.storyScenes) TextView storyScenes;
-    @BindView(R.id.storyThemes) TextView storyThemes;
+    @BindView(R.id.progressBar) ProgressBar progressBar;
+    @BindView(R.id.themesContainer) LinearLayout themesContainer;
+    @BindView(R.id.startOrBuyButton) Button startOrBuyButton;
 
     private Context context;
 
@@ -67,6 +78,7 @@ public class StoryDetailsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_story_details, container, false);
 
         ButterKnife.bind(this, view);
+        progressBar.setVisibility(View.VISIBLE);
 
         Story story = DomainController.getInstance().getUser().getStories().get(getShownIndex());
         setDetails(story);
@@ -85,14 +97,31 @@ public class StoryDetailsFragment extends Fragment {
 
     public void setDetails(Story story) {
         storyName.setText(story.getName());
-        storyDate.setText(story.getDate().toString());
-        storyScenes.setText("" + story.getScenes().length);
-        String txtThemes = "";
+
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        storyDate.setText(" " + df.format(story.getDate()));
+
+        storyScenes.setText(" " + story.getScenes().length);
+
+        //per theme: add two textviews to container; set name bold & indent description
         for (Theme theme : story.getThemes()) {
-            txtThemes += theme.getName() + "\n\t\t" + theme.getDescription() + "\n";
+            TextView txtName = new TextView(context), txtDesc = new TextView(context);
+            txtName.setText(theme.getName());
+            txtDesc.setText(theme.getDescription());
+
+            txtName.setTypeface(null, Typeface.BOLD);
+
+            LayoutParams llp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            llp.setMargins(15, 0, 0, 0); // llp.setMargins(left, top, right, bottom);
+            txtDesc.setLayoutParams(llp);
+
+            themesContainer.addView(txtName);
+            themesContainer.addView(txtDesc);
         }
-        txtThemes = txtThemes.substring(0, txtThemes.length()-3);
-        storyThemes.setText(txtThemes);
+
+        if(!story.isPurchased()) {
+            startOrBuyButton.setText(getString(R.string.buy_story));
+        }
 
         byte[] imageByteArray = Base64.decode(story.getPicture().split(",")[1], Base64.DEFAULT);
         Glide.with(context)
@@ -101,13 +130,13 @@ public class StoryDetailsFragment extends Fragment {
                 .listener(new RequestListener<byte[], Bitmap>() {
                     @Override
                     public boolean onException(Exception e, byte[] model, Target<Bitmap> target, boolean isFirstResource) {
-                        //progressBar.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
                         return false;
                     }
 
                     @Override
                     public boolean onResourceReady(Bitmap resource, byte[] model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        //progressBar.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
                         return false;
                     }
                 })
@@ -124,6 +153,12 @@ public class StoryDetailsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ViewCompat.setTranslationZ(getView(), 100.f);
     }
 
 }

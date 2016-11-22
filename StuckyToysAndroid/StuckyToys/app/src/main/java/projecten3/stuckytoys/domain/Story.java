@@ -12,7 +12,7 @@ public class Story {
     private ProfilePicture picture;
     private Scene[] scenes;
     private Theme[] themes;
-    private boolean purchased = true;
+    private boolean purchased = false;
 
     public Story(String _id, String name, Date date, ProfilePicture picture, Scene[] scenes, Theme[] themes, boolean purchased) {
         this._id = _id;
@@ -70,4 +70,8 @@ public class Story {
     public void setThemes(Theme[] themes) {
         this.themes = themes;
     }
+
+    public boolean isPurchased() { return purchased; }
+
+    public void setPurchased(boolean purchased) { this.purchased = purchased; }
 }

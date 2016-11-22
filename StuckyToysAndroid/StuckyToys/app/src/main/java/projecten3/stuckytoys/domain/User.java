@@ -11,6 +11,7 @@ public class User {
     private List<Member> members;
     private List<Story> stories;
     private String token;
+    private List<String> boughtStories;
 
     //CONSTRUCTOR ONLY USED FOR LOGGING IN (RETROFIT); DON'T USE THIS ANYWHERE ELSE!!!
     public User(String email, String password) {
@@ -27,11 +28,12 @@ public class User {
         this.password = password;
     }
 
-    public User(String id, String email, String username, String password, String token, List<Story> stories) {
+    public User(String id, String email, String username, String password, String token, List<Story> stories, List<String> boughtStories) {
         this(username, email, password);
         this._id = id;
         this.token = token;
         this.stories = stories;
+        this.boughtStories = boughtStories;
     }
 
     public String getId() {
@@ -70,5 +72,8 @@ public class User {
     public void setToken(String token) {
         this.token = token;
     }
-
+    public String get_id() { return _id; }
+    public void set_id(String _id) { this._id = _id; }
+    public List<String> getBoughtStories() { return boughtStories; }
+    public void setBoughtStories(List<String> boughtStories) { this.boughtStories = boughtStories; }
 }
