@@ -4,6 +4,9 @@
             <div class="navbar-header">
                 <a href="/#/main"><img alt="StuckyToys" src="./resources/images/logo.png" class="logo" /></a>
             </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/#/stories">Mijn verhalen</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a>Welkom {{vm.username}}</a>
@@ -35,7 +38,7 @@
            <td>{{story.date}}</td>
            <td>{{story.scenes.length}}</td>
            <td><p ng-repeat="theme in story.themes">{{theme.name}}</p></td>
-           <td><input type="checkbox" ng-model="story.published" /></td>
+           <td><input type="checkbox" ng-model="story.published" ng-disabled="true"/></td>
            <td><button ng-show="!story.published">Publiceer</button></td>
          </tr>
         </table>

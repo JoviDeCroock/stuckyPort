@@ -13,8 +13,7 @@
     var widget = {
       widget: {},
       widgets: [],
-      getWidget: getWidget,
-      download: download
+      getWidget: getWidget
     }
 
     return widget;
@@ -24,11 +23,6 @@
         headers: { Authorization: 'Bearer ' + token }
       }).success(function(data) {
         widget.widget = data;
-      });
-    };
-    function download(file) {
-      return $http.get(usedUrl+'story/download/'+file, {
-        headers: { Authorization: 'Bearer '+ token }
       });
     };
   }

@@ -4,6 +4,9 @@
             <div class="navbar-header">
                 <a href="/#/main"><img alt="StuckyToys" src="./resources/images/logo.png" class="logo" /></a>
             </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/#/stories">Mijn verhalen</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a>Welkom {{vm.username}}</a>
@@ -20,9 +23,19 @@
       <h1>{{vm.widget.id}}</h1>
       <table class="table">
         <tr ng-repeat="file in vm.widget.widgetFiles">
-          <td>{{file}}</td>
-          <td><button class="btn btn-default" ng-click="vm.download(file)">Download</button></td>
-          <!-- TODO widgetfile populaten zodat ik het type kan displayen -->
+          <td>{{file.fileName}}</td>
+          <td>
+            <img
+              ng-show="file.type === 'music'"
+              class="playsound"
+              src="./resources/images/playsound.png"
+              alt="Play"/>
+            <button
+              ng-show="file.type === 'image'"
+              class="btn btn-default">
+              Download
+            </button>
+          </td>
         </tr>
       </table>
     </div>
