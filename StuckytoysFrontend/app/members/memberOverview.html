@@ -1,10 +1,10 @@
 <div class="container">
   <h1>{{vm.title}}</h1>
     <div class ="tile" ng-repeat="member in vm.members" ng-click="vm.selectMember(member)">
-        <img src="../../resources/images/animals/{{member.picture}}"/>
+        <img src="{{member.figure.picture.base64}}"/>
     </div>
     <div class="tile">
-        <a href="/#/createMember">Add Member</a>
+        <a href="/#/createMember">Voeg lid toe</a>
     </div>
     <div class="logout">
       <button class="btn btn-default" ng-click="vm.logOut()">Uitloggen</button>

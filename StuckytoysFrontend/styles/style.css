@@ -1,6 +1,13 @@
-header img{
+nav ul li a{
+  cursor: pointer;
+}
+.banner{
+  width: inherit;
+  margin-top: 20px;
+}
+.logo{
   width : 200px;
-  margin: 5px;
+  margin-top: 5px;
 }
 .background{
   width: 140%;
@@ -10,19 +17,14 @@ header img{
   background-image: url('../resources/images/background.png');
   background-repeat: no-repeat;
 }
-.auth-content{
-  padding: 20px 5px 20px 5px;
-}
-.register{
-  border-left: 1px solid grey;
-}
 .error{
   color: red;
 }
 
 .tile{
-  border: 1px solid black;
-  font-size: 16px;
+  text-align: center;
+  border: 3px solid black;
+  font-size: 14px;
   display: inline-block;
   margin-bottom: 8px;
   width: calc(50% - 4px);
@@ -41,6 +43,11 @@ header img{
   height: 200px;
 }
 
+.tile:hover{
+  border: 3px solid green;
+  cursor: pointer;
+}
+
 .tile a:hover {
   color:green;
 }
@@ -52,7 +59,48 @@ header img{
 .logout{
   float: right;
 }
-
+.scenes {
+  margin-top: 50px;
+  border-right: 1px solid grey;
+}
+.scene {
+  border: 2px solid #3E8720;
+  height: 100px;
+  margin: 5px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+.activeScene {
+  border: 5px solid #207287;
+}
+.theme {
+  margin-top: 55px;
+  border-left: 1px solid grey;
+}
+.themeChooser {
+  margin-top: 5px;
+}
+.make-story-selection {
+  margin-top: 5px;
+}
+.save-story{
+  margin-top: 5px;
+}
+.widget-form input{
+  margin-top: 5px;
+}
+.playsound {
+  width: 50px;
+  height: 50px;
+}
+table img {
+  width: 100px;
+  height: 100px;
+}
+textarea {
+  margin-top: 5px;
+}
 @media screen and (min-width: 50em) {
   .tile {
     width: calc(25% - 6px);

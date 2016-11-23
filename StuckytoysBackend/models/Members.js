@@ -12,10 +12,8 @@ var MemberSchema = new mongoose.Schema({
             type:Boolean,
             default: false
         },
-        //picture: String,
         dateOfBirth: Date,
-        figure: { type: mongoose.Schema.Types.ObjectId, ref: 'Figure'},
-        stories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Story' }]
+        figure: { type: mongoose.Schema.Types.ObjectId, ref: 'Figure'}
     }
 );
 

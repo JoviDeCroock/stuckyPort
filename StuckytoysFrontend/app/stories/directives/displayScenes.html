@@ -1,0 +1,7 @@
+<div ng-repeat="scene in vm.activeStory.scenes"
+    class="scene"
+    ng-click="vm.selectScene(scene)"
+    ng-class="{activeScene : vm.activeScene === scene}">
+  <p>{{scene.sceneNr}}</p>
+</div>
+<button ng-click="vm.addScene()" class="btn btn-default">+ Scene</button>

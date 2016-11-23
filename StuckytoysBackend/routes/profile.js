@@ -81,16 +81,25 @@ router.get('/users/:user/getMember/:member',auth,function(req,res,next){
 
 // Get all family members (Select member screen)
 router.get('/users/:user/getAllMembers',auth,function(req,res,next){
-    req.user.populate('members', function(err, user){
-       if(err) { return next(err); }
-        user.members.forEach(function(member){
-          member.populate('figure',function(err, theMember){
-            if(err){ return next(err); }
-            theMember.figure.populate('picture', function(err, figure){
-              if(err){ return next(err); }
-              res.json(user.members);
+    if(req.user.members.length === 0)
+    {
+        return res.json(req.user.members);
+    }
+    req.user.populate('members', function(err, user)
+    {
+        User.populate(user,
+        {
+            path:'members.figure',
+            model:'Figure'
+        }, function(err, member)
+        {
+            Member.populate(member, {
+                path:'members.figure.picture',
+                model:'Picture'
+            }, function(err, figure)
+            {
+                res.json(figure.members);
             });
-          });
         });
     });
 });

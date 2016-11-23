@@ -1,3 +1,4 @@
+/*
 var mongoose = require('mongoose');
 
 var BuildingBlockSchema = new mongoose.Schema({
@@ -9,3 +10,4 @@ var BuildingBlockSchema = new mongoose.Schema({
 });
 
 mongoose.model('BuildingBlock',BuildingBlockSchema);
+*/

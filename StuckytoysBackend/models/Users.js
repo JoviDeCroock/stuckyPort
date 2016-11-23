@@ -1,22 +1,21 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 var salt = bcrypt.genSaltSync(10);
+var Figure = mongoose.model('Figure');
 
 var UserSchema = new mongoose.Schema(
     {
         email: {type: String, unique: true},
-        username: {type: String, unique: true},
+        username: {type: String},
         password: String,
         isHashed:
         {
             type: Boolean,
             default: false
         },
+        stories: [{type: mongoose.Schema.Types.ObjectId, ref:'Story'}],
         members: [{type: mongoose.Schema.Types.ObjectId, ref:'Member'}],
         figures: [{type: mongoose.Schema.Types.ObjectId, ref:'Figure'}]
-        //Story hoort bij member, enkel ouder kan de verhalen van de kinderen zien
-        //stories: [{type: mongoose.Schema.Types.ObjectId, ref:'Story'}]
-        //Drawings: [{type: mongoose.Schema.Types.ObjectId, ref:'Drawing'}]
     }
 );
 
@@ -24,7 +23,6 @@ UserSchema.pre('save', function(next)
 {
     var user = this;
     if(user.isHashed) {return next();}
-
     bcrypt.hash(user.password, salt, function(err, hash)
     {
         if(err) {return next(err);}

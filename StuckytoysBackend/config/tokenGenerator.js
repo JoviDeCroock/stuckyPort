@@ -8,7 +8,7 @@ module.exports = function(user){
 
   return jwt.sign({
     _id: user.id,
-    username: user.login,
+    username: user.username,
     exp: parseInt(exp.getTime()/1000)
   },config.secret);
 }

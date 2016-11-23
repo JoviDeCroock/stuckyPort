@@ -10,22 +10,22 @@
 
     authRoutes.$inject = ['$routeProvider'];
 
-    function authRoutes($routeProvider)
-    {
+    function authRoutes($routeProvider){
         $routeProvider.when('/auth',{
             url: '/auth',
             templateUrl: 'app/authorization/authorization.html',
             controller: 'authController',
-            controllerAs : 'vm',
-        }).when('/member',{
+            controllerAs : 'vm'
+        })/*.when('/member',{
             url: '/member',
             templateUrl: 'app/members/memberOverview.html',
             controller: 'memberController',
             controllerAs : 'vm',
             resolve:{
-                postPromise: ['memberFactory', function(memberFactory)
-                {
-                    return memberFactory.getMembers();
+                postPromise: ['memberFactory', function(memberFactory){
+                    memberFactory.getFigures();
+                    memberFactory.getMembers();
+                    return;
                 }]
             }
         }).when('/createMember', {
@@ -33,11 +33,47 @@
             templateUrl: 'app/members/makeMember.html',
             controller: 'memberController',
             controllerAs : 'vm'
-        }).when('/main', {
+        })*/.when('/main', {
             url: '/main',
             templateUrl: 'app/main/mainOverview.html',
             controller: 'mainController',
             controllerAs : 'vm'
-        }).otherwise({redirectTo: '/member'});
+        }).when('/makeStory', {
+            url: '/makeStory',
+            templateUrl: 'app/stories/makeStory.html',
+            controller: 'storyController',
+            controllerAs: 'vm'
+        }).when('/stories', {
+           url: '/stories',
+           templateUrl: 'app/storyOverview/storyOverview.html',
+           controller: 'storyOverviewController',
+           controllerAs: 'vm',
+           resolve: {
+             postPromise: ['storyService', function(storyService) {
+               return storyService.getStories();
+             }]
+           }
+        }).when('/story/:id',{
+          url: 'story/:id',
+          templateUrl: 'app/storyDetail/storyDetail.html',
+          controller: 'storyDetailController',
+          controllerAs: 'vm',
+          resolve: {
+            postPromise: ['$route', 'storyService', function($route, storyService) {
+              return storyService.getStory($route.current.params.id);
+            }]
+          }
+        }).when('/widget/:id', {
+          url:'/widget/:id',
+          templateUrl: 'app/widgets/widgetDetail.html',
+          controller: 'widgetDetailController',
+          controllerAs: 'vm',
+          resolve: {
+            postPromise: ['$route', 'widgetService', function($route, widgetService) {
+              return widgetService.getWidget($route.current.params.id);
+            }]
+          }
+        })
+        .otherwise({redirectTo: '/main'});
     };
 })();

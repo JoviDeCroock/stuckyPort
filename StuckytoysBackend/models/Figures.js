@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 var FigureSchema = new mongoose.Schema({
     name: String,
     type: String,
-    //picture:  String,
+    default: Boolean,
     picture: {type: mongoose.Schema.Types.ObjectId, ref:'Picture'},
     description: String
 });

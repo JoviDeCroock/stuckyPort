@@ -4,20 +4,11 @@
 var mongoose = require('mongoose');
 
 var SceneSchema = new mongoose.Schema({
-        //background: String,
-        //Dialogue: String
         sceneNr: Number,
-        story: { type: mongoose.Schema.Types.ObjectId, ref: 'Story' },
-        figures: [{
-          positionX: Number,
-          positionY: Number,
-          figure: { type: mongoose.Schema.Types.ObjectId, ref: 'Figure' }
-        }],
-        blocks: [{
-          positionX: Number,
-          positionY: Number,
-          buildingBlock: { type: mongoose.Schema.Types.ObjectId, ref: 'BuildingBlock' }
-        }]
+        widgets: [{type: mongoose.Schema.Types.ObjectId, ref:'Widget'}],
+        text: String,
+        layout: Number,
+        hints: [{type: Text}]
     });
 
 mongoose.model('Scene', SceneSchema);

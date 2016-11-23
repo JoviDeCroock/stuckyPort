@@ -9,12 +9,21 @@
         .module('stuckyToys')
         .controller('mainController', mainController);
 
-    mainController.$inject = ['memberFactory'];
+    mainController.$inject = ['$location','authService'];
 
-    function mainController(memberFactory)
-    {
+    function mainController($location, authService){
         var vm = this;
-        vm.member = memberFactory.getLoggedMember();
-        console.log(vm.member);
+        vm.username = authService.currentUser();
+        vm.navigateTo = navigateTo;
+        vm.logOut = logOut;
+
+        //functions
+        function navigateTo (state) {
+          $location.path('/'+state);
+        };
+        function logOut () {
+          authService.logOut();
+          $location.path('/auth');
+        };
     };
 })();

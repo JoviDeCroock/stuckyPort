@@ -6,9 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var multer = require('multer');
 
 //Requiring models
-require('./models/BuildingBlocks');
+//require('./models/BuildingBlocks');
 require('./models/Figures');
 require('./models/Members');
 require('./models/Pictures');
@@ -16,19 +17,25 @@ require('./models/Scenes');
 require('./models/Stories');
 require('./models/Themes');
 require('./models/Users');
+require('./models/Admins');
+require('./models/Widgets');
+require('./models/WidgetFiles');
 
 //Creating database
 require('./config/passport');
 var config = require('./config/config');
 mongoose.Promise = global.Promise;
 mongoose.connect(config.database);
-//initializeDatabase 
+//initializeDatabase
 require('./config/initializeDatabase');
 
 //Requiring routes
 var auth = require('./routes/auth');
 var profile = require('./routes/profile');
 var figure = require('./routes/figure');
+var story = require('./routes/story');
+var theme = require('./routes/theme');
+var widget = require('./routes/widget');
 
 var app = express();
 
@@ -53,6 +60,10 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.use(express.static('../client'));
+
+
+
 //Using middleware
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -65,6 +76,9 @@ app.use(passport.initialize());
 app.use('/', auth);
 app.use('/profile', profile);
 app.use('/figure', figure);
+app.use('/story', story);
+app.use('/theme', theme);
+app.use('/widget', widget);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

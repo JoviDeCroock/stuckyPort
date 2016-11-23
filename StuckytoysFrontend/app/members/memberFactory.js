@@ -13,21 +13,24 @@
     function memberFactory($http,authService,url, $window) {
         var usedUrl = url.dev;
         var token = authService.getToken();
-        var loggedMember = {};
+        //var theLoggedMember = {};
         var memberFactory =
         {
             members : [],
+            figures: [],
+            //loggedMember : {},
             createMember : createMember,
             getMembers : getMembers,
             getMember : getMember,
-            getLoggedMember : getLoggedMember
+            getFigures : getFigures
         };
 
-        function getLoggedMember()
+        function getFigures()
         {
-            console.log(loggedMember);
-            return loggedMember;
-        };
+            return $http.get(usedUrl + authService.getUserId() + '/getFigures').success(function(data){
+                angular.copy(data,memberFactory.figures);
+            });
+        }
 
         function createMember(member)
         {
@@ -44,18 +47,20 @@
             return $http.get(usedUrl + 'profile/users/' + authService.getUserId() + '/getAllMembers',{
               headers: {Authorization: 'Bearer ' + token}
             }).success(function(data){
-                angular.copy(data,memberFactory.members);
+                angular.copy(data, memberFactory.members);
             });
+
         };
 
         function getMember(member)
         {
-            return $http.get(usedUrl + 'profile/users/' + authService.getUserId() + '/getMember/' + member._id,{
+            return $http.get(usedUrl + 'profile/users/' + authService.getUserId() + '/getMember/' + member,{
               headers: {Authorization: 'Bearer ' + token}
             }).success(function(data)
             {
-                loggedMember = member;
-                return data;
+                memberFactory.loggedMember = data;
+                //theLoggedMember = data; //test
+                //return data;
             });
         };
 

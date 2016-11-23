@@ -4,7 +4,7 @@
 var mongoose = require('mongoose');
 
 var PictureSchema = new mongoose.Schema({
-    pad: String,
+    path: String,
     base64:  String
 });
 

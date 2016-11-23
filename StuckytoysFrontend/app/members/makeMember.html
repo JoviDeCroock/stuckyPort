@@ -24,8 +24,8 @@
         </div>
         <div class="form-group">
             <p>kies een avatar (klik op de tegel):</p>
-            <div class="tile" ng-repeat="avatar in vm.avatars">
-                <img src="../../resources/images/animals/{{avatar}}" alt="{{avatar}}" ng-click="vm.chooseAvatar(this.avatar)"/>
+            <div class="tile" ng-repeat="figure in vm.figures">
+                <img src="{{figure.picture.base64}}" alt="{{figure.name}}" ng-click="vm.chooseAvatar(this.figure)"/>
             </div>
         </div>
         <div class="form-group">
