@@ -167,7 +167,6 @@ public class StoryDetailsFragment extends Fragment {
                             // User cancelled the dialog
                         }
                     });
-            // Create the AlertDialog object and return it
             builder.show();
         }
     }

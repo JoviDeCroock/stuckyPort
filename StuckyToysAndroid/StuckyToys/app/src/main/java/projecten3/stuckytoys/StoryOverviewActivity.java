@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import projecten3.stuckytoys.adapters.StoryAdapter;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Story;
+import projecten3.stuckytoys.fragments.ScreenSlidePagerActivity;
 import projecten3.stuckytoys.fragments.StoryDetailsFragment;
 import projecten3.stuckytoys.fragments.StoryListFragment;
 import retrofit2.Call;
@@ -82,7 +83,7 @@ public class StoryOverviewActivity extends AppCompatActivity {
     }
 
     public void startOrBuy() {
-        Intent i = new Intent(StoryOverviewActivity.this, SceneActivity.class);
+        Intent i = new Intent(StoryOverviewActivity.this, ScreenSlidePagerActivity.class);
         i.putExtra("SCENE_NUMBER", 1);
         startActivity(i);
     }
