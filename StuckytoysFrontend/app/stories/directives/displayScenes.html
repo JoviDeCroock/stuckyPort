@@ -2,6 +2,6 @@
     class="scene"
     ng-click="vm.selectScene(scene)"
     ng-class="{activeScene : vm.activeScene === scene}">
-  <p>{{scene.sceneNr}}</p>
+  <p class="sceneNr">{{scene.sceneNr}}</p>
 </div>
 <button ng-click="vm.addScene()" class="btn btn-default">+ Scene</button>

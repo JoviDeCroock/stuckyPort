@@ -13,7 +13,8 @@
     var widget = {
       widget: {},
       widgets: [],
-      getWidget: getWidget
+      getWidget: getWidget,
+      getTypeOfWidget: getTypeOfWidget
     }
 
     return widget;
@@ -24,6 +25,19 @@
       }).success(function(data) {
         widget.widget = data;
       });
+    };
+    function getTypeOfWidget(widget) {
+      var types = [];
+      var value = '';
+      widget.widgetFiles.forEach(function(file) {
+        types.push(file.type);
+      });
+      types.forEach(function(type) {
+        if(type === 'music') { value = 'music'; }
+        if(type === 'game' ) { value = 'game'; }
+      });
+      if(value !== '') { return value; }
+      else { return 'image'; }
     };
   }
 })();

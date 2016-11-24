@@ -5,9 +5,9 @@
       .module('stuckyToys')
       .controller('storyDetailController', storyDetailController);
 
-    storyDetailController.$inject = ['authService', 'storyService', '$location'];
+    storyDetailController.$inject = ['authService', 'storyService','widgetService', '$location'];
 
-    function storyDetailController(authService, storyService, $location) {
+    function storyDetailController(authService, storyService, widgetService, $location) {
       var vm = this;
 
       // bindables
@@ -18,9 +18,22 @@
       vm.editMode = false;
       // functions
       vm.selectScene = selectScene;
+      vm.selectHint = selectHint;
+      vm.getTypeOfWidget = getTypeOfWidget;
+      vm.musicImageToBase64 = musicImageToBase64;
       // implementations
       function selectScene(scene) {
         vm.activeScene = scene;
+        vm.activeHint = null;
+      };
+      function selectHint(hint) {
+        vm.activeHint = hint;
+      };
+      function getTypeOfWidget(widget) {
+        return widgetService.getTypeOfWidget(widget);
+      };
+      function musicImageToBase64(widget) {
+        return './resources/images/playsound.png'; // om te testen
       }
 
       vm.logOut = logOut;

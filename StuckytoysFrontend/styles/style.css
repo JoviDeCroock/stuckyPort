@@ -93,6 +93,18 @@ nav ul li a{
 .playsound {
   width: 50px;
   height: 50px;
+  cursor: pointer;
+}
+.sceneNr {
+  text-decoration: underline;
+}
+.hint{
+  width: 50px;
+  height: 50px;
+  margin-right: 5px;
+  border: 1px solid black;
+  padding: 2px;
+  cursor: pointer;
 }
 table img {
   width: 100px;
