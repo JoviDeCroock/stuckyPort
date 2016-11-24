@@ -309,7 +309,6 @@ router.post('/editScene', auth, function(req,res,next)
 router.post("/:story/removeScene/:scene", auth, function(req,res,next)
 {
     var sceneNr = req.scene.sceneNr;
-    var deleted = false;
     var query = {_id: req.story._id};
     Scene.remove({_id:req.scene._id}, function(err)
     {
@@ -350,7 +349,49 @@ router.get("/getPublishedStories", auth, function(req,res,next)
             },
             function(err, themes)
             {
-                res.json(themes);
+                Story.populate(themes,
+                    {
+                        path:'scenes',
+                        model:'Scene'
+                    },function(err, scenes)
+                    {
+                        Story.populate(scenes,
+                            {
+                                path:'picture',
+                                model:'Picture'
+                            }, function(err, pic)
+                            {
+                                Story.populate(pic,
+                                    {
+                                        path:'scenes.figures',
+                                        model:'Figure'
+                                    }, function(err, figures)
+                                    {
+                                        Story.populate(figures,
+                                            {
+                                                path:'scenes.widgets',
+                                                model:'Widget'
+                                            }, function(err, widgets)
+                                            {
+                                                Story.populate(widgets,
+                                                    {
+                                                        path:'scenes.widgets.widgetFiles',
+                                                        model:'WidgetFile'
+                                                    }, function(err, files)
+                                                    {
+                                                        Story.populate(files,
+                                                            {
+                                                                path:'scenes.figures.picture',
+                                                                model:'Picture'
+                                                            }, function(err, figPics)
+                                                            {
+                                                                res.json(figPics);
+                                                            });
+                                                    });
+                                            });
+                                    });
+                            });
+                    });
             });
     });
 });
@@ -369,10 +410,6 @@ router.post("/:user/buyStory/:story", auth,function(req,res,next)
  *
  * remove scene from story (scene nr aanpassen)
  *
- * TOTEST:
- * getpublishedStories
- * BuyStory
- * get User's stories!
  * */
 
 module.exports = router;
