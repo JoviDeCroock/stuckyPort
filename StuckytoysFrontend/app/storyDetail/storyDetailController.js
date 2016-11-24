@@ -21,6 +21,7 @@
       vm.selectScene = selectScene;
       vm.selectHint = selectHint;
       vm.getTypeOfWidget = getTypeOfWidget;
+      vm.getImageFileName = getImageFileName;
       // implementations
       function selectScene(scene) {
         vm.activeScene = scene;
@@ -31,6 +32,9 @@
       };
       function getTypeOfWidget(widget) {
          return widgetService.getTypeOfWidget(widget);
+      };
+      function getImageFileName(widget) {
+         return widgetService.getImageFileName(widget);
       };
 
       vm.logOut = logOut;

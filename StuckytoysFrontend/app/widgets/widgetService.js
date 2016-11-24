@@ -14,9 +14,8 @@
       widget: {},
       widgets: [],
       getWidget: getWidget,
-      download: download,
-      musicImageToBase64: musicImageToBase64,
-      getTypeOfWidget: getTypeOfWidget
+      getTypeOfWidget: getTypeOfWidget,
+      getImageFileName: getImageFileName
     }
 
     return widget;
@@ -27,22 +26,6 @@
       }).success(function(data) {
         widget.widget = data;
       });
-    };
-    function download(id) {
-      return $http.get(usedUrl+'story/download/'+id, {
-        headers: { Authorization: 'Bearer ' + token }
-      });
-    };
-    function musicImageToBase64(theWidget) {
-      var id;
-      theWidget.widgetFiles.forEach(function(file) {
-        if(file.type === 'image') {
-          id = file._id;
-        }
-      });
-      console.log(id);
-      // var image = $base64.encode(widget.download(id));
-      // return image;
     };
     function getTypeOfWidget(widget) {
       var types = [];
@@ -57,5 +40,12 @@
       if(value !== '') { return value; }
       else { return 'image'; }
     };
+    function getImageFileName(widget) {
+      var value = {};
+      widget.widgetFiles.forEach(function(file) {
+        if(file.type === 'image') { value = file; }
+      });
+      return value.fileName;
+    }
   }
 })();

@@ -17,7 +17,6 @@
      function download(file) {
        widgetService.download(file)
         .success(function(data) {
-          // var reader = new FileReader();
           console.log(data);
         });
      };
