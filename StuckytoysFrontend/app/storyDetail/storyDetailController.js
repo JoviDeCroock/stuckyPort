@@ -15,12 +15,12 @@
       vm.story = storyService.story;
       vm.niceDate = new Date(vm.story.date).toLocaleDateString('nl-NL');
       vm.activeScene = vm.story.scenes[0];
+
       vm.editMode = false;
       // functions
       vm.selectScene = selectScene;
       vm.selectHint = selectHint;
       vm.getTypeOfWidget = getTypeOfWidget;
-      vm.musicImageToBase64 = musicImageToBase64;
       // implementations
       function selectScene(scene) {
         vm.activeScene = scene;
@@ -30,11 +30,8 @@
         vm.activeHint = hint;
       };
       function getTypeOfWidget(widget) {
-        return widgetService.getTypeOfWidget(widget);
+         return widgetService.getTypeOfWidget(widget);
       };
-      function musicImageToBase64(widget) {
-        return './resources/images/playsound.png'; // om te testen
-      }
 
       vm.logOut = logOut;
 
