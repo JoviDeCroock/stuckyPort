@@ -355,7 +355,7 @@ router.get("/getPublishedStories", auth, function(req,res,next)
     });
 });
 
-router.post(":user/buyStory/:story", auth,function(req,res,next)
+router.post("/:user/buyStory/:story", auth,function(req,res,next)
 {
     req.user.stories.push(req.story);
     req.user.save(function(err)
