@@ -47,6 +47,9 @@
 |  /editScene                          | Post      |  SceneObject                | modifiedScene  |
 |  /publish/{storyId}                  | Post      |  Nothing                    | bool succes    |
 |  /download/{WidgetFileId}            | Get       |  Nothing                    | File           |
+|  /{userId}/getAllStories             | Get       |  Nothing                    | users stories  |
+|  /{userId}/buyStory/{StoryId}        | Post      |  Nothing                    | users stories  |
+|  /getPublishedStories                | Get       |  Nothing                    |StoriesPublished|
 
 ### /theme
 | URL                                  | Method    | Body                        |returns         |
