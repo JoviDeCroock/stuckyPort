@@ -21,26 +21,12 @@
     <string name="register_cancel">Registeren annuleren?</string>
 
     <!-- selectmember -->
-    <string name="select_member">Selecteer een familielid</string>
-    <string name="add_member">Nieuw familielid toevoegen</string>
     <string name="logout">Wens je uit te loggen?</string>
     <string name="yes">Ja</string>
     <string name="no">Nee</string>
 
     <!--addmember -->
     <string name="confirm">Bevestigen</string>
-    <string name="add_member_cancel">Familielid aanmaken annuleren?</string>
-    <string name="select_picture">Welk dier past het best bij jou?</string>
-    <string name="role">Rol in het gezin</string>
-    <string name="role_hint"><font size="10">papa, mama, zoon, dochter,...</font></string>
-    <string name="authority">Ben je een beheerder voor deze account (bvb ouder, leerkracht)?</string>
-    <string name="didnt_select_image">Gelieve een afbeelding te kiezen.</string>
-
-    <!-- homepage -->
-    <string name="my_stories">Mijn verhalen</string>
-    <string name="agenda">Agenda</string>
-    <string name="my_pictures">Mijn figuren</string>
-    <string name="messages">Boodschappen</string>
 
     <!--storyoverview -->
     <string name="select_story">Welkom %s</string>

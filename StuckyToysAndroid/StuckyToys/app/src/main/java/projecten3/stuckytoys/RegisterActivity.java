@@ -129,7 +129,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             Log.d("register", "id: " + id + " token: " + token);
 
-                            Intent intent = new Intent(RegisterActivity.this, SelectMemberActivity.class);
+                            Intent intent = new Intent(RegisterActivity.this, StoryOverviewActivity.class);
                             startActivity(intent);
                             finish();
                         } catch (JSONException ex) {
