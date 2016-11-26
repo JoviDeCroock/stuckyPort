@@ -3,21 +3,15 @@ package projecten3.stuckytoys;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import projecten3.stuckytoys.adapters.MemberAdapter;
+import projecten3.stuckytoys.custom.member_related_stuff.MemberAdapter;
 import projecten3.stuckytoys.domain.DomainController;
 
 public class SceneActivity extends AppCompatActivity {

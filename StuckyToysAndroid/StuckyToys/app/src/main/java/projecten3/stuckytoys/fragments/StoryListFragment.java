@@ -110,6 +110,7 @@ public class StoryListFragment extends Fragment {
     public void itemClicked(int index) {
         selectedStoryPosition = index;
 
+        //tablet mode
         if(dualPane) {
             StoryDetailsFragment details = (StoryDetailsFragment) getFragmentManager().findFragmentById(R.id.storyDetail);
             if (details == null || details.getShownIndex() != index) {
@@ -122,8 +123,9 @@ public class StoryListFragment extends Fragment {
                 ft.replace(R.id.storyDetail, details);
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.commit();
-            }
+            } else { }
 
+        //smartphone mode
         } else {
             StoryDetailsFragment details = StoryDetailsFragment.newInstance(index);
             FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -178,7 +180,7 @@ public class StoryListFragment extends Fragment {
     }
 
     private void fillStories() {
-        Call<List<Story>> call = dc.getAllStories();
+        Call<List<Story>> call = dc.getPublishedStories();
         call.enqueue(new Callback<List<Story>>() {
 
             //TODO: document

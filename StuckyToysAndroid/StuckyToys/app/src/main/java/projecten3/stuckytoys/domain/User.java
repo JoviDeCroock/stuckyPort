@@ -36,9 +36,11 @@ public class User {
         this.boughtStories = boughtStories;
     }
 
-    public String getId() {
-        return _id;
+    public void addBoughtStory(String storyId) {
+        boughtStories.add(storyId);
     }
+
+    public String getId() { return _id; }
     public void setId(String id) {
         this._id = id;
     }

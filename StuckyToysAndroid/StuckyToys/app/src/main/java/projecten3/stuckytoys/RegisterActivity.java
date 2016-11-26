@@ -33,6 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import projecten3.stuckytoys.domain.DomainController;
+import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.domain.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -68,6 +69,11 @@ public class RegisterActivity extends AppCompatActivity {
         dc = DomainController.getInstance();
 
         ButterKnife.bind(this);
+
+        editEmail.setText("jeroen@gmail.com");
+        editPasswordRepeat.setText("jeroen");
+        editPassword.setText("jeroen");
+        editUsername.setText("jeroen");
     }
 
 /*
@@ -129,7 +135,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             Log.d("register", "id: " + id + " token: " + token);
 
-                            Intent intent = new Intent(RegisterActivity.this, SelectMemberActivity.class);
+                            Intent intent = new Intent(RegisterActivity.this, StoryOverviewActivity.class);
                             startActivity(intent);
                             finish();
                         } catch (JSONException ex) {

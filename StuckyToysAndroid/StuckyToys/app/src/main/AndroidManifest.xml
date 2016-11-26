@@ -18,9 +18,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".SelectMemberActivity" />
-        <activity android:name=".AddMemberActivity" />
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".custom.member_related_stuff.SelectMemberActivity" />
+        <activity android:name=".custom.member_related_stuff.AddMemberActivity" />
+        <activity android:name=".custom.member_related_stuff.HomeActivity" />
         <activity android:name=".StoryOverviewActivity" />
         <activity android:name=".SceneActivity" />
         <activity android:name=".Scene2Activity" />

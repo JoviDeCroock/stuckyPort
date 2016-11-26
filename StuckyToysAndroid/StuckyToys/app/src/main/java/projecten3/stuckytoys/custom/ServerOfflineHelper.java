@@ -13,7 +13,7 @@ import projecten3.stuckytoys.retrofithelpers.ProfilePicture;
 
 //simple helper class; setting SERVEROFFLINE to true makes it so no db calls are issued and default user/members/stories/... are created for testing
 public interface ServerOfflineHelper {
-    public final static boolean SERVEROFFLINE = true;
+    public final static boolean SERVEROFFLINE = false;
 
     public final static String USERID = "58285b7070f1457fcf7f3bc4";
     public final static String STORYNAME = "vuilbak";
