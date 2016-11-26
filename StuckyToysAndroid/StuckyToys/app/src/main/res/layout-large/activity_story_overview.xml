@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="projecten3.stuckytoys.SelectMemberActivity">
+    tools:context="projecten3.stuckytoys.custom.member_related_stuff.SelectMemberActivity">
 
     <LinearLayout
         android:id="@+id/stories"

@@ -1,32 +1,20 @@
 package projecten3.stuckytoys;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import projecten3.stuckytoys.adapters.StoryAdapter;
 import projecten3.stuckytoys.domain.DomainController;
-import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.fragments.ScreenSlidePagerActivity;
 import projecten3.stuckytoys.fragments.StoryDetailsFragment;
 import projecten3.stuckytoys.fragments.StoryListFragment;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class StoryOverviewActivity extends AppCompatActivity {
 
@@ -89,6 +77,7 @@ public class StoryOverviewActivity extends AppCompatActivity {
     }
 
     public void purchaseStory(String _id) {
+        dc.buyStory(_id);
         dc.getUser().getBoughtStories().add(_id);
     }
 

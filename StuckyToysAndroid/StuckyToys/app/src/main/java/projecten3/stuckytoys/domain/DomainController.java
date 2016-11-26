@@ -1,9 +1,6 @@
 package projecten3.stuckytoys.domain;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import projecten3.stuckytoys.persistence.PersistenceController;
@@ -42,14 +39,16 @@ public class DomainController {
         return pc.getAllMembers(user.getId(), "Bearer " + user.getToken());
     }
 
-    public Call<List<Story>> getAllStories() {
-        return pc.getAllStories(user.getId(), "Bearer " + user.getToken());
+    public Call<List<Story>> getPublishedStories() {
+        return pc.getPublishedStories("Bearer " + user.getToken());
     }
 
-    public Call<Member> addMember(String firstName, String nickname, String role, boolean authority, String dateOfBirth, String picture) {
-        RetrofitMember member = new RetrofitMember(firstName, nickname, role, authority, dateOfBirth, picture);
+    public Call<List<String>> getUserStories() {
+        return pc.getUserStories(user.get_id(), "Bearer " + user.getToken());
+    }
 
-        return pc.addMember(user.getId(), "Bearer " + user.getToken(), member);
+    public Call<List<String>> buyStory(String storyId) {
+        return pc.buyStory(user.get_id(), storyId, "Bearer " + user.getToken());
     }
 
     public User getUser() { return user; }
@@ -72,4 +71,14 @@ public class DomainController {
         user.setToken(token);
         user.setUsername(username);
     }
+
+
+
+    /* MEMBERS
+    public Call<Member> addMember(String firstName, String nickname, String role, boolean authority, String dateOfBirth, String picture) {
+        RetrofitMember member = new RetrofitMember(firstName, nickname, role, authority, dateOfBirth, picture);
+
+        return pc.addMember(user.getId(), "Bearer " + user.getToken(), member);
+    }
+    */
 }

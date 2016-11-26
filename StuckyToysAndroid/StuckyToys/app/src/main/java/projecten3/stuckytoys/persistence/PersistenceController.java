@@ -1,13 +1,9 @@
 package projecten3.stuckytoys.persistence;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import java.io.IOException;
 import java.util.List;
 
 import projecten3.stuckytoys.domain.Member;
-import projecten3.stuckytoys.domain.RetrofitMember;
 import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.domain.User;
 import retrofit2.Call;
@@ -40,26 +36,34 @@ public class PersistenceController {
 
     public Call<List<Member>> getAllMembers(String userId, String token) {
         Call<List<Member>> call = dOService.getAllMembers(userId, token);
-
         return call;
     }
 
-    //TODO: doesn't use userId atm but should in the future
-    public Call<List<Story>> getAllStories(String userId, String token) {
-        Call<List<Story>> call = dOService.getAllStories(token);
+    public Call<List<Story>> getPublishedStories(String token) {
+        Call<List<Story>> call = dOService.getPublishedStories(token);
+        return call;
+    }
 
+    public Call<List<String>> getUserStories(String userId, String token) {
+        Call<List<String>> call = dOService.getUserStories(userId, token);
         return call;
     }
 
     public Call<User> register(User user) {
         Call<User> call = dOService.register(user);
-
         return call;
     }
 
+    public Call<List<String>> buyStory(String userId, String storyId, String token) {
+        Call<List<String>> call = dOService.buyStory(userId, storyId, token);
+        return call;
+    }
+
+    /* MEMBERS
     public Call<Member> addMember(String userId, String token, RetrofitMember member) {
         Call<Member> call = dOService.addMember(userId, token, member);
-
         return call;
     }
+    */
+
 }
