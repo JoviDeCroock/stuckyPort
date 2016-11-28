@@ -5,9 +5,9 @@
     .module('stuckyToys')
     .factory('widgetService', widgetService);
 
-  widgetService.$inject = ['url', 'authService', '$http', '$base64'];
+  widgetService.$inject = ['url', 'authService', '$http'];
 
-  function widgetService (url, authService, $http, $base64) {
+  function widgetService (url, authService, $http) {
     var usedUrl = url.dev;
     var token = authService.getToken();
     var widget = {
@@ -15,6 +15,7 @@
       widgets: [],
       types: [],
       getWidget: getWidget,
+      getAllWidgets: getAllWidgets,
       getTypes: getTypes,
       getTypeOfWidget: getTypeOfWidget,
       getImageFileName: getImageFileName
@@ -29,6 +30,13 @@
         widget.widget = data;
       });
     };
+    function getAllWidgets() {
+      return $http.get(usedUrl+'widget/getAllWidgets', {
+        headers: { Authorization: 'Bearer ' + token }
+      }).success(function(data) {
+        angular.copy(data, widget.widgets);
+      })
+    }
     function getTypes() {
       return $http.get(usedUrl+'widget/widgetTypes', {
         headers: { Authorization: 'Bearer ' + token }

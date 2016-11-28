@@ -64,7 +64,7 @@
               }]
             }
         }).when('/story/:id',{
-          url: 'story/:id',
+          url: '/story/:id',
           templateUrl: 'app/storyDetail/storyDetail.html',
           controller: 'storyDetailController',
           controllerAs: 'vm',
@@ -73,6 +73,14 @@
               return storyService.getStory($route.current.params.id);
             }]
           }
+        }).when('/widgets',{
+          url: '/widgets',
+          templateUrl: 'app/widgets/widgetOverview.html',
+          controller: 'widgetController',
+          controllerAs: 'vm',
+          resolve: ['widgetService', function(widgetService) {
+            return widgetService.getAllWidgets();
+          }]
         }).when('/widget/:id', {
           url:'/widget/:id',
           templateUrl: 'app/widgets/widgetDetail.html',
