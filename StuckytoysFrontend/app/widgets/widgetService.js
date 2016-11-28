@@ -13,7 +13,9 @@
     var widget = {
       widget: {},
       widgets: [],
+      types: [],
       getWidget: getWidget,
+      getTypes: getTypes,
       getTypeOfWidget: getTypeOfWidget,
       getImageFileName: getImageFileName
     }
@@ -25,6 +27,13 @@
         headers: { Authorization: 'Bearer ' + token }
       }).success(function(data) {
         widget.widget = data;
+      });
+    };
+    function getTypes() {
+      return $http.get(usedUrl+'widget/widgetTypes', {
+        headers: { Authorization: 'Bearer ' + token }
+      }).success(function(data) {
+        angular.copy(data, widget.types);
       });
     };
     function getTypeOfWidget(widget) {

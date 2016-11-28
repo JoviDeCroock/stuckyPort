@@ -107,6 +107,19 @@ nav ul li a{
   padding: 2px;
   cursor: pointer;
 }
+.dropzone{
+  width: 200px;
+  height: 200px;
+  border: 1px dashed black;
+  margin-left: 5px;
+}
+.picture{
+  width: 200px;
+  height: 200px;
+}
+form input{
+  margin: 5px;
+}
 table img {
   width: 100px;
   height: 100px;

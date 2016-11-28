@@ -1,0 +1,63 @@
+<div>
+  <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+          <div class="navbar-header">
+              <a href="/#/main"><img alt="StuckyToys" src="./resources/images/logo.png" class="logo" /></a>
+          </div>
+          <ul class="nav navbar-nav">
+              <li><a href="/#/stories">Mijn verhalen</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+              <li>
+                  <a>Welkom {{vm.username}}</a>
+              </li>
+              <li>
+                  <a ng-click="vm.logOut()">
+                      <span class="glyphicon glyphicon-log-out"></span> Log uit
+                  </a>
+              </li>
+          </ul>
+      </div>
+  </nav>
+  <div class="container">
+    <h1>Maak widget</h1>
+    <form>
+      <div class="form-group">
+        <label>Selecteer type</label>
+        <select class="form-control"
+          ng-model="vm.selectedType">
+          <option disabled selected value>Maak een keuze</option>
+          <option ng-repeat="type in vm.types">{{type}}</option>
+        </select>
+      </div>
+    </form>
+    <div class="row">
+      <form class="col-md-3"
+        ng-show="vm.selectedType === 'afbeelding'"
+        ng-submit="vm.saveImage()">
+        <div class="form-group">
+          <input
+            type="text"
+            placeholder="Naam"
+            ng-model="vm.image.id"
+            class="form-control"/>
+            <div
+            ngf-drop
+            class="dropzone text-center"
+            ng-model="vm.image.picture">
+            <p ng-hide="vm.image.picture">Sleep foto hier</p>
+            <img
+              ngf-thumbnail="vm.image.picture"
+              ng-show="vm.image.picture"
+              alt="thumbnail"
+              class="picture"/>
+            </div>
+            <input
+              type="submit"
+              value="Sla widget op"
+              class="btn btn-default"/>
+            </div>
+          </form>
+        </div>
+  </div>
+</div>

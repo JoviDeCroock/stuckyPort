@@ -43,16 +43,26 @@
             templateUrl: 'app/stories/makeStory.html',
             controller: 'storyController',
             controllerAs: 'vm'
+        }).when('/makeWidget', {
+            url: '/makeWidget',
+            templateUrl: 'app/widgets/makeWidget.html',
+            controller: 'widgetController',
+            controllerAs: 'vm',
+            resolve: {
+              postPromise: ['widgetService', function(widgetService) {
+                return widgetService.getTypes();
+              }]
+            }
         }).when('/stories', {
-           url: '/stories',
-           templateUrl: 'app/storyOverview/storyOverview.html',
-           controller: 'storyOverviewController',
-           controllerAs: 'vm',
-           resolve: {
-             postPromise: ['storyService', function(storyService) {
-               return storyService.getStories();
-             }]
-           }
+            url: '/stories',
+            templateUrl: 'app/storyOverview/storyOverview.html',
+            controller: 'storyOverviewController',
+            controllerAs: 'vm',
+            resolve: {
+              postPromise: ['storyService', function(storyService) {
+                return storyService.getStories();
+              }]
+            }
         }).when('/story/:id',{
           url: 'story/:id',
           templateUrl: 'app/storyDetail/storyDetail.html',
@@ -66,7 +76,7 @@
         }).when('/widget/:id', {
           url:'/widget/:id',
           templateUrl: 'app/widgets/widgetDetail.html',
-          controller: 'widgetDetailController',
+          controller: 'widgetController',
           controllerAs: 'vm',
           resolve: {
             postPromise: ['$route', 'widgetService', function($route, widgetService) {
