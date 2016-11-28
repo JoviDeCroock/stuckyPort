@@ -1,6 +1,7 @@
 package projecten3.stuckytoys.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import projecten3.stuckytoys.retrofithelpers.ProfilePicture;
 
@@ -10,11 +11,11 @@ public class Story {
     private String name;
     private Date date;
     private ProfilePicture picture;
-    private Scene[] scenes;
+    private List<Scene> scenes;
     private Theme[] themes;
     private boolean purchased = false;
 
-    public Story(String _id, String name, Date date, ProfilePicture picture, Scene[] scenes, Theme[] themes, boolean purchased) {
+    public Story(String _id, String name, Date date, ProfilePicture picture, List<Scene> scenes, Theme[] themes, boolean purchased) {
         this._id = _id;
         this.name = name;
         this.date = date;
@@ -55,11 +56,11 @@ public class Story {
         this.picture.setBase64(picture);
     }
 
-    public Scene[] getScenes() {
+    public List<Scene> getScenes() {
         return scenes;
     }
 
-    public void setScenes(Scene[] scenes) {
+    public void setScenes(List<Scene> scenes) {
         this.scenes = scenes;
     }
 

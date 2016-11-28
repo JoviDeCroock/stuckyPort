@@ -70,9 +70,9 @@ public class StoryOverviewActivity extends AppCompatActivity {
         }
     }
 
-    public void startOrBuy() {
+    public void start(String storyId) {
         Intent i = new Intent(StoryOverviewActivity.this, ScreenSlidePagerActivity.class);
-        i.putExtra("SCENE_NUMBER", 1);
+        i.putExtra("STORY_ID", storyId);
         startActivity(i);
     }
 

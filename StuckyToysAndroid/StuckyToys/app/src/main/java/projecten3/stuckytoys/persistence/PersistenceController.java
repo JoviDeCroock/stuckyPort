@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.List;
 
 import projecten3.stuckytoys.domain.Member;
+import projecten3.stuckytoys.domain.Scene;
 import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.domain.User;
+import projecten3.stuckytoys.retrofithelpers.StoryHelper;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -57,6 +59,11 @@ public class PersistenceController {
     public Call<List<String>> buyStory(String userId, String storyId, String token) {
         Call<List<String>> call = dOService.buyStory(userId, storyId, token);
         return call;
+    }
+
+    public Call<StoryHelper> getStory(String storyId, String token)
+    {
+        return dOService.getStory(storyId, token);
     }
 
     /* MEMBERS

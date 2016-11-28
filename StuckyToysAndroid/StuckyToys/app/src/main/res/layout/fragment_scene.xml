@@ -1,20 +1,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="projecten3.stuckytoys.fragments.SceneFragment">
+    android:orientation="vertical"
+    tools:context="projecten3.stuckytoys.fragments.ScreenSlidePagerActivity">
 
         <TextView
+            android:id="@+id/txtText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
             android:layout_marginBottom="50dip"
-            android:gravity="center"
-            android:text="@string/scene1" />
+            android:gravity="center" />
+
+        <HorizontalScrollView
+            android:id="@+id/widgetContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_gravity="center">
+
+        </HorizontalScrollView>
 
         <ImageButton
-            android:id="@+id/btnSoundtest"
+            android:id="@+id/btnWidget"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -23,6 +33,7 @@
             android:background="@android:color/transparent"/>
 
         <LinearLayout
+            android:id="@+id/hintContainer"
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="1"

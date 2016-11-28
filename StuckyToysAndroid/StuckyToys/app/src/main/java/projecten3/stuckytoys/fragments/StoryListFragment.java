@@ -174,9 +174,9 @@ public class StoryListFragment extends Fragment {
                 default:
                     break;
             }
+            mAdapter = new StoryAdapter(context, stories);
+            gridView.setAdapter(mAdapter);
         }
-        mAdapter = new StoryAdapter(context, stories);
-        gridView.setAdapter(mAdapter);
     }
 
     private void fillStories() {
@@ -224,41 +224,43 @@ public class StoryListFragment extends Fragment {
             ex.printStackTrace();
         }
 
+        /*
         stories.add(new Story(ServerOfflineHelper.USERID,
                 ServerOfflineHelper.STORYNAME,
                 date,
                 ServerOfflineHelper.PICTURE,
-                ServerOfflineHelper.SCENES,
+                ServerOfflineHelper.SCENEIDS,
                 ServerOfflineHelper.THEMES,
                 true));
         stories.add(new Story("notYetBought",
                 ServerOfflineHelper.STORYNAME + " 2",
                 date,
                 ServerOfflineHelper.PICTURE,
-                ServerOfflineHelper.SCENES,
+                ServerOfflineHelper.SCENEIDS,
                 ServerOfflineHelper.THEMES,
                 false));
         stories.add(new Story(ServerOfflineHelper.USERID,
                 ServerOfflineHelper.STORYNAME + " 3",
                 date,
                 ServerOfflineHelper.PICTURE,
-                ServerOfflineHelper.SCENES,
+                ServerOfflineHelper.SCENEIDS,
                 ServerOfflineHelper.THEMES,
                 false));
         stories.add(new Story(ServerOfflineHelper.USERID,
                 ServerOfflineHelper.STORYNAME + " 4",
                 date,
                 ServerOfflineHelper.PICTURE,
-                ServerOfflineHelper.SCENES,
+                ServerOfflineHelper.SCENEIDS,
                 ServerOfflineHelper.THEMES,
                 true));
         stories.add(new Story(ServerOfflineHelper.USERID,
                 ServerOfflineHelper.STORYNAME + " 5",
                 date,
                 ServerOfflineHelper.PICTURE,
-                ServerOfflineHelper.SCENES,
+                ServerOfflineHelper.SCENEIDS,
                 ServerOfflineHelper.THEMES,
                 true));
+                */
 
         if(dc.getUser().getStories().isEmpty())
             dc.getUser().setStories(stories);

@@ -103,7 +103,7 @@ public class StoryDetailsFragment extends Fragment {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         storyDate.setText(" " + df.format(story.getDate()));
 
-        storyScenes.setText(" " + story.getScenes().length);
+        storyScenes.setText(" " + story.getScenes().size());
 
         //per theme: add two textviews to container; set name bold & indent description
         for (Theme theme : story.getThemes()) {
@@ -150,7 +150,7 @@ public class StoryDetailsFragment extends Fragment {
     public void startOrBuy() {
         if(story.isPurchased()) {
             StoryOverviewActivity mContext = (StoryOverviewActivity) context;
-            mContext.startOrBuy();
+            mContext.start(story.get_id());
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage(R.string.confirm_buy_story)

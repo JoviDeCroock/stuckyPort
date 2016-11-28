@@ -9,6 +9,8 @@ import java.util.List;
 
 import projecten3.stuckytoys.domain.Scene;
 import projecten3.stuckytoys.domain.Theme;
+import projecten3.stuckytoys.domain.Widget;
+import projecten3.stuckytoys.domain.WidgetFile;
 import projecten3.stuckytoys.retrofithelpers.ProfilePicture;
 
 //simple helper class; setting SERVEROFFLINE to true makes it so no db calls are issued and default user/members/stories/... are created for testing
@@ -18,10 +20,25 @@ public interface ServerOfflineHelper {
     public final static String USERID = "58285b7070f1457fcf7f3bc4";
     public final static String STORYNAME = "vuilbak";
     public final static String DATE = "1995-09-21T00:00:00.000Z";
-    public final static Scene[] SCENES = new Scene[] {
-            new Scene(),
-            new Scene()
-    };
+    public final static List<String> SCENEIDS = new ArrayList<String>(Arrays.asList("583b44e7c867e21ef95a8c50", "583b44e7c867e21ef95a8c51"));
+    public final static List<Scene> SCENES = new ArrayList<Scene>(Arrays.asList(
+            new Scene("583b44e7c867e21ef95a8c50", 1, 3, "Vervuiler gooit blikje op straat. Tuut de vervuiler weg",
+                        new ArrayList<String>(Arrays.asList("TIP: Recyclage vermindert uitstoot", "TIP: Er staan boetes op vervuilen")),
+                        new ArrayList<Widget>(Arrays.asList(
+                                new Widget("583b44e7c867e21ef95a8c4b", new ArrayList<WidgetFile>(Arrays.asList(
+                                        new WidgetFile("583b44e7c867e21ef95a8c4e", "music", "bushorn.mp3"),
+                                        new WidgetFile("583b44e7c867e21ef95a8c4f", "image", "bushorn.jpg")
+                                )))
+                        ))),
+            new Scene("583b44e7c867e21ef95a8c51", 1, 3, "Vervuiler gooit blikje op straat. Tuut de vervuiler weg",
+                    new ArrayList<String>(Arrays.asList("TIP: Recyclage vermindert uitstoot", "TIP: Er staan boetes op vervuilen")),
+                    new ArrayList<Widget>(Arrays.asList(
+                            new Widget("583b44e7c867e21ef95a8c4b", new ArrayList<WidgetFile>(Arrays.asList(
+                                    new WidgetFile("583b44e7c867e21ef95a8c4e", "music", "bushorn.mp3"),
+                                    new WidgetFile("583b44e7c867e21ef95a8c4f", "image", "bushorn.jpg")
+                            )))
+                    )))
+    ));
     public final static Theme[] THEMES = new Theme[] {
             new Theme("Vervuiling", "Dit onderwerp kaart de extreme vervuiling in ons land aan"),
             new Theme("Solidariteit", "Dit onderwerp kaart een bewustheid van samenhorigheid aan")

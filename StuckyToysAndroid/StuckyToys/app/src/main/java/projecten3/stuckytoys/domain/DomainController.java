@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import projecten3.stuckytoys.persistence.PersistenceController;
+import projecten3.stuckytoys.retrofithelpers.StoryHelper;
 import retrofit2.Call;
 
 public class DomainController {
@@ -49,6 +50,11 @@ public class DomainController {
 
     public Call<List<String>> buyStory(String storyId) {
         return pc.buyStory(user.get_id(), storyId, "Bearer " + user.getToken());
+    }
+
+    public Call<StoryHelper> getStory(String storyId)
+    {
+        return pc.getStory(storyId, "Bearer " + user.getToken());
     }
 
     public User getUser() { return user; }
