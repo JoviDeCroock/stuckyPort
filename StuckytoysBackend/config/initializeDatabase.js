@@ -80,7 +80,7 @@ Story.find({},function(err, adhd)
     /*Theme*/
     var vervuiling = new Theme();
     vervuiling.name = "Vervuiling";
-    vervuiling.description = "dit onderwerp kaart de extreme vervuiling in ons land aan";
+    vervuiling.description = "Dit onderwerp kaart de extreme vervuiling in ons land aan";
     vervuiling.save(function (err) {
       if (err) {
         console.log(err);
@@ -158,7 +158,7 @@ Story.find({},function(err, adhd)
     var scene2 = new Scene();
     var scene3 = new Scene();
     scene1.text = "Vervuiler gooit blikje op straat. Tuut de vervuiler weg";
-    scene2.text = "vertel verhaal over hoe slecht vervuiling is voor de diertjes";
+    scene2.text = "Vertel verhaal over hoe slecht vervuiling is voor de diertjes";
     scene3.text = "Gooi het blikje in de vuilbak";
     scene1.layout = 3;
     scene1.hints = [];
@@ -200,7 +200,7 @@ Story.find({},function(err, adhd)
 
     /*Story*/
     var story = new Story();
-    story.saveDate("21 09 1995");
+    story.saveDate("21 11 2016");
     story.name = "Recyclage";
     story.scenes = [];
     story.price = 2.5;
@@ -234,7 +234,7 @@ Story.find({},function(err, adhd)
     /*Diefstal Story*/
     var diefstal = new Theme();
     diefstal.name = "Diefstal";
-    diefstal.description = "dit thema kaart de foute daad van diefstal aan";
+    diefstal.description = "Dit thema kaart de foute daad van diefstal aan";
     diefstal.save(function (err) {
       if (err) {
         console.log(err);
@@ -312,7 +312,7 @@ Story.find({},function(err, adhd)
 
     /*Story*/
     var diefstalstory = new Story();
-    diefstalstory.saveDate("21 09 1995");
+    diefstalstory.saveDate("19 11 2016");
     diefstalstory.name = "Diefstal";
     diefstalstory.scenes = [];
     diefstalstory.scenes.push(scene1);
