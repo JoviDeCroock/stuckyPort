@@ -20,21 +20,17 @@
  <select
   class="form-control"
   ng-show="vm.widgetChooserClicked"
-  ng-model="vm.selectedType"
-  ng-change="vm.selectType()">
-  <option ng-repeat="type in vm.types">{{type}}</option>
+  ng-model="vm.selectedWidget"
+  ng-change="vm.selectWidget()">
+  <option ng-repeat="widget in vm.widgets">{{widget.id}}</option>
  </select>
- <form class="widget-form" ng-show="vm.activeScene.activeWidget && vm.activeScene.activeWidget.type === 'music'">
-   <input class="form-control" type="text" placeholder="geluidsfile" />
-   <input class="form-control" type="text" placeholder="afbeeldingsfile"/>
-   <input class="btn btn-default" type="submit" value="+" />
- </form>
- <form class="widget-form" ng-show="vm.activeScene.activeWidget && vm.activeScene.activeWidget.type === 'image'">
-   <input class="form-control" type="text" placeholder="afbeeldingsfile" />
-   <input class="btn btn-default" type="submit" value="+" />
- </form>
- <form class="widget-form" ng-show="vm.activeScene.activeWidget && vm.activeScene.activeWidget.type === 'game'">
-   <input class="form-control" type="text" placeholder="spelfile" />
-   <input class="form-control" type="text" placeholder="afbeeldingsfile" />
-   <input class="btn btn-default" type="submit" value="+" />
- </form>
+ <!--
+ <button class="btn btn-default"
+  ng-hide="!vm.activeScene && vm.activeScene.hints.length === 3 "
+  ng-click="vm.addHint()">
+    Voeg hint toe
+ </button>
+ <div ng-reapeat="hint in vm.activeScene.hints">
+   <input type="text" ng-model="hint"/>
+ </div>
+ -->

@@ -121,8 +121,9 @@ nav ul li a{
   margin-bottom: 5px;
 }
 .picture{
-  width: 200px;
-  height: 200px;
+  width: inherit;
+  height: inherit;
+  border: 1px dashed black;
 }
 form input{
   margin: 5px;

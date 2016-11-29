@@ -5,14 +5,15 @@
     .module('stuckyToys')
     .controller('storyController', storyController);
 
-  storyController.$inject = ['$location', 'authService', 'storyService'];
+  storyController.$inject = ['$location', 'authService', 'storyService', 'widgetService'];
 
-  function storyController ($location, authService, storyService) {
+  function storyController ($location, authService, storyService, widgetService) {
     var vm = this;
     vm.username = authService.currentUser();
     //maak verhaal
     vm.themeChooserClicked = false;
     vm.widgetChooserClicked = false;
+    vm.widgets = widgetService.widgets;
     //Wordt uit service gehaald
     vm.themes = [{
       name: 'Recyclage',
@@ -38,7 +39,9 @@
     vm.addText = addText;
     vm.addWidget = addWidget;
     vm.selectScene = selectScene;
-    vm.selectType = selectType;
+    vm.selectType = selectType; //mag weg
+    vm.selectWidget = selectWidget;
+    vm.addHint = addHint;
 
     function addTheme () {
       vm.themeChooserClicked = true;
@@ -51,7 +54,8 @@
     function addScene () {
       var temp = {
         sceneNr: vm.activeStory.scenes.length + 1,
-        widgets: []
+        widgets: [],
+        hints: []
       };
       vm.activeStory.scenes.push(temp);
       vm.activeScene = temp;
@@ -93,6 +97,12 @@
         default: console.log('niks');
       }
     };
+    function selectWidget() {
+      console.log(vm.selectedWidget);
+    };
+    function addHint() {
+      vm.activeScene.hints.push('');
+    }
 
     //alle verhalen
     vm.logOut = logOut;
