@@ -1,18 +1,18 @@
 package projecten3.stuckytoys.fragments;
 
-import android.app.Activity;
-import android.graphics.Bitmap;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Base64;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -22,8 +22,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -43,15 +41,9 @@ public class SceneFragment extends Fragment {
     @BindView(R.id.txtText)
     TextView txtText;
     @BindView(R.id.btnWidget)
-    Button btnWidget;
-    @BindView(R.id.btnHint1)
-    Button btnHint1;
-    @BindView(R.id.btnHint2)
-    Button btnHint2;
-    @BindView(R.id.btnHint3)
-    Button btnHint3;
-    @BindView(R.id.widgetContainer)
-    HorizontalScrollView widgetContainer;
+    ImageButton btnWidget;
+    //@BindView(R.id.widgetContainer)
+    //HorizontalScrollView widgetContainer;
     @BindView(R.id.hintContainer)
     LinearLayout hintContainer;
 
@@ -94,16 +86,25 @@ public class SceneFragment extends Fragment {
         txtText.setText(scene.getText());
 
         //WIDGET BUTTONS
+        int sceneAmount = scene.getWidgets().size();
         for(Widget currentWidget: scene.getWidgets())
         {
-            ImageButton button = new ImageButton(getActivity());
+            /*
+            ImageButton btnWidget = new ImageButton(getActivity());
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.gravity = Gravity.CENTER;
+            btnWidget.setLayoutParams(params);
+            */
+
             switch (currentWidget.getWidgetFiles().get(0).getType().toLowerCase())
             {
                 case "music":
-                    putSoundInButton(currentWidget.getWidgetFiles().get(0).get_id(), button);
-                    putImageInButton(currentWidget.getWidgetFiles().get(1).get_id(), button);
+                    putSoundInButton(currentWidget.getWidgetFiles().get(0).get_id(), btnWidget);
+                    putImageInButton(currentWidget.getWidgetFiles().get(1).get_id(), btnWidget);
                     break;
                 case "game":
+                    putGameInButton(currentWidget.getWidgetFiles().get(0).getFileName(), btnWidget);
+                    putDefaultImageInButton(R.drawable.game_start_button, btnWidget);
                     break;
                 case "ar":
                     break;
@@ -114,7 +115,7 @@ public class SceneFragment extends Fragment {
 
             }
 
-            widgetContainer.addView(button);
+            //widgetContainer.addView(btnWidget);
         }
 
         //HINTS
@@ -129,16 +130,22 @@ public class SceneFragment extends Fragment {
 
             ImageButton button = new ImageButton(getActivity());
 
-            ViewGroup.LayoutParams params= button.getLayoutParams();
-            params.width = LinearLayout.LayoutParams.WRAP_CONTENT;
-            params.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            Resources r = getActivity().getResources();
+            int px = (int) TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    10,
+                    r.getDisplayMetrics()
+            );
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0, 0, px, 0);
             button.setLayoutParams(params);
 
             button.setBackgroundResource(R.drawable.hint_button);
             button.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
-                    Toast.makeText(getActivity(), "Hint  " + currentHint, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), currentHint, Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -163,9 +170,28 @@ public class SceneFragment extends Fragment {
                     btnWidget.setClickable(true);
                 }
             });
+
+            btnWidget.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mediaPlayer.start();
+                }
+            });
         } catch (IllegalArgumentException | IOException ex) {
             Log.e("media error", ex.getMessage());
         }
+    }
+
+    private void putGameInButton(String game, final ImageButton btnWidget) {
+        btnWidget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.example.Stoeky");
+                if (launchIntent != null) {
+                    startActivity(launchIntent);//null pointer check in case package name was not found
+                }
+            }
+        });
     }
 
     private void putImageInButton(String imageId, ImageButton btnWidget)
@@ -176,6 +202,15 @@ public class SceneFragment extends Fragment {
 
         Glide.with(getActivity())
                 .load(glideUrl)
+                .error(R.drawable.error)
+                .into(btnWidget);
+    }
+
+    private void putDefaultImageInButton(int resource, ImageButton btnWidget)
+    {
+        //btnWidget.setImageResource(R.drawable.game_start_button);
+        Glide.with(getActivity())
+                .load(resource)
                 .error(R.drawable.error)
                 .into(btnWidget);
     }

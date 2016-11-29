@@ -14,6 +14,7 @@ public class Story {
     private List<Scene> scenes;
     private Theme[] themes;
     private boolean purchased = false;
+    private double price;
 
     public Story(String _id, String name, Date date, ProfilePicture picture, List<Scene> scenes, Theme[] themes, boolean purchased) {
         this._id = _id;
@@ -75,4 +76,12 @@ public class Story {
     public boolean isPurchased() { return purchased; }
 
     public void setPurchased(boolean purchased) { this.purchased = purchased; }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 }
