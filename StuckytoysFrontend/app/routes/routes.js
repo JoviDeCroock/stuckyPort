@@ -42,7 +42,12 @@
             url: '/makeStory',
             templateUrl: 'app/stories/makeStory.html',
             controller: 'storyController',
-            controllerAs: 'vm'
+            controllerAs: 'vm',
+            resolve: {
+              postPromise: ['widgetService', function(widgetService) {
+                return widgetService.getAllWidgets();
+              }]
+            }
         }).when('/makeWidget', {
             url: '/makeWidget',
             templateUrl: 'app/widgets/makeWidget.html',
