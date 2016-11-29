@@ -6,15 +6,26 @@ import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.widget.LinearLayout;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import projecten3.stuckytoys.adapters.StoryAdapter;
 import projecten3.stuckytoys.domain.DomainController;
+import projecten3.stuckytoys.domain.User;
 import projecten3.stuckytoys.fragments.ScreenSlidePagerActivity;
 import projecten3.stuckytoys.fragments.StoryDetailsFragment;
 import projecten3.stuckytoys.fragments.StoryListFragment;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class StoryOverviewActivity extends AppCompatActivity {
 
@@ -77,8 +88,24 @@ public class StoryOverviewActivity extends AppCompatActivity {
     }
 
     public void purchaseStory(String _id) {
-        dc.buyStory(_id);
         dc.getUser().getBoughtStories().add(_id);
+        Call<List<String>> call = dc.buyStory(_id);
+        call.enqueue(new Callback<List<String>>() {
+
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if (response.isSuccessful()) {
+                    //okai :)
+                } else {
+                    Log.e("register", response.code() + " " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
     @Override

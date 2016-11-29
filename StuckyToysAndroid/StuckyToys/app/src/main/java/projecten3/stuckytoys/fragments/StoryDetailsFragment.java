@@ -122,7 +122,7 @@ public class StoryDetailsFragment extends Fragment {
         }
 
         if(!story.isPurchased()) {
-            startOrBuyButton.setText(getString(R.string.buy_story));
+            startOrBuyButton.setText(String.format("%s: €%.2f", getString(R.string.buy_story), story.getPrice()));
         }
 
         byte[] imageByteArray = Base64.decode(story.getPicture().split(",")[1], Base64.DEFAULT);

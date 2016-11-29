@@ -4,7 +4,7 @@
     android:orientation="vertical"
     tools:context="projecten3.stuckytoys.fragments.StoryDetailsFragment"
     android:background="@color/defaultBackground"
-    android:layout_margin="5dp">
+    android:layout_margin="10dp">
 
     <ScrollView
         android:layout_width="match_parent"
