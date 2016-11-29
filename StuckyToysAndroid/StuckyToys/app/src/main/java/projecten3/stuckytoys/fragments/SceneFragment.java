@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
@@ -39,17 +40,14 @@ import projecten3.stuckytoys.domain.WidgetFile;
 
 public class SceneFragment extends Fragment {
 
-
     @BindView(R.id.txtText)
     TextView txtText;
-    @BindView(R.id.btnWidget)
-    Button btnWidget;
     @BindView(R.id.btnHint1)
-    Button btnHint1;
+    ImageButton btnHint1;
     @BindView(R.id.btnHint2)
-    Button btnHint2;
+    ImageButton btnHint2;
     @BindView(R.id.btnHint3)
-    Button btnHint3;
+    ImageButton btnHint3;
     @BindView(R.id.widgetContainer)
     HorizontalScrollView widgetContainer;
     @BindView(R.id.hintContainer)
@@ -110,7 +108,7 @@ public class SceneFragment extends Fragment {
                 case "recording":
                     break;
                 default:
-
+                    break;
 
             }
 
@@ -120,16 +118,11 @@ public class SceneFragment extends Fragment {
         //HINTS
         for(final String currentHint : scene.getHints())
         {
-            /*
-            <ImageButton
-            android:id="@+id/btnHint1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/hint_button"/>*/
-
             ImageButton button = new ImageButton(getActivity());
 
-            ViewGroup.LayoutParams params= button.getLayoutParams();
+            LayoutParams params= button.getLayoutParams();
+            LayoutParams lp = new LayoutParams(10,LayoutParams.WRAP_CONTENT);
+
             params.width = LinearLayout.LayoutParams.WRAP_CONTENT;
             params.height = LinearLayout.LayoutParams.WRAP_CONTENT;
             button.setLayoutParams(params);

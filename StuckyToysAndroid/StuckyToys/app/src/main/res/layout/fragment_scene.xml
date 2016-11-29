@@ -23,15 +23,6 @@
 
         </HorizontalScrollView>
 
-        <ImageButton
-            android:id="@+id/btnWidget"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:clickable="false"
-            android:background="@android:color/transparent"/>
-
         <LinearLayout
             android:id="@+id/hintContainer"
             android:layout_width="match_parent"
