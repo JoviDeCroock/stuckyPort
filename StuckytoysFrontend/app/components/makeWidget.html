@@ -1,0 +1,87 @@
+<div>
+  <h4>Maak nieuwe widget</h4>
+  <form>
+    <div class="form-group">
+      <label>Selecteer type</label>
+      <select class="form-control"
+        ng-model="vm.selectedType">
+        <option disabled selected value>Maak een keuze</option>
+        <option ng-repeat="type in vm.types">{{type}}</option>
+      </select>
+    </div>
+  </form>
+  <div
+    class="row"
+    ng-show="vm.selectedType === 'afbeelding'">
+    <form class="col-md-3"
+      ng-submit="vm.saveImage()">
+      <div class="form-group">
+        <input
+          type="text"
+          placeholder="Naam"
+          ng-model="vm.image.id"
+          class="form-control"/>
+          <div
+          ngf-drop
+          class="dropzone text-center"
+          ng-model="vm.image.picture">
+          <p ng-hide="vm.image.picture">Sleep foto hier</p>
+          <img
+            ngf-thumbnail="vm.image.picture"
+            ng-show="vm.image.picture"
+            alt="thumbnail"
+            class="picture"/>
+          </div>
+          <input
+            type="submit"
+            value="Sla widget op"
+            class="btn btn-default"/>
+        </div>
+      </form>
+    </div>
+    <div
+      class="row"
+      ng-show="vm.selectedType === 'geluid'">
+      <form class="col-md-3"
+        ng-submit="vm.saveSound()">
+        <div class="form-group">
+          <input
+            type="text"
+            placeholder="Naam"
+            ng-model="vm.sound.id"
+            class="form-control"/>
+            <div
+              ngf-drop
+              class="sound-dropzone text-center"
+              ng-model="vm.sound.music">
+              <p ng-hide="vm.sound.music">Sleep geluidsbestand hier</p>
+              <p ng-show="vm.sound.music">{{vm.sound.music.name}}</p>
+            </div>
+            <div
+            ngf-drop
+            class="dropzone text-center"
+            ng-model="vm.sound.picture">
+            <p ng-hide="vm.sound.picture">Sleep foto hier</p>
+            <img
+              ngf-thumbnail="vm.sound.picture"
+              ng-show="vm.sound.picture"
+              alt="thumbnail"
+              class="picture"/>
+            </div>
+            <input
+              type="submit"
+              value="Sla widget op"
+              class="btn btn-default"/>
+        </div>
+      </form>
+      <div class="col-md-6">
+        <p><b>Test</b><p>
+          <img
+            ngf-thumbnail="vm.sound.picture"
+            ng-show="vm.sound.picture"
+            alt="thumbnail"
+            class="playsound"/>
+         <audio controls ngf-src="vm.sound.music"></audio>
+      </div>
+    </div>
+</div>
