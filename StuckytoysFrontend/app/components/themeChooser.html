@@ -1,0 +1,34 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../styles/style.css" />
+</head>
+<div>
+  <div>
+    <p ng-repeat="theme in vm.themes">{{theme.name}}</p>
+  </div>
+  <div class="themeOptions">
+    <button class="btn btn-default" ng-click="selectTheme()">Selecteer thema</button>
+    <button class="btn btn-default" ng-click="newTheme()">Nieuw thema</button>
+  </div>
+  <div ng-show="vm.selectThemeClicked">
+    <select class="form-control themeChooser"
+      ng-model = "vm.selectedTheme"
+      ng-change="vm.themeChooserChanged()">
+      <option ng-repeat="theme in vm.themes">{{theme.name}}</option>
+    </select>
+  </div>
+  <div ng-show="vm.newThemeClicked">
+    <form ng-submit="vm.addTheme()">
+      <input
+        ng-model="vm.newTheme.name"
+        type="text"
+        placeholder="Naam"
+        class="form-control"/>
+      <textarea
+        ng-model="vm.newTheme.description"
+        placeholder="Omschrijving"
+        class="form-control"></textarea>
+      <input type="submit" value="Voeg thema toe" class="btn btn-default"/>
+    </form>
+  </div>
+</div>

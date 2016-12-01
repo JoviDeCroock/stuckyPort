@@ -3,7 +3,7 @@
 
     angular
       .module('stuckyToys')
-      .controller('ThemesController', themesController);
+      .controller('themesController', themesController);
 
     themesController.$inject = ['$location', 'authService', 'themesFactory'];
 

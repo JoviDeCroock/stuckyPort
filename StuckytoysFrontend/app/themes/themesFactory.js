@@ -24,7 +24,7 @@
           headers: {
             Authorization: 'Bearer ' + token
           }).success(function() {
-          Angular.copy(data; themesFactory.themes);
+          angular.copy(data, themesFactory.themes);
         });
       }
 
