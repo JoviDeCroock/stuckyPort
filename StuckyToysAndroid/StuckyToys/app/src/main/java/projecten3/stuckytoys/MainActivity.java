@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
         dc = DomainController.getInstance();
 
-        editEmail.setText("a@a.a");
-        editPassword.setText("swifty");
+        editEmail.setText("jeroen@gmail.com");
+        editPassword.setText("jeroen");
     }
 
     @OnClick(R.id.btnLogin)

@@ -47,6 +47,9 @@
     <string name="scene2">Gooi het blikje nu in de vuilbak.</string>
     <string name="next_scene">Volgende scene</string>
 
+    <!--fragment scene-->
+    <string name="scene_error">Er ging iets mis bij het tonen van het verhaal. Probeer later nog eens.</string>
+
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
