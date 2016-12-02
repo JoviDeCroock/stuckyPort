@@ -31,7 +31,7 @@
       }
 
       function editTheme(theme) {
-        themeFactory.editTheme(theme)).error(function(error) {
+        themeFactory.editTheme(theme).error(function(error) {
         vm.error = error;
       }).succes(function(data) {
         vm.themes.push(data);

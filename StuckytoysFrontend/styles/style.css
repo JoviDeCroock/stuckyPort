@@ -135,6 +135,10 @@ table img {
 textarea {
   margin-top: 5px;
 }
+.story-name {
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
 @media screen and (min-width: 50em) {
   .tile {
     width: calc(25% - 6px);

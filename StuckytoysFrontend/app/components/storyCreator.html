@@ -1,4 +1,22 @@
 <div>
-  <input type="text" ng-model="vm.title" class="form-control" placeholder="Titel" />
-  <input type="text" ng-model="vm.playtime" class="form-control" placeholder="Speelduur in minuten" />
+  <div class="row">
+    <input type="text"
+      ng-model="vm.activeStory.name"
+      class="form-control story-name"
+      placeholder="Titel" />
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <input type="text"
+        ng-model="vm.activeStory.duration"
+        class="form-control"
+        placeholder="Speelduur in minuten" />
+    </div>
+    <div class="col-md-3">
+      <input type="text"
+        ng-model="vm.activeStory.price"
+        class="form-control"
+        placeholder="Prijs in €" />
+    </div>
+  </div>
 </div>

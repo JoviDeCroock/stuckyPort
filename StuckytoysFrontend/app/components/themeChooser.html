@@ -3,8 +3,8 @@
     <p ng-repeat="theme in vm.themes">{{theme.name}}</p>
   </div>
   <div class="themeOptions">
-    <button class="btn btn-default" ng-click="selectTheme()">Selecteer thema</button>
-    <button class="btn btn-default" ng-click="newTheme()">Nieuw thema</button>
+    <button class="btn btn-default" ng-click="vm.selectTheme()">Selecteer thema</button>
+    <button class="btn btn-default" ng-click="vm.newTheme()">Nieuw thema</button>
   </div>
   <div ng-show="vm.selectThemeClicked">
     <select class="form-control themeChooser"
