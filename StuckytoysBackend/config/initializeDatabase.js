@@ -270,10 +270,19 @@ Story.find({},function(err, adhd)
         console.log(err);
       }
     });
-
+    var wf3 = new WidgetFile();
+    wf3.filename = 'ArActivity';
+    wf3.type='AR';
+    wf3.save(function(err)
+    {
+      if (err) {
+        console.log(err);
+      }
+    });
     var ARWidget = new Widget();
     ARWidget.id = 'AR';
     ARWidget.widgetFiles = [];
+    ARWidget.widgetFiles.push(wf3);
     ARWidget.save(function (err)
     {
       if (err) {
@@ -286,7 +295,7 @@ Story.find({},function(err, adhd)
     var scene3 = new Scene();
     scene1.text = "De bus rijdt een winkel voorbij en hoort dat een overvaller vraagt voor het geld.";
     scene2.text = "De dief loopt weg en het kind moet hem zoeken";
-    scene3.text = "Gooi het blikje in de vuilbak";
+    scene3.text = "Vind de verloren halsketting?";
     scene1.layout = 1;
     scene2.layout = 3;
     scene3.layout = 4;
