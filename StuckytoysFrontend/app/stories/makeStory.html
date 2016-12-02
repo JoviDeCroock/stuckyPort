@@ -23,17 +23,16 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-3 scenes">
-              <scene-chooser story="{{vm.activeStory}}"></scene-chooser>
+            <div class="col-md-3 scene-chooser">
+              <scene-chooser></scene-chooser>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 story-creator">
                 <h3>Maak verhaal</h3>
                 <story-creator></story-creator>
                 <button class="btn btn-default save-story">Sla verhaal op</button>
             </div>
-            <div class="col-md-3 theme">
-              <div>
-              </div>
+            <div class="col-md-3 theme-chooser">
+              <theme-chooser></theme-chooser>
             </div>
         </div>
     </div>

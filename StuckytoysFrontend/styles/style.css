@@ -59,10 +59,6 @@ nav ul li a{
 .logout{
   float: right;
 }
-.scenes {
-  margin-top: 50px;
-  border-right: 1px solid grey;
-}
 .scene {
   border: 2px solid #3E8720;
   height: 100px;
@@ -73,13 +69,6 @@ nav ul li a{
 }
 .activeScene {
   border: 5px solid #207287;
-}
-.theme {
-  margin-top: 55px;
-  border-left: 1px solid grey;
-}
-.themeChooser {
-  margin-top: 5px;
 }
 .make-story-selection {
   margin-top: 5px;
@@ -136,7 +125,6 @@ textarea {
   margin-top: 5px;
 }
 .story-name {
-  margin-left: 10px;
   margin-bottom: 5px;
 }
 @media screen and (min-width: 50em) {
@@ -151,4 +139,18 @@ textarea {
   .tile:nth-of-type(4n) {
     margin-right: 0;
   }
+}
+
+/*Markup for individual components*/
+.scene-chooser{
+  margin-top: 50px;
+  padding-right: 5px;
+  border-right: 1px solid grey;
+}
+.theme-chooser{
+  margin-top: 55px;
+  padding-left: 5px;
+  border-left: 1px solid grey;
+}
+.story-creator{
 }
