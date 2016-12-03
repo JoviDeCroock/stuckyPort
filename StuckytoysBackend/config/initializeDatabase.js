@@ -160,11 +160,11 @@ Story.find({},function(err, adhd)
       });
 
       var Recording = new Widget();
-      Recording.id = 'Recording';
+      Recording.id = 'opname';
       Recording.widgetFiles = [];
       var wf4 = new WidgetFile();
-      wf4.filename = "recording";
-      wf4.type="recording";
+      wf4.filename = "opname";
+      wf4.type="opname";
       wf4.save(function(err)
       {
           if(err){console.log(err);}
@@ -271,8 +271,8 @@ Story.find({},function(err, adhd)
     story.scenes.push(scene1);
     story.scenes.push(scene2);
     story.scenes.push(scene3);
-      story.scenes.push(scene4);
-      story.scenes.push(scene5);
+    story.scenes.push(scene4);
+    story.scenes.push(scene5);
     story.themes = [];
     story.themes.push(vervuiling);
     story.duration = 0.5;
