@@ -51,16 +51,16 @@
         types.push(file.type);
       });
       types.forEach(function(type) {
-        if(type === 'music') { value = 'music'; }
-        if(type === 'game' ) { value = 'game'; }
+        if(type === 'geluid') { value = 'geluid'; }
+        if(type === 'spel' ) { value = 'spel'; }
       });
       if(value !== '') { return value; }
-      else { return 'image'; }
+      else { return 'afbeelding'; }
     };
     function getImageFileName(widget) {
       var value = {};
       widget.widgetFiles.forEach(function(file) {
-        if(file.type === 'image') { value = file; }
+        if(file.type === 'afbeelding') { value = file; }
       });
       return value.fileName;
     }

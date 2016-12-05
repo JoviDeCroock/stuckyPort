@@ -51,14 +51,14 @@
                     <div ng-repeat="widget in vm.activeScene.widgets">
                         <div class="widget">
                             <a href="/#/widget/{{widget._id}}">{{widget.id}}</a>
-                            <div ng-show="vm.getTypeOfWidget(widget) === 'music'">
+                            <div ng-show="vm.getTypeOfWidget(widget) === 'geluid'">
                               <img class="playsound"
                                 alt="play"
                                 src="http://localhost:3000/downloads/afbeelding/{{vm.getImageFileName(widget)}}" />
                             </div>
 
-                            <div ng-show="vm.getTypeOfWidget(widget) === 'game'">game</div>
-                            <div ng-show="vm.getTypeOfWidget(widget) === 'image'">image</div>
+                            <div ng-show="vm.getTypeOfWidget(widget) === 'spel'">game</div>
+                            <div ng-show="vm.getTypeOfWidget(widget) === 'afbeelding'">image</div>
                         </div>
                     </div>
                 </div>
