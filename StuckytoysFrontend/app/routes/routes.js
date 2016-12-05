@@ -44,8 +44,9 @@
             controller: 'storyController',
             controllerAs: 'vm',
             resolve: {
-              postPromise: ['widgetService', function(widgetService) {
-                return widgetService.getAllWidgets();
+              postPromise: ['themeFactory','widgetService', function(themeFactory, widgetService) {
+                 themeFactory.getAllThemes();
+                 widgetService.getAllWidgets();
               }]
             }
         }).when('/makeWidget', {

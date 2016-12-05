@@ -63,6 +63,6 @@
         if(file.type === 'afbeelding') { value = file; }
       });
       return value.fileName;
-    }
+    };
   }
 })();

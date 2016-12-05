@@ -5,9 +5,9 @@
     .module('stuckyToys')
     .controller('storyController', storyController);
 
-  storyController.$inject = ['$location', 'authService', 'storyService', 'widgetService'];
+  storyController.$inject = ['$location', 'authService', 'storyService','themeFactory', 'widgetService'];
 
-  function storyController ($location, authService, storyService, widgetService) {
+  function storyController ($location, authService, storyService, themeFactory, widgetService) {
     var vm = this;
     vm.username = authService.currentUser();
 
@@ -15,10 +15,13 @@
       themes: [],
       scenes: [],
     };
-    
+
+    // scenes
     vm.addScene = addScene;
     vm.selectScene = selectScene;
-
+    // themes
+    vm.themes = themeFactory.themes;
+    // scenes
     function addScene () {
       var temp = {
         sceneNr: vm.activeStory.scenes.length + 1,
@@ -31,7 +34,8 @@
     function selectScene (scene) {
       vm.activeScene = scene;
     };
-    //alle verhalen
+    // themes
+
     vm.logOut = logOut;
 
     function logOut () {
