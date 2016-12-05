@@ -21,6 +21,11 @@
     vm.selectScene = selectScene;
     // themes
     vm.themes = themeFactory.themes;
+    vm.selectTheme = selectTheme;
+    vm.themeChooserChanged = themeChooserChanged;
+    vm.removeTheme = removeTheme;
+    vm.newTheme = newTheme;
+    vm.addTheme = addTheme;
     // scenes
     function addScene () {
       var temp = {
@@ -35,6 +40,31 @@
       vm.activeScene = scene;
     };
     // themes
+    function selectTheme() {
+      vm.selectThemeClicked = true;
+      vm.newThemeClicked = false;
+    };
+    function themeChooserChanged() {
+      vm.activeStory.themes.push(vm.selectedTheme);
+      vm.selectThemeClicked = false;
+      vm.newThemeClicked = false;
+    };
+    function removeTheme(theme) {
+      vm.activeStory.themes.splice(vm.activeStory.themes.indexOf(theme),1);
+    };
+    function newTheme() {
+      vm.newThemeClicked = true;
+      vm.selectThemeClicked = false;
+    };
+    function addTheme() {
+      vm.themes.push({
+        name:  vm.themeToAdd.name,
+        description: vm.themeToAdd.desciption,
+      }); //in service implementeren
+      vm.themeToAdd = {};
+      vm.selectThemeClicked = false;
+      vm.newThemeClicked = false;
+    };
 
     vm.logOut = logOut;
 

@@ -114,6 +114,14 @@ nav ul li a{
   height: inherit;
   border: 1px dashed black;
 }
+.remove-button{
+  cursor: pointer;
+  margin-left: 5px;
+}
+.remove-button img{
+  width: 25px;
+  height: 25px;
+}
 form input{
   margin: 5px;
 }
