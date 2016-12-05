@@ -14,6 +14,7 @@ import projecten3.stuckytoys.domain.WidgetFile;
 import projecten3.stuckytoys.retrofithelpers.ProfilePicture;
 
 //simple helper class; setting SERVEROFFLINE to true makes it so no db calls are issued and default user/members/stories/... are created for testing
+//DOESN'T WORK ANYMORE! domain classes have changed due to db changes and server is usually up&running anyway...
 public interface ServerOfflineHelper {
     public final static boolean SERVEROFFLINE = false;
 

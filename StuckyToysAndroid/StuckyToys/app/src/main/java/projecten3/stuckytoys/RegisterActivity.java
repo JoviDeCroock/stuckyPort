@@ -71,8 +71,8 @@ public class RegisterActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         editEmail.setText("jeroen@gmail.com");
-        editPasswordRepeat.setText("jeroen");
-        editPassword.setText("jeroen");
+        editPasswordRepeat.setText("password");
+        editPassword.setText("password");
         editUsername.setText("jeroen");
     }
 
