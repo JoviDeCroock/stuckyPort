@@ -57,6 +57,15 @@ router.post('/:widget/addFile', auth, mp, function(req, res, next)
   };
   var w = Widget.findById(req.widget._id);
   w.widgetFiles.push(req.body.widgetFile);
+  fs.readFile(req.files.file.path, function(err,data)
+  {
+    var fPath = path.join(__dirname, 'downloads', req.body.widgetFile.type, req.files.file.name);
+    console.log(fPath);
+    fs.writeFile(fPath, data, function(err)
+    {
+      return res.status(400).json({message: 'Upload failed'});
+    });
+  });
   Widget.findOneAndUpdate(query, w, {upsert: true}, function(err, doc)
   {
     if (err) return res.send(500, {
