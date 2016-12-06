@@ -47,6 +47,7 @@
               postPromise: ['themeFactory','widgetService', function(themeFactory, widgetService) {
                  themeFactory.getAllThemes();
                  widgetService.getAllWidgets();
+                 widgetService.getTypes();
               }]
             }
         }).when('/makeWidget', {

@@ -3,18 +3,16 @@
 
   angular
     .module('stuckyToys')
-    .directive('makeWidget', makeWidget);
+    .directive('selectWidget', selectWidget);
 
-  function makeWidget() {
+  function selectWidget() {
     return {
       restrict: 'E',
-      templateUrl: 'app/components/makeWidget.html',
+      templateUrl: 'app/components/selectWidget.html',
       link: link
     };
     function link(scope, element, attrs, controller, transcludeFn) {
 
     };
-  }
-
-
+  };
 })();

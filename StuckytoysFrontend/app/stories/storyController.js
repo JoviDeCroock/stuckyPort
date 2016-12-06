@@ -26,18 +26,28 @@
     vm.removeTheme = removeTheme;
     vm.newTheme = newTheme;
     vm.addTheme = addTheme;
+    // widgets
+    vm.types = widgetService.types;
+    vm.widgets = widgetService.widgets;
+    vm.newWidget = newWidget;
+
     // scenes
     function addScene () {
       var temp = {
         sceneNr: vm.activeStory.scenes.length + 1,
+        text: '',
         widgets: [],
         hints: []
       };
       vm.activeStory.scenes.push(temp);
       vm.activeScene = temp;
+      vm.newWidgetClicked = false;
+      vm.selectWidgetClicked = false;
     };
     function selectScene (scene) {
       vm.activeScene = scene;
+      vm.newWidgetClicked = false;
+      vm.selectWidgetClicked = false;
     };
     // themes
     function selectTheme() {
@@ -64,6 +74,11 @@
       vm.themeToAdd = {};
       vm.selectThemeClicked = false;
       vm.newThemeClicked = false;
+    };
+    //widgets
+    function newWidget() {
+      vm.newWidgetClicked = true;
+      vm.selectWidgetClicked = false;
     };
 
     vm.logOut = logOut;

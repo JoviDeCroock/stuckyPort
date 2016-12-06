@@ -1,0 +1,18 @@
+<div ng-show="vm.activeScene">
+  <label>Tekst</label>
+  <textarea
+    placeholder="Geef hier de tekst die aanleiding geeft voor het vertellen van het verhaal"
+    ng-model="vm.activeScene.text"
+    class="form-control">
+  </textarea>
+  <div class="widgetOptions">
+    <button class="btn btn-default" ng-click="vm.selectWidget()">Kies widget</button>
+    <button class="btn btn-default" ng-click="vm.newWidget()">Nieuwe widget</button>
+  </div>
+  <div ng-show="vm.selectWidgetClicked">
+    
+  </div>
+  <div ng-show="vm.newWidgetClicked">
+    <make-widget></make-widget>
+  </div>
+</div>
