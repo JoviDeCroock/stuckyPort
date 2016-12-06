@@ -5,12 +5,15 @@
     ng-model="vm.activeScene.text"
     class="form-control">
   </textarea>
+  <div>
+    <show-widget></show-widget>
+  </div>
   <div class="widgetOptions">
     <button class="btn btn-default" ng-click="vm.selectWidget()">Kies widget</button>
     <button class="btn btn-default" ng-click="vm.newWidget()">Nieuwe widget</button>
   </div>
   <div ng-show="vm.selectWidgetClicked">
-    
+    <select-widget></select-widget>
   </div>
   <div ng-show="vm.newWidgetClicked">
     <make-widget></make-widget>
