@@ -1,0 +1,9 @@
+<div>
+  <h4>Selecteer widget</h4>
+  <select
+    class="form-control"
+    ng-model="vm.selectedWidget"
+    ng-change="vm.widgetChooserChanged()">
+    <option ng-repeat="widget in vm.widgets" value="{{widget._id}}">{{widget.id}}</option>
+  </select>
+</div>

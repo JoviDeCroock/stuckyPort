@@ -29,6 +29,8 @@
     // widgets
     vm.types = widgetService.types;
     vm.widgets = widgetService.widgets;
+    vm.selectWidget = selectWidget;
+    vm.widgetChooserChanged = widgetChooserChanged;
     vm.newWidget = newWidget;
 
     // scenes
@@ -76,6 +78,17 @@
       vm.newThemeClicked = false;
     };
     //widgets
+    function selectWidget() {
+      vm.selectWidgetClicked = true;
+      vm.newWidgetClicked = false;
+    };
+    function widgetChooserChanged() {
+      // console.log(vm.selectedWidget);
+      var temp = vm.selectedWidget;
+      vm.activeScene.widgets.push(temp);
+      vm.selectWidgetClicked = false;
+      vm.newWidgetClicked = false;
+    };
     function newWidget() {
       vm.newWidgetClicked = true;
       vm.selectWidgetClicked = false;
