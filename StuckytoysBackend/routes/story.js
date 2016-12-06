@@ -34,7 +34,8 @@ router.param('story', function(req,res,next,id)
         return next();
     });
 });
-router.param('user',function(req,res,next,id){
+router.param('user',function(req,res,next,id)
+{
     var query = User.findById(id);
     query.exec(function(err,user){
         if(err){return next(err);}
@@ -65,7 +66,6 @@ router.param('theme', function(req,res,next,id)
         return next();
     });
 });
-
 router.param('scene', function(req,res,next,id)
 {
     var query = Scene.findById(id);
@@ -152,8 +152,19 @@ router.post('/:story/addScene', auth, function(req,res,next)
         var widget = Widget.findById(widgetEntry._id);
         newScene.widgets.push(widget);
     });
-    /*TODO: Rearrange scenenrs if >><<*/
-    newScene.sceneNr = x;
+    if(x !== req.body.sceneNr)
+    {
+        story.scenes.forEach(function(entry)
+        {
+            var x = req.story.scenes.indexOf(entry);
+            if(entry.sceneNr >= req.body.sceneNr)
+            {
+                story.scenes[x].sceneNr++;
+            }
+        });
+    }else{
+        newScene.sceneNr = x;
+    }
     newScene.figures = [];
     req.body.figures.forEach(function(figureEntry)
     {
@@ -169,7 +180,13 @@ router.post('/:story/addScene', auth, function(req,res,next)
     {
         if(err) {console.log(err);}
     });
-    res.json(story);
+    var query = {_id: req.story._id};
+    Story.findOneAndUpdate(query, story, {upsert:true}, function(err,doc)
+    {
+        if (err) return res.send(500, {error: err});
+        console.log("good save");
+        return res.json(story);
+    });
 });
 
 router.post('/publish/:story', auth, function(req,res,next)
@@ -179,7 +196,7 @@ router.post('/publish/:story', auth, function(req,res,next)
     if(!x)
     {
         req.story.published = true;
-        Story.findOneAndUpdate(query, w,{upsert:true}, function(err, doc) {
+        Story.findOneAndUpdate(query, req.story ,{upsert:true}, function(err, doc) {
             if (err) return res.send(500, {error: err});
             return res.send("succesfully published");
         });
@@ -399,6 +416,7 @@ router.get("/getPublishedStories", auth, function(req,res,next)
 
 router.post("/:user/buyStory/:story", auth,function(req,res,next)
 {
+    // if sufficient cash?
     req.user.stories.push(req.story);
     req.user.save(function(err)
     {
