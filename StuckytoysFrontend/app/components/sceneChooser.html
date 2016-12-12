@@ -4,7 +4,21 @@
       class="scene"
       ng-click="vm.selectScene(scene)"
       ng-class="{activeScene : vm.activeScene === scene}">
-    <p class="sceneNr">{{scene.sceneNr}}</p>
+    <p class="sceneNr">
+      {{scene.sceneNr}}
+      <span
+        class="remove-button pull-right"
+        ng-click="vm.removeScene(scene)">
+        <img alt="remove" src="./resources/images/removebutton.png" />
+      </span>
+    </p>
+    <div class="preview">
+      <div class="preview-text">
+        <p>{{scene.text}}</p>
+      </div>
+      <div class="preview-widgets">
+      </div>
+    </div>
   </div>
   <button ng-click="vm.addScene()" class="btn btn-default">+ Scene</button>
 </div>

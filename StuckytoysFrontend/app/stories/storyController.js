@@ -18,6 +18,7 @@
 
     // scenes
     vm.addScene = addScene;
+    vm.removeScene = removeScene;
     vm.selectScene = selectScene;
     // themes
     vm.themes = themeFactory.themes;
@@ -32,9 +33,10 @@
     vm.selectWidget = selectWidget;
     vm.widgetChooserChanged = widgetChooserChanged;
     vm.newWidget = newWidget;
-
+    vm.removeWidget = removeWidget;
+    vm.hideWidgetSelection = hideWidgetSelection;
     // scenes
-    function addScene () {
+    function addScene() {
       var temp = {
         sceneNr: vm.activeStory.scenes.length + 1,
         text: '',
@@ -45,6 +47,10 @@
       vm.activeScene = temp;
       vm.newWidgetClicked = false;
       vm.selectWidgetClicked = false;
+    };
+    function removeScene(scene) {
+      vm.activeStory.scenes.splice(vm.activeStory.scenes.indexOf(scene),1);
+      vm.activeScene = null;
     };
     function selectScene (scene) {
       vm.activeScene = scene;
@@ -86,12 +92,18 @@
       // console.log(vm.selectedWidget);
       var temp = vm.selectedWidget;
       vm.activeScene.widgets.push(temp);
-      vm.selectWidgetClicked = false;
-      vm.newWidgetClicked = false;
+      vm.hideWidgetSelection();
     };
     function newWidget() {
       vm.newWidgetClicked = true;
       vm.selectWidgetClicked = false;
+    };
+    function removeWidget(widget) {
+      vm.activeScene.widgets.splice(vm.activeScene.widgets.indexOf(widget),1);
+    };
+    function hideWidgetSelection() {
+      vm.selectWidgetClicked = false;
+      vm.newWidgetClicked = false;
     };
 
     vm.logOut = logOut;
