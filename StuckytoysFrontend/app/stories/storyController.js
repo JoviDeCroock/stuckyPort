@@ -74,18 +74,21 @@
     function newTheme() {
       vm.newThemeClicked = true;
       vm.selectThemeClicked = false;
+      vm.addThemeError = false;
     };
     function addTheme() {
       // vm.themes.push(temp);
       themeFactory.addTheme(vm.themeToAdd)
         .success(function(data) {
           vm.themes = themeFactory.themes;
+          vm.addThemeError = null;
+          vm.themeToAdd = {};
+          vm.hideThemeSelection();
+          alert('Het thema '+data.name+' is succesvol aangemaakt');
         })
         .error(function(err) {
-          console.log(err);
+          vm.addThemeError = err.message;
         });
-      vm.themeToAdd = {};
-      vm.hideThemeSelection();
     };
     function hideThemeSelection() {
       vm.selectThemeClicked = false;
