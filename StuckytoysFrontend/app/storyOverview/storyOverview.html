@@ -22,7 +22,26 @@
     </nav>
 
     <div class="container">
+        <div
+          class="alert alert-info"
+          ng-show="vm.noEntriesFound">
+          {{vm.noEntriesFound}}
+        </div>
         <h1>Mijn verhalen</h1>
+        <input
+          type="text"
+          ng-model="vm.maxDuration"
+          ng-change="vm.filterDuration()"
+          ng-click="vm.reset()"
+          placeholder="Maximale tijdsduur in uur"
+          class="pull-right form-control filter-duration"/>
+        <input
+          type="text"
+          ng-model="vm.keyword"
+          ng-change="vm.filter()"
+          ng-click="vm.reset()"
+          placeholder="Zoek op naam"
+          class="pull-right form-control filter-name"/>
         <table class="table">
           <tr>
             <th>Afbeelding</th>
@@ -30,15 +49,19 @@
             <th>Datum</th>
             <th>Aantal scenes</th>
             <th>Thema's</th>
+            <th>Duur</th>
+            <th>Prijs</th>
             <th>Gepubliceerd</th>
             <th></th>
          </tr>
-         <tr ng-repeat="story in vm.stories">
+         <tr ng-repeat="story in vm.filteredStories">
            <td><img alt="verhaal" src="{{story.picture.base64}}"/></td>
            <td><a href="#/story/{{story._id}}">{{story.name}}</a></td>
            <td>{{story.date}}</td>
            <td>{{story.scenes.length}}</td>
            <td><p ng-repeat="theme in story.themes">{{theme.name}}</p></td>
+           <td>{{story.duration}} uur</td>
+           <td>€ {{story.price}}</td>
            <td><input type="checkbox" ng-model="story.published" ng-disabled="true"/></td>
            <td><button ng-show="!story.published">Publiceer</button></td>
          </tr>
