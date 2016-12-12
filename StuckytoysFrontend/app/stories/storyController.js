@@ -32,7 +32,8 @@
     vm.selectWidget = selectWidget;
     vm.widgetChooserChanged = widgetChooserChanged;
     vm.newWidget = newWidget;
-
+    vm.removeWidget = removeWidget;
+    vm.hideWidgetSelection = hideWidgetSelection;
     // scenes
     function addScene () {
       var temp = {
@@ -86,12 +87,18 @@
       // console.log(vm.selectedWidget);
       var temp = vm.selectedWidget;
       vm.activeScene.widgets.push(temp);
-      vm.selectWidgetClicked = false;
-      vm.newWidgetClicked = false;
+      vm.hideWidgetSelection();
     };
     function newWidget() {
       vm.newWidgetClicked = true;
       vm.selectWidgetClicked = false;
+    };
+    function removeWidget(widget) {
+      vm.activeScene.widgets.splice(vm.activeScene.widgets.indexOf(widget),1);
+    };
+    function hideWidgetSelection() {
+      vm.selectWidgetClicked = false;
+      vm.newWidgetClicked = false;
     };
 
     vm.logOut = logOut;

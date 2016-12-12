@@ -2,5 +2,8 @@
   <label>Widgets</label>
   <div ng-repeat="widget in vm.activeScene.widgets">
     {{widget}}
+    <span class="remove-button" ng-click="vm.removeWidget(widget)">
+      <img alt="remove" src="./resources/images/removebutton.png" />
+    </span>
   </div>
 </div>

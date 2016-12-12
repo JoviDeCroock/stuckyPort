@@ -1,3 +1,14 @@
+.navbar-color{
+  background-color: #b6cd02;
+  border-color: #b6cd02;
+  border-radius: none;
+}
+.navbar-inverse .navbar-nav>li:hover>a {
+  color: black;
+}
+.navbar-inverse .navbar-nav>li>a {
+  color: #555a63;
+}
 nav ul li a{
   cursor: pointer;
 }
@@ -137,7 +148,7 @@ textarea {
 }
 .filter-name{
   width: 150px;
-  margin-bottom: 5px;  
+  margin-bottom: 5px;
   margin-right: 5px;
 }
 .filter-duration{
