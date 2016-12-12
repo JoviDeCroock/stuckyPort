@@ -116,13 +116,13 @@ Story.find({},function(err, adhd)
     gameW.widgetFiles = [];
     var wfGame = new WidgetFile();
     wfGame.fileName = 'RecycleActivity';
-    wfGame.type = 'spel';
+    wfGame.type = 'Spel';
     var wf = new WidgetFile();
     wf.fileName = 'bushorn.mp3';
-    wf.type = 'geluid';
+    wf.type = 'Geluid';
     var wf2 = new WidgetFile();
     wf2.fileName = 'bushorn.jpg';
-    wf2.type = 'afbeelding';
+    wf2.type = 'Afbeelding';
     wf.save(function (err) {
       if (err) {
         console.log(err);
@@ -164,7 +164,7 @@ Story.find({},function(err, adhd)
       Recording.widgetFiles = [];
       var wf4 = new WidgetFile();
       wf4.filename = "opname";
-      wf4.type="opname";
+      wf4.type="Opname";
       wf4.save(function(err)
       {
           if(err){console.log(err);}
@@ -313,10 +313,10 @@ Story.find({},function(err, adhd)
     widget2.widgetFiles = [];
     var wf = new WidgetFile();
     wf.fileName = 'cash.ogg';
-    wf.type = 'geluid';
+    wf.type = 'Geluid';
     var wf2 = new WidgetFile();
     wf2.fileName = 'cash.jpg';
-    wf2.type = 'afbeelding';
+    wf2.type = 'Afbeelding';
     wf.save(function (err) {
       if (err) {
         console.log(err);
