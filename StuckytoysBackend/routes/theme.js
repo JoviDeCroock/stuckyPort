@@ -50,8 +50,8 @@ router.post('/addTheme', auth, function(req,res,next)
 router.post('/editTheme', auth, function(req,res,next)
 {
     var query = {_id: req.body.theme._id};
-    Theme.findOneAndUpdate(query, req.body.theme,{upsert:true}, function(err, doc) {
-        if (err) return res.send(500, {error: err});
+    Theme.update(query, req.body.theme,{upsert:true}, function(err, doc) {
+        if (err) return res.status(500).json({error: err});
         return res.send("succesfully saved");
     });
 });

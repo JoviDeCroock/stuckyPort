@@ -7,7 +7,7 @@ var express = require('express');
 var jwt = require('express-jwt');
 var router = express.Router();
 
-var config = require('../config/config');
+var config = require('../../config/config');
 var User = mongoose.model('User');
 var Member = mongoose.model('Member');
 var Figure = mongoose.model('Figure');
