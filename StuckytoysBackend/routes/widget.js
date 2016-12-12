@@ -66,11 +66,9 @@ router.post('/:widget/addFile', auth, mp, function(req, res, next)
       return res.status(400).json({message: 'Upload failed'});
     });
   });
-  Widget.findOneAndUpdate(query, w, {upsert: true}, function(err, doc)
+  Widget.update(query, w, {upsert: true}, function(err, doc)
   {
-    if (err) return res.send(500, {
-      error: err
-    });
+    if (err) return res.status(500).json({error: err});
     return res.send("succesfully saved");
   });
 });
@@ -92,11 +90,9 @@ router.post('/:widget/removeFile/:widgetFile', auth, function(req, res, next)
         }
       });
 
-      Widget.findOneAndUpdate(query, req.widget, {upsert: true}, function(err, doc)
+      Widget.update(query, req.widget, {upsert: true}, function(err, doc)
       {
-        if (err) {
-          return err;
-        }
+        if (err) return res.status(500).json({error: err});
         res.json(req.widget);
       });
     }

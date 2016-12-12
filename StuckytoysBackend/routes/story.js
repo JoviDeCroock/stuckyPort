@@ -181,9 +181,9 @@ router.post('/:story/addScene', auth, function(req,res,next)
         if(err) {console.log(err);}
     });
     var query = {_id: req.story._id};
-    Story.findOneAndUpdate(query, story, {upsert:true}, function(err,doc)
+    Story.update(query, story, {upsert:true}, function(err,doc)
     {
-        if (err) return res.send(500, {error: err});
+        if (err) return res.status(500).json({error: err});
         console.log("good save");
         return res.json(story);
     });
@@ -196,8 +196,8 @@ router.post('/publish/:story', auth, function(req,res,next)
     if(!x)
     {
         req.story.published = true;
-        Story.findOneAndUpdate(query, req.story ,{upsert:true}, function(err, doc) {
-            if (err) return res.send(500, {error: err});
+        Story.update(query, req.story ,{upsert:true}, function(err, doc) {
+            if (err) return res.status(500).json({error: err});
             return res.send("succesfully published");
         });
     }
@@ -318,8 +318,8 @@ router.get('/getAllStories', auth, function(req,res,next)
 router.post('/editScene', auth, function(req,res,next)
 {
     var query = {_id: req.body.scene._id};
-    Scene.findOneAndUpdate(query, req.body.scene,{upsert:true}, function(err, doc) {
-        if (err) return res.send(500, {error: err});
+    Scene.update(query, req.body.scene,{upsert:true}, function(err, doc) {
+        if (err) return res.status(500).json({error: err});
         return res.send("succesfully saved");
     });
 });
@@ -345,12 +345,9 @@ router.post("/:story/removeScene/:scene", auth, function(req,res,next)
                     req.story.scenes[x].sceneNr = y;
                 }
             });
-            Story.findOneAndUpdate(query, req.story,{upsert:true}, function(err, doc)
+            Story.update(query, req.story,{upsert:true}, function(err, doc)
             {
-                if(err)
-                {
-                    return err;
-                }
+                if (err) return res.status(500).json({error: err});
             });
             res.json(req.story);
         }
