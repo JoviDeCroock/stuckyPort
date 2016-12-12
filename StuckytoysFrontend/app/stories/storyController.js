@@ -18,6 +18,7 @@
 
     // scenes
     vm.addScene = addScene;
+    vm.removeScene = removeScene;
     vm.selectScene = selectScene;
     // themes
     vm.themes = themeFactory.themes;
@@ -35,7 +36,7 @@
     vm.removeWidget = removeWidget;
     vm.hideWidgetSelection = hideWidgetSelection;
     // scenes
-    function addScene () {
+    function addScene() {
       var temp = {
         sceneNr: vm.activeStory.scenes.length + 1,
         text: '',
@@ -46,6 +47,10 @@
       vm.activeScene = temp;
       vm.newWidgetClicked = false;
       vm.selectWidgetClicked = false;
+    };
+    function removeScene(scene) {
+      vm.activeStory.scenes.splice(vm.activeStory.scenes.indexOf(scene),1);
+      vm.activeScene = null;
     };
     function selectScene (scene) {
       vm.activeScene = scene;
