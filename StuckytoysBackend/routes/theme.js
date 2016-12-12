@@ -31,20 +31,19 @@ router.post('/addTheme', auth, function(req,res,next)
     if(!req.body.name || !req.body.description){
         return res.status(400).json({message:'Vul alle velden in'});
     }
-    var theme = Theme.find({name: req.body.theme.name});
-    if(!theme)
-    {
+    Theme.find({name: req.body.name}, function(theme){
+      if (!theme) {
         var t = new Theme();
         t.name = req.body.name;
         t.description = req.body.description;
-        t.save(function(err)
-        {
-            if(err){console.log(err);}
-            res.json(t);
+        t.save(function(err) {
+          if(err){console.log(err);}
+          res.json(t);
         });
-    }else{
+      } else {
         res.json(theme);
-    }
+      }
+    });
 });
 
 router.post('/editTheme', auth, function(req,res,next)

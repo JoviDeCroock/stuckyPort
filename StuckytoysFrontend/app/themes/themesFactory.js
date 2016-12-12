@@ -28,10 +28,10 @@
       });
     };
     function addTheme(theme) {
-      return $http.post(usedUrl + 'addtheme', theme, {
+      return $http.post(usedUrl + 'theme/addTheme', theme, {
         headers: { Authorization: 'Bearer ' + token }
         }).success(function(data) {
-          themesFactory.themes.push(data);
+          themeFactory.themes.push(data);
         });
     };
     function editTheme(theme) {

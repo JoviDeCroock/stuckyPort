@@ -13,6 +13,9 @@
   border-color: #4D394B;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #4D394B;
 }
+.btn:focus,.btn:active {
+   outline: none !important;
+}
 td a{
   color: #b6cd02;
 }
@@ -45,7 +48,7 @@ nav ul li a{
 .tile{
   text-align: center;
   border-radius: 5px;
-  border: 3px solid black;
+  border: 3px solid #4D394B;
   font-size: 14px;
   display: inline-block;
   margin-bottom: 8px;
@@ -55,7 +58,7 @@ nav ul li a{
 
 .tile p{
   text-align: center;
-  color: #000;
+  color: #4D394B;
   width:100%;
 }
 .tile img{
@@ -171,6 +174,12 @@ textarea {
 .filter-duration{
   width: 200px;
   margin-bottom: 5px;
+}
+.themeChooser{
+  margin-top: 5px;
+}
+.themeOptions button{
+  margin-top: 5px;
 }
 @media screen and (min-width: 50em) {
   .tile {

@@ -27,6 +27,7 @@
     vm.removeTheme = removeTheme;
     vm.newTheme = newTheme;
     vm.addTheme = addTheme;
+    vm.hideThemeSelection = hideThemeSelection;
     // widgets
     vm.types = widgetService.types;
     vm.widgets = widgetService.widgets;
@@ -75,11 +76,18 @@
       vm.selectThemeClicked = false;
     };
     function addTheme() {
-      vm.themes.push({
-        name:  vm.themeToAdd.name,
-        description: vm.themeToAdd.desciption,
-      }); //in service implementeren
+      // vm.themes.push(temp);
+      themeFactory.addTheme(vm.themeToAdd)
+        .success(function(data) {
+          vm.themes = themeFactory.themes;
+        })
+        .error(function(err) {
+          console.log(err);
+        });
       vm.themeToAdd = {};
+      vm.hideThemeSelection();
+    };
+    function hideThemeSelection() {
       vm.selectThemeClicked = false;
       vm.newThemeClicked = false;
     };
