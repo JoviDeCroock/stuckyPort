@@ -56,9 +56,12 @@
                                 alt="play"
                                 src="http://localhost:3000/downloads/afbeelding/{{vm.getImageFileName(widget)}}" />
                             </div>
-
-                            <div ng-show="vm.getTypeOfWidget(widget) === 'spel'">game</div>
-                            <div ng-show="vm.getTypeOfWidget(widget) === 'afbeelding'">image</div>
+                            <div ng-show="vm.getTypeOfWidget(widget) === 'spel'"></div>
+                            <div ng-show="vm.getTypeOfWidget(widget) === 'afbeelding'">
+                              <img class="showimage"
+                                alt="afbeelding"
+                                src="http://localhost:3000/downloads/afbeelding/{{vm.getImageFileName(widget)}}" />
+                            </div>
                         </div>
                     </div>
                 </div>
