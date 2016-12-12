@@ -33,6 +33,9 @@
         headers: { Authorization: 'Bearer '+token }
       })
         .success(function (data) {
+          data.forEach(function(story) {
+            story.date = new Date(story.date).toLocaleDateString('nl-NL');
+          });
           angular.copy(data, story.stories);
           //console.log(story.stories);
         });

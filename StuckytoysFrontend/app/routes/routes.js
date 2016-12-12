@@ -16,24 +16,7 @@
             templateUrl: 'app/authorization/authorization.html',
             controller: 'authController',
             controllerAs : 'vm'
-        })/*.when('/member',{
-            url: '/member',
-            templateUrl: 'app/members/memberOverview.html',
-            controller: 'memberController',
-            controllerAs : 'vm',
-            resolve:{
-                postPromise: ['memberFactory', function(memberFactory){
-                    memberFactory.getFigures();
-                    memberFactory.getMembers();
-                    return;
-                }]
-            }
-        }).when('/createMember', {
-            url: '/createMember',
-            templateUrl: 'app/members/makeMember.html',
-            controller: 'memberController',
-            controllerAs : 'vm'
-        })*/.when('/main', {
+        }).when('/main', {
             url: '/main',
             templateUrl: 'app/main/mainOverview.html',
             controller: 'mainController',
@@ -66,8 +49,9 @@
             controller: 'storyOverviewController',
             controllerAs: 'vm',
             resolve: {
-              postPromise: ['storyService', function(storyService) {
-                return storyService.getStories();
+              postPromise: ['storyService','themeFactory', function(storyService, themeFactory) {
+                storyService.getStories();
+                themeFactory.getAllThemes();
               }]
             }
         }).when('/story/:id',{

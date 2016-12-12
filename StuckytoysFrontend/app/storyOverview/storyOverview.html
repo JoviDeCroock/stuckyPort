@@ -35,6 +35,12 @@
           ng-click="vm.reset()"
           placeholder="Maximale tijdsduur in uur"
           class="pull-right form-control filter-duration"/>
+        <select class="pull-right form-control filter-theme"
+          ng-model = "vm.selectedTheme"
+          ng-change="vm.filterTheme()">
+          <option disabled selected value>Zoek op thema</option>
+          <option ng-repeat="theme in vm.themes">{{theme.name}}</option>
+        </select>
         <input
           type="text"
           ng-model="vm.keyword"

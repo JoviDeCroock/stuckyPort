@@ -5,20 +5,18 @@
     .module('stuckyToys')
     .controller('storyOverviewController', storyOverviewController)
 
-  storyOverviewController.$inject = ['storyService', 'authService', '$location'];
+  storyOverviewController.$inject = ['storyService', 'authService','themeFactory', '$location'];
 
-  function storyOverviewController(storyService, authService, $location) {
+  function storyOverviewController(storyService, authService, themeFactory, $location) {
     var vm = this;
 
     vm.username = authService.currentUser();
     vm.stories = storyService.stories;
+    vm.themes = themeFactory.themes;
     vm.filteredStories = storyService.stories;
     vm.filter = filter;
     vm.filterDuration = filterDuration;
     vm.reset = reset;
-    vm.stories.forEach(function(story){
-      story.date = new Date(story.date).toLocaleDateString('nl-NL');
-    });
 
     function filter() {
       var result = [];

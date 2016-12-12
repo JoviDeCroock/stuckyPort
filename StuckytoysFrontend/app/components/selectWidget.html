@@ -1,9 +1,9 @@
 <div>
-  <h4>Selecteer widget</h4>
   <select
-    class="form-control"
+    class="form-control selection-style-class"
     ng-model="vm.selectedWidget"
     ng-change="vm.widgetChooserChanged()">
+    <option disabled selected value>Selecteer een widget</option>
     <option ng-repeat="widget in vm.widgets" value="{{widget._id}}">{{widget.id}}</option>
   </select>
 </div>

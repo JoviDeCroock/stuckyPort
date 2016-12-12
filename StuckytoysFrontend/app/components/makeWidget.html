@@ -1,20 +1,16 @@
 <div>
-  <h4>Maak nieuwe widget</h4>
   <form>
     <div class="form-group">
-      <label>Selecteer type</label>
-      <select class="form-control"
+      <select class="form-control selection-style-class"
         ng-model="vm.selectedType">
-        <option disabled selected value>Maak een keuze</option>
+        <option disabled selected value>Selecteer het type</option>
         <option ng-repeat="type in vm.types">{{type}}</option>
       </select>
     </div>
   </form>
   <div
-    class="row"
     ng-show="vm.selectedType === 'afbeelding'">
-    <form class="col-md-3"
-      ng-submit="vm.saveImage()">
+    <form ng-submit="vm.saveImage()">
       <div class="form-group">
         <input
           type="text"

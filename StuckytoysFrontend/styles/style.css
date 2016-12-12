@@ -128,9 +128,10 @@ nav ul li a{
   cursor: pointer;
 }
 .dropzone{
-  width: 200px;
-  height: 200px;
+  width: inherit;
+  height: 300px;
   border: 1px dashed black;
+  padding: 5px;
   margin-left: 5px;
 }
 .sound-dropzone{
@@ -142,8 +143,8 @@ nav ul li a{
 }
 .picture{
   width: inherit;
-  height: inherit;
-  border: 1px dashed black;
+  height: 250px;
+  /*border: 1px dashed black; */
 }
 .remove-button{
   cursor: pointer;
@@ -175,10 +176,18 @@ textarea {
   width: 200px;
   margin-bottom: 5px;
 }
+.filter-theme{
+  width: 150px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
 .themeChooser{
   margin-top: 5px;
 }
 .themeOptions button{
+  margin-top: 5px;
+}
+.selection-style-class{
   margin-top: 5px;
 }
 @media screen and (min-width: 50em) {
