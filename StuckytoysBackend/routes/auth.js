@@ -17,12 +17,14 @@ var Figure = mongoose.model('Figure');
 var Story = mongoose.model('Story');
 
 // Sanity test
-router.get('/',function(req,res,next){
+router.get('/',function(req,res,next)
+{
   return res.json({message: 'De api werkt'});
 });
 
 // API methods
-router.post('/register',function(req,res,next){
+router.post('/register',function(req,res,next)
+{
    if(!req.body.username || !req.body.password || !req.body.email){
      return res.status(400).json({message:'Vul alle velden in'});
    }
@@ -84,7 +86,8 @@ router.post('/adminLogin', function(req, res, next)
 });
 
 // Normal login
-router.post('/login',function(req,res,next){
+router.post('/login',function(req,res,next)
+{
   if(!req.body.username || !req.body.password){
     return res.status(400).json({message:'Vul alle velden in'});
   }
