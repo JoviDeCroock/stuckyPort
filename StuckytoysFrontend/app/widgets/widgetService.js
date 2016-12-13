@@ -10,7 +10,7 @@
   function widgetService (url, authService, Upload, $http) {
     var usedUrl = url.dev;
     var token = authService.getToken();
-    var widget = {
+    var widgetService = {
       widget: {},
       widgets: [],
       types: [],
@@ -23,27 +23,27 @@
       addSound: addSound
     }
 
-    return widget;
+    return widgetService;
 
     function getWidget(id) {
       return $http.get(usedUrl+'widget/widgets/'+id, {
         headers: { Authorization: 'Bearer ' + token }
       }).success(function(data) {
-        widget.widget = data;
+        widgetService.widget = data;
       });
     };
     function getAllWidgets() {
       return $http.get(usedUrl+'widget/getAllWidgets', {
         headers: { Authorization: 'Bearer ' + token }
       }).success(function(data) {
-        angular.copy(data, widget.widgets);
+        angular.copy(data, widgetService.widgets);
       })
     };
     function getTypes() {
       return $http.get(usedUrl+'widget/widgetTypes', {
         headers: { Authorization: 'Bearer ' + token }
       }).success(function(data) {
-        angular.copy(data, widget.types);
+        angular.copy(data, widgetService.types);
       });
     };
     function getTypeOfWidget(widget) {
@@ -76,7 +76,9 @@
           type: 'Afbeelding'
         },
         file: [widget.picture]
-      });
+      }).success(function(data) {
+        widgetService.widgets.push(data);
+      });;
     };
     function addSound(widget) {
       return Upload.upload({

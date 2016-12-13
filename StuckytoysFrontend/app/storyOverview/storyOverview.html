@@ -62,7 +62,7 @@
             <th></th>
          </tr>
          <tr ng-repeat="story in vm.filteredStories">
-           <td><img alt="verhaal" src="{{story.picture.base64}}"/></td>
+           <td><img alt="verhaal" src="http://localhost:3000/downloads/afbeelding/{{story.path}}"/></td>
            <td><a href="#/story/{{story._id}}">{{story.name}}</a></td>
            <td>{{story.date}}</td>
            <td>{{story.scenes.length}}</td>

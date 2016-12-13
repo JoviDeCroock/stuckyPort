@@ -77,7 +77,7 @@
     function newTheme() {
       vm.newThemeClicked = true;
       vm.selectThemeClicked = false;
-      vm.addThemeError = false;
+      vm.addThemeError = null;
     };
     function addTheme() {
       // vm.themes.push(temp);
@@ -116,6 +116,7 @@
     function newWidget() {
       vm.newWidgetClicked = true;
       vm.selectWidgetClicked = false;
+      vm.addImageError = null;
     };
     function removeWidget(widget) {
       vm.activeScene.widgets.splice(vm.activeScene.widgets.indexOf(widget),1);
@@ -131,16 +132,20 @@
       // console.log(vm.image);
       widgetService.addImage(vm.image)
         .success(function(data) {
-          console.log('Success');
+          vm.widgets = widgetService.widgets;
+          vm.addImageError = null;
+          vm.image = {};
+          vm.hideWidgetSelection();
+          alert('De widget '+ data.id +' is succesvol aangemaakt');
         })
         .error(function(err) {
-          console.log(err);
+          vm.addImageError = err.message;
         });
     };
     function saveSound() {
       widgetService.addSound(vm.sound)
         .success(function(data) {
-          console.log('Success');
+          console.log(data);
         })
         .error(function(err) {
           console.log(err);
