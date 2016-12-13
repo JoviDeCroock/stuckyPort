@@ -122,7 +122,7 @@ router.post('/addWidget', auth, mp, function(req, res, next)
         console.log(err);
       }
     });
-    w.files.push(f);
+    w.widgetFiles.push(f);
   }else{
     req.files.file.forEach(function(widgetFile)
     {
@@ -138,7 +138,6 @@ router.post('/addWidget', auth, mp, function(req, res, next)
       console.log(f.type + widgetFile.path + f.fileName);
       fs.readFile(widgetFile.path, function(err,data)
       {
-
         var fPath = path.join(__dirname, 'downloads', f.type, f.fileName);
         console.log(fPath);
         fs.writeFile(fPath, data, function(err)
@@ -151,7 +150,7 @@ router.post('/addWidget', auth, mp, function(req, res, next)
           console.log(err);
         }
       });
-      w.files.push(f);
+      w.widgetFiles.push(f);
     });
   }
 
