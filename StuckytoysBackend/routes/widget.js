@@ -50,58 +50,6 @@ router.param('widget', function(req, res, next, id)
 
 
 /*API METHODS*/
-router.post('/:widget/addFile', auth, mp, function(req, res, next)
-{
-  var query = {
-    _id: req.widget._id
-  };
-   Widget.findById(req.widget._id, function(err, w)
-  {
-    if(err){return next(err);}
-    w.widgetFiles.push(req.body.widgetFile);
-    fs.readFile(req.files.file.path, function(err,data)
-    {
-      var fPath = path.join(__dirname, 'downloads', req.body.widgetFile.type, req.files.file.name);
-      console.log(fPath);
-      fs.writeFile(fPath, data, function(err)
-      {
-        return res.status(400).json({message: 'Upload failed'});
-      });
-    });
-    Widget.update(query, w, {upsert: true}, function(err, doc)
-    {
-      if (err) return res.status(500).json({error: err});
-      return res.send("succesfully saved");
-    });
-  });
-});
-
-router.post('/:widget/removeFile/:widgetFile', auth, function(req, res, next)
-{
-  var query = {
-    _id: req.widget._id
-  };
-  var id = req.widgetFile._id;
-  WidgetFile.remove({ _id: req.widgetFile._id}, function(err)
-  {
-    if (!err)
-    {
-      req.widget.widgetFiles.forEach(function(entry) {
-        if (entry._id === id) {
-          var x = req.widget.widgetFiles.indexOf(entry);
-          req.widget.widgetFiles.splice(x, 1);
-        }
-      });
-
-      Widget.update(query, req.widget, {upsert: true}, function(err, doc)
-      {
-        if (err) return res.status(500).json({error: err});
-        res.json(req.widget);
-      });
-    }
-  });
-});
-
 router.post('/addWidget', auth, mp, function(req, res, next)
 {
   if (!req.body.id) {

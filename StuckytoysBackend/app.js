@@ -10,9 +10,9 @@ var multer = require('multer');
 
 //Requiring models
 //require('./models/BuildingBlocks');
-require('./models/Figures');
-require('./models/Members');
-require('./models/Pictures');
+require('./routes/Deprecated/Figures');
+require('./routes/Deprecated/Members');
+require('./routes/Deprecated/Pictures');
 require('./models/Scenes');
 require('./models/Stories');
 require('./models/Themes');

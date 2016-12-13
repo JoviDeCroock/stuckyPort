@@ -31,6 +31,7 @@ router.post('/addTheme', auth, function(req,res,next)
     if(!req.body.name || !req.body.description){
         return res.status(400).json({message:'Vul alle velden in'});
     }
+
     Theme.find({name: req.body.name}, function(theme){
       if (!theme) {
         var t = new Theme();

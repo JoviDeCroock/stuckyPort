@@ -8,6 +8,7 @@ var jwt = require('express-jwt');
 var router = express.Router();
 var path = require('path');
 var mime = require('mime');
+var multi = require('connect-multiparty');
 
 var config = require('../config/config');
 var User = mongoose.model('User');
@@ -15,11 +16,11 @@ var Story = mongoose.model('Story');
 var Scene = mongoose.model('Scene');
 var Theme = mongoose.model('Theme');
 var Widget = mongoose.model('Widget');
-var Figure = mongoose.model('Figure');
 var WidgetFile = mongoose.model('WidgetFile');
 
 // configuring auth
 var auth = jwt({secret:config.secret,userProperty:config.userProperty});
+var mp = multi();
 //END declarations
 
 // Params
@@ -80,15 +81,24 @@ router.param('scene', function(req,res,next,id)
 //END params
 
 // API methods
-router.post('/createStory', auth, function(req,res,next)
+router.post('/createStory',mp , auth, function(req,res,next)
 {
-    if(!req.body.scenes || !req.body.name || !req.body.themes || !req.body.date || req.body.duration){
+    if(!req.files.file ||!req.body.scenes || !req.body.name || !req.body.themes || !req.body.date || req.body.duration){
         return res.status(400).json({message:'Vul alle velden in'});
     }
     var story = new Story();
     story.name = req.body.name;
     story.scenes = [];
     story.themes = [];
+    story.path = req.files.file.name;
+    fs.readFile(req.files.file.path, function(err,data)
+    {
+        var fPath = path.join(__dirname, 'downloads', 'Afbeelding', story.path);
+        fs.writeFile(fPath, data, function(err)
+        {
+            if (err) { return res.status(400).json({message: 'Upload failed'}); }
+        });
+    });
     story.duration = req.body.duration;
     if(req.body.scenes.length !== 0)
     {
@@ -129,64 +139,6 @@ router.post('/createStory', auth, function(req,res,next)
         if(err) {console.log(err);}
     });
     res.json(story);
-});
-
-router.post('/:story/addScene', auth, function(req,res,next)
-{
-    if(!req.body.widgets || !req.body.figures){
-        return res.status(400).json({message:'Vul alle velden in'});
-    }
-    var story = req.story;
-    var x = req.story.scenes.length;
-    var newScene = new Scene();
-
-    newScene.widgets = [];
-    newScene.hints = [];
-    newScene.layout = req.body.layout;
-    req.body.hints.forEach(function(hint)
-    {
-        newScene.hints.push(hint);
-    });
-    req.body.widgets.forEach(function(widgetEntry)
-    {
-        var widget = Widget.findById(widgetEntry._id);
-        newScene.widgets.push(widget);
-    });
-    if(x !== req.body.sceneNr)
-    {
-        story.scenes.forEach(function(entry)
-        {
-            var x = req.story.scenes.indexOf(entry);
-            if(entry.sceneNr >= req.body.sceneNr)
-            {
-                story.scenes[x].sceneNr++;
-            }
-        });
-    }else{
-        newScene.sceneNr = x;
-    }
-    newScene.figures = [];
-    req.body.figures.forEach(function(figureEntry)
-    {
-        var figure = Figure.findById(figureEntry._id);
-        newScene.figures.push(figure);
-    });
-    newScene.save(function(err)
-    {
-        if(err){console.log(err);}
-    });
-    story.scenes.push(newScene);
-    story.save(function(err)
-    {
-        if(err) {console.log(err);}
-    });
-    var query = {_id: req.story._id};
-    Story.update(query, story, {upsert:true}, function(err,doc)
-    {
-        if (err) return res.status(500).json({error: err});
-        console.log("good save");
-        return res.json(story);
-    });
 });
 
 router.post('/publish/:story', auth, function(req,res,next)
@@ -246,7 +198,6 @@ router.get('/getStory/:story', auth, function(req,res,next)
     });
 });
 
-/*Download widget per widget*/
 router.get('/download/:widgetFile', auth, function(req,res, next)
 {
     var file =  __dirname + '/downloads/' + req.widgetFile.type + '/' + req.widgetFile.fileName;
@@ -312,45 +263,6 @@ router.get('/getAllStories', auth, function(req,res,next)
                             });
                     });
             });
-    });
-});
-
-router.post('/editScene', auth, function(req,res,next)
-{
-    var query = {_id: req.body.scene._id};
-    Scene.update(query, req.body.scene,{upsert:true}, function(err, doc) {
-        if (err) return res.status(500).json({error: err});
-        return res.send("succesfully saved");
-    });
-});
-
-router.post("/:story/removeScene/:scene", auth, function(req,res,next)
-{
-    var sceneNr = req.scene.sceneNr;
-    var query = {_id: req.story._id};
-    Scene.remove({_id:req.scene._id}, function(err)
-    {
-        if(!err)
-        {
-            req.story.scenes.forEach(function(entry)
-            {
-                var x = req.story.scenes.indexOf(entry);
-                if(entry.sceneNr === sceneNr)
-                {
-                    req.story.scenes.splice(x, 1);
-                }
-                if(entry.sceneNr>sceneNr)
-                {
-                    var y = entry.sceneNr-1;
-                    req.story.scenes[x].sceneNr = y;
-                }
-            });
-            Story.update(query, req.story,{upsert:true}, function(err, doc)
-            {
-                if (err) return res.status(500).json({error: err});
-            });
-            res.json(req.story);
-        }
     });
 });
 
@@ -421,11 +333,5 @@ router.post("/:user/buyStory/:story", auth,function(req,res,next)
         res.json(req.user.stories);
     });
 });
-/*
- TODO:
- *
- * remove scene from story (scene nr aanpassen)
- *
- * */
 
 module.exports = router;

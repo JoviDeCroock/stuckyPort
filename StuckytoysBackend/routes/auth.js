@@ -13,7 +13,6 @@ var tokenGenerator = require('../config/tokenGenerator');
 //models
 var User = mongoose.model('User');
 var Admin = mongoose.model('Admin');
-var Figure = mongoose.model('Figure');
 var Story = mongoose.model('Story');
 
 // Sanity test
