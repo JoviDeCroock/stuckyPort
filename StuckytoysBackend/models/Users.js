@@ -14,7 +14,6 @@ var UserSchema = new mongoose.Schema(
             default: false
         },
         stories: [{type: mongoose.Schema.Types.ObjectId, ref:'Story'}],
-        members: [{type: mongoose.Schema.Types.ObjectId, ref:'Member'}],
         figures: [{type: mongoose.Schema.Types.ObjectId, ref:'Figure'}]
     });
 

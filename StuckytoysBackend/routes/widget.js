@@ -55,21 +55,24 @@ router.post('/:widget/addFile', auth, mp, function(req, res, next)
   var query = {
     _id: req.widget._id
   };
-  var w = Widget.findById(req.widget._id);
-  w.widgetFiles.push(req.body.widgetFile);
-  fs.readFile(req.files.file.path, function(err,data)
+   Widget.findById(req.widget._id, function(err, w)
   {
-    var fPath = path.join(__dirname, 'downloads', req.body.widgetFile.type, req.files.file.name);
-    console.log(fPath);
-    fs.writeFile(fPath, data, function(err)
+    if(err){return next(err);}
+    w.widgetFiles.push(req.body.widgetFile);
+    fs.readFile(req.files.file.path, function(err,data)
     {
-      return res.status(400).json({message: 'Upload failed'});
+      var fPath = path.join(__dirname, 'downloads', req.body.widgetFile.type, req.files.file.name);
+      console.log(fPath);
+      fs.writeFile(fPath, data, function(err)
+      {
+        return res.status(400).json({message: 'Upload failed'});
+      });
     });
-  });
-  Widget.update(query, w, {upsert: true}, function(err, doc)
-  {
-    if (err) return res.status(500).json({error: err});
-    return res.send("succesfully saved");
+    Widget.update(query, w, {upsert: true}, function(err, doc)
+    {
+      if (err) return res.status(500).json({error: err});
+      return res.send("succesfully saved");
+    });
   });
 });
 
@@ -101,7 +104,7 @@ router.post('/:widget/removeFile/:widgetFile', auth, function(req, res, next)
 
 router.post('/addWidget', auth, mp, function(req, res, next)
 {
-  if (!req.body.widgetFiles || !req.body.id) {
+  if (!req.body.id) {
     return res.status(400).json({
       message: 'Vul alle velden in'
     });
@@ -109,27 +112,51 @@ router.post('/addWidget', auth, mp, function(req, res, next)
   var w = new Widget();
   w.widgetFiles = [];
   w.id = req.body.id;
-  req.body.widgetFiles.forEach(function (widgetFile)
+  if(!req.files.file)
   {
     var f = new WidgetFile();
-    f.fileName = widgetFile.fileName;
-    f.type = widgetFile.type;
-    fs.readFile(req.files.file.path, function(err,data)
-    {
-      var fPath = path.join(__dirname, 'downloads', f.type, req.files.file.name);
-      console.log(fPath);
-      fs.writeFile(fPath, data, function(err)
-      {
-        if (err) { return res.status(400).json({message: 'Upload failed'}); }
-      });
-    });
+    f.fileName = req.body.name;
+    f.type = req.body.type;
     f.save(function (err) {
       if (err) {
         console.log(err);
       }
     });
     w.files.push(f);
-  });
+  }else{
+    req.files.file.forEach(function(widgetFile)
+    {
+      var f = new WidgetFile();
+      f.fileName = widgetFile.name;
+      var x = widgetFile.type.split('/')[0];
+      console.log(x);
+
+      if(x === 'image')
+      {
+        f.type='Afbeelding';
+      }else{
+        f.type='Geluid';
+      }
+      console.log(f.type);
+
+      fs.readFile(req.files.file.path, function(err,data)
+      {
+        var fPath = path.join(__dirname, 'downloads', f.type, f.fileName);
+        console.log(fPath);
+        fs.writeFile(fPath, data, function(err)
+        {
+          if (err) { return res.status(400).json({message: 'Upload failed'}); }
+        });
+      });
+      f.save(function (err) {
+        if (err) {
+          console.log(err);
+        }
+      });
+      w.files.push(f);
+    });
+  }
+
   w.save(function(err)
   {
     if(err){console.log(err);}

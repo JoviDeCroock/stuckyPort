@@ -36,36 +36,22 @@ router.post('/register',function(req,res,next)
           return res.status(400).json({message:'Het emailadres is al bezet.'});
       }
    });
-
     var user = new User();
     user.username = req.body.username;
     user.password = req.body.password;
     user.email = req.body.email;
-    user.members = [];
     user.stories = [];
     Story.findOne({name: 'Recyclage'}, function(err, data)
     {
         if(err){console.log(err);}
         user.stories.push(data);
     });
-
-    var query = Figure.find();
-    query.exec(function(err, figures)
-    {
-        if(err){return next(err);}
-        figures.forEach(function(figure)
-        {
-            if(figure.default)
-            {
-                user.figures.push(figure);
-            }
-        });
-        user.save(function(err){
-            if(err){return next(err);}
-            res.json({token: tokenGenerator(user)});
-        });
+    user.save(function(err) {
+        if (err) {
+            return next(err);
+        }
+        res.json({token: tokenGenerator(user)});
     });
-
 });
 
 // Angular admin login

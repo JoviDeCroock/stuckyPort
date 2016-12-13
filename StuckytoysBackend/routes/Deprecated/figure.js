@@ -7,7 +7,7 @@ var User = mongoose.model('User');
 var Figure = mongoose.model('Figure');
 var Picture = mongoose.model('Picture');
 
-var config = require('../config/config');
+var config = require('../../config/config');
 var auth = jwt({secret:config.secret,userProperty:config.userProperty});
 
 router.get('/:user/getFigures', auth,function(req,res,next)

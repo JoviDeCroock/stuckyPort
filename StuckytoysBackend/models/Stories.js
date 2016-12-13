@@ -11,7 +11,7 @@ var StorySchema = new mongoose.Schema({
   published: Boolean,
   themes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Theme' }],
   scenes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Scene' }],
-  picture: {type: mongoose.Schema.Types.ObjectId, ref:'Picture'}
+  path: String
 });
 
 StorySchema.methods.saveDate = function(dateString){

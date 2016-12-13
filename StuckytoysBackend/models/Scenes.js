@@ -8,7 +8,8 @@ var SceneSchema = new mongoose.Schema({
         widgets: [{type: mongoose.Schema.Types.ObjectId, ref:'Widget'}],
         text: String,
         layout: Number,
-        hints: [{type: String}]
+        hints: [{type: String}],
+        path: String
     });
 
 mongoose.model('Scene', SceneSchema);

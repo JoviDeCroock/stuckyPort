@@ -32,7 +32,7 @@ require('./config/initializeDatabase');
 //Requiring routes
 var auth = require('./routes/auth');
 var profile = require('./routes/Deprecated/profile');
-var figure = require('./routes/figure');
+var figure = require('./routes/Deprecated/figure');
 var story = require('./routes/story');
 var theme = require('./routes/theme');
 var widget = require('./routes/widget');
