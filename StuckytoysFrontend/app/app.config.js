@@ -4,7 +4,7 @@
     angular
         .module('stuckyToys')
         .constant('url',{
-            dev:'http://localhost:3000/',
+            dev:'http://127.0.0.1:3000/',
             release: 'http://188.166.173.147:3000/'
         });
 

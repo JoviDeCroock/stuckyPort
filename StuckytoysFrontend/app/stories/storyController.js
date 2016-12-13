@@ -37,6 +37,8 @@
     vm.removeWidget = removeWidget;
     vm.hideWidgetSelection = hideWidgetSelection;
     vm.getImageFileName = getImageFileName;
+    vm.saveImage = saveImage;
+    vm.saveSound = saveSound;
     // scenes
     function addScene() {
       var temp = {
@@ -124,6 +126,25 @@
     };
     function getImageFileName(widget) {
       return widgetService.getImageFileName(widget);
+    };
+    function saveImage() {
+      // console.log(vm.image);
+      widgetService.addImage(vm.image)
+        .success(function(data) {
+          console.log('Success');
+        })
+        .error(function(err) {
+          console.log(err);
+        });
+    };
+    function saveSound() {
+      widgetService.addSound(vm.sound)
+        .success(function(data) {
+          console.log('Success');
+        })
+        .error(function(err) {
+          console.log(err);
+        });
     };
 
     vm.logOut = logOut;
