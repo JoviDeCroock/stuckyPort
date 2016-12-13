@@ -51,16 +51,16 @@
         types.push(file.type);
       });
       types.forEach(function(type) {
-        if(type === 'geluid') { value = 'geluid'; }
-        if(type === 'spel' ) { value = 'spel'; }
+        if(type === 'Geluid') { value = 'Geluid'; }
+        if(type === 'Spel' ) { value = 'Spel'; }
       });
       if(value !== '') { return value; }
-      else { return 'afbeelding'; }
+      else { return 'Afbeelding'; }
     };
     function getImageFileName(widget) {
       var value = {};
       widget.widgetFiles.forEach(function(file) {
-        if(file.type === 'afbeelding') { value = file; }
+        if(file.type === 'Afbeelding') { value = file; }
       });
       return value.fileName;
     };

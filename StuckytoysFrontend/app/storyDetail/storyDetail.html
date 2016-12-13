@@ -24,12 +24,24 @@
         <div class="row">
             <div class="col-md-3 scenes">
                 <h4>Scenes</h4>
-                <div
-                  ng-repeat="scene in vm.story.scenes"
-                  class="scene"
-                  ng-click="vm.selectScene(scene)"
-                  ng-class="{activeScene : vm.activeScene === scene}">
-                    <p class="sceneNr">{{scene.sceneNr}}</p>
+                <div ng-repeat="scene in vm.story.scenes"
+                    class="scene"
+                    ng-click="vm.selectScene(scene)"
+                    ng-class="{activeScene : vm.activeScene === scene}">
+                  <p class="sceneNr">
+                    {{scene.sceneNr}}
+                  </p>
+                  <div class="preview">
+                    <div class="preview-text">
+                      <p>{{scene.text}}</p>
+                    </div>
+                    <div class="preview-widgets">
+                      <img
+                        ng-repeat="widget in scene.widgets"
+                        src="http://localhost:3000/downloads/afbeelding/{{vm.getImageFileName(widget)}}"
+                      />
+                    </div>
+                  </div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -41,23 +53,23 @@
                 <h3>{{vm.story.name}}</h3>
                 <p>Gecreëerd op {{vm.niceDate}}</p>
                 <div ng-show="vm.activeScene">
-                    <h4>Tekst</h4>
+                    <label>Tekst</label>
                     <textarea
                       ng-disabled="!vm.editMode"
                       class="form-control"
                       ng-model="vm.activeScene.text">
                     </textarea>
-                    <h4>Widgets</h4>
+                    <label>Widgets</label>
                     <div ng-repeat="widget in vm.activeScene.widgets">
                         <div class="widget">
                             <a href="/#/widget/{{widget._id}}">{{widget.id}}</a>
-                            <div ng-show="vm.getTypeOfWidget(widget) === 'geluid'">
+                            <div ng-show="vm.getTypeOfWidget(widget) === 'Geluid'">
                               <img class="playsound"
                                 alt="play"
                                 src="http://localhost:3000/downloads/afbeelding/{{vm.getImageFileName(widget)}}" />
                             </div>
                             <div ng-show="vm.getTypeOfWidget(widget) === 'spel'"></div>
-                            <div ng-show="vm.getTypeOfWidget(widget) === 'afbeelding'">
+                            <div ng-show="vm.getTypeOfWidget(widget) === 'Afbeelding'">
                               <img class="showimage"
                                 alt="afbeelding"
                                 src="http://localhost:3000/downloads/afbeelding/{{vm.getImageFileName(widget)}}" />
@@ -65,17 +77,12 @@
                         </div>
                     </div>
                 </div>
-                <div>
-                  <img class="hint"
-                    ng-repeat="hint in vm.activeScene.hints"
-                    ng-click="vm.selectHint(hint)"
-                    alt="hint"
-                    src="./resources/images/questionmark.png"/>
+                <div ng-show="vm.activeScene.hints && vm.activeScene.hints.length > 0">
+                  <label>Hints</label>
                   <textarea
                     class="form-control"
-                    ng-show="vm.activeHint"
-                    ng-model="vm.activeHint"
-                    ng-disabled="!vm.editMode"></textarea>
+                    ng-repeat="hint in vm.activeScene.hints"
+                    ng-disabled="!vm.editMode">{{hint}}</textarea>
                 </div>
             </div>
             <div class="col-md-3 theme">
