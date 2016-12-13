@@ -15,6 +15,7 @@ public class Story {
     private Theme[] themes;
     private boolean purchased = false;
     private double price;
+    private double duration;
 
     public Story(String _id, String name, Date date, ProfilePicture picture, List<Scene> scenes, Theme[] themes, boolean purchased) {
         this._id = _id;
@@ -83,5 +84,13 @@ public class Story {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public double getDuration() {
+        return duration;
+    }
+
+    public void setDuration(double duration) {
+        this.duration = duration;
     }
 }

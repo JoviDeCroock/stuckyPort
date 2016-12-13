@@ -80,8 +80,9 @@ public class SceneFragment extends Fragment {
         for (Widget currentWidget : scene.getWidgets()) {
 
             ImageButton btnWidget = new ImageButton(getActivity());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             btnWidget.setLayoutParams(params);
+            btnWidget.setBackground(null);
 
             if (currentWidget.getWidgetFiles().get(0) != null) {
                 switch (currentWidget.getWidgetFiles().get(0).getType().toLowerCase()) {
@@ -122,10 +123,11 @@ public class SceneFragment extends Fragment {
                     r.getDisplayMetrics()
             );
 
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
             params.setMargins(0, 0, px, 0);
             button.setLayoutParams(params);
             button.setBackgroundColor(Color.TRANSPARENT);
+            int sdk = android.os.Build.VERSION.SDK_INT;
             button.setImageResource(R.drawable.hint_button);
 
             //final Crouton myCrouton = makeCrouton(currentHint);
@@ -136,7 +138,7 @@ public class SceneFragment extends Fragment {
                 public void onClick(View v) {
                     //Toast.makeText(getActivity(), currentHint, Toast.LENGTH_LONG).show();
                     //myCrouton.show();
-                    mSnackbar =  Snackbar.make(snackbarLayout, currentHint + currentHint + currentHint, Snackbar.LENGTH_INDEFINITE);
+                    mSnackbar = Snackbar.make(snackbarLayout, currentHint, Snackbar.LENGTH_INDEFINITE);
                     mSnackbar.setAction("OK", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -146,13 +148,13 @@ public class SceneFragment extends Fragment {
                     mSnackbar.setCallback(new Snackbar.Callback() {
                         @Override
                         public void onDismissed(Snackbar snackbar, int event) {
-                            button.setImageResource(R.drawable.hint_button);
+                            //button.setImageResource(R.drawable.hint_button);
                         }
                     });
 
                     mSnackbar.getView().setBackgroundResource(R.color.stuckytoys_green);
                     mSnackbar.show();
-                    button.setImageResource(R.drawable.hint_button_balloon);
+                    //button.setImageResource(R.drawable.hint_button_balloon);
                 }
             });
 

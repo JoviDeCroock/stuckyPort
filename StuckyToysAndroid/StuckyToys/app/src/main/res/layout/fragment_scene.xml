@@ -1,6 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="projecten3.stuckytoys.fragments.ScreenSlidePagerActivity">
 
@@ -28,14 +30,24 @@
         android:textAppearance="@android:style/TextAppearance.Large"
         android:gravity="center"/>
 
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:id="@+id/snackbarLayout"
+        >
 
     <HorizontalScrollView
         android:id="@+id/widgetContainer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:background="@android:color/holo_red_dark"
+        android:paddingTop="10dip"
+        android:paddingBottom="10dip"/>
+
+    </android.support.design.widget.CoordinatorLayout>
 
 
     <!--
@@ -50,26 +62,13 @@
         android:background="@android:color/transparent"/>
         -->
 
-    <android.support.design.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.8"
-        android:id="@+id/snackbarLayout"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/colorPrimary"
-        />
 
     <LinearLayout
         android:id="@+id/hintContainer"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"
-        android:paddingBottom="10dip"
+        android:layout_height="wrap_content"
         android:gravity="center|bottom"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimaryDark">
+        android:orientation="horizontal">
         <!-- hardcoded
         <ImageButton
             android:id="@+id/btnHint1"

@@ -32,6 +32,8 @@
     <string name="select_story">Welkom %s</string>
     <string name="date">Datum toegevoegd: </string>
     <string name="scenes">Aantal scene\'s:</string>
+    <string name="duration">Geschatte duur:</string>
+    <string name="minutes">minuten</string>
     <string name="themes">Thema\'s die aan bod komen:</string>
     <string name="start_story">Begin verhaal</string>
     <string name="buy_story">Koop verhaal</string>

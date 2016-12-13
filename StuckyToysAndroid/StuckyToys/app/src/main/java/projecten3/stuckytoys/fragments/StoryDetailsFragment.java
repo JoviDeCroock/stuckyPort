@@ -41,9 +41,11 @@ public class StoryDetailsFragment extends Fragment {
     @BindView(R.id.storyImage) MemberImageView storyImage;
     @BindView(R.id.storyDate) TextView storyDate;
     @BindView(R.id.storyScenes) TextView storyScenes;
+    @BindView(R.id.storyDuration) TextView storyDuration;
     @BindView(R.id.progressBar) ProgressBar progressBar;
     @BindView(R.id.themesContainer) LinearLayout themesContainer;
     @BindView(R.id.startOrBuyButton) Button startOrBuyButton;
+
 
     private Context context;
     private Story story;
@@ -104,6 +106,7 @@ public class StoryDetailsFragment extends Fragment {
         storyDate.setText(" " + df.format(story.getDate()));
 
         storyScenes.setText(" " + story.getScenes().size());
+        storyDuration.setText(" " + 60 * story.getDuration() + " " + getString(R.string.minutes));
 
         //per theme: add two textviews to container; set name bold & indent description
         for (Theme theme : story.getThemes()) {
