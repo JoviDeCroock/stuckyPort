@@ -15,6 +15,7 @@
     vm.themes = themeFactory.themes;
     vm.filteredStories = storyService.stories;
     vm.filter = filter;
+    vm.filterTheme = filterTheme;
     vm.filterDuration = filterDuration;
     vm.reset = reset;
 
@@ -30,6 +31,19 @@
       }
       (result.length === 0)? vm.noEntriesFound = 'Er zijn geen verhalen gevonden': vm.noEntriesFound = null;
       vm.filteredStories = result;
+    };
+    function filterTheme() {
+      var result = [];
+      if (vm.selectedTheme === 'Toon alle') { result = vm.stories; }
+      else {
+        vm.stories.forEach(function(story) {
+          story.themes.forEach(function(theme) {
+            if(theme.name === vm.selectedTheme) { result.push(story); }
+          });
+        });
+      }
+      (result.length === 0)? vm.noEntriesFound = 'Er zijn geen verhalen gevonden': vm.noEntriesFound = null;
+      vm.filteredStories = result;      
     };
     function filterDuration() {
       var result = [];

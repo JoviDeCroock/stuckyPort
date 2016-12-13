@@ -39,6 +39,7 @@
           ng-model = "vm.selectedTheme"
           ng-change="vm.filterTheme()">
           <option disabled selected value>Zoek op thema</option>
+          <option>Toon alle</option>
           <option ng-repeat="theme in vm.themes">{{theme.name}}</option>
         </select>
         <input
