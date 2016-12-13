@@ -120,7 +120,7 @@ router.post('/addWidget', auth, mp, function(req, res, next)
       console.log(fPath);
       fs.writeFile(fPath, data, function(err)
       {
-        return res.status(400).json({message: 'Upload failed'});
+        if (err) { return res.status(400).json({message: 'Upload failed'}); }
       });
     });
     f.save(function (err) {

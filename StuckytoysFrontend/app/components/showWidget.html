@@ -1,7 +1,10 @@
 <div>
   <label>Widgets</label>
   <div ng-repeat="widget in vm.activeScene.widgets">
-    {{widget}}
+    <img
+      class="show-widget"
+      src="http://localhost:3000/downloads/afbeelding/{{vm.getImageFileName(widget)}}"
+      alt="widget"/>
     <span class="remove-button" ng-click="vm.removeWidget(widget)">
       <img alt="remove" src="./resources/images/removebutton.png" />
     </span>

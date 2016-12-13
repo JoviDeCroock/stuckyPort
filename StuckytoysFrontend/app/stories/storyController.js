@@ -36,6 +36,7 @@
     vm.newWidget = newWidget;
     vm.removeWidget = removeWidget;
     vm.hideWidgetSelection = hideWidgetSelection;
+    vm.getImageFileName = getImageFileName;
     // scenes
     function addScene() {
       var temp = {
@@ -101,8 +102,13 @@
     };
     function widgetChooserChanged() {
       // console.log(vm.selectedWidget);
-      var temp = vm.selectedWidget;
-      vm.activeScene.widgets.push(temp);
+      widgetService.getWidget(vm.selectedWidget)
+        .success(function(data) {
+          vm.activeScene.widgets.push(widgetService.widget);
+        })
+        .error(function(err) {
+          console.log(err); // todo error handling
+        });
       vm.hideWidgetSelection();
     };
     function newWidget() {
@@ -115,6 +121,9 @@
     function hideWidgetSelection() {
       vm.selectWidgetClicked = false;
       vm.newWidgetClicked = false;
+    };
+    function getImageFileName(widget) {
+      return widgetService.getImageFileName(widget);
     };
 
     vm.logOut = logOut;

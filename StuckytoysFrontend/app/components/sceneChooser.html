@@ -17,6 +17,10 @@
         <p>{{scene.text}}</p>
       </div>
       <div class="preview-widgets">
+        <img
+          ng-repeat="widget in scene.widgets"
+          src="http://localhost:3000/downloads/afbeelding/{{vm.getImageFileName(widget)}}"
+        />
       </div>
     </div>
   </div>

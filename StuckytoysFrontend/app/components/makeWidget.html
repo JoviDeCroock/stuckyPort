@@ -36,10 +36,8 @@
       </form>
     </div>
     <div
-      class="row"
       ng-show="vm.selectedType === 'geluid'">
-      <form class="col-md-3"
-        ng-submit="vm.saveSound()">
+      <form ng-submit="vm.saveSound()">
         <div class="form-group">
           <input
             type="text"
@@ -70,7 +68,7 @@
               class="btn btn-default"/>
         </div>
       </form>
-      <div class="col-md-3">
+      <div>
         <p><b>Test</b><p>
           <img
             ngf-thumbnail="vm.sound.picture"
