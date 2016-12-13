@@ -20,7 +20,6 @@ Admin.find({}, function(err, ad)
     {
       if(err){console.log(err);}
     });
-
   }
 });
 /* Story */

@@ -129,18 +129,16 @@ router.post('/addWidget', auth, mp, function(req, res, next)
       var f = new WidgetFile();
       f.fileName = widgetFile.name;
       var x = widgetFile.type.split('/')[0];
-      console.log(x);
-
       if(x === 'image')
       {
         f.type='Afbeelding';
       }else{
         f.type='Geluid';
       }
-      console.log(f.type);
-
-      fs.readFile(req.files.file.path, function(err,data)
+      console.log(f.type + widgetFile.path + f.fileName);
+      fs.readFile(widgetFile.path, function(err,data)
       {
+
         var fPath = path.join(__dirname, 'downloads', f.type, f.fileName);
         console.log(fPath);
         fs.writeFile(fPath, data, function(err)
