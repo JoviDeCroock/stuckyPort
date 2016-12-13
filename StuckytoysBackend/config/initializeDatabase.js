@@ -207,7 +207,6 @@ Story.find({},function(err, adhd)
     story.duration = 0.5;
     story.path = "recycleren.jpg";
     story.published = true;
-    story.picture = recycleren;
     story.save(function (err) {
       if (err) {
         console.log(err);

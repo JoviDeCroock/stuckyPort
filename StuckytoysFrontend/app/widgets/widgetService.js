@@ -5,9 +5,9 @@
     .module('stuckyToys')
     .factory('widgetService', widgetService);
 
-  widgetService.$inject = ['url', 'authService', '$http'];
+  widgetService.$inject = ['url', 'authService', 'Upload', '$http'];
 
-  function widgetService (url, authService, $http) {
+  function widgetService (url, authService, Upload, $http) {
     var usedUrl = url.dev;
     var token = authService.getToken();
     var widget = {
@@ -18,7 +18,9 @@
       getAllWidgets: getAllWidgets,
       getTypes: getTypes,
       getTypeOfWidget: getTypeOfWidget,
-      getImageFileName: getImageFileName
+      getImageFileName: getImageFileName,
+      addImage: addImage,
+      addSound: addSound
     }
 
     return widget;
@@ -36,7 +38,7 @@
       }).success(function(data) {
         angular.copy(data, widget.widgets);
       })
-    }
+    };
     function getTypes() {
       return $http.get(usedUrl+'widget/widgetTypes', {
         headers: { Authorization: 'Bearer ' + token }
@@ -63,6 +65,30 @@
         if(file.type === 'Afbeelding') { value = file; }
       });
       return value.fileName;
+    };
+    function addImage(widget) {
+      return Upload.upload({
+        url: usedUrl+'widget/addWidget',
+        headers: { Authorization: 'Bearer ' + token },
+        method: 'POST',
+        data: {
+          id: widget.id,
+          type: 'Afbeelding'
+        },
+        file: [widget.picture]
+      });
+    };
+    function addSound(widget) {
+      return Upload.upload({
+        url: usedUrl+'widget/addWidget',
+        headers: { Authorization: 'Bearer ' + token },
+        method: 'POST',
+        data: {
+          id: widget.id,
+          type: 'Geluid'
+        },
+        file: [widget.picture, widget.music]
+      });
     };
   }
 })();
