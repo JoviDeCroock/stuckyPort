@@ -12,7 +12,6 @@ public class DomainController {
     private static DomainController dc;
     private PersistenceController pc;
     private User user;
-    private Member member;
 
     private DomainController() {
         pc = new PersistenceController();
@@ -36,10 +35,6 @@ public class DomainController {
         return pc.register(user);
     }
 
-    public Call<List<Member>> getAllMembers() {
-        return pc.getAllMembers(user.getId(), "Bearer " + user.getToken());
-    }
-
     public Call<List<Story>> getPublishedStories() {
         return pc.getPublishedStories("Bearer " + user.getToken());
     }
@@ -61,9 +56,6 @@ public class DomainController {
     public void setUser(User user) {
         this.user = user;
     }
-
-    public Member getMember() {return member;}
-    public void setMember(Member member){this.member = member;}
 
     //called after registering
     public void updateUser(String id, String token) {

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,12 +24,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnItemClick;
 import butterknife.OnItemSelected;
 import projecten3.stuckytoys.R;
 import projecten3.stuckytoys.adapters.StoryAdapter;
 import projecten3.stuckytoys.custom.DownloadImageTask;
-import projecten3.stuckytoys.custom.ServerOfflineHelper;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.domain.User;
@@ -99,11 +96,7 @@ public class StoryListFragment extends Fragment {
             itemClicked(selectedStoryPosition);
         }
 
-        if(ServerOfflineHelper.SERVEROFFLINE) {
-            serverOffline();
-        } else {
-            fillStories();
-        }
+        fillStories();
 
         return view;
     }
@@ -229,69 +222,6 @@ public class StoryListFragment extends Fragment {
         List<Story> stories = dc.getUser().getStories();
         for (int i = 0; i < stories.size(); i++) {
             stories.get(i).setPicture(images.get(i));
-        }
-
-        mAdapter = new StoryAdapter(context, stories);
-        gridView.setAdapter(mAdapter);
-    }
-
-    private void serverOffline() {
-        List<Story> stories = new ArrayList<>();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date();
-        try {
-            date = sdf.parse(ServerOfflineHelper.DATE);
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        /*
-        stories.add(new Story(ServerOfflineHelper.USERID,
-                ServerOfflineHelper.STORYNAME,
-                date,
-                ServerOfflineHelper.PICTURE,
-                ServerOfflineHelper.SCENEIDS,
-                ServerOfflineHelper.THEMES,
-                true));
-        stories.add(new Story("notYetBought",
-                ServerOfflineHelper.STORYNAME + " 2",
-                date,
-                ServerOfflineHelper.PICTURE,
-                ServerOfflineHelper.SCENEIDS,
-                ServerOfflineHelper.THEMES,
-                false));
-        stories.add(new Story(ServerOfflineHelper.USERID,
-                ServerOfflineHelper.STORYNAME + " 3",
-                date,
-                ServerOfflineHelper.PICTURE,
-                ServerOfflineHelper.SCENEIDS,
-                ServerOfflineHelper.THEMES,
-                false));
-        stories.add(new Story(ServerOfflineHelper.USERID,
-                ServerOfflineHelper.STORYNAME + " 4",
-                date,
-                ServerOfflineHelper.PICTURE,
-                ServerOfflineHelper.SCENEIDS,
-                ServerOfflineHelper.THEMES,
-                true));
-        stories.add(new Story(ServerOfflineHelper.USERID,
-                ServerOfflineHelper.STORYNAME + " 5",
-                date,
-                ServerOfflineHelper.PICTURE,
-                ServerOfflineHelper.SCENEIDS,
-                ServerOfflineHelper.THEMES,
-                true));
-                */
-
-        if(dc.getUser().getStories().isEmpty())
-            dc.getUser().setStories(stories);
-
-        User user = dc.getUser();
-        for (int i = 0; i < stories.size(); i++) {
-            if (user.getBoughtStories().contains(stories.get(i).get_id())) {
-                stories.get(i).setPurchased(true);
-            }
         }
 
         mAdapter = new StoryAdapter(context, stories);

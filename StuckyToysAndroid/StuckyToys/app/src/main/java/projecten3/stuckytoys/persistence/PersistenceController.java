@@ -3,8 +3,6 @@ package projecten3.stuckytoys.persistence;
 import java.io.IOException;
 import java.util.List;
 
-import projecten3.stuckytoys.domain.Member;
-import projecten3.stuckytoys.domain.Scene;
 import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.domain.User;
 import projecten3.stuckytoys.retrofithelpers.StoryHelper;
@@ -34,11 +32,6 @@ public class PersistenceController {
     public Call<User> login(User user) throws IOException {
         Call<User> call = dOService.login(user);
 
-        return call;
-    }
-
-    public Call<List<Member>> getAllMembers(String userId, String token) {
-        Call<List<Member>> call = dOService.getAllMembers(userId, token);
         return call;
     }
 

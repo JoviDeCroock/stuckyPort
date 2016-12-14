@@ -3,8 +3,6 @@ package projecten3.stuckytoys.domain;
 import java.util.Date;
 import java.util.List;
 
-import projecten3.stuckytoys.retrofithelpers.ProfilePicture;
-
 public class Story {
 
     private String _id;
@@ -18,7 +16,7 @@ public class Story {
     private double price;
     private double duration;
 
-    public Story(String _id, String name, Date date, ProfilePicture picture, List<Scene> scenes, Theme[] themes, boolean purchased) {
+    public Story(String _id, String name, Date date, String path, List<Scene> scenes, Theme[] themes, boolean purchased) {
         this._id = _id;
         this.name = name;
         this.date = date;

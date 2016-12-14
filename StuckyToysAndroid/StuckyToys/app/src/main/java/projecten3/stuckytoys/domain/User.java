@@ -8,7 +8,6 @@ public class User {
     private String email;
     private String username;
     private String password;
-    private List<Member> members;
     private List<Story> stories;
     private String token;
     private List<String> boughtStories;
@@ -62,8 +61,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public List<Member> getMembers() { return members; }
-    public void setMembers(List<Member> members) { this.members = members; }
     public List<Story> getStories() {
         return stories;
     }

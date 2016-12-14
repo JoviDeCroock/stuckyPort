@@ -129,7 +129,7 @@ public class StoryDetailsFragment extends Fragment {
             startOrBuyButton.setText(String.format("%s: €%.2f", getString(R.string.buy_story), story.getPrice()));
         }
 
-        byte[] imageByteArray = Base64.decode(story.getPicture(), Base64.DEFAULT);
+        byte[] imageByteArray = story.getPicture();
         Glide.with(context)
                 .load(imageByteArray)
                 .asBitmap()

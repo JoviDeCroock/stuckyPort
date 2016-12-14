@@ -20,7 +20,7 @@
     <string name="different_passwords">Wachtwoorden komen niet overeen.</string>
     <string name="register_cancel">Registeren annuleren?</string>
 
-    <!-- selectmember -->
+    <!-- logout -->
     <string name="logout">Wens je uit te loggen?</string>
     <string name="yes">Ja</string>
     <string name="no">Nee</string>
