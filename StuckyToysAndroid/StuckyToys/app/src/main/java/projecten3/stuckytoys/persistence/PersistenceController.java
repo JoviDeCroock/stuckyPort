@@ -16,11 +16,12 @@ public class PersistenceController {
 
     private Retrofit retrofit;
     private DOService dOService;
+    public final static String BASEURL = "http://188.166.173.147:3000/";
 
     public PersistenceController() {
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://188.166.173.147:3000/")
+                .baseUrl(BASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

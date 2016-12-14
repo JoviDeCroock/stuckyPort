@@ -29,6 +29,7 @@ import butterknife.OnItemClick;
 import butterknife.OnItemSelected;
 import projecten3.stuckytoys.R;
 import projecten3.stuckytoys.adapters.StoryAdapter;
+import projecten3.stuckytoys.custom.DownloadImageTask;
 import projecten3.stuckytoys.custom.ServerOfflineHelper;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Story;
@@ -163,6 +164,13 @@ public class StoryListFragment extends Fragment {
                 case 2:
                     Collections.sort(stories, new Comparator<Story>() {
                         public int compare(Story s1, Story s2) {
+                            return (int) (s1.getDuration() - s2.getDuration());
+                        }
+                    });
+                    break;
+                case 3:
+                    Collections.sort(stories, new Comparator<Story>() {
+                        public int compare(Story s1, Story s2) {
                             if (s1.isPurchased() && !s2.isPurchased())
                                 return -1;
                             if (!s1.isPurchased() && s2.isPurchased())
@@ -181,6 +189,7 @@ public class StoryListFragment extends Fragment {
 
     private void fillStories() {
         Call<List<Story>> call = dc.getPublishedStories();
+        final StoryListFragment storyListFragment = this;
         call.enqueue(new Callback<List<Story>>() {
 
             //TODO: document
@@ -191,14 +200,17 @@ public class StoryListFragment extends Fragment {
                     User user = dc.getUser();
                     user.setStories(stories);
 
+                    String[] storyPaths = new String[stories.size()];
                     for (int i = 0; i < stories.size(); i++) {
-                        if (user.getBoughtStories().contains(stories.get(i).get_id())) {
-                            stories.get(i).setPurchased(true);
+                        Story story = stories.get(i);
+                        storyPaths[i] = story.getPath();
+                        if (user.getBoughtStories().contains(story.get_id())) {
+                            story.setPurchased(true);
                         }
                     }
 
-                    mAdapter = new StoryAdapter(context, stories);
-                    gridView.setAdapter(mAdapter);
+                    new DownloadImageTask(storyListFragment).execute(storyPaths);
+
                 } else {
                     txtError.setText(response.message());
                     Log.e("stories", response.code() + " " + response.message());
@@ -211,6 +223,16 @@ public class StoryListFragment extends Fragment {
                 t.printStackTrace();
             }
         });
+    }
+
+    public void updateStoryImages(List<byte[]> images) {
+        List<Story> stories = dc.getUser().getStories();
+        for (int i = 0; i < stories.size(); i++) {
+            stories.get(i).setPicture(images.get(i));
+        }
+
+        mAdapter = new StoryAdapter(context, stories);
+        gridView.setAdapter(mAdapter);
     }
 
     private void serverOffline() {

@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         editEmail.setText("jeroen@gmail.com");
         editPassword.setText("password");
-        login(btnLogin);
+        //login(btnLogin);
     }
 
     @OnClick(R.id.btnLogin)

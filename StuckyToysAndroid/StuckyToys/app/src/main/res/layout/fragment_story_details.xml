@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:layout_marginBottom="5dp">
-                    <projecten3.stuckytoys.custom.MemberImageView
+                    <projecten3.stuckytoys.custom.StoryImageView
                         android:id="@+id/storyImage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>

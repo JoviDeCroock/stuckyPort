@@ -41,6 +41,7 @@
     <string-array name="sort_options">
         <item>Naam</item>
         <item>Datum</item>
+        <item>Speelduur</item>
         <item>Gekocht</item>
     </string-array>
     <string name="confirm_buy_story">Verhaal kopen?</string>
