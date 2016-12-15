@@ -3,25 +3,24 @@ package projecten3.stuckytoys.domain;
 import java.util.Date;
 import java.util.List;
 
-import projecten3.stuckytoys.retrofithelpers.ProfilePicture;
-
 public class Story {
 
     private String _id;
     private String name;
     private Date date;
-    private ProfilePicture picture;
+    private String path;
+    private byte[] picture;
     private List<Scene> scenes;
     private Theme[] themes;
     private boolean purchased = false;
     private double price;
     private double duration;
 
-    public Story(String _id, String name, Date date, ProfilePicture picture, List<Scene> scenes, Theme[] themes, boolean purchased) {
+    public Story(String _id, String name, Date date, String path, List<Scene> scenes, Theme[] themes, boolean purchased) {
         this._id = _id;
         this.name = name;
         this.date = date;
-        this.picture = picture;
+        this.path = path;
         this.scenes = scenes;
         this.themes = themes;
     }
@@ -50,14 +49,6 @@ public class Story {
         this.date = date;
     }
 
-    public String getPicture() {
-        return picture.toString();
-    }
-
-    public void setPicture(String picture) {
-        this.picture.setBase64(picture);
-    }
-
     public List<Scene> getScenes() {
         return scenes;
     }
@@ -74,9 +65,13 @@ public class Story {
         this.themes = themes;
     }
 
-    public boolean isPurchased() { return purchased; }
+    public boolean isPurchased() {
+        return purchased;
+    }
 
-    public void setPurchased(boolean purchased) { this.purchased = purchased; }
+    public void setPurchased(boolean purchased) {
+        this.purchased = purchased;
+    }
 
     public double getPrice() {
         return price;
@@ -92,5 +87,21 @@ public class Story {
 
     public void setDuration(double duration) {
         this.duration = duration;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
     }
 }

@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import projecten3.stuckytoys.R;
 import projecten3.stuckytoys.StoryOverviewActivity;
-import projecten3.stuckytoys.custom.MemberImageView;
+import projecten3.stuckytoys.custom.StoryImageView;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.domain.Theme;
@@ -38,7 +38,8 @@ import projecten3.stuckytoys.domain.Theme;
 public class StoryDetailsFragment extends Fragment {
 
     @BindView(R.id.storyName) TextView storyName;
-    @BindView(R.id.storyImage) MemberImageView storyImage;
+    @BindView(R.id.storyImage)
+    StoryImageView storyImage;
     @BindView(R.id.storyDate) TextView storyDate;
     @BindView(R.id.storyScenes) TextView storyScenes;
     @BindView(R.id.storyDuration) TextView storyDuration;
@@ -128,7 +129,7 @@ public class StoryDetailsFragment extends Fragment {
             startOrBuyButton.setText(String.format("%s: €%.2f", getString(R.string.buy_story), story.getPrice()));
         }
 
-        byte[] imageByteArray = Base64.decode(story.getPicture().split(",")[1], Base64.DEFAULT);
+        byte[] imageByteArray = story.getPicture();
         Glide.with(context)
                 .load(imageByteArray)
                 .asBitmap()

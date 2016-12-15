@@ -1,4 +1,4 @@
-package projecten3.stuckytoys.fragments;
+package projecten3.stuckytoys;
 
 /**
  * Created by Jeroen on 11/22/2016.
@@ -9,21 +9,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import projecten3.stuckytoys.R;
-import projecten3.stuckytoys.StoryOverviewActivity;
-import projecten3.stuckytoys.custom.ServerOfflineHelper;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Scene;
-import projecten3.stuckytoys.domain.Story;
-import projecten3.stuckytoys.domain.User;
+import projecten3.stuckytoys.fragments.SceneFragment;
 import projecten3.stuckytoys.retrofithelpers.StoryHelper;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,14 +52,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
 
-        if (ServerOfflineHelper.SERVEROFFLINE) {
-            storyHelper = new StoryHelper();
-            storyHelper.setScenes(ServerOfflineHelper.SCENES);
-            mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), storyHelper.getScenes());
-            mPager.setAdapter(mPagerAdapter);
-        } else {
-            getStoryFromDb(story_id);
-        }
+        getStoryFromDb(story_id);
 
     }
 

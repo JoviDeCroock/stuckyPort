@@ -37,6 +37,7 @@ import projecten3.stuckytoys.R;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Scene;
 import projecten3.stuckytoys.domain.Widget;
+import projecten3.stuckytoys.persistence.PersistenceController;
 
 public class SceneFragment extends Fragment {
 
@@ -51,6 +52,8 @@ public class SceneFragment extends Fragment {
     CoordinatorLayout snackbarLayout;
     @BindView(R.id.txtError)
     TextView txtError;
+    @BindView(R.id.linearlayout)
+    LinearLayout linearlayout;
 
     private Scene scene;
     private MediaPlayer mediaPlayer = null;
@@ -76,6 +79,10 @@ public class SceneFragment extends Fragment {
     }
 
     private void fillScene() {
+
+        //TODO: set background
+        //linearlayout.setBackground()...
+
         //WIDGET BUTTONS0
         for (Widget currentWidget : scene.getWidgets()) {
 
@@ -83,6 +90,7 @@ public class SceneFragment extends Fragment {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             btnWidget.setLayoutParams(params);
             btnWidget.setBackground(null);
+
 
             if (currentWidget.getWidgetFiles().get(0) != null) {
                 switch (currentWidget.getWidgetFiles().get(0).getType().toLowerCase()) {
@@ -127,7 +135,6 @@ public class SceneFragment extends Fragment {
             params.setMargins(0, 0, px, 0);
             button.setLayoutParams(params);
             button.setBackgroundColor(Color.TRANSPARENT);
-            int sdk = android.os.Build.VERSION.SDK_INT;
             button.setImageResource(R.drawable.hint_button);
 
             //final Crouton myCrouton = makeCrouton(currentHint);
@@ -204,7 +211,7 @@ public class SceneFragment extends Fragment {
     }
 
     private void putImageInButton(String imageId, ImageButton btnWidget) {
-        GlideUrl glideUrl = new GlideUrl("http://188.166.173.147:3000/story/download/" + imageId, new LazyHeaders.Builder()
+        GlideUrl glideUrl = new GlideUrl(PersistenceController.BASEURL + imageId, new LazyHeaders.Builder()
                 .addHeader("Authorization", "Bearer " + dc.getUser().getToken())
                 .build());
 

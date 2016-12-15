@@ -3,6 +3,7 @@ package projecten3.stuckytoys;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -76,16 +77,6 @@ public class RegisterActivity extends AppCompatActivity {
         editUsername.setText("jeroen");
     }
 
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        //inflate the menu, this adds items to the action bar if it is present
-        //getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }*/
-
-
     @OnClick(R.id.btnRegister)
     public void register()
     {
@@ -135,9 +126,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             Log.d("register", "id: " + id + " token: " + token);
 
-                            Intent intent = new Intent(RegisterActivity.this, StoryOverviewActivity.class);
-                            startActivity(intent);
-                            finish();
+                            getUserStories();
                         } catch (JSONException ex) {
                             ex.printStackTrace();
                         }
@@ -156,7 +145,40 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             });
         }
-        btnRegister.setClickable(true);
+    }
+
+    private void getUserStories() {
+        Call<List<String>> call = dc.getUserStories();
+
+        call.enqueue(new Callback<List<String>>() {
+
+            //Call to API using Retrofit; User as model; Body requires username & password (for now, should be email);
+            //API returns a token; token is used to authenticate. also decoded token = id + exp + iat
+            //example token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ODE3ODU0YjE0NTRjNDFhODJlNmM3NzgiLCJleHAiOjE0ODMxOTc2NjYsImlhdCI6MTQ3ODAxMzY2Nn0.iDs223_K8SrtQlDHos5k1r8uRh8Pzq4-axjvZRPID4o
+            //decoded example token: {"_id":"5817854b1454c41a82e6c778","exp":1483197666,"iat":1478013666}
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if (response.isSuccessful()) {
+                    List<String> stories = response.body();
+                    dc.getUser().setBoughtStories(stories);
+                } else {
+                    txtError.setText(response.message());
+                    Log.e("login", response.code() + " " + response.message());
+                }
+                btnRegister.setClickable(true);
+            }
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+                txtError.setText(R.string.connection_error);
+                t.printStackTrace();
+                btnRegister.setClickable(true);
+            }
+        });
+
+        Intent intent = new Intent(RegisterActivity.this, StoryOverviewActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     /**

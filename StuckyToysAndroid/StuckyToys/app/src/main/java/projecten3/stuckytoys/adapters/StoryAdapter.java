@@ -81,7 +81,7 @@ public class StoryAdapter extends BaseAdapter {
 
             //image saved as base64 in api, example: ""data:image/png;base64,iVBORw0KGgoA...."
             //we don't need the data:image..base64, part so we split the string after the comma
-            byte[] imageByteArray = Base64.decode(story.getPicture().split(",")[1], Base64.DEFAULT);
+            byte[] imageByteArray = story.getPicture();
 
             Transformation<Bitmap> transformation;
             if(story.isPurchased()) {

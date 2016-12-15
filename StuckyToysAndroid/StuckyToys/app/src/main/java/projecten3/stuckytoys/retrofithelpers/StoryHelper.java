@@ -4,10 +4,6 @@ import java.util.List;
 
 import projecten3.stuckytoys.domain.Scene;
 
-/**
- * Created by Kevin on 27/11/2016.
- */
-
 public class StoryHelper
 {
     private List<Scene> scenes;
