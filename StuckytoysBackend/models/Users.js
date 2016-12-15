@@ -13,8 +13,7 @@ var UserSchema = new mongoose.Schema(
             type: Boolean,
             default: false
         },
-        stories: [{type: mongoose.Schema.Types.ObjectId, ref:'Story'}],
-        figures: [{type: mongoose.Schema.Types.ObjectId, ref:'Figure'}]
+        stories: [{type: mongoose.Schema.Types.ObjectId, ref:'Story'}]
     });
 
 UserSchema.pre('save', function(next)
