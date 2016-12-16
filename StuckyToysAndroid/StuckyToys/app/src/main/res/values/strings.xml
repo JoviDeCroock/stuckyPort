@@ -1,4 +1,7 @@
 <resources>
+    <!-- application -->
+    <string name="preference_file_emailpassword">projecten3.stuckytoys.preference_file_emailpassword</string>
+
     <!-- login -->
     <string name="app_name">StuckyToys</string>
     <string name="email">E-mailadres</string>
@@ -7,6 +10,11 @@
     <string name="not_registered"><u>Nog geen account?</u></string>
     <string name="exit">Wens je af te sluiten?</string>
     <string name="connection_error">Kon niet verbinden met de server, controleer je internetverbinding en probeer het later nog eens.</string>
+    <string name="connection_error_user_unknown">Kon niet verbinden met de server en de ingevulde gegevens werken niet offline, controleer je internetverbinding en probeer het later nog eens.</string>
+    <string name="stay_logged_in">Aangemeld blijven?</string>
+    <string name="unauthorized">Email en wachtwoord komen niet overeen. Controleer je gegevens en probeer opnieuw.</string>
+    <string name="default_error">Er liep iets mis! Probeer later nog eens.</string>
+    <string name="continue_offline">Kon niet verbinden met de server, offline verder doen als <b>%s</b> ?</string>
 
     <!-- register -->
     <string name="username">Gebruikersnaam</string>
@@ -19,13 +27,14 @@
     <string name="invalid_email">E-mailadres is niet geldig</string>
     <string name="different_passwords">Wachtwoorden komen niet overeen.</string>
     <string name="register_cancel">Registeren annuleren?</string>
+    <string name="user_already_exists">Dit e-mailadres is reeds ingenomen.</string>
 
     <!-- logout -->
     <string name="logout">Wens je uit te loggen?</string>
     <string name="yes">Ja</string>
     <string name="no">Nee</string>
 
-    <!--addmember -->
+    <!--dialog -->
     <string name="confirm">Bevestigen</string>
 
     <!--storyoverview -->
@@ -46,14 +55,7 @@
     </string-array>
     <string name="confirm_buy_story">Verhaal kopen?</string>
 
-    <string name="scene1">Iedereen stapt in en is klaar om te vertrekken. Dan gooit een vervuiler een blikje op straat! Tuut de vervuiler weg!</string>
-    <string name="scene2">Gooi het blikje nu in de vuilbak.</string>
-    <string name="next_scene">Volgende scene</string>
-
     <!--fragment scene-->
     <string name="scene_error">Er ging iets mis bij het tonen van het verhaal. Probeer later nog eens.</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Base64;
@@ -34,6 +35,7 @@ import projecten3.stuckytoys.custom.StoryImageView;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.domain.Theme;
+import projecten3.stuckytoys.persistence.PersistenceController;
 
 public class StoryDetailsFragment extends Fragment {
 
@@ -127,6 +129,9 @@ public class StoryDetailsFragment extends Fragment {
 
         if(!story.isPurchased()) {
             startOrBuyButton.setText(String.format("%s: €%.2f", getString(R.string.buy_story), story.getPrice()));
+            if (!PersistenceController.internetConnection) {
+                btnClickable(false);
+            }
         }
 
         byte[] imageByteArray = story.getPicture();
@@ -152,26 +157,45 @@ public class StoryDetailsFragment extends Fragment {
 
     @OnClick(R.id.startOrBuyButton)
     public void startOrBuy() {
+        btnClickable(false);
         if(story.isPurchased()) {
             StoryOverviewActivity mContext = (StoryOverviewActivity) context;
             mContext.start(story.get_id());
+            btnClickable(true);
         } else {
+            final StoryDetailsFragment fragment = this;
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage(R.string.confirm_buy_story)
                     .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             StoryOverviewActivity mContext = (StoryOverviewActivity) context;
-                            mContext.purchaseStory(story.get_id());
-                            story.setPurchased(true);
-                            startOrBuyButton.setText(R.string.start_story);
+                            mContext.purchaseStory(story, fragment);
                         }
                     })
                     .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
+                            btnClickable(true);
                         }
                     });
             builder.show();
+        }
+    }
+
+    public void onResponsePurchaseStory(boolean success) {
+        if (success) {
+            startOrBuyButton.setText(R.string.start_story);
+        }
+        btnClickable(true);
+    }
+
+    private void btnClickable(boolean clickable) {
+        //background green if clickable; gray if not clickable
+        //using setBackgroundDrawable because setBackground doesn't work on API 15
+        startOrBuyButton.setClickable(clickable);
+        if (clickable) {
+            startOrBuyButton.setBackgroundDrawable(ContextCompat.getDrawable(context, R.color.clickable));
+        } else {
+            startOrBuyButton.setBackgroundDrawable(ContextCompat.getDrawable(context, R.color.unclickable));
         }
     }
 

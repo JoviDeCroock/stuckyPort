@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -25,12 +26,25 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemSelected;
+import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.RealmConfiguration;
+import io.realm.RealmList;
+import io.realm.RealmModel;
+import io.realm.RealmResults;
 import projecten3.stuckytoys.R;
 import projecten3.stuckytoys.adapters.StoryAdapter;
 import projecten3.stuckytoys.custom.DownloadImageTask;
+import projecten3.stuckytoys.custom.DownloadSoundTask;
+import projecten3.stuckytoys.custom.DownloadWidgetFileImageTask;
+import projecten3.stuckytoys.custom.RealmString;
 import projecten3.stuckytoys.domain.DomainController;
+import projecten3.stuckytoys.domain.Scene;
 import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.domain.User;
+import projecten3.stuckytoys.domain.Widget;
+import projecten3.stuckytoys.domain.WidgetFile;
+import projecten3.stuckytoys.persistence.PersistenceController;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,6 +55,7 @@ public class StoryListFragment extends Fragment {
     @BindView(R.id.txtError) TextView txtError;
     @BindView(R.id.txtSelectStory) TextView txtSelectStory;
     @BindView(R.id.sortSpinner) Spinner sortSpinner;
+    @BindView(R.id.progressBar) ProgressBar progressBar;
 
     boolean dualPane;
     int selectedStoryPosition = 0;
@@ -96,7 +111,11 @@ public class StoryListFragment extends Fragment {
             itemClicked(selectedStoryPosition);
         }
 
-        fillStories();
+        if (PersistenceController.internetConnection) {
+            fillStories();
+        } else {
+            fillStoriesOffline();
+        }
 
         return view;
     }
@@ -189,23 +208,56 @@ public class StoryListFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
                 if (response.isSuccessful()) {
-                    List<Story> stories = response.body();
-                    User user = dc.getUser();
-                    user.setStories(stories);
+                    final Realm realm = Realm.getInstance(PersistenceController.CONFIG);
 
-                    String[] storyPaths = new String[stories.size()];
+                    final List<Story> stories = response.body();
+                    final User dcUser = dc.getUser();
+                    final RealmList<Story> realmStories = new RealmList<Story>();
+                    for (Story story : stories) {
+                        realmStories.add(story);
+                    }
+
+                    final String[] storyPaths = new String[stories.size()];
                     for (int i = 0; i < stories.size(); i++) {
                         Story story = stories.get(i);
                         storyPaths[i] = story.getPath();
-                        if (user.getBoughtStories().contains(story.get_id())) {
-                            story.setPurchased(true);
+                        for (RealmString realmString : dcUser.getBoughtStories()) {
+                            if (realmString.getName().equals(story.get_id())) {
+                                story.setPurchased(true);
+                            }
                         }
                     }
 
-                    new DownloadImageTask(storyListFragment).execute(storyPaths);
+                    final User realmUser = realm.where(User.class).equalTo("_id", dc.getUser().get_id()).findFirstAsync();
+                    realmUser.addChangeListener(new RealmChangeListener<RealmModel>() {
+                        @Override
+                        public void onChange(RealmModel element) {
+                            if (realmUser.isValid()) {
+                                realm.copyFromRealm(realmUser);
+                                if (realmUser.getStories().size() == stories.size()) {
+                                    dc.setUser(realmUser);
+                                    fillStoriesOffline();
+                                } else {
+                                    realm.beginTransaction();
+                                    dcUser.setStories(new RealmList<Story>());
+                                    for (Story story : realmStories) {
+                                        dcUser.getStories().add(story);
+                                    }
+                                    realm.commitTransaction();
+                                    new DownloadImageTask(storyListFragment).execute(storyPaths);
+                                }
+                            } else {
+                                dcUser.setStories(realmStories);
+                                new DownloadImageTask(storyListFragment).execute(storyPaths);
+                            }
+                            realmUser.removeChangeListener(this);
+
+                        }
+                    });
 
                 } else {
                     txtError.setText(response.message());
+                    setProgressBarInvisible();
                     Log.e("stories", response.code() + " " + response.message());
                 }
             }
@@ -213,9 +265,17 @@ public class StoryListFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Story>> call, Throwable t) {
                 txtError.setText(R.string.connection_error);
+                setProgressBarInvisible();
                 t.printStackTrace();
             }
         });
+    }
+
+    private void fillStoriesOffline() {
+        User user = dc.getUser();
+        mAdapter = new StoryAdapter(context, user.getStories());
+        gridView.setAdapter(mAdapter);
+        setProgressBarInvisible();
     }
 
     public void updateStoryImages(List<byte[]> images) {
@@ -226,6 +286,61 @@ public class StoryListFragment extends Fragment {
 
         mAdapter = new StoryAdapter(context, stories);
         gridView.setAdapter(mAdapter);
+
+        //.....holy ***.... seems like a very complicated way to do this but no idea how to do it better.....
+        //...damn database being so complicated...
+        //STEP 1: puting all soundwidgetfiles from all scenes from all stories into a list and same for imagewidgetfiles
+        List<WidgetFile> soundWidgetFiles = new ArrayList();
+        List<WidgetFile> imageWidgetFiles = new ArrayList();
+        for (Story story : stories) {
+            for (Scene scene : story.getScenes()) {
+                for (Widget widget : scene.getWidgets()) {
+                    for (WidgetFile widgetFile : widget.getWidgetFiles()) {
+                        switch (widgetFile.getType().toLowerCase()) {
+                            case "afbeelding":
+                                imageWidgetFiles.add(widgetFile);
+                                break;
+                            case "geluid":
+                                soundWidgetFiles.add(widgetFile);
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+        //STEP 2: download all imagewidgetfiles from server -> put them into a byte array and put them into the widgetfile's bytes field
+        WidgetFile[] imageWidgetFilesArray = imageWidgetFiles.toArray(new WidgetFile[imageWidgetFiles.size()]);
+        new DownloadWidgetFileImageTask(this, soundWidgetFiles).execute(imageWidgetFilesArray);
+    }
+
+    public void updateWidgetImages(boolean success, List<WidgetFile> soundWidgetFiles) {
+        if (success) {
+            //STEP 3: download all soundwidgetfiles from server -> put them into a byte array and put them into the widgetfile's bytes field
+            WidgetFile[] soundWidgetFilesArray = soundWidgetFiles.toArray(new WidgetFile[soundWidgetFiles.size()]);
+            new DownloadSoundTask(this).execute(soundWidgetFilesArray);
+        } else {
+
+        }
+    }
+
+    public void updateWidgetSounds(boolean success) {
+        if (success) {
+            //STEP 4: save EVERYTHING to local db! :D
+            Realm realm = Realm.getInstance(PersistenceController.CONFIG);
+
+            realm.beginTransaction();
+            final User user = realm.copyToRealmOrUpdate(dc.getUser()); // Persist unmanaged objects
+            realm.commitTransaction();
+
+            setProgressBarInvisible();
+        } else {
+
+        }
+    }
+
+    public void setProgressBarInvisible() {
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override

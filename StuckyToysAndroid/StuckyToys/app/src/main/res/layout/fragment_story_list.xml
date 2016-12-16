@@ -37,15 +37,26 @@
         android:layout_height="wrap_content"
         android:textColor="@android:color/holo_red_dark" />
 
-    <GridView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/gridStories"
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:verticalSpacing="20dp"
-        android:horizontalSpacing="60dp"
-        android:numColumns="2"
-        android:stretchMode="columnWidth"
-        android:gravity="center" />
+        android:layout_height="fill_parent">
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="visible"/>
+        <GridView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/gridStories"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:verticalSpacing="20dp"
+            android:horizontalSpacing="60dp"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            android:gravity="center" />
+    </RelativeLayout>
 
 </LinearLayout>

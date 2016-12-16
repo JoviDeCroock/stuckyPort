@@ -3,15 +3,21 @@ package projecten3.stuckytoys.domain;
 import java.io.Serializable;
 import java.util.List;
 
-public class Widget implements Serializable{
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class Widget extends RealmObject implements Serializable {
+
+    @PrimaryKey
     private String id;
-    private List<WidgetFile> widgetFiles;
+    private RealmList<WidgetFile> widgetFiles;
 
     public Widget() {
 
     }
 
-    public Widget(String id, List<WidgetFile> widgetFiles) {
+    public Widget(String id, RealmList<WidgetFile> widgetFiles) {
         this.id = id;
         this.widgetFiles = widgetFiles;
     }
@@ -24,11 +30,11 @@ public class Widget implements Serializable{
         this.id = id;
     }
 
-    public List<WidgetFile> getWidgetFiles() {
+    public RealmList<WidgetFile> getWidgetFiles() {
         return widgetFiles;
     }
 
-    public void setWidgetFiles(List<WidgetFile> widgetFiles) {
+    public void setWidgetFiles(RealmList<WidgetFile> widgetFiles) {
         this.widgetFiles = widgetFiles;
     }
 }

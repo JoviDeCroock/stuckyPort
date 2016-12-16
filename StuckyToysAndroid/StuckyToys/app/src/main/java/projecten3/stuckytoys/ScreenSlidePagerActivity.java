@@ -15,9 +15,12 @@ import android.util.Log;
 
 import java.util.List;
 
+import io.realm.RealmList;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Scene;
+import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.fragments.SceneFragment;
+import projecten3.stuckytoys.persistence.PersistenceController;
 import projecten3.stuckytoys.retrofithelpers.StoryHelper;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,7 +55,19 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
 
-        getStoryFromDb(story_id);
+        Story story = null;
+        RealmList<Story> stories = dc.getUser().getStories();
+        for (Story s : stories) {
+            if (s.get_id().equals(story_id)) {
+                story = s;
+            }
+        }
+        if (story != null) {
+            numPages = story.getScenes().size();
+
+            mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), story.getScenes());
+            mPager.setAdapter(mPagerAdapter);
+        }
 
     }
 

@@ -16,20 +16,21 @@ import projecten3.stuckytoys.domain.WidgetFile;
 import projecten3.stuckytoys.fragments.StoryListFragment;
 import projecten3.stuckytoys.persistence.PersistenceController;
 
-public class DownloadImageTask extends AsyncTask<String, Integer, List<byte[]>> {
+public class DownloadWidgetFileImageTask extends AsyncTask<WidgetFile, Integer, Boolean> {
     String downloadUrl = PersistenceController.BASEURL + "downloads/Afbeelding/";
     private StoryListFragment context;
+    private List<WidgetFile> soundWidgetFiles;
 
-    public DownloadImageTask(StoryListFragment context) {
+    public DownloadWidgetFileImageTask(StoryListFragment context, List<WidgetFile> soundWidgetFiles) {
         this.context = context;
+        this.soundWidgetFiles = soundWidgetFiles;
     }
 
-    protected List<byte[]> doInBackground(String... paths) {
-        int count = paths.length;
-        List<byte[]> allImages = new ArrayList<>();
+    protected Boolean doInBackground(WidgetFile... files) {
+        int count = files.length;
         for (int i = 0; i < count; i++) {
             try {
-                URL url = new URL(downloadUrl + paths[i]);
+                URL url = new URL(downloadUrl + files[i].getFileName());
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setDoInput(true);
                 connection.connect();
@@ -40,16 +41,16 @@ public class DownloadImageTask extends AsyncTask<String, Integer, List<byte[]>> 
                 myBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteArray = stream.toByteArray();
 
-                allImages.add(byteArray);
+                files[i].setBytes(byteArray);
             } catch (IOException e) {
                 // Log exception
-                return null;
+                return false;
             }
         }
-        return allImages;
+        return true;
     }
 
-    protected void onPostExecute(List<byte[]> result) {
-        context.updateStoryImages(result);
+    protected void onPostExecute(Boolean result) {
+        context.updateWidgetImages(result, soundWidgetFiles);
     }
 }

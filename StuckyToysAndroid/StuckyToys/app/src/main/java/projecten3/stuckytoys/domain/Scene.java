@@ -3,19 +3,25 @@ package projecten3.stuckytoys.domain;
 import java.io.Serializable;
 import java.util.List;
 
-public class Scene implements Serializable{
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import projecten3.stuckytoys.custom.RealmString;
+
+public class Scene extends RealmObject implements Serializable{
+    @PrimaryKey
     private String _id;
     private int sceneNr;
     private int layout;
     private String text;
-    private List<String> hints;
-    private List<Widget> widgets;
+    private RealmList<RealmString> hints;
+    private RealmList<Widget> widgets;
 
     public Scene() {
 
     }
 
-    public Scene(String _id, int sceneNr, int layout, String text, List<String> hints, List<Widget> widgets) {
+    public Scene(String _id, int sceneNr, int layout, String text, RealmList<RealmString> hints, RealmList<Widget> widgets) {
         this._id = _id;
         this.sceneNr = sceneNr;
         this.layout = layout;
@@ -40,11 +46,11 @@ public class Scene implements Serializable{
         this.sceneNr = sceneNr;
     }
 
-    public List<Widget> getWidgets() {
+    public RealmList<Widget> getWidgets() {
         return widgets;
     }
 
-    public void setWidgets(List<Widget> widgets) {
+    public void setWidgets(RealmList<Widget> widgets) {
         this.widgets = widgets;
     }
 
@@ -64,11 +70,11 @@ public class Scene implements Serializable{
         this.layout = layout;
     }
 
-    public List<String> getHints() {
+    public RealmList<RealmString> getHints() {
         return hints;
     }
 
-    public void setHints(List<String> hints) {
+    public void setHints(RealmList<RealmString> hints) {
         this.hints = hints;
     }
 

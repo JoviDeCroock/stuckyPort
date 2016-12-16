@@ -6,4 +6,7 @@
     <color name="defaultBackground">#EEEEEE</color>
 
     <color name="stuckytoys_green">#b6cd02</color>
+
+    <color name="clickable">@android:color/holo_green_light</color>
+    <color name="unclickable">@android:color/darker_gray</color>
 </resources>
