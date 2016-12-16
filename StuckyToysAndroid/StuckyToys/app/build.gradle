@@ -1,6 +1,7 @@
 //apply plugin: 'com.android.application'
 apply plugin: 'com.android.model.application'
 //apply plugin: 'com.neenbedankt.android-apt'
+//apply plugin: 'realm-android'
 //exp
 apply plugin: 'org.bitbucket.pvoid.android-apt'
 
