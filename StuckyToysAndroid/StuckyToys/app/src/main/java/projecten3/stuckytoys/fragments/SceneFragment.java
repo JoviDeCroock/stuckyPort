@@ -40,6 +40,7 @@ import projecten3.stuckytoys.R;
 import projecten3.stuckytoys.custom.RealmString;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Scene;
+import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.domain.Widget;
 import projecten3.stuckytoys.persistence.PersistenceController;
 
@@ -65,14 +66,24 @@ public class SceneFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        scene = (Scene) getArguments().getSerializable("scene");
+        dc = DomainController.getInstance();
+        String storyId = (String) getArguments().getSerializable("story");
+        String sceneId = (String) getArguments().getSerializable("scene");
+        for(Story story : dc.getUser().getStories()) {
+          if(story.get_id().equals(storyId)) {
+            for (Scene sc : story.getScenes()) {
+              if (sc.get_id().equals(sceneId)) {
+                this.scene = sc;
+              }
+            }
+          }
+        }
 
         int layoutId = getResources().getIdentifier("fragment_scene", "layout", getActivity().getPackageName());
         /* TODO: Once we have multiple layouts...: search layout based on scene's layout number (for example: fragment_scene2)
         int layoutId = getResources().getIdentifier("fragment_scene" + scene.getLayout(), "layout", getActivity().getPackageName());
         */
         View view = inflater.inflate(layoutId, container, false);
-        dc = DomainController.getInstance();
 
         ButterKnife.bind(this, view);
 
@@ -170,32 +181,6 @@ public class SceneFragment extends Fragment {
     }
 
     private void putSoundInButton(byte[] soundBytes, final ImageButton btnWidget) {
-        /*
-        Map<String, String> header = new HashMap<>();
-        header.put("Authorization", "Bearer " + dc.getUser().getToken());
-
-        Uri uri = Uri.parse("http://188.166.173.147:3000/story/download/" + soundId);
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        try {
-            mediaPlayer.setDataSource(getActivity(), uri, header);
-            mediaPlayer.prepareAsync();
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    btnWidget.setClickable(true);
-                }
-            });
-
-            btnWidget.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mediaPlayer.start();
-                }
-            });
-        } catch (IllegalArgumentException | IOException ex) {
-            Log.e("media error", ex.getMessage());
-        }
-        */
         final MediaPlayer mediaPlayer = new MediaPlayer();
         try {
             // create temp file that will hold byte array

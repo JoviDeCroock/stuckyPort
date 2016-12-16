@@ -65,41 +65,10 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         if (story != null) {
             numPages = story.getScenes().size();
 
-            mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), story.getScenes());
+            mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), story);
             mPager.setAdapter(mPagerAdapter);
         }
 
-    }
-
-    private void getStoryFromDb(String story_id) {
-        Call<StoryHelper> call = dc.getStory(story_id);
-        call.enqueue(new Callback<StoryHelper>() {
-
-            //TODO: document
-            @Override
-            public void onResponse(Call<StoryHelper> call, Response<StoryHelper> response) {
-                if (response.isSuccessful()) {
-                    storyHelper = response.body();
-
-                    numPages = storyHelper.getScenes().size();
-
-                    mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), storyHelper.getScenes());
-                    mPager.setAdapter(mPagerAdapter);
-
-                    //mAdapter = new StoryAdapter(context, stories);
-                    //gridView.setAdapter(mAdapter);
-                } else {
-                    //txtError.setText(response.message());
-                    Log.e("stories", response.code() + " " + response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<StoryHelper> call, Throwable t) {
-                //txtError.setText(R.string.connection_error);
-                t.printStackTrace();
-            }
-        });
     }
 
     @Override
@@ -120,10 +89,12 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
      */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         private List<Scene> scenes;
+        private String storyId;
 
-        public ScreenSlidePagerAdapter(FragmentManager fm, List<Scene> scenes) {
+        public ScreenSlidePagerAdapter(FragmentManager fm, Story story) {
             super(fm);
-            this.scenes = scenes;
+            this.scenes = story.getScenes();
+            this.storyId = story.get_id();
         }
 
         public void setScenes(List<Scene> scenes)
@@ -135,7 +106,8 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         public Fragment getItem(int position) {
             SceneFragment sf = new SceneFragment();
             Bundle bundle = new Bundle();
-            bundle.putSerializable("scene", scenes.get(position));
+            bundle.putSerializable("scene", scenes.get(position).get_id());
+            bundle.putSerializable("story", storyId);
             sf.setArguments(bundle);
             //sf.setScene(scenes.get(position));
             return sf;
