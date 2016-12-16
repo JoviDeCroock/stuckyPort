@@ -78,7 +78,7 @@
         file: [widget.picture]
       }).success(function(data) {
         widgetService.widgets.push(data);
-      });;
+      });
     };
     function addSound(widget) {
       return Upload.upload({
@@ -90,7 +90,9 @@
           type: 'Geluid'
         },
         file: [widget.picture, widget.music]
-      });
+      }).success(function(data) {
+        widgetService.widgets.push(data);
+      });;
     };
   }
 })();

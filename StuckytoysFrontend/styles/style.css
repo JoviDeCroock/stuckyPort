@@ -139,6 +139,13 @@ nav ul li a{
   padding: 5px;
   margin-left: 5px;
 }
+.story-dropzone{
+  width: 150;
+  height: 150;
+  border: 1px dashed black;
+  padding: 5px;
+  margin-bottom: 5px;
+}
 .sound-dropzone{
   width: inherit;
   height: 300px;
@@ -150,6 +157,10 @@ nav ul li a{
 .picture{
   width: inherit;
   height: 250px;
+}
+.story-picture{
+  width: 145px;
+  height: 145px;
 }
 .show-widget{
   margin-top: 5px;
@@ -166,6 +177,13 @@ nav ul li a{
 .remove-button img{
   width: 25px;
   height: 25px;
+}
+.hint{
+  width: 200px;
+  height: 50px;
+}
+.hint-button{
+  margin-top: 5px;
 }
 form input{
   margin: 5px;

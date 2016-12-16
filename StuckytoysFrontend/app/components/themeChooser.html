@@ -1,7 +1,7 @@
 <div>
   <div>
     <p ng-repeat="theme in vm.activeStory.themes">
-      {{theme}}
+      {{theme.name}}
       <span class="remove-button" ng-click="vm.removeTheme(theme)">
         <img alt="remove" src="./resources/images/removebutton.png" />
       </span>
@@ -17,7 +17,7 @@
       ng-model = "vm.selectedTheme"
       ng-change="vm.themeChooserChanged()">
       <option disabled selected value>Selecteer een thema</option>
-      <option ng-repeat="theme in vm.themes">{{theme.name}}</option>
+      <option ng-repeat="theme in vm.themes" value={{theme._id}}>{{theme.name}}</option>
     </select>
   </div>
   <div ng-show="vm.newThemeClicked">
@@ -32,7 +32,7 @@
         placeholder="Omschrijving"
         class="form-control"></textarea>
         <p ng-show="vm.addThemeError" class="error">{{vm.addThemeError}}</p>
-      <input type="submit" value="Voeg thema toe" class="btn btn-default"/>      
+      <input type="submit" value="Voeg thema toe" class="btn btn-default"/>
     </form>
   </div>
 </div>

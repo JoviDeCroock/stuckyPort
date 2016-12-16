@@ -12,7 +12,9 @@
     var token = authService.getToken();
     var themeFactory = {
       themes: [],
+      theme: {},
       getAllThemes: getAllThemes,
+      getTheme: getTheme,
       addTheme: addTheme,
       editTheme: editTheme,
       removeTheme: removeTheme
@@ -25,6 +27,13 @@
         headers: { Authorization: 'Bearer '+ token }
       }).success(function(data) {
         angular.copy(data, themeFactory.themes);
+      });
+    };
+    function getTheme(id) {
+      return $http.get(usedUrl+'theme/themes/' + id, {
+        headers: { Authorization: 'Bearer '+ token }
+      }).success(function(data) {
+        themeFactory.theme = data;
       });
     };
     function addTheme(theme) {

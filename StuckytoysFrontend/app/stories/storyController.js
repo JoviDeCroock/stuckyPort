@@ -29,7 +29,7 @@
     vm.addTheme = addTheme;
     vm.hideThemeSelection = hideThemeSelection;
     // widgets
-    vm.types = widgetService.types;
+    vm.types = ['Afbeelding', 'Geluid'];
     vm.widgets = widgetService.widgets;
     vm.selectWidget = selectWidget;
     vm.widgetChooserChanged = widgetChooserChanged;
@@ -39,6 +39,11 @@
     vm.getImageFileName = getImageFileName;
     vm.saveImage = saveImage;
     vm.saveSound = saveSound;
+    // hints
+    vm.newHint = newHint;
+    vm.addHint = addHint;
+    vm.removeHint = removeHint;
+
     // scenes
     function addScene() {
       var temp = {
@@ -67,7 +72,13 @@
       vm.newThemeClicked = false;
     };
     function themeChooserChanged() {
-      vm.activeStory.themes.push(vm.selectedTheme);
+      themeFactory.getTheme(vm.selectedTheme)
+        .success(function(data) {
+          vm.activeStory.themes.push(themeFactory.theme);
+        })
+        .error(function(err) {
+          console.log(err); // todo error handling
+        });
       vm.selectThemeClicked = false;
       vm.newThemeClicked = false;
     };
@@ -97,7 +108,7 @@
       vm.selectThemeClicked = false;
       vm.newThemeClicked = false;
     };
-    //widgets
+    // widgets
     function selectWidget() {
       vm.selectWidgetClicked = true;
       vm.newWidgetClicked = false;
@@ -119,7 +130,7 @@
       vm.addImageError = null;
     };
     function removeWidget(widget) {
-      vm.activeScene.widgets.splice(vm.activeScene.widgets.indexOf(widget),1);
+      vm.activeScene.widgets.splice(vm.activeScene.widgets.indexOf(widget), 1);
     };
     function hideWidgetSelection() {
       vm.selectWidgetClicked = false;
@@ -145,11 +156,28 @@
     function saveSound() {
       widgetService.addSound(vm.sound)
         .success(function(data) {
-          console.log(data);
+          vm.widgets = widgetService.widgets;
+          vm.addSoundError = null;
+          vm.sound = {};
+          vm.hideWidgetSelection();
+          alert('De widget '+ data.id +' is succesvol aangemaakt');
         })
         .error(function(err) {
-          console.log(err);
+          vm.addSoundError = err.message;
         });
+    };
+    // hints
+    function newHint() {
+      vm.newHintClicked = true;
+    };
+    function addHint() {
+      var temp = vm.hint;
+      vm.activeScene.hints.push(temp);
+      vm.hint = '';
+      vm.newHintClicked = false;
+    };
+    function removeHint(hint) {
+      vm.activeScene.hints.splice(vm.activeScene.hints.indexOf(hint), 1);
     };
 
     vm.logOut = logOut;
