@@ -188,7 +188,7 @@
           $location.path('/stories');
         })
         .error(function(err) {
-          console.log(err);
+          vm.saveError = err.message;
         });
     };
 

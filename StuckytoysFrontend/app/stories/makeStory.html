@@ -22,6 +22,7 @@
     </nav>
 
     <div class="container">
+      <div ng-show="vm.saveError" class="alert alert-danger">{{vm.saveError}}</div>
         <div class="row">
             <div class="col-md-3 scene-chooser">
               <scene-chooser></scene-chooser>
