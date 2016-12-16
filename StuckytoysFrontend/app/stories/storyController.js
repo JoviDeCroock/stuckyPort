@@ -29,7 +29,7 @@
     vm.addTheme = addTheme;
     vm.hideThemeSelection = hideThemeSelection;
     // widgets
-    vm.types = widgetService.types;
+    vm.types = ['Afbeelding', 'Geluid'];
     vm.widgets = widgetService.widgets;
     vm.selectWidget = selectWidget;
     vm.widgetChooserChanged = widgetChooserChanged;
@@ -156,10 +156,14 @@
     function saveSound() {
       widgetService.addSound(vm.sound)
         .success(function(data) {
-          console.log(data);
+          vm.widgets = widgetService.widgets;
+          vm.addSoundError = null;
+          vm.sound = {};
+          vm.hideWidgetSelection();
+          alert('De widget '+ data.id +' is succesvol aangemaakt');
         })
         .error(function(err) {
-          console.log(err);
+          vm.addSoundError = err.message;
         });
     };
     // hints
