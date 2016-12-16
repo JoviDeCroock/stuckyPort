@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var express = require('express');
 var jwt = require('express-jwt');
 var router = express.Router();
+var fs = require('fs');
 var path = require('path');
 var mime = require('mime');
 var multi = require('connect-multiparty');
@@ -83,7 +84,8 @@ router.param('scene', function(req,res,next,id)
 // API methods
 router.post('/createStory',auth,mp, function(req,res,next)
 {
-    if(!req.files.file ||!req.body.scenes || !req.body.name || !req.body.themes || !req.body.date || req.body.duration){
+    console.log(req.body);
+    if(!req.files.file ||!req.body.scenes || !req.body.name || !req.body.themes || !req.body.date || !req.body.duration){
         return res.status(400).json({message:'Vul alle velden in'});
     }
     var story = new Story();
@@ -117,8 +119,7 @@ router.post('/createStory',auth,mp, function(req,res,next)
             });
             entry.widgets.forEach(function(widgetEntry)
             {
-                var widget = Widget.findById(widgetEntry._id);
-                scene.widgets.push(widget);
+                scene.widgets.push(widgetEntry);
             });
             scene.save(function(err)
             {
@@ -129,16 +130,15 @@ router.post('/createStory',auth,mp, function(req,res,next)
     }
     req.body.themes.forEach(function(themeEntry)
     {
-        var theme = Theme.findById(themeEntry._id);
-        story.themes.push(theme);
+        story.themes.push(themeEntry);
     });
     story.published = req.body.published;
-    story.saveDate(req.body.date);
+    story.date = req.body.date;
     story.save(function(err)
     {
         if(err) {console.log(err);}
+        res.json(story);
     });
-    res.json(story);
 });
 
 router.post('/publish/:story', auth, function(req,res,next)

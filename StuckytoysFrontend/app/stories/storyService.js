@@ -5,9 +5,9 @@
     .module('stuckyToys')
     .factory('storyService', storyService);
 
-  storyService.$inject = ['$http', 'url', 'authService'];
+  storyService.$inject = ['$http', 'url', 'authService', 'Upload'];
 
-  function storyService ($http, url, authService) {
+  function storyService ($http, url, authService, Upload) {
     var usedUrl = url.dev;
     var token = authService.getToken();
     var story = {
@@ -48,13 +48,18 @@
          story.story = data;
       });
     };
-    function createStory () {
-      return $http.post(usedUrl+'story/', story.activeStory, {
-        headers: { Authorization: 'Bearer '+token }
-      })
-       .success(function (data) {
-         story.stories.push(data);
-       });
+    function createStory (aStory) {
+      aStory.date = new Date();
+      aStory.published = false;
+      return Upload.upload({
+        url: usedUrl+'story/createStory',
+        headers: { Authorization: 'Bearer ' + token },
+        method: 'POST',
+        data: aStory,
+        file: aStory.picture,
+      }).success(function(data) {
+        story.stories.push(data);
+      });
     };
     //tijdens aanmaken => createStory
     function addSceneToStory (scene) {

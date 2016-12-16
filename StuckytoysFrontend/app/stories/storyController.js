@@ -43,6 +43,8 @@
     vm.newHint = newHint;
     vm.addHint = addHint;
     vm.removeHint = removeHint;
+    // story
+    vm.saveStory = saveStory;
 
     // scenes
     function addScene() {
@@ -178,6 +180,15 @@
     };
     function removeHint(hint) {
       vm.activeScene.hints.splice(vm.activeScene.hints.indexOf(hint), 1);
+    };
+    function saveStory() {
+      storyService.createStory(vm.activeStory)
+        .success(function(data) {
+          console.log(data);
+        })
+        .error(function(err) {
+          console.log(err);
+        });
     };
 
     vm.logOut = logOut;
