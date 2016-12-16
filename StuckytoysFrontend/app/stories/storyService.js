@@ -83,13 +83,13 @@
       })
     };
     function publishStory(id) {
-      return $http.post(usedUrl + 'story/publish/' + id, {
+      return $http.post(usedUrl + 'story/publish/' + id, {}, {
         headers: { Authorization: 'Bearer '+token }
       }).success(function(data) {
+         data.date = new Date(story.date).toLocaleDateString('nl-NL');
          story.stories.forEach(function(aStory) {
            if(aStory._id === data._id) {
-             story.stories.splice(story.stories.indexOf(aStory), 1);
-             story.stories.push(data);
+             aStory.published = data.published;
            }
          });
       });
