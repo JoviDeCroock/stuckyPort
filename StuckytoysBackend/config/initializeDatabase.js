@@ -87,24 +87,6 @@ Story.find({},function(err, adhd)
               console.log(err);
           }
       });
-
-      var Recording = new Widget();
-      Recording.id = 'opname';
-      Recording.widgetFiles = [];
-      var wf4 = new WidgetFile();
-      wf4.filename = "opname";
-      wf4.type="Opname";
-      wf4.save(function(err)
-      {
-          if(err){console.log(err);}
-      });
-      Recording.widgetFiles.push(wf4);
-      Recording.save(function (err)
-      {
-          if (err) {
-              console.log(err);
-          }
-      });
     widget.widgetFiles.push(wf2);
     gameW.widgetFiles.push(wfGame);
     widget.save(function (err) {
@@ -123,17 +105,14 @@ Story.find({},function(err, adhd)
       var scene1 = new Scene();
       var scene2 = new Scene();
       var scene3 = new Scene();
-      var scene4 = new Scene();
       var scene5 = new Scene();
       scene1.text = "Vervuiler gooit blikje op straat. Tuut de vervuiler weg";
       scene2.text = "Vertel verhaal over hoe slecht vervuiling is voor de diertjes";
       scene3.text = "Gooi het blikje in de vuilbak";
-      scene4.text = "Vertel de vervuiler dat het slecht is om dit te doen";
-      scene4.text = "Vind het verloren papier zodat de bus weer verder kan";
+      scene5.text = "Vind het verloren papier zodat de bus weer verder kan";
       scene1.hints = [];
       scene2.hints = [];
       scene3.hints = [];
-      scene4.hints = [];
       scene5.hints = [];
       var text = "TIP: Recyclage vermindert uitstoot";
       scene1.hints.push(text);
@@ -143,29 +122,23 @@ Story.find({},function(err, adhd)
       scene2.hints.push(text);
       var text = "TIP: Dankzij het goed sorteren in de juiste vuilbak betert het milieu";
       scene3.hints.push(text);
-      var text = "TIP: Sluikstorten kost je lokale gemeente veel geld";
-      scene4.hints.push(text);
       var text = "TIP: Vertel dat het kind best altijd alles recycleert en anderen daartoe best aanspoort";
       scene5.hints.push(text);
       scene1.layout = 3;
       scene2.layout = 2;
       scene3.layout = 1;
-      scene4.layout = 2;
       scene5.layout = 2;
       scene1.widgets = [];
       scene1.widgets.push(widget);
       scene2.widgets = [];
       scene3.widgets = [];
-      scene4.widgets = [];
       scene5.widgets = [];
       scene3.widgets.push(gameW);
-      scene4.widgets.push(Recording);
       scene5.widgets.push(ARWidget);
       scene1.sceneNr = 1;
       scene2.sceneNr = 2;
       scene3.sceneNr = 3;
-      scene4.sceneNr = 4;
-      scene5.sceneNr = 5;
+      scene5.sceneNr = 4;
     scene1.save(function (err) {
       if (err) {
         console.log(err);
@@ -181,11 +154,6 @@ Story.find({},function(err, adhd)
         console.log(err);
       }
     });
-      scene4.save(function (err) {
-          if (err) {
-              console.log(err);
-          }
-      });
       scene5.save(function (err) {
           if (err) {
               console.log(err);
@@ -200,7 +168,6 @@ Story.find({},function(err, adhd)
     story.scenes.push(scene1);
     story.scenes.push(scene2);
     story.scenes.push(scene3);
-    story.scenes.push(scene4);
     story.scenes.push(scene5);
     story.themes = [];
     story.themes.push(vervuiling);
