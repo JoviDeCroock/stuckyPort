@@ -70,7 +70,13 @@
            <td>{{story.duration}} uur</td>
            <td>€ {{story.price}}</td>
            <td><input type="checkbox" ng-model="story.published" ng-disabled="true"/></td>
-           <td><button ng-show="!story.published">Publiceer</button></td>
+           <td ng-show="story.published"></td>
+           <td><button
+             ng-hide="story.published"
+             ng-click="vm.publishStory(story)"
+             class="btn btn-default">
+             Publiceer
+           </button></td>
          </tr>
         </table>
     </div>

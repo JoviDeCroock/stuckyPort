@@ -38,7 +38,6 @@
             story.date = new Date(story.date).toLocaleDateString('nl-NL');
           });
           angular.copy(data, story.stories);
-          //console.log(story.stories);
         });
     };
     function getStory (id) {
@@ -62,16 +61,6 @@
         story.stories.push(data);
       });
     };
-    function publishStory(id)
-    {
-      return $http.post(usedUrl + 'story/publish/'+id,{
-        headers: {Authorization: 'Bearer ' +token}
-      }).success(function(data)
-      {
-        //TODO
-      });
-    };
-
     //tijdens aanmaken => createStory
     function addSceneToStory (scene) {
       story.activeStory.scenes.push(scene);
@@ -92,6 +81,18 @@
       .success(function (data) {
         story.activeStory = data;
       })
-    }
+    };
+    function publishStory(id) {
+      return $http.post(usedUrl + 'story/publish/' + id, {
+        headers: { Authorization: 'Bearer '+token }
+      }).success(function(data) {
+         story.stories.forEach(function(aStory) {
+           if(aStory._id === data._id) {
+             story.stories.splice(story.stories.indexOf(aStory), 1);
+             story.stories.push(data);
+           }
+         });
+      });
+    };
   };
 })();

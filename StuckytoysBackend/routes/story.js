@@ -84,7 +84,6 @@ router.param('scene', function(req,res,next,id)
 // API methods
 router.post('/createStory',auth,mp, function(req,res,next)
 {
-    console.log(req.body);
     if(!req.files.file ||!req.body.scenes || !req.body.name || !req.body.themes || !req.body.date || !req.body.duration){
         return res.status(400).json({message:'Vul alle velden in'});
     }
@@ -155,7 +154,7 @@ router.post('/publish/:story', auth, function(req,res,next)
     {
         req.story.published = true;
         Story.update(query, req.story ,{upsert:true}, function(err, doc) {
-            if (err) return res.status(500).json({error: err});
+            if (err) { return res.status(400).json({ message: 'Er is iets fout gegaan' });}
             return res.json(req.story);
         });
     }

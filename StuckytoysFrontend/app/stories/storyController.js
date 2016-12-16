@@ -184,7 +184,8 @@
     function saveStory() {
       storyService.createStory(vm.activeStory)
         .success(function(data) {
-          console.log(data);
+          alert('Het verhaal ' + data.name + ' werd toegevoegd');
+          $location.path('/stories');
         })
         .error(function(err) {
           console.log(err);

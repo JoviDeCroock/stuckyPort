@@ -44,7 +44,7 @@
         });
       }
       (result.length === 0)? vm.noEntriesFound = 'Er zijn geen verhalen gevonden': vm.noEntriesFound = null;
-      vm.filteredStories = result;      
+      vm.filteredStories = result;
     };
     function filterDuration() {
       var result = [];
@@ -63,14 +63,12 @@
       vm.keyword = '';
       vm.maxDuration = '';
     };
-    function publishStory(id)
-    {
-      storyService.publishStory(id).error(function(err)
-      {
+    function publishStory(story) {
+      storyService.publishStory(story._id).success(function(data) {
+        vm.stories = storyService.stories;
+        alert('Het verhaal '+data.name+' is gepubliceerd');
+      }).error(function(err) {
         console.log(err);
-      }).success(function(data)
-      {
-        //TODO
       });
     };
 
