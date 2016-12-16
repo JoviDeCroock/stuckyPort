@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_entries_cameraIndex">
+        <item>Rear camera</item>
+    </string-array>
+    <string-array name="pref_entries_cameraResolution">
+        <item>320x240   (4:3)</item>
+    </string-array>
+    <string-array name="pref_entryValues_cameraIndex">
+        <item>0</item>
+    </string-array>
+    <string-array name="pref_entryValues_cameraResolution">
+        <item>320x240</item>
+    </string-array>
+    <attr format="enum" name="antiAliasingType">
+        <enum name="multisample" value="1"/>
+        <enum name="coverage" value="2"/>
+    </attr>
+    <attr format="integer" name="bitsAlpha"/>
+    <attr format="integer" name="bitsBlue"/>
+    <attr format="integer" name="bitsDepth"/>
+    <attr format="integer" name="bitsGreen"/>
+    <attr format="integer" name="bitsRed"/>
+    <attr format="float" name="frameRate"/>
+    <attr format="boolean" name="isTransparent"/>
+    <attr format="integer" name="multiSampleCount"/>
+    <attr format="enum" name="renderMode">
+        <enum name="RENDER_WHEN_DIRTY" value="0"/>
+        <enum name="RENDER_CONTINUOUS" value="1"/>
+    </attr>
+    <declare-styleable name="RajawaliSurfaceView"><attr name="frameRate"/><attr name="renderMode"/><attr name="antiAliasingType"/><attr name="isTransparent"/><attr name="bitsRed"/><attr name="bitsGreen"/><attr name="bitsBlue"/><attr name="bitsAlpha"/><attr name="bitsDepth"/><attr name="multiSampleCount"/></declare-styleable>
+    <declare-styleable name="RajawaliTextureView"><attr name="frameRate"/><attr name="renderMode"/><attr name="antiAliasingType"/><attr name="bitsRed"/><attr name="bitsGreen"/><attr name="bitsBlue"/><attr name="bitsAlpha"/><attr name="bitsDepth"/><attr name="multiSampleCount"/></declare-styleable>
+    <string name="app_name">ARSimple</string>
+    <string name="menuItem_settings">Settings</string>
+    <string name="prefCategory_title_camera">Camera settings</string>
+    <string name="pref_defaultValue_cameraResolution">320x240</string>
+    <string name="pref_title_cameraIndex">Change camera</string>
+    <string name="pref_title_cameraResolution">Camera resolution</string>
+</resources>
