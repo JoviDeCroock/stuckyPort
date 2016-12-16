@@ -84,11 +84,12 @@ router.param('scene', function(req,res,next,id)
 // API methods
 router.post('/createStory',auth,mp, function(req,res,next)
 {
-    if(!req.files.file ||!req.body.scenes || !req.body.name || !req.body.themes || !req.body.date || !req.body.duration){
+    if(!req.files.file ||!req.body.scenes || !req.body.name || !req.body.themes || !req.body.date || !req.body.duration || !req.body.price){
         return res.status(400).json({message:'Vul alle velden in'});
     }
     var story = new Story();
     story.name = req.body.name;
+    story.price = req.body.price;
     story.scenes = [];
     story.themes = [];
     story.path = req.files.file.name;
