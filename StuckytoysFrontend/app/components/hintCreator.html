@@ -1,0 +1,22 @@
+<div>
+  <label>Hints</label>
+  </br>
+  <div ng-repeat="hint in vm.activeScene.hints">
+    <textarea
+      class="hint"
+      disabled="true"
+      ng-bind="hint">
+    </textarea>
+    <span class="remove-button" ng-click="vm.removeHint(hint)">
+      <img alt="remove" src="./resources/images/removebutton.png" />
+    </span>
+  </div>
+  <div ng-show="vm.newHintClicked">
+    <textarea
+      ng-model="vm.hint"
+      class="form-control">
+    </textarea>
+    <button ng-click="vm.addHint()" class="btn btn-default hint-button">Voeg hint toe</button>
+  </div>
+  <button ng-click="vm.newHint()" class="btn btn-default hint-button">Nieuwe hint</button>
+</div>

@@ -39,6 +39,11 @@
     vm.getImageFileName = getImageFileName;
     vm.saveImage = saveImage;
     vm.saveSound = saveSound;
+    // hints
+    vm.newHint = newHint;
+    vm.addHint = addHint;
+    vm.removeHint = removeHint;
+
     // scenes
     function addScene() {
       var temp = {
@@ -97,7 +102,7 @@
       vm.selectThemeClicked = false;
       vm.newThemeClicked = false;
     };
-    //widgets
+    // widgets
     function selectWidget() {
       vm.selectWidgetClicked = true;
       vm.newWidgetClicked = false;
@@ -119,7 +124,7 @@
       vm.addImageError = null;
     };
     function removeWidget(widget) {
-      vm.activeScene.widgets.splice(vm.activeScene.widgets.indexOf(widget),1);
+      vm.activeScene.widgets.splice(vm.activeScene.widgets.indexOf(widget), 1);
     };
     function hideWidgetSelection() {
       vm.selectWidgetClicked = false;
@@ -150,6 +155,19 @@
         .error(function(err) {
           console.log(err);
         });
+    };
+    // hints
+    function newHint() {
+      vm.newHintClicked = true;
+    };
+    function addHint() {
+      var temp = vm.hint;
+      vm.activeScene.hints.push(temp);
+      vm.hint = '';
+      vm.newHintClicked = false;
+    };
+    function removeHint(hint) {
+      vm.activeScene.hints.splice(vm.activeScene.hints.indexOf(hint), 1);
     };
 
     vm.logOut = logOut;
