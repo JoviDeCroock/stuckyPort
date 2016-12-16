@@ -10,9 +10,6 @@ var multer = require('multer');
 
 //Requiring models
 //require('./models/BuildingBlocks');
-require('./routes/Deprecated/Figures');
-require('./routes/Deprecated/Members');
-require('./routes/Deprecated/Pictures');
 require('./models/Scenes');
 require('./models/Stories');
 require('./models/Themes');
@@ -31,8 +28,6 @@ require('./config/initializeDatabase');
 
 //Requiring routes
 var auth = require('./routes/auth');
-var profile = require('./routes/Deprecated/profile');
-var figure = require('./routes/Deprecated/figure');
 var story = require('./routes/story');
 var theme = require('./routes/theme');
 var widget = require('./routes/widget');
@@ -74,8 +69,6 @@ app.use(passport.initialize());
 
 //Defining routes
 app.use('/', auth);
-app.use('/profile', profile);
-app.use('/figure', figure);
 app.use('/story', story);
 app.use('/theme', theme);
 app.use('/widget', widget);

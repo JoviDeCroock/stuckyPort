@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var Picture = mongoose.model('Picture');
 var Admin = mongoose.model('Admin');
 var Story = mongoose.model('Story');
 var Theme = mongoose.model('Theme');

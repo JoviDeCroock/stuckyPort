@@ -207,40 +207,19 @@ router.get(':user/getAllStories', auth, function(req,res,next)
                         model:'Theme'
                     }, function(err, themes)
                     {
-                        Story.populate(themes,
+                        Story.populate(figures,
                             {
-                                path:'picture',
-                                model:'Picture'
-                            }, function(err, pic)
+                                path:'scenes.widgets',
+                                model:'Widget'
+                            }, function(err, widgets)
                             {
-                                Story.populate(pic,
+                                Story.populate(widgets,
                                     {
-                                        path:'scenes.figures',
-                                        model:'Figure'
-                                    }, function(err, figures)
+                                        path:'scenes.widgets.widgetFiles',
+                                        model:'WidgetFile'
+                                    }, function(err, files)
                                     {
-                                        Story.populate(figures,
-                                            {
-                                                path:'scenes.widgets',
-                                                model:'Widget'
-                                            }, function(err, widgets)
-                                            {
-                                                Story.populate(widgets,
-                                                    {
-                                                        path:'scenes.widgets.widgetFiles',
-                                                        model:'WidgetFile'
-                                                    }, function(err, files)
-                                                    {
-                                                        Story.populate(files,
-                                                            {
-                                                                path:'scenes.figures.picture',
-                                                                model:'Picture'
-                                                            }, function(err, figPics)
-                                                            {
-                                                                res.json(figPics);
-                                                            });
-                                                    });
-                                            });
+                                        res.json(files);
                                     });
                             });
                     });
