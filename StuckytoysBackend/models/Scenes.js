@@ -7,7 +7,7 @@ var SceneSchema = new mongoose.Schema({
         sceneNr: Number,
         widgets: [{type: mongoose.Schema.Types.ObjectId, ref:'Widget'}],
         text: String,
-        layout: Number,
+        layout: {type:Number, default:1},
         hints: [{type: String}]
     });
 
