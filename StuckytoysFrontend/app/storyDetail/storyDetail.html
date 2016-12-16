@@ -60,13 +60,13 @@
                         <div class="widget">
                             <a href="/#/widget/{{widget._id}}">{{widget.id}}</a>
                             <div ng-show="vm.getTypeOfWidget(widget) === 'Geluid'">
-                              <img class="playsound"
+                              <img class="show-widget"
                                 alt="play"
                                 src="http://localhost:3000/downloads/afbeelding/{{vm.getImageFileName(widget)}}" />
                             </div>
                             <div ng-show="vm.getTypeOfWidget(widget) === 'spel'"></div>
                             <div ng-show="vm.getTypeOfWidget(widget) === 'Afbeelding'">
-                              <img class="showimage"
+                              <img class="show-widget"
                                 alt="afbeelding"
                                 src="http://localhost:3000/downloads/afbeelding/{{vm.getImageFileName(widget)}}" />
                             </div>
