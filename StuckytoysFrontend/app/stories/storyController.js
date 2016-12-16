@@ -72,7 +72,13 @@
       vm.newThemeClicked = false;
     };
     function themeChooserChanged() {
-      vm.activeStory.themes.push(vm.selectedTheme);
+      themeFactory.getTheme(vm.selectedTheme)
+        .success(function(data) {
+          vm.activeStory.themes.push(themeFactory.theme);
+        })
+        .error(function(err) {
+          console.log(err); // todo error handling
+        });
       vm.selectThemeClicked = false;
       vm.newThemeClicked = false;
     };
