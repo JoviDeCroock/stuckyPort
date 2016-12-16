@@ -25,7 +25,6 @@
         <div class="row">
             <div class="col-md-3 scenes">
                 <h4>Scenes</h4>
-<<<<<<< HEAD
                 <div ng-repeat="scene in vm.story.scenes"
                     class="scene"
                     ng-click="vm.selectScene(scene)"
@@ -44,17 +43,12 @@
                       />
                     </div>
                   </div>
-=======
-                <div ng-repeat="scene in vm.story.scenes" class="scene" ng-click="vm.selectScene(scene)" ng-class="{activeScene : vm.activeScene === scene}">
-                    <p>{{scene.sceneNr}}</p>
->>>>>>> 12583424e5cba9c7ea794957dd96fbab7ab6a0d7
                 </div>
             </div>
             <div class="col-md-6">
                 <input type="text" ng-model="vm.story.name" ng-disabled="!vm.editMode" class="form-control" />
                 <p>Gecreëerd op {{vm.niceDate}}</p>
                 <div ng-show="vm.activeScene">
-<<<<<<< HEAD
                     <label>Tekst</label>
                     <textarea
                       ng-disabled="!vm.editMode"
@@ -86,18 +80,6 @@
                     ng-repeat="hint in vm.activeScene.hints"
                     ng-disabled="!vm.editMode">{{hint}}</textarea>
                 </div>
-=======
-                    <h4>Tekst</h4>
-                    <textarea ng-disabled="!vm.editMode" class="form-control" ng-model="vm.activeScene.text">
-            </textarea>
-                    <h4>Widgets</h4>
-                    <div ng-repeat="widget in vm.activeScene.widgets">
-                        <div class="widget">
-                            <a href="/#/widget/{{widget._id}}">{{widget.id}}</a>
-                        </div>
-                    </div>
-                </div>
->>>>>>> 12583424e5cba9c7ea794957dd96fbab7ab6a0d7
             </div>
             <div class="col-md-3 theme">
                 <h4>Thema's</h4>
