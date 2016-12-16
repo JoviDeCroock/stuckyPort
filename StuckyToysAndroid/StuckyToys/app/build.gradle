@@ -71,10 +71,7 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'jp.wasabeef:glide-transformations:2.0.1'
     compile 'com.android.support:design:23.1.1'
-<<<<<<< HEAD
-=======
 
     compile project(':aRBaseLib')
     compile files('src/main/libs/jpct_ae.jar')
->>>>>>> 06f5f8ed030705b97efd02a25c54730129181743
 }

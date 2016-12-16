@@ -5,12 +5,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-<<<<<<< HEAD
         classpath 'com.android.tools.build:gradle:2.2.3'
-=======
         //classpath 'com.android.tools.build:gradle:2.2.1'
         classpath 'com.android.tools.build:gradle-experimental:0.8.2'
->>>>>>> 06f5f8ed030705b97efd02a25c54730129181743
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath "io.realm:realm-gradle-plugin:2.2.1"
         //exp
