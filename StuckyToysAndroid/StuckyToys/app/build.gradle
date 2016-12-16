@@ -1,33 +1,76 @@
-apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
+//apply plugin: 'com.android.application'
+apply plugin: 'com.android.model.application'
+//apply plugin: 'com.neenbedankt.android-apt'
+//exp
+apply plugin: 'org.bitbucket.pvoid.android-apt'
 
-android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+model {
+    android {
+        compileSdkVersion 23
+        buildToolsVersion "23.0.2"
 
-    defaultConfig {
-        applicationId "projecten3.stuckytoys"
-        minSdkVersion 15
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        defaultConfig.with {
+            applicationId "projecten3.stuckytoys"
+            minSdkVersion.apiLevel 15
+            targetSdkVersion.apiLevel 23
+            versionCode 8
+            versionName "1.0"
+            buildConfigFields.with {
+                //Defines fields in the generated Java BuildConfig class, in this case, for
+                create() {           //default config, that can be accessed by Java code
+                    type = "int"     //e.g. "if (1 == BuildConfig.VALUE) { /*do something*/}".
+                    name = "VALUE"
+                    //See: [app or lib]/build/generated/source/buildConfig/[package path]/
+                    value = "1"      //     BuildConfig.java
+                }
+            }
         }
     }
+    android.buildTypes {
+        release {
+            minifyEnabled false
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles.add(file("proguard-rules.pro"))
+        }
+    }
+    android.sources {
+        main{
+            jni {
+                source {
+                    srcDirs = ['src/main/nop']
+                }
+            }
+        }
+        main{
+            jniLibs {
+                source {
+                    srcDirs = ['src/main/libs']
+                }
+            }
+        }
+    }
+
 }
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
+    //RETROFIT
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.google.code.gson:gson:2.8.0'
+    //BUTTERKNIFE
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    //RECYCLERVIEW
+    compile 'com.android.support:recyclerview-v7:23.1.1'
+    //GLIDE
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'jp.wasabeef:glide-transformations:2.0.1'
+    compile 'com.android.support:design:23.1.1'
+
+    compile project(':aRBaseLib')
+    compile files('src/main/libs/jpct_ae.jar')
 }
