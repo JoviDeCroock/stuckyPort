@@ -19,70 +19,36 @@
             </ul>
         </div>
     </nav>
+
     <div class="container">
         <div class="row">
             <div class="col-md-3 scenes">
                 <h4>Scenes</h4>
-                <div
-                  ng-repeat="scene in vm.story.scenes"
-                  class="scene"
-                  ng-click="vm.selectScene(scene)"
-                  ng-class="{activeScene : vm.activeScene === scene}">
-                    <p class="sceneNr">{{scene.sceneNr}}</p>
+                <div ng-repeat="scene in vm.story.scenes" class="scene" ng-click="vm.selectScene(scene)" ng-class="{activeScene : vm.activeScene === scene}">
+                    <p>{{scene.sceneNr}}</p>
                 </div>
             </div>
             <div class="col-md-6">
-                <!-- <input
-                  type="text"
-                  ng-model="vm.story.name"
-                  ng-disabled="!vm.editMode"
-                  class="form-control" /> -->
-                <h3>{{vm.story.name}}</h3>
+                <input type="text" ng-model="vm.story.name" ng-disabled="!vm.editMode" class="form-control" />
                 <p>Gecreëerd op {{vm.niceDate}}</p>
                 <div ng-show="vm.activeScene">
                     <h4>Tekst</h4>
-                    <textarea
-                      ng-disabled="!vm.editMode"
-                      class="form-control"
-                      ng-model="vm.activeScene.text">
-                    </textarea>
+                    <textarea ng-disabled="!vm.editMode" class="form-control" ng-model="vm.activeScene.text">
+            </textarea>
                     <h4>Widgets</h4>
                     <div ng-repeat="widget in vm.activeScene.widgets">
                         <div class="widget">
                             <a href="/#/widget/{{widget._id}}">{{widget.id}}</a>
-                            <div ng-show="vm.getTypeOfWidget(widget) === 'music'">
-                              <img class="playsound"
-                                alt="play"
-                                src="http://localhost:3000/downloads/image/{{vm.getImageFileName(widget)}}" />
-                            </div>
-
-                            <div ng-show="vm.getTypeOfWidget(widget) === 'game'">game</div>
-                            <div ng-show="vm.getTypeOfWidget(widget) === 'image'">image</div>
                         </div>
                     </div>
-                </div>
-                <div>
-                  <img class="hint"
-                    ng-repeat="hint in vm.activeScene.hints"
-                    ng-click="vm.selectHint(hint)"
-                    alt="hint"
-                    src="./resources/images/questionmark.png"/>
-                  <textarea
-                    class="form-control"
-                    ng-show="vm.activeHint"
-                    ng-model="vm.activeHint"
-                    ng-disabled="!vm.editMode"></textarea>
                 </div>
             </div>
             <div class="col-md-3 theme">
                 <h4>Thema's</h4>
                 <div ng-repeat="theme in vm.story.themes">
                     <p>{{theme.name}}</p>
-                    <textarea
-                      ng-disabled="!vm.editMode"
-                      class="form-control"
-                      ng-model="theme.description">
-                    </textarea>
+                    <textarea ng-disabled="!vm.editMode" class="form-control" ng-model="theme.description">
+              </textarea>
                 </div>
             </div>
         </div>

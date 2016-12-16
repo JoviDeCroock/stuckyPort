@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "D:\\School\\3e_jaar\\NativeAppsI\\ARSimpleProj\\aRSimple\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\icon.png",
+        "source": "D:\\School\\3e_jaar\\NativeAppsI\\ARSimpleProj\\aRSimple\\src\\main\\res\\drawable-hdpi\\icon.png"
+    },
+    {
+        "merged": "D:\\School\\3e_jaar\\NativeAppsI\\ARSimpleProj\\aRSimple\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\settings.png",
+        "source": "D:\\School\\3e_jaar\\NativeAppsI\\ARSimpleProj\\aRSimple\\build\\intermediates\\exploded-aar\\ARSimpleProj\\aRBaseLib\\unspecified\\res\\drawable-hdpi\\settings.png"
+    }
+]

@@ -14,7 +14,6 @@ var tokenGenerator = require('../config/tokenGenerator');
 var User = mongoose.model('User');
 var Admin = mongoose.model('Admin');
 var Figure = mongoose.model('Figure');
-var Story = mongoose.model('Story');
 
 // Sanity test
 router.get('/',function(req,res,next){
@@ -26,27 +25,15 @@ router.post('/register',function(req,res,next){
    if(!req.body.username || !req.body.password || !req.body.email){
      return res.status(400).json({message:'Vul alle velden in'});
    }
-
-   User.findOne({email: req.body.email}, function(err, data)
+   if(User.findOne({email: req.body.email}))
    {
-      if(data != null)
-      {
-          return res.status(400).json({message:'Het emailadres is al bezet.'});
-      }
-   });
-
-    var user = new User();
-    user.username = req.body.username;
-    user.password = req.body.password;
-    user.email = req.body.email;
-    user.members = [];
-    user.stories = [];
-    Story.findOne({name: 'Recyclage'}, function(err, data)
-    {
-        if(err){console.log(err);}
-        user.stories.push(data);
-    });
-
+       return res.status(400).json({message:'Het emailadres is al bezet.'})
+   }
+   var user = new User();
+   user.username = req.body.username;
+   user.password = req.body.password;
+   user.email = req.body.email;
+   user.members = [];
     var query = Figure.find();
     query.exec(function(err, figures)
     {

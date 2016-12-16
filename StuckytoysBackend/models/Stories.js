@@ -6,7 +6,6 @@ var mongoose = require('mongoose');
 var StorySchema = new mongoose.Schema({
   name: String,
   date: Date,
-  price: Number,
   published: Boolean,
   themes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Theme' }],
   scenes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Scene' }],

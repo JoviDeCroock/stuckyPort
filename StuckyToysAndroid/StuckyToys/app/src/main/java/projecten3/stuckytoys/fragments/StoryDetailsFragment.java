@@ -1,40 +1,57 @@
 package projecten3.stuckytoys.fragments;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
-import android.net.Uri;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
-import org.w3c.dom.Text;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import projecten3.stuckytoys.R;
-import projecten3.stuckytoys.custom.MemberImageView;
+import projecten3.stuckytoys.StoryOverviewActivity;
+import projecten3.stuckytoys.custom.StoryImageView;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.domain.Theme;
+import projecten3.stuckytoys.persistence.PersistenceController;
 
 public class StoryDetailsFragment extends Fragment {
 
     @BindView(R.id.storyName) TextView storyName;
-    @BindView(R.id.storyImage) MemberImageView storyImage;
+    @BindView(R.id.storyImage)
+    StoryImageView storyImage;
     @BindView(R.id.storyDate) TextView storyDate;
     @BindView(R.id.storyScenes) TextView storyScenes;
-    @BindView(R.id.storyThemes) TextView storyThemes;
+    @BindView(R.id.storyDuration) TextView storyDuration;
+    @BindView(R.id.progressBar) ProgressBar progressBar;
+    @BindView(R.id.themesContainer) LinearLayout themesContainer;
+    @BindView(R.id.startOrBuyButton) Button startOrBuyButton;
+
 
     private Context context;
+    private Story story;
 
     public static StoryDetailsFragment newInstance(int index) {
         StoryDetailsFragment f = new StoryDetailsFragment();
@@ -67,6 +84,7 @@ public class StoryDetailsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_story_details, container, false);
 
         ButterKnife.bind(this, view);
+        progressBar.setVisibility(View.VISIBLE);
 
         Story story = DomainController.getInstance().getUser().getStories().get(getShownIndex());
         setDetails(story);
@@ -84,35 +102,101 @@ public class StoryDetailsFragment extends Fragment {
     }
 
     public void setDetails(Story story) {
+        this.story = story;
         storyName.setText(story.getName());
-        storyDate.setText(story.getDate().toString());
-        storyScenes.setText("" + story.getScenes().length);
-        String txtThemes = "";
-        for (Theme theme : story.getThemes()) {
-            txtThemes += theme.getName() + "\n\t\t" + theme.getDescription() + "\n";
-        }
-        txtThemes = txtThemes.substring(0, txtThemes.length()-3);
-        storyThemes.setText(txtThemes);
 
-        byte[] imageByteArray = Base64.decode(story.getPicture().split(",")[1], Base64.DEFAULT);
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        storyDate.setText(" " + df.format(story.getDate()));
+
+        storyScenes.setText(" " + story.getScenes().size());
+        storyDuration.setText(" " + 60 * story.getDuration() + " " + getString(R.string.minutes));
+
+        //per theme: add two textviews to container; set name bold & indent description
+        for (Theme theme : story.getThemes()) {
+            TextView txtName = new TextView(context), txtDesc = new TextView(context);
+            txtName.setText(theme.getName());
+            txtDesc.setText(theme.getDescription());
+
+            txtName.setTypeface(null, Typeface.BOLD);
+
+            LayoutParams llp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            llp.setMargins(15, 0, 0, 0); // llp.setMargins(left, top, right, bottom);
+            txtDesc.setLayoutParams(llp);
+
+            themesContainer.addView(txtName);
+            themesContainer.addView(txtDesc);
+        }
+
+        if(!story.isPurchased()) {
+            startOrBuyButton.setText(String.format("%s: €%.2f", getString(R.string.buy_story), story.getPrice()));
+            if (!PersistenceController.internetConnection) {
+                btnClickable(false);
+            }
+        }
+
+        byte[] imageByteArray = story.getPicture();
         Glide.with(context)
                 .load(imageByteArray)
                 .asBitmap()
                 .listener(new RequestListener<byte[], Bitmap>() {
                     @Override
                     public boolean onException(Exception e, byte[] model, Target<Bitmap> target, boolean isFirstResource) {
-                        //progressBar.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
                         return false;
                     }
 
                     @Override
                     public boolean onResourceReady(Bitmap resource, byte[] model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        //progressBar.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
                         return false;
                     }
                 })
                 .error(R.drawable.error)
                 .into(storyImage);
+    }
+
+    @OnClick(R.id.startOrBuyButton)
+    public void startOrBuy() {
+        btnClickable(false);
+        if(story.isPurchased()) {
+            StoryOverviewActivity mContext = (StoryOverviewActivity) context;
+            mContext.start(story.get_id());
+            btnClickable(true);
+        } else {
+            final StoryDetailsFragment fragment = this;
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(R.string.confirm_buy_story)
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            StoryOverviewActivity mContext = (StoryOverviewActivity) context;
+                            mContext.purchaseStory(story, fragment);
+                        }
+                    })
+                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            btnClickable(true);
+                        }
+                    });
+            builder.show();
+        }
+    }
+
+    public void onResponsePurchaseStory(boolean success) {
+        if (success) {
+            startOrBuyButton.setText(R.string.start_story);
+        }
+        btnClickable(true);
+    }
+
+    private void btnClickable(boolean clickable) {
+        //background green if clickable; gray if not clickable
+        //using setBackgroundDrawable because setBackground doesn't work on API 15
+        startOrBuyButton.setClickable(clickable);
+        if (clickable) {
+            startOrBuyButton.setBackgroundDrawable(ContextCompat.getDrawable(context, R.color.clickable));
+        } else {
+            startOrBuyButton.setBackgroundDrawable(ContextCompat.getDrawable(context, R.color.unclickable));
+        }
     }
 
     @Override
@@ -124,6 +208,12 @@ public class StoryDetailsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ViewCompat.setTranslationZ(getView(), 100.f);
     }
 
 }

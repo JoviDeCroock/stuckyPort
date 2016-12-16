@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <projecten3.stuckytoys.custom.MemberImageView
+        <projecten3.stuckytoys.custom.StoryImageView
             android:id="@+id/itemImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

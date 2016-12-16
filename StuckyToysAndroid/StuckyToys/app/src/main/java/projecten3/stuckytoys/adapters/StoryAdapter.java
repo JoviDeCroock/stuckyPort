@@ -2,6 +2,8 @@ package projecten3.stuckytoys.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,12 +15,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Transformation;
+import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.GrayscaleTransformation;
 import projecten3.stuckytoys.R;
 import projecten3.stuckytoys.StoryOverviewActivity;
 import projecten3.stuckytoys.domain.Story;
@@ -76,7 +81,24 @@ public class StoryAdapter extends BaseAdapter {
 
             //image saved as base64 in api, example: ""data:image/png;base64,iVBORw0KGgoA...."
             //we don't need the data:image..base64, part so we split the string after the comma
-            byte[] imageByteArray = Base64.decode(story.getPicture().split(",")[1], Base64.DEFAULT);
+            byte[] imageByteArray = story.getPicture();
+
+            Transformation<Bitmap> transformation;
+            if(story.isPurchased()) {
+                transformation = new Transformation<Bitmap>() {
+                    @Override
+                    public Resource<Bitmap> transform(Resource<Bitmap> resource, int outWidth, int outHeight) {
+                        return resource;
+                    }
+
+                    @Override
+                    public String getId() {
+                        return "NoTransformation()";
+                    }
+                };
+            } else {
+                transformation = new GrayscaleTransformation(context);
+            }
 
             //.load: the byte array to be loaded
             //.asBitmap(): necessary to be called because we're working with a bitmap
@@ -85,6 +107,7 @@ public class StoryAdapter extends BaseAdapter {
             Glide.with(context)
                     .load(imageByteArray)
                     .asBitmap()
+                    .transform(transformation)
                     .listener(new RequestListener<byte[], Bitmap>() {
                         @Override
                         public boolean onException(Exception e, byte[] model, Target<Bitmap> target, boolean isFirstResource) {

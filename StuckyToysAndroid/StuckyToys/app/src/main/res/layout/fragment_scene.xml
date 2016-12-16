@@ -1,0 +1,92 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="projecten3.stuckytoys.ScreenSlidePagerActivity"
+    android:id="@+id/linearlayout">
+
+    <TextView
+        android:id="@+id/txtText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginBottom="50dip"
+        android:paddingTop="10dip"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/txtError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginBottom="10dip"
+        android:paddingTop="10dip"
+        android:textColor="@android:color/holo_red_dark"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:gravity="center"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:id="@+id/snackbarLayout"
+        >
+
+    <HorizontalScrollView
+        android:id="@+id/widgetContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:background="@android:color/transparent"
+        android:paddingTop="10dip"
+        android:paddingBottom="10dip"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+    <!--
+    <ImageButton
+        android:id="@+id/btnWidget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:clickable="false"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"/>
+        -->
+
+
+    <LinearLayout
+        android:id="@+id/hintContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|bottom"
+        android:orientation="horizontal">
+        <!-- hardcoded
+        <ImageButton
+            android:id="@+id/btnHint1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/hint_button"/>
+        <ImageButton
+            android:id="@+id/btnHint2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/hint_button"/>
+        <ImageButton
+            android:id="@+id/btnHint3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/hint_button"/>
+            -->
+    </LinearLayout>
+</LinearLayout>
