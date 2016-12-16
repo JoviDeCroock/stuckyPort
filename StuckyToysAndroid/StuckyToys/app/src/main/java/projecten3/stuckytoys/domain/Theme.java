@@ -1,11 +1,17 @@
 package projecten3.stuckytoys.domain;
 
-/**
- * Created by Jeroen on 11/13/2016.
- */
-public class Theme {
-    private String description;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class Theme extends RealmObject {
+
+    @PrimaryKey
     private String name;
+    private String description;
+
+    public Theme() {
+
+    }
 
     public Theme(String name, String description) {
         this.name = name;

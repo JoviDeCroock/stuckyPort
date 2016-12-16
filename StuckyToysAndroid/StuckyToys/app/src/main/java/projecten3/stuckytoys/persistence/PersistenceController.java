@@ -1,8 +1,15 @@
 package projecten3.stuckytoys.persistence;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
 import java.util.List;
 
+import io.realm.RealmConfiguration;
+import io.realm.RealmList;
+import projecten3.stuckytoys.custom.RealmString;
 import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.domain.User;
 import projecten3.stuckytoys.retrofithelpers.StoryHelper;
@@ -15,12 +22,22 @@ public class PersistenceController {
     private Retrofit retrofit;
     private DOService dOService;
     public final static String BASEURL = "http://188.166.173.147:3000/";
+    public static boolean internetConnection = true;
+    public final static RealmConfiguration CONFIG = new RealmConfiguration
+            .Builder()
+            .deleteRealmIfMigrationNeeded()
+            .build();
 
     public PersistenceController() {
 
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(new TypeToken<RealmList<RealmString>>(){}.getType(),
+                        RealmStringListTypeAdapter.INSTANCE)
+                .create();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASEURL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
         dOService = retrofit.create(DOService.class);

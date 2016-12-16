@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import projecten3.stuckytoys.domain.WidgetFile;
 import projecten3.stuckytoys.fragments.StoryListFragment;
 import projecten3.stuckytoys.persistence.PersistenceController;
 

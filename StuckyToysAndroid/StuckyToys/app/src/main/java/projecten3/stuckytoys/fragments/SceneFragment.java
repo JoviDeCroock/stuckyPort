@@ -27,6 +27,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +37,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import projecten3.stuckytoys.R;
+import projecten3.stuckytoys.custom.RealmString;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Scene;
 import projecten3.stuckytoys.domain.Widget;
@@ -56,19 +60,22 @@ public class SceneFragment extends Fragment {
     LinearLayout linearlayout;
 
     private Scene scene;
-    private MediaPlayer mediaPlayer = null;
     private DomainController dc;
     private Snackbar mSnackbar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_scene, container, false);
-        mediaPlayer = new MediaPlayer();
+        scene = (Scene) getArguments().getSerializable("scene");
+
+        int layoutId = getResources().getIdentifier("fragment_scene", "layout", getActivity().getPackageName());
+        /* TODO: Once we have multiple layouts...: search layout based on scene's layout number (for example: fragment_scene2)
+        int layoutId = getResources().getIdentifier("fragment_scene" + scene.getLayout(), "layout", getActivity().getPackageName());
+        */
+        View view = inflater.inflate(layoutId, container, false);
         dc = DomainController.getInstance();
 
         ButterKnife.bind(this, view);
 
-        scene = (Scene) getArguments().getSerializable("scene");
         fillScene();
 
         return view;
@@ -80,31 +87,28 @@ public class SceneFragment extends Fragment {
 
     private void fillScene() {
 
-        //TODO: set background
-        //linearlayout.setBackground()...
-
         //WIDGET BUTTONS0
         for (Widget currentWidget : scene.getWidgets()) {
 
             ImageButton btnWidget = new ImageButton(getActivity());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             btnWidget.setLayoutParams(params);
-            btnWidget.setBackground(null);
-
+            btnWidget.setBackgroundDrawable(null);
 
             if (currentWidget.getWidgetFiles().get(0) != null) {
                 switch (currentWidget.getWidgetFiles().get(0).getType().toLowerCase()) {
                     case "geluid":
-                        putSoundInButton(currentWidget.getWidgetFiles().get(0).get_id(), btnWidget);
-                        putImageInButton(currentWidget.getWidgetFiles().get(1).get_id(), btnWidget);
+                        putSoundInButton(currentWidget.getWidgetFiles().get(0).getBytes(), btnWidget);
+                        putImageInButton(currentWidget.getWidgetFiles().get(1).getBytes(), btnWidget);
                         break;
                     case "spel":
                         putGameInButton(currentWidget.getWidgetFiles().get(0).getFileName(), btnWidget);
                         putDefaultImageInButton(R.drawable.game_start_button, btnWidget);
                         break;
-                    case "ar":
+                    case "afbeelding":
+                        putImageInButton(currentWidget.getWidgetFiles().get(1).getBytes(), btnWidget);
                         break;
-                    case "opname":
+                    case "ar":
                         break;
                     default:
                         txtError.setText(R.string.scene_error);
@@ -121,7 +125,7 @@ public class SceneFragment extends Fragment {
         txtText.setText(scene.getText());
 
         //HINTS
-        for (final String currentHint : scene.getHints()) {
+        for (final RealmString currentHint : scene.getHints()) {
             final ImageButton button = new ImageButton(getActivity());
 
             Resources r = getActivity().getResources();
@@ -137,15 +141,10 @@ public class SceneFragment extends Fragment {
             button.setBackgroundColor(Color.TRANSPARENT);
             button.setImageResource(R.drawable.hint_button);
 
-            //final Crouton myCrouton = makeCrouton(currentHint);
-            //final Snackbar mySnackbar = makeSnackbar(currentHint);
-
             button.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
-                    //Toast.makeText(getActivity(), currentHint, Toast.LENGTH_LONG).show();
-                    //myCrouton.show();
-                    mSnackbar = Snackbar.make(snackbarLayout, currentHint, Snackbar.LENGTH_INDEFINITE);
+                    mSnackbar = Snackbar.make(snackbarLayout, currentHint.getName(), Snackbar.LENGTH_INDEFINITE);
                     mSnackbar.setAction("OK", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -170,7 +169,8 @@ public class SceneFragment extends Fragment {
 
     }
 
-    private void putSoundInButton(String soundId, final ImageButton btnWidget) {
+    private void putSoundInButton(byte[] soundBytes, final ImageButton btnWidget) {
+        /*
         Map<String, String> header = new HashMap<>();
         header.put("Authorization", "Bearer " + dc.getUser().getToken());
 
@@ -195,14 +195,59 @@ public class SceneFragment extends Fragment {
         } catch (IllegalArgumentException | IOException ex) {
             Log.e("media error", ex.getMessage());
         }
+        */
+        final MediaPlayer mediaPlayer = new MediaPlayer();
+        try {
+            // create temp file that will hold byte array
+            File tempMp3 = File.createTempFile("widgetSound", "mp3");
+            tempMp3.deleteOnExit();
+            FileOutputStream fos = new FileOutputStream(tempMp3);
+            fos.write(soundBytes);
+            fos.close();
+
+            // resetting mediaplayer instance to evade problems
+            mediaPlayer.reset();
+
+            // In case you run into issues with threading consider new instance like:
+            // MediaPlayer mediaPlayer = new MediaPlayer();
+
+            // Tried passing path directly, but kept getting
+            // "Prepare failed.: status=0x1"
+            // so using file descriptor instead
+            FileInputStream fis = new FileInputStream(tempMp3);
+            mediaPlayer.setDataSource(fis.getFD());
+
+            mediaPlayer.prepareAsync();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    btnWidget.setClickable(true);
+                }
+            });
+
+            btnWidget.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mediaPlayer.start();
+                }
+            });
+        } catch (IOException ex) {
+            String s = ex.toString();
+            ex.printStackTrace();
+        }
 
     }
 
     private void putGameInButton(String game, final ImageButton btnWidget) {
+        final Intent launchIntent;
+        switch (game) {
+            case "RecycleActivity": launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.example.Stoeky");
+                break;
+            default: launchIntent = null;
+        }
         btnWidget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.example.Stoeky");
                 if (launchIntent != null) {
                     startActivity(launchIntent);//null pointer check in case package name was not found
                 }
@@ -210,41 +255,23 @@ public class SceneFragment extends Fragment {
         });
     }
 
-    private void putImageInButton(String imageId, ImageButton btnWidget) {
-        GlideUrl glideUrl = new GlideUrl(PersistenceController.BASEURL + imageId, new LazyHeaders.Builder()
+    private void putImageInButton(byte[] imageBytes, ImageButton btnWidget) {
+        /*
+        GlideUrl glideUrl = new GlideUrl(PersistenceController.BASEURL + "story/download/" + imageId, new LazyHeaders.Builder()
                 .addHeader("Authorization", "Bearer " + dc.getUser().getToken())
                 .build());
+        */
 
         Glide.with(getActivity())
-                .load(glideUrl)
+                .load(imageBytes)
                 .error(R.drawable.error)
                 .into(btnWidget);
     }
 
     private void putDefaultImageInButton(int resource, ImageButton btnWidget) {
-        //btnWidget.setImageResource(R.drawable.game_start_button);
         Glide.with(getActivity())
                 .load(resource)
                 .error(R.drawable.error)
                 .into(btnWidget);
-    }
-
-    private Snackbar makeSnackbar(String currentHint)
-    {
-        final Snackbar mySnackbar =  Snackbar.make(getView(), currentHint, Snackbar.LENGTH_INDEFINITE);
-
-        mySnackbar.setAction("OK", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mySnackbar.dismiss();
-            }
-        });
-
-        View sbView = mySnackbar.getView();
-        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setBackgroundResource(R.color.stuckytoys_green);
-        textView.setTextColor(Color.WHITE);
-
-        return mySnackbar;
     }
 }

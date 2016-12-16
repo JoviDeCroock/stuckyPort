@@ -15,6 +15,7 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Base64;
@@ -33,6 +34,8 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.RealmList;
+import projecten3.stuckytoys.custom.RealmString;
 import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.domain.User;
@@ -83,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
         //resetten error
         txtError.setText("");
 
-        btnRegister.setClickable(false);
+        btnClickable(false);
 
         final String email = editEmail.getText().toString();
         final String password = editPassword.getText().toString();
@@ -131,17 +134,21 @@ public class RegisterActivity extends AppCompatActivity {
                             ex.printStackTrace();
                         }
                     } else {
-                        txtError.setText(response.message());
+                        if (response.code() == 400) {
+                            txtError.setText(R.string.user_already_exists);
+                        } else {
+                            txtError.setText(R.string.default_error);
+                        }
                         Log.e("register", response.code() + " " + response.message());
                     }
-                    btnRegister.setClickable(true);
+                    btnClickable(true);
                 }
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
                     txtError.setText("a");
                     t.printStackTrace();
-                    btnRegister.setClickable(true);
+                    btnClickable(true);
                 }
             });
         }
@@ -160,19 +167,27 @@ public class RegisterActivity extends AppCompatActivity {
             public void onResponse(Call<List<String>> call, Response<List<String>> response) {
                 if (response.isSuccessful()) {
                     List<String> stories = response.body();
-                    dc.getUser().setBoughtStories(stories);
+                    RealmList<RealmString> realmStories = new RealmList<RealmString>();
+                    for (String story : stories) {
+                        realmStories.add(new RealmString(story));
+                    }
+                    dc.getUser().setBoughtStories(realmStories);
                 } else {
-                    txtError.setText(response.message());
+                    if (response.code() == 400) {
+                        txtError.setText(R.string.user_already_exists);
+                    } else {
+                        txtError.setText(R.string.default_error);
+                    }
                     Log.e("login", response.code() + " " + response.message());
                 }
-                btnRegister.setClickable(true);
+                btnClickable(true);
             }
 
             @Override
             public void onFailure(Call<List<String>> call, Throwable t) {
                 txtError.setText(R.string.connection_error);
                 t.printStackTrace();
-                btnRegister.setClickable(true);
+                btnClickable(true);
             }
         });
 
@@ -199,6 +214,17 @@ public class RegisterActivity extends AppCompatActivity {
             isValid = true;
         }
         return isValid;
+    }
+
+    private void btnClickable(boolean clickable) {
+        //background green if clickable; gray if not clickable
+        //using setBackgroundDrawable because setBackground doesn't work on API 15
+        btnRegister.setClickable(clickable);
+        if (clickable) {
+            btnRegister.setBackgroundDrawable(ContextCompat.getDrawable(this, R.color.clickable));
+        } else {
+            btnRegister.setBackgroundDrawable(ContextCompat.getDrawable(this, R.color.unclickable));
+        }
     }
 
     @Override
