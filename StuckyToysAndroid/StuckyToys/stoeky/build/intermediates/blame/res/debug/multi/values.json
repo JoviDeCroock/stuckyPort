@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "D:\\School\\3e_jaar\\Projecten III\\StuckyToysAndroid\\StuckyToys\\stoeky\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "outputFile": "D:\\[SCHOOL]\\Toegepaste Informatica 3\\Projecten 3 StuckyToys\\StuckyToysAndroid\\StuckyToys\\stoeky\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 94
                 },
                 "from": {
-                    "file": "D:\\School\\3e_jaar\\Projecten III\\StuckyToysAndroid\\StuckyToys\\stoeky\\src\\main\\res\\values\\strings.xml",
+                    "file": "D:\\[SCHOOL]\\Toegepaste Informatica 3\\Projecten 3 StuckyToys\\StuckyToysAndroid\\StuckyToys\\stoeky\\src\\main\\res\\values\\strings.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 2,
@@ -31,7 +31,7 @@
                     "endOffset": 192
                 },
                 "from": {
-                    "file": "D:\\School\\3e_jaar\\Projecten III\\StuckyToysAndroid\\StuckyToys\\stoeky\\src\\main\\res\\values\\styles.xml",
+                    "file": "D:\\[SCHOOL]\\Toegepaste Informatica 3\\Projecten 3 StuckyToys\\StuckyToysAndroid\\StuckyToys\\stoeky\\src\\main\\res\\values\\styles.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 0,

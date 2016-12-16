@@ -1,109 +1,109 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:2:1-19:12
+ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:2:1-19:12
 	package
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:2:70-98
-		INJECTED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
-		INJECTED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:2:70-98
+		INJECTED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
+		INJECTED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
 	android:versionName
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:2:99-124
-		INJECTED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
-		INJECTED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:2:99-124
+		INJECTED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
+		INJECTED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
 	android:versionCode
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:2:125-148
-		INJECTED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
-		INJECTED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:2:125-148
+		INJECTED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
+		INJECTED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:2:11-69
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:2:11-69
 	android:installLocation
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:2:149-189
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:2:149-189
 supports-screens
-ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:3:3-163
+ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:3:3-163
 	android:largeScreens
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:3:78-105
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:3:78-105
 	android:smallScreens
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:3:21-48
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:3:21-48
 	android:normalScreens
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:3:49-77
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:3:49-77
 	android:xlargeScreens
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:3:106-134
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:3:106-134
 	android:anyDensity
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:3:135-160
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:3:135-160
 application
-ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:4:3-13:17
+ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:4:3-13:17
 	android:label
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:4:92-124
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:4:92-124
 	android:debuggable
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:4:125-151
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:4:125-151
 	android:icon
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:4:58-91
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:4:58-91
 	android:banner
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:4:174-211
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:4:174-211
 	android:theme
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:4:16-57
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:4:16-57
 	android:isGame
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:4:152-173
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:4:152-173
 activity#com.example.Stoeky.UnityPlayerActivity
-ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:5:5-12:16
+ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:5:5-12:16
 	android:screenOrientation
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:5:48-86
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:5:48-86
 	android:label
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:5:15-47
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:5:15-47
 	android:launchMode
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:5:87-118
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:5:87-118
 	android:configChanges
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:5:119-276
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:5:119-276
 	android:name
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:5:277-330
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:5:277-330
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER+android.intent.category.LEANBACK_LAUNCHER
-ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:6:7-10:23
+ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:6:7-10:23
 action#android.intent.action.MAIN
-ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:7:9-61
+ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:7:9-61
 	android:name
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:7:17-58
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:7:17-58
 category#android.intent.category.LAUNCHER
-ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:8:9-69
+ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:8:9-69
 	android:name
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:8:19-66
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:8:19-66
 category#android.intent.category.LEANBACK_LAUNCHER
-ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:9:9-78
+ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:9:9-78
 	android:name
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:9:19-75
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:9:19-75
 meta-data#unityplayer.UnityActivity
-ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:11:7-82
+ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:11:7-82
 	android:value
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:11:59-79
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:11:59-79
 	android:name
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:11:18-58
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:11:18-58
 uses-sdk
-ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:14:3-71
+ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:14:3-71
 	android:targetSdkVersion
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:14:39-68
-		INJECTED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
-		INJECTED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:14:39-68
+		INJECTED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
+		INJECTED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:14:13-38
-		INJECTED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
-		INJECTED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:14:13-38
+		INJECTED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
+		INJECTED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml
 uses-feature#0x00020000
-ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:15:3-52
+ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:15:3-52
 	android:glEsVersion
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:15:17-49
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:15:17-49
 uses-feature#android.hardware.touchscreen
-ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:16:3-88
+ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:16:3-88
 	android:required
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:16:61-85
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:16:61-85
 	android:name
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:16:17-60
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:16:17-60
 uses-feature#android.hardware.touchscreen.multitouch
-ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:17:3-99
+ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:17:3-99
 	android:required
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:17:72-96
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:17:72-96
 	android:name
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:17:17-71
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:17:17-71
 uses-feature#android.hardware.touchscreen.multitouch.distinct
-ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:18:3-108
+ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:18:3-108
 	android:required
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:18:81-105
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:18:81-105
 	android:name
-		ADDED from D:\School\3e_jaar\Projecten III\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:18:17-80
+		ADDED from D:\[SCHOOL]\Toegepaste Informatica 3\Projecten 3 StuckyToys\StuckyToysAndroid\StuckyToys\stoeky\src\main\AndroidManifest.xml:18:17-80
