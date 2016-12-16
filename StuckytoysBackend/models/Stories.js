@@ -8,7 +8,7 @@ var StorySchema = new mongoose.Schema({
   date: Date,
   price: Number,
   duration: Number,
-  published: Boolean,
+  published: {type: Boolean, default: false},
   themes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Theme' }],
   scenes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Scene' }],
   path: String

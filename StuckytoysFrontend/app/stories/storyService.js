@@ -20,7 +20,8 @@
       createStory: createStory,
       addSceneToStory: addSceneToStory,
       removeSceneFromStory: removeSceneFromStory,
-      addScene: addScene
+      addScene: addScene,
+      publishStory: publishStory
     };
 
     return story;
@@ -61,6 +62,16 @@
         story.stories.push(data);
       });
     };
+    function publishStory(id)
+    {
+      return $http.post(usedUrl + 'story/publish/'+id,{
+        headers: {Authorization: 'Bearer ' +token}
+      }).success(function(data)
+      {
+        //TODO
+      });
+    };
+
     //tijdens aanmaken => createStory
     function addSceneToStory (scene) {
       story.activeStory.scenes.push(scene);

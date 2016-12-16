@@ -113,14 +113,20 @@ router.post('/createStory',auth,mp, function(req,res,next)
             scene.figures = [];
             scene.hints = [];
             scene.text = entry.text;
-            entry.hints.forEach(function(hint)
+            if(entry.hints)
             {
-               scene.hints.push(hint);
-            });
-            entry.widgets.forEach(function(widgetEntry)
+                entry.hints.forEach(function(hint)
+                {
+                    scene.hints.push(hint);
+                });
+            }
+            if(entry.widgets)
             {
-                scene.widgets.push(widgetEntry);
-            });
+                entry.widgets.forEach(function(widgetEntry)
+                {
+                    scene.widgets.push(widgetEntry);
+                });
+            }
             scene.save(function(err)
             {
                 if(err){console.log(err);}
@@ -150,7 +156,7 @@ router.post('/publish/:story', auth, function(req,res,next)
         req.story.published = true;
         Story.update(query, req.story ,{upsert:true}, function(err, doc) {
             if (err) return res.status(500).json({error: err});
-            return res.send("succesfully published");
+            return res.json(req.story);
         });
     }
 });

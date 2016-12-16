@@ -18,6 +18,7 @@
     vm.filterTheme = filterTheme;
     vm.filterDuration = filterDuration;
     vm.reset = reset;
+    vm.publishStory = publishStory;
 
     function filter() {
       var result = [];
@@ -61,6 +62,16 @@
     function reset() {
       vm.keyword = '';
       vm.maxDuration = '';
+    };
+    function publishStory(id)
+    {
+      storyService.publishStory(id).error(function(err)
+      {
+        console.log(err);
+      }).success(function(data)
+      {
+        //TODO
+      });
     };
 
     vm.logOut = logOut;
