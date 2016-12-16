@@ -81,7 +81,7 @@ router.param('scene', function(req,res,next,id)
 //END params
 
 // API methods
-router.post('/createStory',mp , auth, function(req,res,next)
+router.post('/createStory',auth,mp, function(req,res,next)
 {
     if(!req.files.file ||!req.body.scenes || !req.body.name || !req.body.themes || !req.body.date || req.body.duration){
         return res.status(400).json({message:'Vul alle velden in'});

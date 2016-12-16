@@ -52,7 +52,7 @@ router.param('widget', function(req, res, next, id)
 /*API METHODS*/
 router.post('/addWidget', auth, mp, function(req, res, next)
 {
-  if (!req.body.id) {
+  if (!req.body.id || !req.files.file){
     return res.status(400).json({
       message: 'Vul alle velden in'
     });
