@@ -192,10 +192,10 @@ router.get('/download/:widgetFile', auth, function(req,res, next)
 
 router.get(':user/getAllStories', auth, function(req,res,next)
 {
-    /*TODO: TEST*/
     req.user.stories.find(function(err, stories)
     {
-        Story.populate(stories,
+        res.json(stories);
+        /*Story.populate(stories,
             {
                 path:'scenes',
                 model:'Scene'
@@ -223,7 +223,7 @@ router.get(':user/getAllStories', auth, function(req,res,next)
                                     });
                             });
                     });
-            });
+            });*/
     });
 });
 
