@@ -5,14 +5,21 @@
     .module('stuckyToys')
     .factory('widgetService', widgetService);
 
+<<<<<<< HEAD
   widgetService.$inject = ['url', 'authService', 'Upload', '$http'];
 
   function widgetService (url, authService, Upload, $http) {
+=======
+  widgetService.$inject = ['url', 'authService', '$http'];
+
+  function widgetService (url, authService, $http) {
+>>>>>>> 12583424e5cba9c7ea794957dd96fbab7ab6a0d7
     var usedUrl = url.dev;
     var token = authService.getToken();
     var widgetService = {
       widget: {},
       widgets: [],
+<<<<<<< HEAD
       types: [],
       getWidget: getWidget,
       getAllWidgets: getAllWidgets,
@@ -21,6 +28,9 @@
       getImageFileName: getImageFileName,
       addImage: addImage,
       addSound: addSound
+=======
+      getWidget: getWidget
+>>>>>>> 12583424e5cba9c7ea794957dd96fbab7ab6a0d7
     }
 
     return widgetService;
@@ -46,6 +56,7 @@
         angular.copy(data, widgetService.types);
       });
     };
+<<<<<<< HEAD
     function getTypeOfWidget(widget) {
       var types = [];
       var value = '';
@@ -94,5 +105,7 @@
         widgetService.widgets.push(data);
       });;
     };
+=======
+>>>>>>> 12583424e5cba9c7ea794957dd96fbab7ab6a0d7
   }
 })();

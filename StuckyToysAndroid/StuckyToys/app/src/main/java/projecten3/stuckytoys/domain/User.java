@@ -2,16 +2,26 @@ package projecten3.stuckytoys.domain;
 
 import java.util.List;
 
-public class User {
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
+import io.realm.annotations.PrimaryKey;
+import projecten3.stuckytoys.custom.RealmString;
 
+public class User extends RealmObject{
+
+    @PrimaryKey
     private String _id;
     private String email;
     private String username;
     private String password;
-    private List<Member> members;
-    private List<Story> stories;
+    private RealmList<Story> stories;
     private String token;
+    private RealmList<RealmString> boughtStories;
 
+    public User() {
+
+    }
     //CONSTRUCTOR ONLY USED FOR LOGGING IN (RETROFIT); DON'T USE THIS ANYWHERE ELSE!!!
     public User(String email, String password) {
         this.email = email;
@@ -27,16 +37,19 @@ public class User {
         this.password = password;
     }
 
-    public User(String id, String email, String username, String password, String token, List<Story> stories) {
+    public User(String id, String email, String username, String password, String token, RealmList<Story> stories, RealmList<RealmString> boughtStories) {
         this(username, email, password);
         this._id = id;
         this.token = token;
         this.stories = stories;
+        this.boughtStories = boughtStories;
     }
 
-    public String getId() {
-        return _id;
+    public void addBoughtStory(String storyId) {
+        boughtStories.add(new RealmString(storyId));
     }
+
+    public String getId() { return _id; }
     public void setId(String id) {
         this._id = id;
     }
@@ -58,17 +71,18 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public List<Member> getMembers() { return members; }
-    public void setMembers(List<Member> members) { this.members = members; }
-    public List<Story> getStories() {
+    public RealmList<Story> getStories() {
         return stories;
     }
-    public void setStories(List<Story> stories) {
+    public void setStories(RealmList<Story> stories) {
         this.stories = stories;
     }
     public String getToken() { return token; }
     public void setToken(String token) {
         this.token = token;
     }
-
+    public String get_id() { return _id; }
+    public void set_id(String _id) { this._id = _id; }
+    public RealmList<RealmString> getBoughtStories() { return boughtStories; }
+    public void setBoughtStories(RealmList<RealmString> boughtStories) { this.boughtStories = boughtStories; }
 }

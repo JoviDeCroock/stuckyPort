@@ -1,4 +1,7 @@
 <resources>
+    <!-- application -->
+    <string name="preference_file_emailpassword">projecten3.stuckytoys.preference_file_emailpassword</string>
+
     <!-- login -->
     <string name="app_name">StuckyToys</string>
     <string name="email">E-mailadres</string>
@@ -7,6 +10,11 @@
     <string name="not_registered"><u>Nog geen account?</u></string>
     <string name="exit">Wens je af te sluiten?</string>
     <string name="connection_error">Kon niet verbinden met de server, controleer je internetverbinding en probeer het later nog eens.</string>
+    <string name="connection_error_user_unknown">Kon niet verbinden met de server en de ingevulde gegevens werken niet offline, controleer je internetverbinding en probeer het later nog eens.</string>
+    <string name="stay_logged_in">Aangemeld blijven?</string>
+    <string name="unauthorized">Email en wachtwoord komen niet overeen. Controleer je gegevens en probeer opnieuw.</string>
+    <string name="default_error">Er liep iets mis! Probeer later nog eens.</string>
+    <string name="continue_offline">Kon niet verbinden met de server, offline verder doen als <b>%s</b> ?</string>
 
     <!-- register -->
     <string name="username">Gebruikersnaam</string>
@@ -19,33 +27,35 @@
     <string name="invalid_email">E-mailadres is niet geldig</string>
     <string name="different_passwords">Wachtwoorden komen niet overeen.</string>
     <string name="register_cancel">Registeren annuleren?</string>
+    <string name="user_already_exists">Dit e-mailadres is reeds ingenomen.</string>
 
-    <!-- selectmember -->
-    <string name="select_member">Selecteer een familielid</string>
-    <string name="add_member">Nieuw familielid toevoegen</string>
+    <!-- logout -->
     <string name="logout">Wens je uit te loggen?</string>
     <string name="yes">Ja</string>
     <string name="no">Nee</string>
 
-    <!--addmember -->
+    <!--dialog -->
     <string name="confirm">Bevestigen</string>
-    <string name="add_member_cancel">Familielid aanmaken annuleren?</string>
-    <string name="select_picture">Welk dier past het best bij jou?</string>
-    <string name="role">Rol in het gezin</string>
-    <string name="role_hint"><font size="10">papa, mama, zoon, dochter,...</font></string>
-    <string name="authority">Ben je een beheerder voor deze account (bvb ouder, leerkracht)?</string>
-    <string name="didnt_select_image">Gelieve een afbeelding te kiezen.</string>
-
-    <!-- homepage -->
-    <string name="my_stories">Mijn verhalen</string>
-    <string name="agenda">Agenda</string>
-    <string name="my_pictures">Mijn figuren</string>
-    <string name="messages">Boodschappen</string>
 
     <!--storyoverview -->
-    <string name="select_story">Welkom %s, selecteer een van de verhalen voor meer info.</string>
-    <string name="date">Datum toegevoegd:</string>
+    <string name="select_story">Welkom %s</string>
+    <string name="date">Datum toegevoegd: </string>
     <string name="scenes">Aantal scene\'s:</string>
+    <string name="duration">Geschatte duur:</string>
+    <string name="minutes">minuten</string>
     <string name="themes">Thema\'s die aan bod komen:</string>
+    <string name="start_story">Begin verhaal</string>
+    <string name="buy_story">Koop verhaal</string>
+    <string name="sort_by">\t\t\tSorteren op:</string>
+    <string-array name="sort_options">
+        <item>Naam</item>
+        <item>Datum</item>
+        <item>Speelduur</item>
+        <item>Gekocht</item>
+    </string-array>
+    <string name="confirm_buy_story">Verhaal kopen?</string>
+
+    <!--fragment scene-->
+    <string name="scene_error">Er ging iets mis bij het tonen van het verhaal. Probeer later nog eens.</string>
 
 </resources>

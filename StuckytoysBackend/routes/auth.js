@@ -13,7 +13,11 @@ var tokenGenerator = require('../config/tokenGenerator');
 //models
 var User = mongoose.model('User');
 var Admin = mongoose.model('Admin');
+<<<<<<< HEAD
 var Story = mongoose.model('Story');
+=======
+var Figure = mongoose.model('Figure');
+>>>>>>> 12583424e5cba9c7ea794957dd96fbab7ab6a0d7
 
 // Sanity test
 router.get('/',function(req,res,next)
@@ -27,9 +31,9 @@ router.post('/register',function(req,res,next)
    if(!req.body.username || !req.body.password || !req.body.email){
      return res.status(400).json({message:'Vul alle velden in'});
    }
-
-   User.findOne({email: req.body.email}, function(err, data)
+   if(User.findOne({email: req.body.email}))
    {
+<<<<<<< HEAD
       if(data != null)
       {
           return res.status(400).json({message:'Het emailadres is al bezet.'});
@@ -50,6 +54,30 @@ router.post('/register',function(req,res,next)
             return next(err);
         }
         res.json({token: tokenGenerator(user)});
+=======
+       return res.status(400).json({message:'Het emailadres is al bezet.'})
+   }
+   var user = new User();
+   user.username = req.body.username;
+   user.password = req.body.password;
+   user.email = req.body.email;
+   user.members = [];
+    var query = Figure.find();
+    query.exec(function(err, figures)
+    {
+        if(err){return next(err);}
+        figures.forEach(function(figure)
+        {
+            if(figure.default)
+            {
+                user.figures.push(figure);
+            }
+        });
+        user.save(function(err){
+            if(err){return next(err);}
+            res.json({token: tokenGenerator(user)});
+        });
+>>>>>>> 12583424e5cba9c7ea794957dd96fbab7ab6a0d7
     });
 });
 

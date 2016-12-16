@@ -13,8 +13,16 @@ var UserSchema = new mongoose.Schema(
             type: Boolean,
             default: false
         },
+<<<<<<< HEAD
         stories: [{type: mongoose.Schema.Types.ObjectId, ref:'Story'}]
     });
+=======
+        stories: [{type: mongoose.Schema.Types.ObjectId, ref:'Story'}],
+        members: [{type: mongoose.Schema.Types.ObjectId, ref:'Member'}],
+        figures: [{type: mongoose.Schema.Types.ObjectId, ref:'Figure'}]
+    }
+);
+>>>>>>> 12583424e5cba9c7ea794957dd96fbab7ab6a0d7
 
 UserSchema.pre('save', function(next)
 {

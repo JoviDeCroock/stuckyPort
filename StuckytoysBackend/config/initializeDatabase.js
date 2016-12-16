@@ -164,7 +164,6 @@ Story.find({},function(err, adhd)
     story.saveDate("21 11 2016");
     story.name = "Recyclage";
     story.scenes = [];
-    story.price = 2.5;
     story.scenes.push(scene1);
     story.scenes.push(scene2);
     story.scenes.push(scene3);
@@ -258,7 +257,6 @@ Story.find({},function(err, adhd)
     diefstalstory.scenes.push(scene2);
     diefstalstory.scenes.push(scene3);
     diefstalstory.themes = [];
-    diefstalstory.price = 2.5;
     diefstalstory.themes.push(diefstal);
     diefstalstory.published = true;
     diefstalstory.path = 'bever.png';
