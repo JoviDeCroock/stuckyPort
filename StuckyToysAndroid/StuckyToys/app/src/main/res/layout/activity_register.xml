@@ -8,25 +8,43 @@
     android:orientation="vertical"
     tools:context="projecten3.stuckytoys.RegisterActivity">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/relativeL"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgBus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bus"
+            android:adjustViewBounds="true"
+            android:layout_marginBottom="10dip" />
+
+
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:focusableInTouchMode="true"
+            android:layout_below="@+id/imgBus"
+            android:paddingTop="165dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
             <TableRow
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:background="#b3e1df"
+                android:layout_weight="1">
                 <TextView
                     android:id="@+id/txtEmail"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:text="@string/email"/>
                 <EditText
                     android:id="@+id/editEmail"
@@ -35,17 +53,20 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:backgroundTint="@android:color/holo_blue_light"
+                    android:layout_marginRight="10dp"
                     android:inputType="textEmailAddress"
                     android:textCursorDrawable="@null" />
             </TableRow>
 
             <TableRow
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:background="#b3e1df">
                 <TextView
                     android:id="@+id/txtPassword"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:text="@string/password"/>
 
                 <EditText
@@ -54,18 +75,21 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:backgroundTint="@android:color/holo_blue_light"
+                    android:backgroundTint="@android:color/holo_blue_dark"
+                    android:layout_marginRight="10dp"
                     android:textCursorDrawable="@null"
                     android:inputType="textPassword" />
             </TableRow>
 
             <TableRow
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:background="#b3e1df">
                 <TextView
                     android:id="@+id/txtPasswordRepeat"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:text="@string/password_repeat"/>
 
                 <EditText
@@ -74,18 +98,21 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:backgroundTint="@android:color/holo_blue_light"
+                    android:backgroundTint="@android:color/holo_blue_dark"
+                    android:layout_marginRight="10dp"
                     android:textCursorDrawable="@null"
                     android:inputType="textPassword"/>
             </TableRow>
 
             <TableRow
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:background="#b3e1df">
                 <TextView
                     android:id="@+id/txtUsername"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:text="@string/username"/>
 
                 <EditText
@@ -94,7 +121,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:backgroundTint="@android:color/holo_blue_light"
+                    android:backgroundTint="@android:color/holo_blue_dark"
+                    android:layout_marginRight="10dp"
                     android:textCursorDrawable="@null" />
             </TableRow>
 
@@ -112,8 +140,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:background="@color/clickable"
+                android:textColor="@android:color/white"
                 android:text="@string/register"/>
 
+            <ImageView
+                android:layout_height="65dp"
+                />
+
         </TableLayout>
-    </LinearLayout>
+        <ImageView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/register_background"
+            android:layout_below="@id/imgBus"
+            />
+    </RelativeLayout>
 </ScrollView>

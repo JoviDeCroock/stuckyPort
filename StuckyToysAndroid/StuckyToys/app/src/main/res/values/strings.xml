@@ -15,6 +15,7 @@
     <string name="unauthorized">Email en wachtwoord komen niet overeen. Controleer je gegevens en probeer opnieuw.</string>
     <string name="default_error">Er liep iets mis! Probeer later nog eens.</string>
     <string name="continue_offline">Kon niet verbinden met de server, offline verder doen als <b>%s</b> ?</string>
+    <string name="forgot_pw"><u>Wachtwoord vergeten?</u></string>
 
     <!-- register -->
     <string name="username">Gebruikersnaam</string>
