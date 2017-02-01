@@ -196,7 +196,7 @@ router.get('/download/:widgetFile', auth, function(req,res, next)
     res.download(file);
 });
 
-router.get(':user/getAllStories', auth, function(req,res,next)
+router.get('/:user/getAllStories', auth, function(req,res,next)
 {
     req.user.stories.find(function(err, stories)
     {
@@ -305,7 +305,7 @@ router.get("/getPublishedStories", auth, function(req,res,next)
     });
 });
 
-router.post(":user/buyStory/:story", auth,function(req,res,next)
+router.post("/:user/buyStory/:story", auth,function(req,res,next)
 {
     // if sufficient cash?
     req.user.stories.push(req.story);
