@@ -200,14 +200,14 @@ router.get('/:user/getAllStories', auth, function(req,res,next)
 {
     req.user.stories.find(function(err, stories)
     {
-        res.json(stories);
-        /*Story.populate(stories,
+        Story.populate(stories,
             {
                 path:'scenes',
                 model:'Scene'
             }, function(err, scenes)
             {
-                Story.populate(scenes,
+              res.json(scenes);
+                /*Story.populate(scenes,
                     {
                         path:'themes',
                         model:'Theme'
@@ -228,8 +228,8 @@ router.get('/:user/getAllStories', auth, function(req,res,next)
                                         res.json(files);
                                     });
                             });
-                    });
-            });*/
+                    });*/
+            });
     });
 });
 
