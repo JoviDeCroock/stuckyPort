@@ -198,39 +198,7 @@ router.get('/download/:widgetFile', auth, function(req,res, next)
 
 router.get('/:user/getAllStories', auth, function(req,res,next)
 {
-    req.user.stories.find(function(err, stories)
-    {
-        Story.populate(stories,
-            {
-                path:'scenes',
-                model:'Scene'
-            }, function(err, scenes)
-            {
-              res.json(scenes);
-                /*Story.populate(scenes,
-                    {
-                        path:'themes',
-                        model:'Theme'
-                    }, function(err, themes)
-                    {
-                        Story.populate(figures,
-                            {
-                                path:'scenes.widgets',
-                                model:'Widget'
-                            }, function(err, widgets)
-                            {
-                                Story.populate(widgets,
-                                    {
-                                        path:'scenes.widgets.widgetFiles',
-                                        model:'WidgetFile'
-                                    }, function(err, files)
-                                    {
-                                        res.json(files);
-                                    });
-                            });
-                    });*/
-            });
-    });
+  res.json(req.user.stories);
 });
 
 router.get('/getAllStories', auth, function(req,res,next)
