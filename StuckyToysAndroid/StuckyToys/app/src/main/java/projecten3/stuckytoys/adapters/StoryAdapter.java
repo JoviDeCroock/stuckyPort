@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.Resource;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
@@ -107,6 +108,7 @@ public class StoryAdapter extends BaseAdapter {
             Glide.with(context)
                     .load(imageByteArray)
                     .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG,100))
                     .transform(transformation)
                     .listener(new RequestListener<byte[], Bitmap>() {
                         @Override

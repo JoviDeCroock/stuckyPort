@@ -11,7 +11,7 @@
     <string name="exit">Wens je af te sluiten?</string>
     <string name="connection_error">Kon niet verbinden met de server, controleer je internetverbinding en probeer het later nog eens.</string>
     <string name="connection_error_user_unknown">Kon niet verbinden met de server en de ingevulde gegevens werken niet offline, controleer je internetverbinding en probeer het later nog eens.</string>
-    <string name="stay_logged_in">Aangemeld blijven?</string>
+    <string name="stay_logged_in">Aangemeld blijven</string>
     <string name="unauthorized">Email en wachtwoord komen niet overeen. Controleer je gegevens en probeer opnieuw.</string>
     <string name="default_error">Er liep iets mis! Probeer later nog eens.</string>
     <string name="continue_offline">Kon niet verbinden met de server, offline verder doen als <b>%s</b> ?</string>
