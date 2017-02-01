@@ -9,4 +9,6 @@
 
     <color name="clickable">@android:color/holo_green_light</color>
     <color name="unclickable">@android:color/darker_gray</color>
+
+    <color name="brown">#403028</color>
 </resources>
