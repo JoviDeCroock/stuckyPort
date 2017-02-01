@@ -15,6 +15,8 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -85,8 +87,8 @@ public class StoryListFragment extends Fragment {
         ButterKnife.bind(this, view);
         txtSelectStory.setText(String.format(getString(R.string.select_story), dc.getUser().getUsername()));
 
-        View detailsFragment = getActivity().findViewById(R.id.storyDetail);
-        dualPane = detailsFragment != null && detailsFragment.getVisibility() == View.VISIBLE;
+        //dualPane = detailsFragment != null && detailsFragment.getVisibility() == View.VISIBLE;
+        dualPane = false;
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
                 R.array.sort_options, android.R.layout.simple_spinner_item);
@@ -125,6 +127,7 @@ public class StoryListFragment extends Fragment {
 
         //tablet mode
         if(dualPane) {
+          /*
             StoryDetailsFragment details = (StoryDetailsFragment) getFragmentManager().findFragmentById(R.id.storyDetail);
             if (details == null || details.getShownIndex() != index) {
                 // Make new fragment to show this selection.
@@ -136,7 +139,9 @@ public class StoryListFragment extends Fragment {
                 ft.replace(R.id.storyDetail, details);
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.commit();
+
             } else { }
+            */
 
         //smartphone mode
         } else {
