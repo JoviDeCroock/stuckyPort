@@ -14,22 +14,12 @@
         android:focusable="true"
         android:focusableInTouchMode="true">
 
-        <ImageView
-            android:id="@+id/imgBus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:foregroundGravity="center_horizontal"
-            android:src="@drawable/bus"
-            android:adjustViewBounds="true"
-            android:layout_marginBottom="10dip"/>
-
         <TableLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_below="@id/imgBus"
             android:paddingTop="165dp">
 
 
@@ -141,7 +131,6 @@
             android:layout_width="match_parent"
             android:scaleType="fitXY"
             android:src="@drawable/login_background"
-            android:layout_below="@id/imgBus"
             />
 
     </RelativeLayout>

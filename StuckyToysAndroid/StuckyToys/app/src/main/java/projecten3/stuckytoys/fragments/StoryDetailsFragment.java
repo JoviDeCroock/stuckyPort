@@ -109,7 +109,8 @@ public class StoryDetailsFragment extends Fragment {
         storyDate.setText(" " + df.format(story.getDate()));
 
         storyScenes.setText(" " + story.getScenes().size());
-        storyDuration.setText(" " + 60 * story.getDuration() + " " + getString(R.string.minutes));
+        int duration = (int) (60 * story.getDuration());
+        storyDuration.setText(" " + duration + " " + getString(R.string.minutes));
 
         //per theme: add two textviews to container; set name bold & indent description
         for (Theme theme : story.getThemes()) {

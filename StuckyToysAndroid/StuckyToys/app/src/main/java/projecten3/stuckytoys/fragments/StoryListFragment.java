@@ -156,6 +156,9 @@ public class StoryListFragment extends Fragment {
     @OnItemSelected(R.id.sortSpinner)
     public void spinnerItemSelected(Spinner spinner, int position) {
         //0 = alfabetical; 1 = date; 2 = purchased
+
+        final Realm realm = Realm.getInstance(PersistenceController.CONFIG);
+        realm.beginTransaction();
         List<Story> stories = dc.getUser().getStories();
         if (sortMode != position) {
             sortMode = position;
@@ -202,6 +205,7 @@ public class StoryListFragment extends Fragment {
             mAdapter = new StoryAdapter(context, stories);
             gridView.setAdapter(mAdapter);
         }
+      realm.commitTransaction();
     }
 
     private void fillStories() {
@@ -233,7 +237,7 @@ public class StoryListFragment extends Fragment {
                         }
                     }
 
-                    final User realmUser = realm.where(User.class).equalTo("_id", dc.getUser().get_id()).findFirstAsync();
+                    final User realmUser = realm.where(User.class).equalTo("email", dc.getUser().getEmail()).equalTo("password", dc.getUser().getPassword()).findFirstAsync();
                     realmUser.addChangeListener(new RealmChangeListener<RealmModel>() {
                         @Override
                         public void onChange(RealmModel element) {
@@ -244,11 +248,12 @@ public class StoryListFragment extends Fragment {
                                     fillStoriesOffline();
                                 } else {
                                     realm.beginTransaction();
-                                    dcUser.setStories(new RealmList<Story>());
+                                    realmUser.setStories(new RealmList<Story>());
                                     for (Story story : realmStories) {
-                                        dcUser.getStories().add(story);
+                                      realmUser.getStories().add(story);
                                     }
                                     realm.commitTransaction();
+                                    dcUser.setStories(realmStories);
                                     new DownloadImageTask(storyListFragment).execute(storyPaths);
                                 }
                             } else {

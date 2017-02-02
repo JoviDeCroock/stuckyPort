@@ -3,16 +3,12 @@ package projecten3.stuckytoys.fragments;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,18 +17,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.model.GlideUrl;
-import com.bumptech.glide.load.model.LazyHeaders;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +33,6 @@ import projecten3.stuckytoys.domain.DomainController;
 import projecten3.stuckytoys.domain.Scene;
 import projecten3.stuckytoys.domain.Story;
 import projecten3.stuckytoys.domain.Widget;
-import projecten3.stuckytoys.persistence.PersistenceController;
 
 public class SceneFragment extends Fragment {
 
@@ -59,10 +49,13 @@ public class SceneFragment extends Fragment {
     TextView txtError;
     @BindView(R.id.linearlayout)
     LinearLayout linearlayout;
+    @BindView(R.id.imgWidget)
+    ImageView btnWidget;
 
     private Scene scene;
     private DomainController dc;
     private Snackbar mSnackbar;
+    private String shownHint = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -101,10 +94,11 @@ public class SceneFragment extends Fragment {
         //WIDGET BUTTONS0
         for (Widget currentWidget : scene.getWidgets()) {
 
-            ImageButton btnWidget = new ImageButton(getActivity());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-            btnWidget.setLayoutParams(params);
-            btnWidget.setBackgroundDrawable(null);
+            //ImageView btnWidget = new ImageView(getActivity());
+            //ImageView btnWidget = (ImageView) getView().findViewById(R.id.imgWidget);
+            //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            //btnWidget.setLayoutParams(params);
+            //btnWidget.setBackgroundDrawable(null);
 
             if (currentWidget.getWidgetFiles().get(0) != null) {
                 switch (currentWidget.getWidgetFiles().get(0).getType().toLowerCase()) {
@@ -117,7 +111,7 @@ public class SceneFragment extends Fragment {
                         putDefaultImageInButton(R.drawable.game_start_button, btnWidget);
                         break;
                     case "afbeelding":
-                        putImageInButton(currentWidget.getWidgetFiles().get(1).getBytes(), btnWidget);
+                        putImageInButton(currentWidget.getWidgetFiles().get(0).getBytes(), btnWidget);
                         break;
                     case "ar":
                         break;
@@ -127,7 +121,7 @@ public class SceneFragment extends Fragment {
                 }
 
                 //add the widget to the layout
-                widgetContainer.addView(btnWidget);
+                //widgetContainer.addView(btnWidget);
 
             }
         }
@@ -146,7 +140,7 @@ public class SceneFragment extends Fragment {
                     r.getDisplayMetrics()
             );
 
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             params.setMargins(0, 0, px, 0);
             button.setLayoutParams(params);
             button.setBackgroundColor(Color.TRANSPARENT);
@@ -155,23 +149,30 @@ public class SceneFragment extends Fragment {
             button.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
-                    mSnackbar = Snackbar.make(snackbarLayout, currentHint.getName(), Snackbar.LENGTH_INDEFINITE);
-                    mSnackbar.setAction("OK", new View.OnClickListener() {
+                    if (!shownHint.equals(currentHint.getName())) {
+                      shownHint = currentHint.getName();
+                      mSnackbar = Snackbar.make(snackbarLayout, currentHint.getName(), Snackbar.LENGTH_INDEFINITE);
+                      mSnackbar.setAction("OK", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mSnackbar.dismiss();
+                          mSnackbar.dismiss();
+                          shownHint = "";
                         }
-                    });
-                    mSnackbar.setCallback(new Snackbar.Callback() {
+                      });
+                      mSnackbar.setCallback(new Snackbar.Callback() {
                         @Override
                         public void onDismissed(Snackbar snackbar, int event) {
-                            //button.setImageResource(R.drawable.hint_button);
+                          //button.setImageResource(R.drawable.hint_button);
                         }
-                    });
+                      });
 
-                    mSnackbar.getView().setBackgroundResource(R.color.stuckytoys_green);
-                    mSnackbar.show();
-                    //button.setImageResource(R.drawable.hint_button_balloon);
+                      mSnackbar.getView().setBackgroundResource(R.color.stuckytoys_green);
+                      mSnackbar.show();
+                      //button.setImageResource(R.drawable.hint_button_balloon);
+                    } else {
+                      mSnackbar.dismiss();
+                      shownHint = "";
+                    }
                 }
             });
 
@@ -180,7 +181,7 @@ public class SceneFragment extends Fragment {
 
     }
 
-    private void putSoundInButton(byte[] soundBytes, final ImageButton btnWidget) {
+    private void putSoundInButton(byte[] soundBytes, final ImageView btnWidget) {
         final MediaPlayer mediaPlayer = new MediaPlayer();
         try {
             // create temp file that will hold byte array
@@ -223,7 +224,7 @@ public class SceneFragment extends Fragment {
 
     }
 
-    private void putGameInButton(String game, final ImageButton btnWidget) {
+    private void putGameInButton(String game, final ImageView btnWidget) {
         final Intent launchIntent;
         switch (game) {
             case "RecycleActivity": launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.example.Stoeky");
@@ -240,20 +241,15 @@ public class SceneFragment extends Fragment {
         });
     }
 
-    private void putImageInButton(byte[] imageBytes, ImageButton btnWidget) {
-        /*
-        GlideUrl glideUrl = new GlideUrl(PersistenceController.BASEURL + "story/download/" + imageId, new LazyHeaders.Builder()
-                .addHeader("Authorization", "Bearer " + dc.getUser().getToken())
-                .build());
-        */
-
+    private void putImageInButton(byte[] imageBytes, ImageView btnWidget) {
         Glide.with(getActivity())
                 .load(imageBytes)
                 .error(R.drawable.error)
+                .fitCenter()
                 .into(btnWidget);
     }
 
-    private void putDefaultImageInButton(int resource, ImageButton btnWidget) {
+    private void putDefaultImageInButton(int resource, ImageView btnWidget) {
         Glide.with(getActivity())
                 .load(resource)
                 .error(R.drawable.error)
